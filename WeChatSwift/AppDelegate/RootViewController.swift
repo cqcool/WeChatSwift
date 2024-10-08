@@ -10,7 +10,7 @@ import UIKit
 import AsyncDisplayKit
 
 class RootViewController: ASTabBarController {
-
+    
     private var chatsVC: SessionViewController!
     
     private var contactsVC: ContactsViewController!
@@ -21,7 +21,7 @@ class RootViewController: ASTabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         ASDisableLogging()
         
         // Do any additional setup after loading the view.
@@ -30,19 +30,19 @@ class RootViewController: ASTabBarController {
         chatsVC.tabBarItem.image = HomeTab.chats.image
         chatsVC.tabBarItem.title = LocalizedString("TabBar_MainFrameTitle")
         chatsVC.tabBarItem.tag = 0
-
+        
         contactsVC = ContactsViewController()
         contactsVC.tabBarItem.selectedImage = HomeTab.contacts.selectedImage
         contactsVC.tabBarItem.image = HomeTab.contacts.image
         contactsVC.tabBarItem.title = LocalizedString("TabBar_ContactsTitle")
         contactsVC.tabBarItem.tag = 1
-
+        
         discoverVC = DiscoverViewController()
         discoverVC.tabBarItem.selectedImage = HomeTab.discover.selectedImage
         discoverVC.tabBarItem.image = HomeTab.discover.image
         discoverVC.tabBarItem.title = LocalizedString("TabBar_FindFriendTitle")
         discoverVC.tabBarItem.tag = 2
-
+        
         meVC = MeViewController()
         meVC.tabBarItem.selectedImage = HomeTab.me.selectedImage
         meVC.tabBarItem.image = HomeTab.me.image
@@ -63,6 +63,14 @@ class RootViewController: ASTabBarController {
         viewControllers = [chatNav, contactsNav, discoverNav, meNav]
         tabBar.tintColor = Colors.tintColor
         UIBarButtonItem.appearance().setBackButtonBackgroundImage(UIImage.imageFromColor(.clear), for: .normal, barMetrics: .default)
+        
+        if #available(iOS 15.0, *) {
+            let appearnce = UITabBarAppearance()
+            appearnce.configureWithOpaqueBackground()
+            appearnce.backgroundColor = UIColor(hexString: "#F5F5F5")
+            tabBar.standardAppearance = appearnce
+            tabBar.scrollEdgeAppearance = appearnce
+        }
     }
     
     func handleLanguageDidChanged() {

@@ -14,6 +14,8 @@ struct ContactSection {
     
     var models: [ContactModel]
     
+    var firstLetter: String = ""
+    
 }
 
 enum ContactModel {

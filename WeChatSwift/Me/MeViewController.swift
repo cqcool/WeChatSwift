@@ -68,7 +68,7 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
     
     private func setupDataSource() {
         
-        let pay = MeTableModel(type: .pay, title: "支付", icon: "icons_outlined_wechatpay")
+        let pay = MeTableModel(type: .pay, title: "服务", icon: "icons_outlined_wechatpay")
         dataSource.append(MeTableSection(items: [pay]))
         
         let fav = MeTableModel(type: .favorites, title: "收藏", icon: "icons_outlined_colorful_favorites")

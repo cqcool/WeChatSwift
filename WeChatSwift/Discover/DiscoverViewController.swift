@@ -83,6 +83,7 @@ extension DiscoverViewController: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: false)
+        return
         let model = dataSource[indexPath.section].models[indexPath.row]
         switch model.type {
         case .moment:

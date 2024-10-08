@@ -24,6 +24,8 @@ struct DiscoverModel {
         case shop
         case game
         case miniProgram
+        case video
+        case liveProadcast
     }
     
     var type: DiscoverType

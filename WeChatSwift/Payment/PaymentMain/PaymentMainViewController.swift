@@ -43,7 +43,7 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         super.viewDidLoad()
         
         node.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
-        navigationItem.title = "支付"
+        navigationItem.title = "服务"
         let moreButtonItem = UIBarButtonItem(image: Constants.moreImage, style: .done, target: self, action: #selector(moreButtonClicked))
         navigationItem.rightBarButtonItem = moreButtonItem
         
@@ -67,7 +67,7 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         scrollNode.frame = view.bounds
         
         let buttonWidth = (view.bounds.width - 16)/2.0
-        let buttonHeight: CGFloat = 156.0
+        let buttonHeight: CGFloat = 144
         let buttonPadding: CGFloat = 8.0
         
         buttonBackground.frame = CGRect(x: buttonPadding, y: buttonPadding, width: view.bounds.width - 16, height: buttonHeight)
@@ -80,13 +80,13 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         let buttonWidth = (view.bounds.width - 16)/2.0
         
         let iconNode = ASImageNode()
-        iconNode.frame = CGRect(x: (buttonWidth - 40)/2, y: 42, width: 40, height: 40)
+        iconNode.frame = CGRect(x: (buttonWidth - 40)/2, y: 31, width: 40, height: 40)
         iconNode.image = UIImage.SVGImage(named: "icons_outlined_pay")
         iconNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(.white)
         cardButton.addSubnode(iconNode)
         
         let titleNode = ASTextNode()
-        titleNode.frame = CGRect(x: 0, y: 97, width: buttonWidth, height: 22)
+        titleNode.frame = CGRect(x: 0, y: 76, width: buttonWidth, height: 22)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         titleNode.attributedText = NSAttributedString(string: "收付款", attributes: [
@@ -102,13 +102,13 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         let buttonWidth = (view.bounds.width - 16)/2.0
         
         let iconNode = ASImageNode()
-        iconNode.frame = CGRect(x: (buttonWidth - 40)/2, y: 42, width: 40, height: 40)
+        iconNode.frame = CGRect(x: (buttonWidth - 40)/2, y: 31, width: 40, height: 40)
         iconNode.image = UIImage.SVGImage(named: "icons_outlined_wallet")
         iconNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(.white)
         balanceButton.addSubnode(iconNode)
         
         let titleNode = ASTextNode()
-        titleNode.frame = CGRect(x: 0, y: 97, width: buttonWidth, height: 22)
+        titleNode.frame = CGRect(x: 0, y: 76, width: buttonWidth, height: 22)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         titleNode.attributedText = NSAttributedString(string: "钱包", attributes: [
@@ -119,9 +119,14 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         balanceButton.addSubnode(titleNode)
         
         let balanceValueNode = ASTextNode()
-        balanceValueNode.attributedText = NSAttributedString(string: "￥100.00", attributes: [
-            .font: UIFont.systemFont(ofSize: 14.4),
-            .foregroundColor: UIColor(white: 1, alpha: 0.5)
+        balanceValueNode.frame =  CGRect(x: 0, y: 100, width: buttonWidth, height: 22)
+        let paragraphStyle1 = NSMutableParagraphStyle()
+        paragraphStyle1.alignment = .center
+        balanceValueNode.attributedText = NSAttributedString(string: "¥100.00", attributes: [
+//            .font: UIFont.systemFont(ofSize: 14.4),
+            .font: UIFont.systemFont(ofSize: 13.4),
+            .foregroundColor: UIColor(white: 1, alpha: 0.7),
+            .paragraphStyle: paragraphStyle1
             ])
         balanceButton.addSubnode(balanceValueNode)
     }

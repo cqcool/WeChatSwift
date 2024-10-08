@@ -57,9 +57,9 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     
     private func loadSessions() {
         dataSource = MockFactory.shared.sessions()
-        let first = dataSource.removeFirst()
-        first.stickTop = true
-        topSessions.append(first)
+//        let first = dataSource.removeFirst()
+//        first.stickTop = true
+//        topSessions.append(first)
     }
     
     private func showMoreMenu() {
@@ -85,13 +85,19 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         searchViewController?.searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .defaultPrompt)
         searchViewController?.searchBar.placeholder = "搜索"
         searchViewController?.searchBar.barTintColor = Colors.DEFAULT_BACKGROUND_COLOR
-        
         searchViewController?.searchBar.tintColor = Colors.DEFAULT_LINK_COLOR
         searchViewController?.searchResultsUpdater = mainSearchViewController
+        if let textField = searchViewController?.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = .white // 设置文本字段的背景视图为一个空的UIView，你可以设置它的背景色
+//            textField.background?.backgroundColor = .red // 设置文本字段的背景色为红色
+        }
+
         tableNode.view.tableHeaderView = searchViewController?.searchBar
         tableNode.view.backgroundView = UIView()
         
         mainSearchViewController.searchBar = searchViewController?.searchBar
+        // 语音图标
+        mainSearchViewController.searchBar?.setImage(UIImage(named: "Contact_Male_18x18_"), for: .bookmark, state: .normal)
         mainSearchViewController.searchBar?.alignmentCenter()
         
         definesPresentationContext = true
@@ -108,8 +114,10 @@ extension SessionViewController {
     @objc private func handleRightBarButtonTapped(_ sender: Any) {
         if self.menuFloatView?.superview != nil {
             hideMoreMenu()
+            searchViewController?.searchBar.showsBookmarkButton = true
         } else {
             showMoreMenu()
+            searchViewController?.searchBar.showsBookmarkButton = false
         }
     }
     
@@ -207,6 +215,7 @@ extension SessionViewController: UISearchControllerDelegate {
     
     func willPresentSearchController(_ searchController: UISearchController) {
         tabBarController?.tabBar.isHidden = true
+//        searchController.searchBar.showsBookmarkButton = true
     }
     
     func didPresentSearchController(_ searchController: UISearchController) {
@@ -215,6 +224,7 @@ extension SessionViewController: UISearchControllerDelegate {
     
     func willDismissSearchController(_ searchController: UISearchController) {
         tabBarController?.tabBar.isHidden = false
+//        searchController.searchBar.showsBookmarkButton = false
         searchController.searchBar.alignmentCenter()
     }
     

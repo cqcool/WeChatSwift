@@ -91,12 +91,13 @@ class WCTableCellNode: ASCellNode {
         var leading: CGFloat = 0.0
         
         // Append Image
-        if model.wc_image != nil || model.wc_imageURL != nil {
+        if model.wc_image != nil || model.wc_imageURL != nil  {
             iconNode.style.spacingBefore = 16
             iconNode.style.preferredSize = model.wc_imageLayoutSize
             elements.append(iconNode)
-            
-            leading += 16.0 + model.wc_imageLayoutSize.width
+            if !isLastCell {
+                leading += 16.0 + model.wc_imageLayoutSize.width
+            }
         }
         
         // Append Title
@@ -139,7 +140,7 @@ class WCTableCellNode: ASCellNode {
         stack.children = elements
         stack.style.preferredSize = CGSize(width: constrainedSize.max.width, height: 56)
         
-        lineNode.isHidden = isLastCell
+//        lineNode.isHidden = isLastCell
         lineNode.style.preferredSize = CGSize(width: Constants.screenWidth - leading, height: Constants.lineHeight)
         lineNode.style.layoutPosition = CGPoint(x: leading, y: 56 - Constants.lineHeight)
     
