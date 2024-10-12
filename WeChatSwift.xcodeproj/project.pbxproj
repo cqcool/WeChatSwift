@@ -23,6 +23,30 @@
 		1EF4E6482CBA493D000F39E9 /* WeChatLoginWayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6472CBA493D000F39E9 /* WeChatLoginWayViewController.swift */; };
 		1EF4E64A2CBA4DD5000F39E9 /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6492CBA4DD5000F39E9 /* UITextField+Ext.swift */; };
 		1EF4E64E2CBA5029000F39E9 /* String+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E64D2CBA5029000F39E9 /* String+Util.swift */; };
+		1EF4E68A2CBA86EA000F39E9 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6832CBA86EA000F39E9 /* UIColor+Extension.swift */; };
+		1EF4E68B2CBA86EA000F39E9 /* UIView+JFRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6852CBA86EA000F39E9 /* UIView+JFRect.swift */; };
+		1EF4E68C2CBA86EA000F39E9 /* JF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6812CBA86EA000F39E9 /* JF.swift */; };
+		1EF4E68D2CBA86EA000F39E9 /* UIImage+JFColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6842CBA86EA000F39E9 /* UIImage+JFColor.swift */; };
+		1EF4E68E2CBA86EA000F39E9 /* Size+Extenison.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6822CBA86EA000F39E9 /* Size+Extenison.swift */; };
+		1EF4E6AB2CBA86FE000F39E9 /* JFToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E69F2CBA86FE000F39E9 /* JFToastView.swift */; };
+		1EF4E6AC2CBA86FE000F39E9 /* UIViewContoller+JFPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6942CBA86FE000F39E9 /* UIViewContoller+JFPopup.swift */; };
+		1EF4E6AD2CBA86FE000F39E9 /* JFAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E69A2CBA86FE000F39E9 /* JFAlertView.swift */; };
+		1EF4E6AE2CBA86FE000F39E9 /* JFAlertView+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E69C2CBA86FE000F39E9 /* JFAlertView+UIViewController.swift */; };
+		1EF4E6AF2CBA86FE000F39E9 /* JFPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6912CBA86FE000F39E9 /* JFPopupController.swift */; };
+		1EF4E6B02CBA86FE000F39E9 /* JFPopupActionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6972CBA86FE000F39E9 /* JFPopupActionSheetView.swift */; };
+		1EF4E6B12CBA86FE000F39E9 /* JFAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6992CBA86FE000F39E9 /* JFAlertAction.swift */; };
+		1EF4E6B22CBA86FE000F39E9 /* JFPopupAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6902CBA86FE000F39E9 /* JFPopupAnimation.swift */; };
+		1EF4E6B32CBA86FE000F39E9 /* JFAlertView+PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E69B2CBA86FE000F39E9 /* JFAlertView+PopupView.swift */; };
+		1EF4E6B42CBA86FE000F39E9 /* JFPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6922CBA86FE000F39E9 /* JFPopupView.swift */; };
+		1EF4E6B52CBA86FE000F39E9 /* JFPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E68F2CBA86FE000F39E9 /* JFPopup.swift */; };
+		1EF4E6B62CBA86FE000F39E9 /* JFToastView+Objc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6A02CBA86FE000F39E9 /* JFToastView+Objc.swift */; };
+		1EF4E6B72CBA86FE000F39E9 /* JFToastQueueTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E69E2CBA86FE000F39E9 /* JFToastQueueTask.swift */; };
+		1EF4E6B82CBA86FE000F39E9 /* JFPopupAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6962CBA86FE000F39E9 /* JFPopupAction.swift */; };
+		1EF4E6B92CBA86FE000F39E9 /* UIView+JFPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6932CBA86FE000F39E9 /* UIView+JFPopup.swift */; };
+		1EF4E6BA2CBA86FE000F39E9 /* jf_loading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4E6A72CBA86FE000F39E9 /* jf_loading@2x.png */; };
+		1EF4E6BB2CBA86FE000F39E9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4E6A52CBA86FE000F39E9 /* .gitkeep */; };
+		1EF4E6BD2CBA86FE000F39E9 /* success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4E6A82CBA86FE000F39E9 /* success@2x.png */; };
+		1EF4E6BE2CBA86FE000F39E9 /* fail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4E6A62CBA86FE000F39E9 /* fail@2x.png */; };
 		A30347F222FCE868003ECF82 /* SettingAutoDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */; };
 		A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */; };
 		A30347F922FF9983003ECF82 /* BrandContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */; };
@@ -450,6 +474,30 @@
 		1EF4E6472CBA493D000F39E9 /* WeChatLoginWayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeChatLoginWayViewController.swift; sourceTree = "<group>"; };
 		1EF4E6492CBA4DD5000F39E9 /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
 		1EF4E64D2CBA5029000F39E9 /* String+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Util.swift"; sourceTree = "<group>"; };
+		1EF4E6812CBA86EA000F39E9 /* JF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JF.swift; sourceTree = "<group>"; };
+		1EF4E6822CBA86EA000F39E9 /* Size+Extenison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Size+Extenison.swift"; sourceTree = "<group>"; };
+		1EF4E6832CBA86EA000F39E9 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		1EF4E6842CBA86EA000F39E9 /* UIImage+JFColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+JFColor.swift"; sourceTree = "<group>"; };
+		1EF4E6852CBA86EA000F39E9 /* UIView+JFRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+JFRect.swift"; sourceTree = "<group>"; };
+		1EF4E68F2CBA86FE000F39E9 /* JFPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFPopup.swift; sourceTree = "<group>"; };
+		1EF4E6902CBA86FE000F39E9 /* JFPopupAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFPopupAnimation.swift; sourceTree = "<group>"; };
+		1EF4E6912CBA86FE000F39E9 /* JFPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFPopupController.swift; sourceTree = "<group>"; };
+		1EF4E6922CBA86FE000F39E9 /* JFPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFPopupView.swift; sourceTree = "<group>"; };
+		1EF4E6932CBA86FE000F39E9 /* UIView+JFPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+JFPopup.swift"; sourceTree = "<group>"; };
+		1EF4E6942CBA86FE000F39E9 /* UIViewContoller+JFPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewContoller+JFPopup.swift"; sourceTree = "<group>"; };
+		1EF4E6962CBA86FE000F39E9 /* JFPopupAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFPopupAction.swift; sourceTree = "<group>"; };
+		1EF4E6972CBA86FE000F39E9 /* JFPopupActionSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFPopupActionSheetView.swift; sourceTree = "<group>"; };
+		1EF4E6992CBA86FE000F39E9 /* JFAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFAlertAction.swift; sourceTree = "<group>"; };
+		1EF4E69A2CBA86FE000F39E9 /* JFAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFAlertView.swift; sourceTree = "<group>"; };
+		1EF4E69B2CBA86FE000F39E9 /* JFAlertView+PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JFAlertView+PopupView.swift"; sourceTree = "<group>"; };
+		1EF4E69C2CBA86FE000F39E9 /* JFAlertView+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JFAlertView+UIViewController.swift"; sourceTree = "<group>"; };
+		1EF4E69E2CBA86FE000F39E9 /* JFToastQueueTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFToastQueueTask.swift; sourceTree = "<group>"; };
+		1EF4E69F2CBA86FE000F39E9 /* JFToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFToastView.swift; sourceTree = "<group>"; };
+		1EF4E6A02CBA86FE000F39E9 /* JFToastView+Objc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JFToastView+Objc.swift"; sourceTree = "<group>"; };
+		1EF4E6A52CBA86FE000F39E9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		1EF4E6A62CBA86FE000F39E9 /* fail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail@2x.png"; sourceTree = "<group>"; };
+		1EF4E6A72CBA86FE000F39E9 /* jf_loading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "jf_loading@2x.png"; sourceTree = "<group>"; };
+		1EF4E6A82CBA86FE000F39E9 /* success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success@2x.png"; sourceTree = "<group>"; };
 		A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAutoDownloadViewController.swift; sourceTree = "<group>"; };
 		A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCTableCellModel.swift; sourceTree = "<group>"; };
 		A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandContactsViewController.swift; sourceTree = "<group>"; };
@@ -888,6 +936,108 @@
 			path = Wallet;
 			sourceTree = "<group>";
 		};
+		1EF4E6862CBA86EA000F39E9 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E6812CBA86EA000F39E9 /* JF.swift */,
+				1EF4E6822CBA86EA000F39E9 /* Size+Extenison.swift */,
+				1EF4E6832CBA86EA000F39E9 /* UIColor+Extension.swift */,
+				1EF4E6842CBA86EA000F39E9 /* UIImage+JFColor.swift */,
+				1EF4E6852CBA86EA000F39E9 /* UIView+JFRect.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		1EF4E6882CBA86EA000F39E9 /* JRBaseKit */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E6862CBA86EA000F39E9 /* Sources */,
+			);
+			path = JRBaseKit;
+			sourceTree = "<group>";
+		};
+		1EF4E6952CBA86FE000F39E9 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E68F2CBA86FE000F39E9 /* JFPopup.swift */,
+				1EF4E6902CBA86FE000F39E9 /* JFPopupAnimation.swift */,
+				1EF4E6912CBA86FE000F39E9 /* JFPopupController.swift */,
+				1EF4E6922CBA86FE000F39E9 /* JFPopupView.swift */,
+				1EF4E6932CBA86FE000F39E9 /* UIView+JFPopup.swift */,
+				1EF4E6942CBA86FE000F39E9 /* UIViewContoller+JFPopup.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		1EF4E6982CBA86FE000F39E9 /* ActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E6962CBA86FE000F39E9 /* JFPopupAction.swift */,
+				1EF4E6972CBA86FE000F39E9 /* JFPopupActionSheetView.swift */,
+			);
+			path = ActionSheet;
+			sourceTree = "<group>";
+		};
+		1EF4E69D2CBA86FE000F39E9 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E6992CBA86FE000F39E9 /* JFAlertAction.swift */,
+				1EF4E69A2CBA86FE000F39E9 /* JFAlertView.swift */,
+				1EF4E69B2CBA86FE000F39E9 /* JFAlertView+PopupView.swift */,
+				1EF4E69C2CBA86FE000F39E9 /* JFAlertView+UIViewController.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		1EF4E6A12CBA86FE000F39E9 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E69E2CBA86FE000F39E9 /* JFToastQueueTask.swift */,
+				1EF4E69F2CBA86FE000F39E9 /* JFToastView.swift */,
+				1EF4E6A02CBA86FE000F39E9 /* JFToastView+Objc.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		1EF4E6A22CBA86FE000F39E9 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E6982CBA86FE000F39E9 /* ActionSheet */,
+				1EF4E69D2CBA86FE000F39E9 /* Alert */,
+				1EF4E6A12CBA86FE000F39E9 /* Toast */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		1EF4E6A42CBA86FE000F39E9 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E6952CBA86FE000F39E9 /* Core */,
+				1EF4E6A22CBA86FE000F39E9 /* General */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		1EF4E6A92CBA86FE000F39E9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E6A52CBA86FE000F39E9 /* .gitkeep */,
+				1EF4E6A62CBA86FE000F39E9 /* fail@2x.png */,
+				1EF4E6A72CBA86FE000F39E9 /* jf_loading@2x.png */,
+				1EF4E6A82CBA86FE000F39E9 /* success@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1EF4E6AA2CBA86FE000F39E9 /* JFPopup */ = {
+			isa = PBXGroup;
+			children = (
+				1EF4E6A42CBA86FE000F39E9 /* Classes */,
+				1EF4E6A92CBA86FE000F39E9 /* Resources */,
+			);
+			path = JFPopup;
+			sourceTree = "<group>";
+		};
 		3B34DF561A8C79790A6E10A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1116,6 +1266,8 @@
 		A33DB2EB22CCCA3200A11776 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1EF4E6AA2CBA86FE000F39E9 /* JFPopup */,
+				1EF4E6882CBA86EA000F39E9 /* JRBaseKit */,
 				A33DB2EC22CCCB4D00A11776 /* UIImage+SVG.swift */,
 				A33DB2EE22CCCB8E00A11776 /* SVGImage+Extensions.swift */,
 				A33DB2F022CCCBA800A11776 /* UIColor+Extensions.swift */,
@@ -2121,6 +2273,10 @@
 				A31057E422E8532E00856D71 /* dice.pic in Resources */,
 				A3CA520222CDAFD100C67D92 /* icon_filled_timelineophl.svg in Resources */,
 				A3FB0AAE22F40A1B00116329 /* icons_outlined_wallet.svg in Resources */,
+				1EF4E6BA2CBA86FE000F39E9 /* jf_loading@2x.png in Resources */,
+				1EF4E6BB2CBA86FE000F39E9 /* .gitkeep in Resources */,
+				1EF4E6BD2CBA86FE000F39E9 /* success@2x.png in Resources */,
+				1EF4E6BE2CBA86FE000F39E9 /* fail@2x.png in Resources */,
 				A3D897F022E1FDCF00814669 /* jsb_emoticon_md5.png in Resources */,
 				A3CA51E322CD9FCA00C67D92 /* icons_outlined_colorful_game.svg in Resources */,
 				A374866722D4B031002EEC4F /* icons_filled_sticker.svg in Resources */,
@@ -2398,6 +2554,26 @@
 				A3709224231A7E01003DA42D /* SelectSessionModel.swift in Sources */,
 				A3EE12462317DE16000F287C /* MakeRedEnvelopeEnterMoneyNode.swift in Sources */,
 				1EF4E6402CB7DB0A000F39E9 /* WeChatDrawView.swift in Sources */,
+				1EF4E68A2CBA86EA000F39E9 /* UIColor+Extension.swift in Sources */,
+				1EF4E68B2CBA86EA000F39E9 /* UIView+JFRect.swift in Sources */,
+				1EF4E68C2CBA86EA000F39E9 /* JF.swift in Sources */,
+				1EF4E68D2CBA86EA000F39E9 /* UIImage+JFColor.swift in Sources */,
+				1EF4E68E2CBA86EA000F39E9 /* Size+Extenison.swift in Sources */,
+				1EF4E6AB2CBA86FE000F39E9 /* JFToastView.swift in Sources */,
+				1EF4E6AC2CBA86FE000F39E9 /* UIViewContoller+JFPopup.swift in Sources */,
+				1EF4E6AD2CBA86FE000F39E9 /* JFAlertView.swift in Sources */,
+				1EF4E6AE2CBA86FE000F39E9 /* JFAlertView+UIViewController.swift in Sources */,
+				1EF4E6AF2CBA86FE000F39E9 /* JFPopupController.swift in Sources */,
+				1EF4E6B02CBA86FE000F39E9 /* JFPopupActionSheetView.swift in Sources */,
+				1EF4E6B12CBA86FE000F39E9 /* JFAlertAction.swift in Sources */,
+				1EF4E6B22CBA86FE000F39E9 /* JFPopupAnimation.swift in Sources */,
+				1EF4E6B32CBA86FE000F39E9 /* JFAlertView+PopupView.swift in Sources */,
+				1EF4E6B42CBA86FE000F39E9 /* JFPopupView.swift in Sources */,
+				1EF4E6B52CBA86FE000F39E9 /* JFPopup.swift in Sources */,
+				1EF4E6B62CBA86FE000F39E9 /* JFToastView+Objc.swift in Sources */,
+				1EF4E6B72CBA86FE000F39E9 /* JFToastQueueTask.swift in Sources */,
+				1EF4E6B82CBA86FE000F39E9 /* JFPopupAction.swift in Sources */,
+				1EF4E6B92CBA86FE000F39E9 /* UIView+JFPopup.swift in Sources */,
 				A34139322307DFB8008E0EBF /* EmoticonManageActionCellNode.swift in Sources */,
 				A355AA7222F1A85D006A70AF /* MomentHeaderNode.swift in Sources */,
 				A32333C822DF4E7700B79555 /* MomentCommentNode.swift in Sources */,
@@ -2687,6 +2863,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2707,6 +2884,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2784,6 +2962,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = INHOUSE;
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

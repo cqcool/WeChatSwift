@@ -52,12 +52,20 @@ class WeChatLoginViewController: UIViewController {
         if loginType == .phone {
             return
         }
-        let alertController = UIAlertController(title: "\n帐号或密码错误，请重新填写。", message: "   ", preferredStyle: UIAlertController.Style.alert)
-        let okAction = UIAlertAction(title: "确定", style: UIAlertAction.Style.default,handler: nil)
-        
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-        
+         
+       let popupView = JFPopupView.popup.alert {[
+        .subTitle("帐号或密码错误，请重新填写。"),
+        .subTitleColor(.black),
+                   .showCancel(false),
+        .withoutAnimation(true),
+                   .confirmAction([
+                       .text("确定"),
+                       .textColor(UIColor(hexString: "576B95")),
+                       .tapActionCallback({ 
+                       })
+                   ])
+               ]}
+        popupView?.config.bgColor = UIColor(white: 0, alpha: 0.6)
     }
     @objc func changeLoginType() {
         view.endEditing(true)
