@@ -10,29 +10,39 @@ import AsyncDisplayKit
 
 class AboutFooterNode: ASDisplayNode {
     
+    private let serviseButton = ASButtonNode()
     private let agreementButton = ASButtonNode()
     
     private let andTextNode = ASTextNode()
     
     private let privacyButton = ASButtonNode()
     
+    private let customerNode = ASTextNode()
+    private let ipcNode = ASTextNode()
+    private let algorithmNode = ASTextNode()
     private let copyRightNode = ASTextNode()
     
     override init() {
         super.init()
         automaticallyManagesSubnodes = true
-        let agreementText = NSAttributedString(string: "《微信软件许可及服务协议》", attributes: [
+        let serviseText = NSAttributedString(string: "《软件许可及服务协议》", attributes: [
+            .font: UIFont.systemFont(ofSize: 12),
+            .foregroundColor: Colors.DEFAULT_LINK_COLOR
+        ])
+        serviseButton.setAttributedTitle(serviseText, for: .normal)
+        
+        let agreementText = NSAttributedString(string: "《隐私保护指引摘要》", attributes: [
             .font: UIFont.systemFont(ofSize: 12),
             .foregroundColor: Colors.DEFAULT_LINK_COLOR
         ])
         agreementButton.setAttributedTitle(agreementText, for: .normal)
         
-        andTextNode.attributedText = NSAttributedString(string: "和", attributes: [
+        andTextNode.attributedText = NSAttributedString(string: " ｜ ", attributes: [
             .font: UIFont.systemFont(ofSize: 12),
-            .foregroundColor: Colors.black
+            .foregroundColor: Colors.DEFAULT_TEXT_GRAY_COLOR
         ])
         
-        let privacyText = NSAttributedString(string: "《微信隐私保护指引》", attributes: [
+        let privacyText = NSAttributedString(string: "《隐私保护指引》", attributes: [
             .font: UIFont.systemFont(ofSize: 12),
             .foregroundColor: Colors.DEFAULT_LINK_COLOR
         ])
@@ -41,6 +51,24 @@ class AboutFooterNode: ASDisplayNode {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         paragraphStyle.lineSpacing = 3
+        customerNode.attributedText = NSAttributedString(string: "客服电话：400 670 0700", attributes: [
+            .font: UIFont.systemFont(ofSize: 12),
+            .foregroundColor: UIColor(white: 0, alpha: 0.3),
+            .paragraphStyle: paragraphStyle
+        ])
+        
+        ipcNode.attributedText = NSAttributedString(string: "ICP备案号：粤 B2-20090059-1621A 〉", attributes: [
+            .font: UIFont.systemFont(ofSize: 12),
+            .foregroundColor: UIColor(white: 0, alpha: 0.3),
+            .paragraphStyle: paragraphStyle
+        ])
+        
+        algorithmNode.attributedText = NSAttributedString(string: "算法备案信息 〉", attributes: [
+            .font: UIFont.systemFont(ofSize: 12),
+            .foregroundColor: UIColor(white: 0, alpha: 0.3),
+            .paragraphStyle: paragraphStyle
+        ])
+         
         let copyRight = LocalizedString("Setting_Other_AboutMMText")
         copyRightNode.attributedText = NSAttributedString(string: copyRight, attributes: [
             .font: UIFont.systemFont(ofSize: 12),
@@ -81,9 +109,14 @@ class AboutFooterNode: ASDisplayNode {
         let bottomSpacer = ASLayoutSpec()
         bottomSpacer.style.flexGrow = 1.0
         
+        serviseButton.style.spacingAfter = 10
+        stack.style.spacingAfter = 10
+        customerNode.style.spacingAfter = 10
+        ipcNode.style.spacingAfter = 10
+        algorithmNode.style.spacingAfter = 10
+        copyRightNode.style.spacingAfter = 20
         let layout = ASStackLayoutSpec.vertical()
-        layout.children = [topSpacer, stack, centerSpacer, copyRightNode, bottomSpacer]
-        
+        layout.children = [topSpacer, serviseButton, stack, customerNode, ipcNode, algorithmNode, copyRightNode, bottomSpacer]
         return layout
     }
 }

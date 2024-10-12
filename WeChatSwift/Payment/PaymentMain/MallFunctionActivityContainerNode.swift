@@ -16,6 +16,9 @@ class MallFunctionActivityContainerNode: ASDisplayNode {
     
     private var activitiesNode: [MallFunctionActivityNode] = []
     
+    static let nodeItemHeight: CGFloat = 100
+    static let itemOffsetY: CGFloat = 30
+    
     init(title: String, activities: [MallFunctionActivity]) {
         super.init()
         
@@ -26,7 +29,7 @@ class MallFunctionActivityContainerNode: ASDisplayNode {
             .foregroundColor: UIColor(hexString: "#716F76")
             ])
         
-        lineNode.backgroundColor = UIColor(hexString: "#E5E5E5")
+        lineNode.backgroundColor = .clear//(hexString: "#E5E5E5")
         
         for activity in activities {
             activitiesNode.append(MallFunctionActivityNode(activity: activity))
@@ -48,14 +51,12 @@ class MallFunctionActivityContainerNode: ASDisplayNode {
         lineNode.style.preferredSize = CGSize(width: constrainedSize.max.width, height: Constants.lineHeight)
         lineNode.style.layoutPosition = CGPoint(x: 0, y: 52)
         
-        let itemWidth = constrainedSize.max.width/3
-        let itemHeight: CGFloat = 117
-        let itemOffsetY: CGFloat = 53
+        let itemWidth = constrainedSize.max.width/4
         for (index, activityNode) in activitiesNode.enumerated() {
-            activityNode.style.preferredSize = CGSize(width: itemWidth, height: itemHeight)
-            let col = index % 3
-            let row = index / 3
-            activityNode.style.layoutPosition = CGPoint(x: CGFloat(col) * itemWidth, y: CGFloat(row) * itemHeight + itemOffsetY)
+            activityNode.style.preferredSize = CGSize(width: itemWidth, height: MallFunctionActivityContainerNode.nodeItemHeight)
+            let col = index % 4
+            let row = index / 4
+            activityNode.style.layoutPosition = CGPoint(x: CGFloat(col) * itemWidth, y: CGFloat(row) * MallFunctionActivityContainerNode.nodeItemHeight + MallFunctionActivityContainerNode.itemOffsetY)
         }
         
         var elements = [titleNode, lineNode]

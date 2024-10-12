@@ -41,8 +41,8 @@ class AboutViewController: ASDKViewController<ASDisplayNode> {
         tableNode.view.tableHeaderView = header
         
         let footerNode = AboutFooterNode()
-        let footerOffsetY = view.bounds.height - 107 - Constants.statusBarHeight - 44 - Constants.bottomInset
-        footerNode.frame = CGRect(x: 0, y: footerOffsetY, width: view.bounds.width, height: 107)
+        let footerOffsetY = view.bounds.height - 200 - Constants.statusBarHeight - 44 - Constants.bottomInset
+        footerNode.frame = CGRect(x: 0, y: footerOffsetY, width: view.bounds.width, height: 200)
         tableNode.addSubnode(footerNode)
         
         dataSource = AboutTableModel.allCases
@@ -139,11 +139,11 @@ class AboutHeaderNode: ASDisplayNode {
         automaticallyManagesSubnodes = true
         
         logoButton.setImage(UIImage(named: "About_WeChat_AppIcon_64x64_"), for: .normal)
-        nameNode.attributedText = NSAttributedString(string: "微信 WeChat", attributes: [
+        nameNode.attributedText = NSAttributedString(string: "微信", attributes: [
             .font: UIFont.systemFont(ofSize: 22, weight: .medium),
             .foregroundColor: UIColor(white: 0, alpha: 0.9)
         ])
-        versionNode.attributedText = NSAttributedString(string: "Version 7.0.5", attributes: [
+        versionNode.attributedText = NSAttributedString(string: "Version 8.0.42", attributes: [
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: UIColor(white: 0, alpha: 0.9)
         ])

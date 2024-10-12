@@ -26,6 +26,7 @@ PODS:
     - PINRemoteImage/Core
   - SFVideoPlayer (0.0.1):
     - Alamofire
+  - SnapKit (5.6.0)
   - SQLiteRepairKit (1.3.0):
     - WCDBOptimizedSQLCipher (~> 1.3.0)
   - SSZipArchive (2.4.3)
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - MMKV
   - PINRemoteImage
   - SFVideoPlayer (from `DevelopmentPods/SFVideoPlayer`)
+  - SnapKit (~> 5.6.0)
   - SSZipArchive
   - SVGKit (from `DevelopmentPods/SVGKit`)
   - Texture
@@ -82,6 +84,7 @@ SPEC REPOS:
     - PINCache
     - PINOperation
     - PINRemoteImage
+    - SnapKit
     - SQLiteRepairKit
     - SSZipArchive
     - Texture
@@ -107,6 +110,7 @@ SPEC CHECKSUMS:
   PINOperation: daa34d4aa1d8449089be7d405b9d974abc4724c6
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
   SFVideoPlayer: 1711cf67ba0c21aa3ba4e05828b5f1cc56882898
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SQLiteRepairKit: a66145aadae91886c800f75e16f5cc6476af1a93
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVGKit: eb32a7710074d7c543d70a745634a4358bda66ee
@@ -117,6 +121,6 @@ SPEC CHECKSUMS:
   WXGrowingTextView: 483849294508784a755212c925b70811f257f2db
   WXNavigationBar: aa1ceebac517b0720ba6115ef3e13e246d105b42
 
-PODFILE CHECKSUM: 8126329e30d6163465e71dc03b2edb1bf9cc10f2
+PODFILE CHECKSUM: bffb219f15e2d2418d632aa2133cf2569b1bf673
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.15.2

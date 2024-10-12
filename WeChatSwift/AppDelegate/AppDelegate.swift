@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
-        window?.rootViewController = rootViewController
+//        window?.rootViewController = rootViewController
+        window?.rootViewController = WeChatLoginOrRegisterViewController()
         window?.makeKeyAndVisible()
         if #available(iOS 13, *) {
             

@@ -19,6 +19,8 @@ struct SettingsTableModel {
     
     var title: String
     
+    var leftImage: UIImage?
+    
     var value: String? = nil
     
     init(type: SettingsType, title: String) {
@@ -73,7 +75,10 @@ extension SettingsTableModel: WCTableCellModel {
 
 enum SettingsType {
     case accountAndSecurity
+    case teenagers
+    case care
     case newMessageNotification
+    case chat
     case privacy
     case general
     case helpAndFeedback
@@ -81,6 +86,10 @@ enum SettingsType {
     case plugins
     case switchAccount
     case logout
+    case friend
+    case personal
+    case personalCollection
+    case third
 }
 
 

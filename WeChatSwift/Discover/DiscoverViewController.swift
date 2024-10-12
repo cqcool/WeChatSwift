@@ -66,7 +66,7 @@ extension DiscoverViewController: ASTableDelegate, ASTableDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0.01 : 8.0
+        return section == 0 ? 0.01 : 10.0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

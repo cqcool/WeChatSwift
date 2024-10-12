@@ -16,6 +16,7 @@ target 'WeChatSwift' do
     
   pod 'SVGKit', :path => 'DevelopmentPods/SVGKit'
   pod 'SFVideoPlayer', :path => 'DevelopmentPods/SFVideoPlayer'
+  pod 'SnapKit', '~> 5.6.0' 
 end
 
 post_install do |installer|

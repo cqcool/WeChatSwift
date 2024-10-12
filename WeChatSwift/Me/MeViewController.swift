@@ -62,8 +62,8 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
         setupDataSource()
         tableNode.reloadData()
         
-        let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_filled_camera"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
-        navigationItem.rightBarButtonItem = rightButtonItem
+//        let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_filled_camera"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
+//        navigationItem.rightBarButtonItem = rightButtonItem
     }
     
     private func setupDataSource() {
@@ -78,9 +78,9 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
         
         let settings = MeTableModel(type: .settings, title: LocalizedString("Setting_Title"), icon: "icons_outlined_setting", color: Colors.Indigo)
         dataSource.append(MeTableSection(items: [settings]))
-        
-        let debug = MeTableModel(type: .debug, title: "Debug", icon: "icons_debug", color: Colors.Orange)
-        dataSource.append(MeTableSection(items: [debug]))
+    
+//        let debug = MeTableModel(type: .debug, title: "Debug", icon: "icons_debug", color: Colors.Orange)
+//        dataSource.append(MeTableSection(items: [debug]))
     }
     
     override var wx_navigationBarBackgroundColor: UIColor? {
@@ -134,13 +134,13 @@ extension MeViewController: ASTableDelegate, ASTableDataSource {
             navigationController?.pushViewController(paymentMainVC, animated: true)
         case .favorites:
             let myFavoritesVC = MyFavoritesViewController()
-            navigationController?.pushViewController(myFavoritesVC, animated: true)
+//            navigationController?.pushViewController(myFavoritesVC, animated: true)
         case .settings:
             let settingsVC = SettingsViewController()
             navigationController?.pushViewController(settingsVC, animated: true)
         case .sticker:
             let emoticonStoreViewController = EmoticonStoreViewController()
-            navigationController?.pushViewController(emoticonStoreViewController, animated: true)
+//            navigationController?.pushViewController(emoticonStoreViewController, animated: true)
         case .debug:
             FLEXManager.shared.showExplorer()
         default:
