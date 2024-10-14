@@ -23,12 +23,13 @@ class WeChatLoginViewController: UIViewController {
     var phoneTipLabel: UILabel!
     var continueBtn: UIButton!
     var phoneTextField: UITextField!
+    var btmVerticalStack = UIStackView()
     var loginType: LoginTye = .phone
     
     override func viewDidLoad() {
         view.backgroundColor = .white
         view.addSubview(scrollView)
-        //        scrollView.delegate = self
+        scrollView.delegate = self
         scrollView.alwaysBounceVertical = true
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -45,32 +46,84 @@ class WeChatLoginViewController: UIViewController {
         
         layoutContentView()
         updateContent()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @objc func loginAction() {
         view.endEditing(true)
         if loginType == .phone {
             return
         }
-         
-       let popupView = JFPopupView.popup.alert {[
-        .subTitle("帐号或密码错误，请重新填写。"),
-        .subTitleColor(.black),
-                   .showCancel(false),
-        .withoutAnimation(true),
-                   .confirmAction([
-                       .text("确定"),
-                       .textColor(UIColor(hexString: "576B95")),
-                       .tapActionCallback({ 
-                       })
-                   ])
-               ]}
+        
+        let popupView = JFPopupView.popup.alert {[
+            .subTitle("帐号或密码错误，请重新填写。"),
+            .subTitleColor(.black),
+            .showCancel(false),
+            .withoutAnimation(true),
+            .confirmAction([
+                .text("确定"),
+                .textColor(UIColor(hexString: "576B95")),
+                .tapActionCallback({
+                })
+            ])
+        ]}
         popupView?.config.bgColor = UIColor(white: 0, alpha: 0.6)
     }
     @objc func changeLoginType() {
         view.endEditing(true)
         loginType = loginType == .phone ? .other : .phone
         updateContent()
+    }
+    @objc func keyboardWillShow(_ notification: Notification) {
+        // 处理键盘将要显示的逻辑
+        if let userInfo = notification.userInfo,
+           let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+           let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+           let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+            
+            let frame = value.cgRectValue
+            let intersection = frame.intersection(self.view.frame)
+            btmVerticalStack.snp.updateConstraints { (make) in
+                make.bottom.equalTo(-intersection.height + Constants.bottomInset+68)
+            }
+//            print("height: ${frme}" + intersection.height)
+            /*
+             let frame = value.cgRectValue
+             btmVerticalStack.snp.updateConstraints { (make) in
+                 make.bottom.equalTo(-frame.height + Constants.bottomInset+68)
+             }
+             */
+            UIView.animate(withDuration: duration, delay: 0.0,
+                           options: UIView.AnimationOptions(rawValue: curve),
+                           animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        // 处理键盘将要隐藏的逻辑
+        if let userInfo = notification.userInfo,
+//           let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+           let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+           let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+//            
+//            let frame = value.cgRectValue
+//            let intersection = frame.intersection(self.view.frame)
+            btmVerticalStack.snp.updateConstraints { (make) in
+                make.bottom.equalTo(-20)
+            }
+            UIView.animate(withDuration: duration, delay: 0.0,
+                           options: UIView.AnimationOptions(rawValue: curve),
+                           animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     private func updateContent() {
         if loginType == .phone {
@@ -112,7 +165,7 @@ class WeChatLoginViewController: UIViewController {
     }
     
     private func phoneLabelAttributeText(value: String) {
-        var mutableAttribtue = value.addAttributed(font: .systemFont(ofSize: 17), textColor: .black, lineSpacing: 0, wordSpacing: 0).mutableCopy() as! NSMutableAttributedString
+        let mutableAttribtue = value.addAttributed(font: .systemFont(ofSize: 17), textColor: .black, lineSpacing: 0, wordSpacing: 0).mutableCopy() as! NSMutableAttributedString
         
         let text = "+86"
         if value.contains(text) {
@@ -139,16 +192,15 @@ class WeChatLoginViewController: UIViewController {
             make.top.equalTo(titleLabel.snp.bottom).offset(50)
         }
         createPhoneView(phoneView)
-        let verticalStack = UIStackView()
-        verticalStack.axis = .vertical
-        verticalStack.alignment = .center
-        contentView.addSubview(verticalStack)
-        verticalStack.snp.makeConstraints { make in
+        btmVerticalStack.axis = .vertical
+        btmVerticalStack.alignment = .center
+        contentView.addSubview(btmVerticalStack)
+        btmVerticalStack.snp.makeConstraints { make in
             make.bottom.equalTo( -20)
             make.left.right.equalToSuperview()
         }
         phoneTipLabel = DNKCreate.label(text: "上述手机号仅用于登录验证", textColor: UIColor(white: 0, alpha: 0.3), fontSize: 14)
-        verticalStack.addArrangedSubview(phoneTipLabel)
+        btmVerticalStack.addArrangedSubview(phoneTipLabel)
         
         continueBtn = DNKCreate.button(normalTitle: "同意并继续", normalColor: .white)
         continueBtn.titleLabel?.font = .systemFont(ofSize: 16)
@@ -157,15 +209,15 @@ class WeChatLoginViewController: UIViewController {
         continueBtn.constant(width: 185)
         continueBtn.constant(height: 50)
         continueBtn.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
-        verticalStack.setCustomSpacing(20, after: phoneTipLabel)
-        verticalStack.addArrangedSubview(continueBtn)
+        btmVerticalStack.setCustomSpacing(20, after: phoneTipLabel)
+        btmVerticalStack.addArrangedSubview(continueBtn)
         
         let horizontalStack = UIStackView()
         horizontalStack.axis = .horizontal
         horizontalStack.alignment = .center
         horizontalStack.distribution = .equalCentering
-        verticalStack.addArrangedSubview(horizontalStack)
-        verticalStack.setCustomSpacing(50, after: continueBtn)
+        btmVerticalStack.addArrangedSubview(horizontalStack)
+        btmVerticalStack.setCustomSpacing(50, after: continueBtn)
         horizontalStack.spacing = 10
         horizontalStack.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
@@ -208,7 +260,7 @@ class WeChatLoginViewController: UIViewController {
         accountTextField = UITextField()
         oneView.addSubview(accountTextField)
         accountTextField.placeholder = "微信号/QQ号/邮箱"
-//        accountTextField.keyboardType = .numberPad
+        //        accountTextField.keyboardType = .numberPad
         accountTextField.isHidden = true
         accountTextField.textLength = 60
         accountTextField.filterEmoji = true
@@ -216,13 +268,13 @@ class WeChatLoginViewController: UIViewController {
             make.left.equalTo(countryLabel.snp.right).offset(10)
             make.top.right.bottom.equalToSuperview()
         }
-//        let contryLabel2 = DNKCreate.label(text: "中国大陆", textColor: .black, fontSize: 17)
-//        oneView.addSubview(contryLabel2)
-//        contryLabel2.snp.makeConstraints { make in
-//            make.top.bottom.equalToSuperview()
-//            make.left.equalTo(contryLabel.snp.right).offset(20)
-//            make.width.equalTo(80)
-//        }
+        //        let contryLabel2 = DNKCreate.label(text: "中国大陆", textColor: .black, fontSize: 17)
+        //        oneView.addSubview(contryLabel2)
+        //        contryLabel2.snp.makeConstraints { make in
+        //            make.top.bottom.equalToSuperview()
+        //            make.left.equalTo(contryLabel.snp.right).offset(20)
+        //            make.width.equalTo(80)
+        //        }
         arrowImgView = DNKCreate.imageView(normalName: "AlbumTimeLineTipArrowHL_15x15_")
         oneView.addSubview(arrowImgView)
         arrowImgView.snp.makeConstraints { make in
@@ -252,13 +304,13 @@ class WeChatLoginViewController: UIViewController {
             make.top.left.bottom.equalToSuperview()
             make.width.equalTo(170)
         }
-//        let countryCodeLabel = DNKCreate.label(text: "+86", textColor: UIColor(white: 0, alpha: 0.5), fontSize: 17)
-//        twoView.addSubview(countryCodeLabel)
-//        countryCodeLabel.snp.makeConstraints { make in
-//            make.top.bottom.equalToSuperview()
-//            make.left.equalTo(phoneLabel.snp.right).offset(20)
-//            make.width.equalTo(40)
-//        }
+        //        let countryCodeLabel = DNKCreate.label(text: "+86", textColor: UIColor(white: 0, alpha: 0.5), fontSize: 17)
+        //        twoView.addSubview(countryCodeLabel)
+        //        countryCodeLabel.snp.makeConstraints { make in
+        //            make.top.bottom.equalToSuperview()
+        //            make.left.equalTo(phoneLabel.snp.right).offset(20)
+        //            make.width.equalTo(40)
+        //        }
         phoneTextField = UITextField()
         twoView.addSubview(phoneTextField)
         phoneTextField.placeholder = "请填写手机号码"
@@ -305,8 +357,15 @@ extension WeChatLoginViewController: WeChatCustomNavigationHeaderDelegate {
     
 }
 
+extension WeChatLoginViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+}
+
 
 enum LoginTye {
     case phone
     case other
 }
+
