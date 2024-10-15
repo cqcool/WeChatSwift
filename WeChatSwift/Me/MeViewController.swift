@@ -52,6 +52,7 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
         tableNode.view.separatorStyle = .none
         
         headerNode = MeHeaderNode()
+        headerNode.addTarget(self, action: #selector(clickHeaderAction), forControlEvents: .touchUpInside)
         
         let headerView = UIView()
         headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 111)
@@ -64,6 +65,10 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
         
 //        let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_filled_camera"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
 //        navigationItem.rightBarButtonItem = rightButtonItem
+    }
+    
+    @objc func clickHeaderAction() {
+        navigationController?.pushViewController(SettingMyProfileViewController(), animated: true)
     }
     
     private func setupDataSource() {

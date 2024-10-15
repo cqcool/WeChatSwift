@@ -58,7 +58,9 @@ PODS:
   - WCDBOptimizedSQLCipher (1.3.0)
   - WXActionSheet (0.6.2)
   - WXGrowingTextView (0.0.6)
-  - WXNavigationBar (2.3.6)
+  - ZLPhotoBrowser (4.5.5):
+    - ZLPhotoBrowser/Core (= 4.5.5)
+  - ZLPhotoBrowser/Core (4.5.5)
 
 DEPENDENCIES:
   - FLEX
@@ -72,7 +74,7 @@ DEPENDENCIES:
   - WCDB.swift
   - WXActionSheet
   - WXGrowingTextView
-  - WXNavigationBar
+  - ZLPhotoBrowser
 
 SPEC REPOS:
   trunk:
@@ -92,7 +94,7 @@ SPEC REPOS:
     - WCDBOptimizedSQLCipher
     - WXActionSheet
     - WXGrowingTextView
-    - WXNavigationBar
+    - ZLPhotoBrowser
 
 EXTERNAL SOURCES:
   SFVideoPlayer:
@@ -119,8 +121,8 @@ SPEC CHECKSUMS:
   WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
   WXActionSheet: 961d3c9e677cde473464242b1a99c6bc79bbb014
   WXGrowingTextView: 483849294508784a755212c925b70811f257f2db
-  WXNavigationBar: aa1ceebac517b0720ba6115ef3e13e246d105b42
+  ZLPhotoBrowser: 6fb0eff03c8269001e29ef233e7bdab0691e05fe
 
-PODFILE CHECKSUM: 649c8ee7041eaa6f0e05304e631e498e5377ddb4
+PODFILE CHECKSUM: 7f7ab477482dba31b675a6fcff4d99ac8bb251b3
 
 COCOAPODS: 1.15.2

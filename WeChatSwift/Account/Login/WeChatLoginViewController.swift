@@ -26,6 +26,10 @@ class WeChatLoginViewController: UIViewController {
     var btmVerticalStack = UIStackView()
     var loginType: LoginTye = .phone
     
+    var phoneText: String?
+    var accountText: String?
+    var pswText: String?
+    
     override func viewDidLoad() {
         view.backgroundColor = .white
         view.addSubview(scrollView)
@@ -48,6 +52,17 @@ class WeChatLoginViewController: UIViewController {
         updateContent()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        accountTextField.textDidChangeBlock = {
+            self.accountText = $0
+        }
+        phoneTextField.textDidChangeBlock = { text in
+            if self.loginType == .phone {
+                self.phoneText = text
+            } else {
+                self.pswText = text
+            }
+        }
+        
     }
     
     deinit {
@@ -61,7 +76,7 @@ class WeChatLoginViewController: UIViewController {
         }
         
         let popupView = JFPopupView.popup.alert {[
-            .subTitle("帐号或密码错误，请重新填写。"),
+            .subTitle("帐号或密码错误，请重新填写。"),                                                  
             .subTitleColor(.black),
             .showCancel(false),
             .withoutAnimation(true),
@@ -89,9 +104,11 @@ class WeChatLoginViewController: UIViewController {
             let frame = value.cgRectValue
             let intersection = frame.intersection(self.view.frame)
             btmVerticalStack.snp.updateConstraints { (make) in
-                make.bottom.equalTo(-intersection.height + Constants.bottomInset+68)
+                make.bottom.equalTo(-291.0 + Constants.bottomInset+68)
             }
-//            print("height: ${frme}" + intersection.height)
+            print("height: \(intersection.height)")
+            
+            print(userInfo)
             /*
              let frame = value.cgRectValue
              btmVerticalStack.snp.updateConstraints { (make) in
@@ -126,7 +143,10 @@ class WeChatLoginViewController: UIViewController {
         }
     }
     private func updateContent() {
+        phoneTextField.text = nil
+        accountTextField.text = nil
         if loginType == .phone {
+            phoneTextField.text = phoneText
             titleLabel.text = "手机号登录"
             countryLabel.text = "国家/地区    中国大陆"
             phoneLabelAttributeText(value: "手机号           +86")
@@ -135,6 +155,7 @@ class WeChatLoginViewController: UIViewController {
             continueBtn.setTitle("同意并继续", for: .normal)
             phoneTextField.placeholder = "请填写手机号码"
             phoneTextField.keyboardType = .numberPad
+            phoneTextField.isSecureTextEntry = false
             accountTextField.isHidden = true
             arrowImgView.isHidden = false
             phoneLabel.snp.updateConstraints { make in
@@ -144,15 +165,30 @@ class WeChatLoginViewController: UIViewController {
                 make.width.equalTo(170)
             }
         } else {
+            accountTextField.text = accountText
+            phoneTextField.text = pswText
             titleLabel.text = "微信号/QQ号/邮箱登录"
             countryLabel.text = "帐号"
             phoneLabelAttributeText(value: "密码")
             loginWayBtn.setTitle("用手机号登录", for: .normal)
             phoneTipLabel.text = "上述微信号/QQ号/邮箱仅用于登录验证"
             continueBtn.setTitle("同意并登录", for: .normal)
+            let inputAccessoryView =  UIView(frame: CGRectMake(0, 0, view.bounds.width, 10))
+            inputAccessoryView.backgroundColor = .red
+            phoneTextField.isSecureTextEntry = true
             phoneTextField.placeholder = "请填写密码"
             phoneTextField.keyboardType = .asciiCapable
+            phoneTextField.autocapitalizationType = .none
+            phoneTextField.autocorrectionType = .no
+            phoneTextField.spellCheckingType = .no
+//            phoneTextField.returnKeyType = .go
+            
             accountTextField.isHidden = false
+            accountTextField.autocapitalizationType = .none
+            accountTextField.autocorrectionType = .no
+            accountTextField.spellCheckingType = .no
+            accountTextField.keyboardType = .asciiCapable
+//            accountTextField.returnKeyType = .next
             arrowImgView.isHidden = true
             phoneLabel.snp.updateConstraints { make in
                 make.width.equalTo(50)
@@ -259,8 +295,9 @@ class WeChatLoginViewController: UIViewController {
         }
         accountTextField = UITextField()
         oneView.addSubview(accountTextField)
+//        accountTextField.delegate = self
+        accountTextField.clearButtonMode = .whileEditing
         accountTextField.placeholder = "微信号/QQ号/邮箱"
-        //        accountTextField.keyboardType = .numberPad
         accountTextField.isHidden = true
         accountTextField.textLength = 60
         accountTextField.filterEmoji = true
@@ -317,6 +354,8 @@ class WeChatLoginViewController: UIViewController {
         phoneTextField.keyboardType = .numberPad
         phoneTextField.textLength = 16
         phoneTextField.filterEmoji = true
+        phoneTextField.clearButtonMode = .whileEditing
+//        phoneTextField.delegate = self
         phoneTextField.snp.makeConstraints { make in
             make.left.equalTo(phoneLabel.snp.right).offset(10)
             make.top.right.bottom.equalToSuperview()
@@ -362,7 +401,7 @@ extension WeChatLoginViewController: UIScrollViewDelegate {
         view.endEditing(true)
     }
 }
-
+ 
 
 enum LoginTye {
     case phone

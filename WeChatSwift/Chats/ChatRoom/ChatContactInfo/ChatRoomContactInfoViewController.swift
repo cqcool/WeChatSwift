@@ -94,10 +94,10 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
             if indexPath.section == 0 {
                 let addContactCell = ChatRoomAddContactCellNode(members: members)
                 addContactCell.addButtonHandler = { [weak self] in
-                    self?.presentMultiSelectContacts()
+//                    self?.presentMultiSelectContacts()
                 }
                 addContactCell.contactTapHandlder = { [weak self] contact in
-                    self?.viewContactInfo(contact)
+//                    self?.viewContactInfo(contact)
                 }
                 return addContactCell
             } else {
@@ -110,6 +110,7 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: false)
         
+        return
         let model = dataSource[indexPath.section].items[indexPath.row]
         switch model {
         case .chatBackground:
@@ -178,7 +179,7 @@ enum ChatRoomContactInfoModel: WCTableCellModel {
         case .stickToTop:
             return LocalizedString("MessageContent_TopSession")
         case .forceNotify:
-            return "强提醒"
+            return "提醒"
         case .chatBackground:
             return LocalizedString("MessageRoomContent_ChangeChatBackground")
         case .clearChat:
@@ -193,7 +194,7 @@ enum ChatRoomContactInfoModel: WCTableCellModel {
     var wc_showSwitch: Bool {
         switch self {
         case .mute, .stickToTop, .forceNotify:
-            return true
+            return false
         default:
             return false
         }

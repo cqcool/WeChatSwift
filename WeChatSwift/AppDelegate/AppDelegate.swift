@@ -9,7 +9,6 @@
 import UIKit
 import AsyncDisplayKit
 import FLEX
-import WXNavigationBar
 
 typealias RelayCommand = () -> Void
 
@@ -22,13 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        WXNavigationBar.setup()
+//        WXNavigationBar.setup()
+        WXNavigationBarManger.shared.setup(["ZLImageNavController"])
         rootViewController = RootViewController()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
-//        window?.rootViewController = rootViewController
-        window?.rootViewController = WeChatLoginOrRegisterViewController()
+        window?.rootViewController = rootViewController
+//        window?.rootViewController = AccountLoginUsersViewController()
+//        window?.rootViewController = WeChatLoginOrRegisterViewController()
         window?.makeKeyAndVisible()
         if #available(iOS 13, *) {
             

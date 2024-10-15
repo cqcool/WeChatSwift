@@ -25,10 +25,11 @@ class WeChatCustomNavigationHeaderView: UIView {
     var totalCount:Int = 0//导航条上label显示的总数
     var backImage:UIImage?//左侧返回图片
     var backTitle:String?//左侧返回图片后的文字
-    var rightBtn:UIButton!//右侧按钮图标
+    var rightBtn = UIButton()//右侧按钮图标
     var rightBtnText:String?//右侧按钮文字
     var rightBtnImage:UIImage?//右侧按钮图片
     var centerLabelText:String?//中间显示的文字
+    var centerLabelTextColor: UIColor = .white//中间显示的文字
     
     var label:UILabel?//中间文字
     var isLayedOut:Bool = false
@@ -42,7 +43,7 @@ class WeChatCustomNavigationHeaderView: UIView {
     var statusFrame:CGRect!
     var leftWidth:CGFloat = 70
     
-    var centerLabel:UILabel?
+    var centerLabel = UILabel()
     let fontName:String = "Arial"
     var leftLabelColor:UIColor?
     var rightLabelColor:UIColor?
@@ -82,8 +83,10 @@ class WeChatCustomNavigationHeaderView: UIView {
         }else{
             self.backgroundColor = UIColor(red: 0/255, green: 170/255, blue: 221/255, alpha:1)
         }
-        
-        self.statusFrame = UIApplication.shared.statusBarFrame
+        if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+            self.statusFrame = window.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+            // 使用 statusBarFrame
+        }
     }
     
     init(frame: CGRect,backImage:UIImage?,backTitle:String?,
@@ -124,8 +127,10 @@ class WeChatCustomNavigationHeaderView: UIView {
             if rightLabelColor != nil {
                 self.rightLabelColor = rightLabelColor
             }
-            
-        self.statusFrame = UIApplication.shared.statusBarFrame
+        if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+            self.statusFrame = window.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+            // 使用 statusBarFrame
+        }
     }
 
 
@@ -144,42 +149,41 @@ class WeChatCustomNavigationHeaderView: UIView {
     //MARKS: 创建组件
     func createControl(){
         //添加左侧View
-//        let centerHeight = self.bounds.height - bottomPadding - statusFrame.height - topPadding
-        let centerHeight = 44.0
+        let centerHeight = self.bounds.height - bottomPadding - statusFrame.height - topPadding
         let beginY = statusFrame.height + topPadding
+//        let centerHeight = 44.0
 //        let leftWidth = self.backImage?.size.width ?? self.leftWidth
-        let leftView = LeftView(frame: CGRectMake(self.leftOrRightPadding,beginY, leftWidth, centerHeight), labelText: self.backTitle, backImage: self.backImage,leftLabelColor:self.leftLabelColor)
+        let leftView = LeftView(frame: CGRectMake(self.leftOrRightPadding, beginY, leftWidth, centerHeight), labelText: self.backTitle, backImage: self.backImage,leftLabelColor:self.leftLabelColor)
         leftView.addGestureRecognizer(WeChatUITapGestureRecognizer(target: self, action: #selector(leftTap(gestrue: ))))
         self.addSubview(leftView)
         
         //添加右侧按钮
-        var rightBtn:UIButton?
         if rightBtnText != nil || rightBtnImage != nil {
             if rightBtnText != nil {
                 if self.rightBtnText == "● ● ●"{
-                    rightBtn = UIButton(frame: CGRectMake(self.bounds.width - leftOrRightPadding - rightWidth, beginY, rightWidth, centerHeight))
-                    rightBtn?.titleLabel?.font = UIFont(name: self.fontName, size: 10)
+                    rightBtn.frame = CGRectMake(self.bounds.width - leftOrRightPadding - rightWidth, beginY, rightWidth, centerHeight)
+                    rightBtn.titleLabel?.font = UIFont(name: self.fontName, size: 10)
                 } else {
-                    rightBtn = UIButton(frame: CGRectMake(self.bounds.width - leftOrRightPadding - rightWidth - 10, beginY, rightWidth + 10, centerHeight))
-                    rightBtn?.titleLabel?.font = UIFont(name: self.fontName, size: 16)
+                    rightBtn.frame = CGRectMake(self.bounds.width - leftOrRightPadding - rightWidth - 10, beginY, rightWidth + 10, centerHeight)
+                    rightBtn.titleLabel?.font = UIFont(name: self.fontName, size: 16)
                 }
                 
                 if self.rightLabelColor != nil {
-                    rightBtn?.setTitleColor(self.rightLabelColor, for: .normal)
+                    rightBtn.setTitleColor(self.rightLabelColor, for: .normal)
                 }else{
-                    rightBtn?.setTitleColor(UIColor.white, for: .normal)
+                    rightBtn.setTitleColor(UIColor.white, for: .normal)
                 }
                 
-                rightBtn?.setTitle(self.rightBtnText, for: .normal)
-                rightBtn?.titleLabel?.textAlignment = .center
+                rightBtn.setTitle(self.rightBtnText, for: .normal)
+                rightBtn.titleLabel?.textAlignment = .center
             }
             
             if rightBtnImage != nil {
-                rightBtn?.setImage(self.rightBtnImage, for: .normal)
+                rightBtn.setImage(self.rightBtnImage, for: .normal)
             }
             
-            rightBtn?.addGestureRecognizer(WeChatUITapGestureRecognizer(target: self, action: #selector(rightTap(gestrue: ))))
-            self.addSubview(rightBtn!)
+            rightBtn.addGestureRecognizer(WeChatUITapGestureRecognizer(target: self, action: #selector(rightTap(gestrue: ))))
+            self.addSubview(rightBtn)
         }
         
         //添加中间文字
@@ -188,29 +192,29 @@ class WeChatCustomNavigationHeaderView: UIView {
             let centerLabelX:CGFloat = leftView.frame.width
             
             if count >= 1 && totalCount > 1 && !self.centerLabelText!.contains("\n") {
-                centerLabel = UILabel(frame: CGRectMake(centerLabelX, statusFrame.height + topPadding, centerLabelWidth, self.bounds.height - self.bottomPadding - statusFrame.height))
+                centerLabel.frame = CGRectMake(centerLabelX, statusFrame.height + topPadding, centerLabelWidth, self.bounds.height - self.bottomPadding - statusFrame.height)
                 var labelText = self.centerLabelText!
                 labelText += "\n"
                 labelText += "\(count)/\(totalCount)"
-                centerLabel?.text = labelText
-                centerLabel?.font = UIFont(name: "Arial-BoldMT", size: 16)
-                centerLabel?.numberOfLines = 0//允许换行
+                centerLabel.text = labelText
+                centerLabel.font = UIFont(name: "Arial-BoldMT", size: 16)
+                centerLabel.numberOfLines = 0//允许换行
             }else{
                if self.centerLabelText!.contains("\n") {
-                    centerLabel = UILabel(frame: CGRectMake(centerLabelX, statusFrame.height + topPadding, centerLabelWidth, self.bounds.height - self.bottomPadding - statusFrame.height))
-                    centerLabel?.font = UIFont(name: "Arial-BoldMT", size: 16)
-                    centerLabel?.numberOfLines = 0//允许换行
+                   centerLabel.frame = CGRect(x: centerLabelX, y: statusFrame.height + topPadding, width: centerLabelWidth, height: self.bounds.height - self.bottomPadding - statusFrame.height)
+                    centerLabel.font = UIFont(name: "Arial-BoldMT", size: 16)
+                    centerLabel.numberOfLines = 0//允许换行
                }else{
-                    centerLabel = UILabel(frame: CGRectMake(centerLabelX, beginY, centerLabelWidth, self.bounds.height - self.bottomPadding - statusFrame.height))
-                    centerLabel?.font = UIFont(name: "Arial-BoldMT", size: 18)
+                   centerLabel.frame = CGRectMake(centerLabelX, beginY, centerLabelWidth, self.bounds.height - self.bottomPadding - statusFrame.height)
+                    centerLabel.font = UIFont(name: "Arial-BoldMT", size: 18)
                }
                 
-                centerLabel?.text = self.centerLabelText
+                centerLabel.text = self.centerLabelText
             }
             
-            centerLabel?.textAlignment = .center
-            centerLabel?.textColor = UIColor.white
-            self.addSubview(centerLabel!)
+            centerLabel.textAlignment = .center
+            centerLabel.textColor = centerLabelTextColor
+            self.addSubview(centerLabel)
         }
     }
     
@@ -219,7 +223,7 @@ class WeChatCustomNavigationHeaderView: UIView {
         if self.centerLabelText!.contains("\n") {
             let strs:[String] = self.centerLabelText!.components(separatedBy: "\n")
             let str = strs[0] + "\n\(currentCount)/\(self.totalCount)"
-            self.centerLabel!.text = str
+            self.centerLabel.text = str
             updateConstraints()
         }
     }
@@ -296,7 +300,7 @@ class LeftView:UIView {
             }else{
                 backLabel = UILabel()
                 backLabel?.frame = CGRectMake(0, 0, self.frame.width, self.frame.height)
-                backLabel?.font = UIFont(name: self.fontName, size: 16)
+                backLabel?.font = UIFont(name: self.fontName, size: 17)
             }
             
             if self.leftLabelColor != nil {

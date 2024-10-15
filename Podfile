@@ -3,7 +3,8 @@ use_frameworks!
 
 target 'WeChatSwift' do
   
-  pod 'WXNavigationBar'
+#  pod 'WXNavigationBar'
+#pod 'WXNavigationBar', :git => 'https://github.com/yuyedaidao/WXNavigationBar.git'
   pod 'WXActionSheet'
   pod 'WXGrowingTextView'
   pod 'MMKV'
@@ -17,6 +18,7 @@ target 'WeChatSwift' do
   pod 'SVGKit', :path => 'DevelopmentPods/SVGKit'
   pod 'SFVideoPlayer', :path => 'DevelopmentPods/SFVideoPlayer'
   pod 'SnapKit', '~> 5.6.0'
+  pod 'ZLPhotoBrowser'
 end
 
 post_install do |installer|

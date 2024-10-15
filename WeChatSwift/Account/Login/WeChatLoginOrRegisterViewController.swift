@@ -1,5 +1,5 @@
 //
-//  FirstLoginOrRegisterViewController.swift
+//  WeChatLoginOrRegisterViewController.swift
 //  WeChat
 //
 //  Created by Smile on 16/3/25.
