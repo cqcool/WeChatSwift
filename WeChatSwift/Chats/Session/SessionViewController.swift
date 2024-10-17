@@ -174,6 +174,8 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: false)
+        navigationController?.pushViewController(MakeRedEnvelopeViewController(), animated: true)
+        return
         
         let session = indexPath.section == 0 ? topSessions[indexPath.row] : dataSource[indexPath.row]
         if session.sessionID == Constants.BrandSessionName {

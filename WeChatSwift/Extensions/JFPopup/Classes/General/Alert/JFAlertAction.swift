@@ -16,6 +16,7 @@ public enum JFAlertActionOption {
     case textColor(UIColor)
     case text(String)
     case tapActionCallback(TapActionCallBack)
+    case enable(Bool)
     
     static var cancel: [JFAlertActionOption] = [
         .text("取消"),.textColor(JFAlertCancelColor),
@@ -51,6 +52,7 @@ class JFAlertAction: NSObject {
     func buildActionButton() -> UIButton? {
         var color = self.defaultColor
         var text: String?
+        var isEnable = true
         for option in options {
             switch option {
             case .textColor(let uIColor):
@@ -59,6 +61,8 @@ class JFAlertAction: NSObject {
                 text = t
             case .tapActionCallback(let tap):
                 self.tapActionCallback = tap
+            case .enable(let enable):
+                isEnable = enable
             }
         }
         guard let text = text else {
@@ -66,10 +70,12 @@ class JFAlertAction: NSObject {
         }
         let button: UIButton = {
             let btn = UIButton(type: .custom)
+            btn.isEnabled = isEnable
             btn.setTitle(text, for: .normal)
             btn.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
             btn.setTitleColor(color, for: .normal)
             btn.setBackgroundImage(UIImage.jf.color(0xffffff), for: .normal)
+            btn.setBackgroundImage(UIImage.jf.color(0xffffff), for: .disabled)
             btn.setBackgroundImage(UIImage.jf.color(0x000000,alpha: 0.1), for: .highlighted)
             btn.addTarget(self, action: #selector(clickAction), for: .touchUpInside)
             return btn

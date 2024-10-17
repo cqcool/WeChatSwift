@@ -125,29 +125,24 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         let paragraphStyle1 = NSMutableParagraphStyle()
         paragraphStyle1.alignment = .center
         balanceValueNode.attributedText = attributedStringForBalance(balance: "900.00")
-        
-        //        NSAttributedString(string: "¥100.00", attributes: [
-        //            .font: UIFont.systemFont(ofSize: 13.4),
-        //            .foregroundColor: UIColor(white: 1, alpha: 0.7),
-        //            .paragraphStyle: paragraphStyle1
-        //            ])
         balanceButton.addSubnode(balanceValueNode)
     }
     private func attributedStringForBalance(balance: String) -> NSAttributedString {
         let unit = "¥"
         let value = unit + balance
-        let paragraphStyle1 = NSMutableParagraphStyle()
-        paragraphStyle1.alignment = .center
-        let mutableAttribtue = NSMutableAttributedString(string: value, attributes: [
-            .font: Fonts.font(.superScriptMedium, fontSize: 13.4)!,
-            .foregroundColor: UIColor(white: 1, alpha: 0.7),
-            .paragraphStyle: paragraphStyle1
-        ])
-        if let range = value.range(of: unit) {
-            let nsRange = NSRange(range, in: value)
-            mutableAttribtue.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.4, weight: .medium), range: nsRange)
-        }
-        return mutableAttribtue
+//        let paragraphStyle1 = NSMutableParagraphStyle()
+//        paragraphStyle1.alignment = .center
+//        let mutableAttribtue = NSMutableAttributedString(string: value, attributes: [
+//            .font: Fonts.font(.superScriptMedium, fontSize: 13.4)!,
+//            .foregroundColor: UIColor(white: 1, alpha: 0.7),
+//            .paragraphStyle: paragraphStyle1
+//        ])
+//        if let range = value.range(of: unit) {
+//            let nsRange = NSRange(range, in: value)
+//            mutableAttribtue.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.4, weight: .medium), range: nsRange)
+//        }
+        
+        return value.moneyUnitAttribute(textColor: UIColor(white: 1, alpha: 0.7), fontSize: 13.4)
     }
     
     private func setupFinanceActivities() {

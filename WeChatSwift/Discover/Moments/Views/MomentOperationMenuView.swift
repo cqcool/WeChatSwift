@@ -20,9 +20,9 @@ class MomentOperationMenuView: UIView {
     
     private var moment: Moment?
     
-    private let width: CGFloat = 180
+    private let widthConst: CGFloat = 180
     
-    private let height: CGFloat = 39.0
+    private let heightConst: CGFloat = 39.0
     
     init() {
         
@@ -57,7 +57,7 @@ class MomentOperationMenuView: UIView {
         commentButton.setBackgroundImage(highlightBackgroundImage, for: .highlighted)
         commentButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
         
-        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+        let frame = CGRect(x: 0, y: 0, width: widthConst, height: heightConst)
         
         super.init(frame: frame)
         

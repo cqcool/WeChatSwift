@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E58EC352CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */; };
+		1E5E37272CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */; };
+		1E5E372D2CC10D24007F8944 /* WXPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E372B2CC10D24007F8944 /* WXPayView.m */; };
+		1E5E372E2CC10D24007F8944 /* WXInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37292CC10D24007F8944 /* WXInputView.m */; };
+		1E5E37322CC1113D007F8944 /* KeenCodeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37302CC1113D007F8944 /* KeenCodeUnit.swift */; };
+		1E5E37332CC1113D007F8944 /* KeenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37312CC1113D007F8944 /* KeenUtils.swift */; };
 		1EC758132CBE326E0051E916 /* ZLCustomAlertAction+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */; };
 		1EC758142CBE326E0051E916 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */; };
 		1EC758152CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */; };
@@ -467,6 +473,14 @@
 
 /* Begin PBXFileReference section */
 		04841C8B18BE984EE8C1B6BB /* Pods-WeChatSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChatSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeChatSwift/Pods-WeChatSwift.release.xcconfig"; sourceTree = "<group>"; };
+		1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCountNode.swift; sourceTree = "<group>"; };
+		1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCoverNode.swift; sourceTree = "<group>"; };
+		1E5E37282CC10D24007F8944 /* WXInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXInputView.h; sourceTree = "<group>"; };
+		1E5E37292CC10D24007F8944 /* WXInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXInputView.m; sourceTree = "<group>"; };
+		1E5E372A2CC10D24007F8944 /* WXPayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXPayView.h; sourceTree = "<group>"; };
+		1E5E372B2CC10D24007F8944 /* WXPayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXPayView.m; sourceTree = "<group>"; };
+		1E5E37302CC1113D007F8944 /* KeenCodeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeenCodeUnit.swift; sourceTree = "<group>"; };
+		1E5E37312CC1113D007F8944 /* KeenUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeenUtils.swift; sourceTree = "<group>"; };
 		1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZLCustomAlertAction+Color.swift"; sourceTree = "<group>"; };
 		1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertControllerTransitionAnimation.swift; sourceTree = "<group>"; };
@@ -944,6 +958,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E58EC332CBFB2F900A360A6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A3EE12452317DE16000F287C /* MakeRedEnvelopeEnterMoneyNode.swift */,
+				A3EE12472317E62B000F287C /* MakeRedEnvelopeEnterDescNode.swift */,
+				1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */,
+				1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1E5E372C2CC10D24007F8944 /* WXPayView */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E37282CC10D24007F8944 /* WXInputView.h */,
+				1E5E37292CC10D24007F8944 /* WXInputView.m */,
+				1E5E372A2CC10D24007F8944 /* WXPayView.h */,
+				1E5E372B2CC10D24007F8944 /* WXPayView.m */,
+			);
+			path = WXPayView;
+			sourceTree = "<group>";
+		};
+		1E5E372F2CC1112D007F8944 /* KeenKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E37302CC1113D007F8944 /* KeenCodeUnit.swift */,
+				1E5E37312CC1113D007F8944 /* KeenUtils.swift */,
+			);
+			path = KeenKeyboard;
+			sourceTree = "<group>";
+		};
 		1EC758122CBE326E0051E916 /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -1316,6 +1361,7 @@
 		A33DB2EB22CCCA3200A11776 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1E5E372F2CC1112D007F8944 /* KeenKeyboard */,
 				1ED3DA412CBE43A300D9C8A7 /* WXNavigationBar */,
 				1EF4E6AA2CBA86FE000F39E9 /* JFPopup */,
 				1EF4E6882CBA86EA000F39E9 /* JRBaseKit */,
@@ -1335,6 +1381,7 @@
 				1EF4E6452CBA085F000F39E9 /* UIView+Constraint.swift */,
 				1EF4E6492CBA4DD5000F39E9 /* UITextField+Ext.swift */,
 				1EF4E64D2CBA5029000F39E9 /* String+Util.swift */,
+				1E5E372C2CC10D24007F8944 /* WXPayView */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2140,9 +2187,8 @@
 		A3EE12332317CA9B000F287C /* RedEnvelope */ = {
 			isa = PBXGroup;
 			children = (
+				1E58EC332CBFB2F900A360A6 /* View */,
 				A3EE12342317CABF000F287C /* MakeRedEnvelopeViewController.swift */,
-				A3EE12452317DE16000F287C /* MakeRedEnvelopeEnterMoneyNode.swift */,
-				A3EE12472317E62B000F287C /* MakeRedEnvelopeEnterDescNode.swift */,
 			);
 			path = RedEnvelope;
 			sourceTree = "<group>";
@@ -2230,6 +2276,7 @@
 				TargetAttributes = {
 					A33DB2CF22CCC80F00A11776 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1600;
 					};
 				};
 			};
@@ -2439,6 +2486,8 @@
 				A3D99543230B9D7B00E4F628 /* FTSMoreCellNode.swift in Sources */,
 				A33DB2F722CCDCF500A11776 /* SessionViewController.swift in Sources */,
 				A3D9953D230B9D0E00E4F628 /* FTSFeatureCellNode.swift in Sources */,
+				1E5E37322CC1113D007F8944 /* KeenCodeUnit.swift in Sources */,
+				1E5E37332CC1113D007F8944 /* KeenUtils.swift in Sources */,
 				A352AD252306CDA700332B21 /* StorageUsageSummaryNode.swift in Sources */,
 				A3CCEDE922FC0C78008BE41D /* ShakeSettingItem.swift in Sources */,
 				A3EE12352317CABF000F287C /* MakeRedEnvelopeViewController.swift in Sources */,
@@ -2475,6 +2524,7 @@
 				A35B21A3230023910057F8FC /* BrandTimelineCellNode.swift in Sources */,
 				A33DB2F122CCCBA800A11776 /* UIColor+Extensions.swift in Sources */,
 				A322870022E0514A004E516E /* EmoticonBoardTabBarCellNode.swift in Sources */,
+				1E5E37272CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift in Sources */,
 				A3CA51FD22CDAD1D00C67D92 /* User.swift in Sources */,
 				A389999D22E969FE00620069 /* EmoticonManageViewController.swift in Sources */,
 				A3D897EE22E1D94100814669 /* EmoticonBoardCameraEntryNode.swift in Sources */,
@@ -2742,6 +2792,7 @@
 				A352AD17230659F400332B21 /* SightCameraViewController.swift in Sources */,
 				A372145322FFB32A00340023 /* MyFavoritesCellNode.swift in Sources */,
 				A3C9144E23056CB000B6E077 /* MomentCommentLineNode.swift in Sources */,
+				1E58EC352CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift in Sources */,
 				A33D2B1F22F2FB630099927A /* MMPushAnimator.swift in Sources */,
 				A374863022D43BB2002EEC4F /* ChatRoomCellNodeFactory.swift in Sources */,
 				A3EE12482317E62B000F287C /* MakeRedEnvelopeEnterDescNode.swift in Sources */,
@@ -2750,6 +2801,8 @@
 				A3E2000D230A6BCC005B2B70 /* NetworkCheckViewController.swift in Sources */,
 				A3B6889A2300E62C007273CD /* AboutFooterNode.swift in Sources */,
 				A3D99547230B9DEA00E4F628 /* FTSFavoriteCellNode.swift in Sources */,
+				1E5E372D2CC10D24007F8944 /* WXPayView.m in Sources */,
+				1E5E372E2CC10D24007F8944 /* WXInputView.m in Sources */,
 				A3FB0AA322F3D54500116329 /* VisualEffectView.swift in Sources */,
 				A389999F22E96A2300620069 /* EmoticonStoreViewController.swift in Sources */,
 				A352AD212306CB1E00332B21 /* StorageUsageViewController.swift in Sources */,
@@ -2915,6 +2968,7 @@
 			baseConfigurationReference = C9198CB93151EC26B862EEF0 /* Pods-WeChatSwift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8C962LK342;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
@@ -2925,6 +2979,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2936,6 +2992,7 @@
 			baseConfigurationReference = 04841C8B18BE984EE8C1B6BB /* Pods-WeChatSwift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8C962LK342;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
@@ -2946,6 +3003,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3013,6 +3071,7 @@
 			baseConfigurationReference = F81ADFC305AF9470EC8BF966 /* Pods-WeChatSwift.inhouse.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8C962LK342;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
@@ -3024,6 +3083,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = INHOUSE;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

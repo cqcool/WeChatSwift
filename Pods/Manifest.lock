@@ -1,9 +1,17 @@
 PODS:
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
   - Alamofire (5.6.4)
   - CocoaLumberjack (3.8.0):
     - CocoaLumberjack/Core (= 3.8.0)
   - CocoaLumberjack/Core (3.8.0)
   - FLEX (5.22.10)
+  - KeenKeyboard (1.0.2)
   - MMKV (1.2.15):
     - MMKVCore (~> 1.2.15)
   - MMKVCore (1.2.15)
@@ -58,12 +66,15 @@ PODS:
   - WCDBOptimizedSQLCipher (1.3.0)
   - WXActionSheet (0.6.2)
   - WXGrowingTextView (0.0.6)
+  - YTKNetwork (3.0.6):
+    - AFNetworking/NSURLSession (~> 4.0)
   - ZLPhotoBrowser (4.5.5):
     - ZLPhotoBrowser/Core (= 4.5.5)
   - ZLPhotoBrowser/Core (4.5.5)
 
 DEPENDENCIES:
   - FLEX
+  - KeenKeyboard (from `https://github.com/cqcool/KeenKeyboard.git`)
   - MMKV
   - PINRemoteImage
   - SFVideoPlayer (from `DevelopmentPods/SFVideoPlayer`)
@@ -74,10 +85,12 @@ DEPENDENCIES:
   - WCDB.swift
   - WXActionSheet
   - WXGrowingTextView
+  - YTKNetwork
   - ZLPhotoBrowser
 
 SPEC REPOS:
   trunk:
+    - AFNetworking
     - Alamofire
     - CocoaLumberjack
     - FLEX
@@ -94,18 +107,28 @@ SPEC REPOS:
     - WCDBOptimizedSQLCipher
     - WXActionSheet
     - WXGrowingTextView
+    - YTKNetwork
     - ZLPhotoBrowser
 
 EXTERNAL SOURCES:
+  KeenKeyboard:
+    :git: https://github.com/cqcool/KeenKeyboard.git
   SFVideoPlayer:
     :path: DevelopmentPods/SFVideoPlayer
   SVGKit:
     :path: DevelopmentPods/SVGKit
 
+CHECKOUT OPTIONS:
+  KeenKeyboard:
+    :commit: abd61e90a0a5f09f666d7a7af82a6063c752a324
+    :git: https://github.com/cqcool/KeenKeyboard.git
+
 SPEC CHECKSUMS:
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   CocoaLumberjack: 78abfb691154e2a9df8ded4350d504ee19d90732
   FLEX: f21ee4f498eed3f8a1eded66b21939fd3b7a22ce
+  KeenKeyboard: ba9d14b8648851538d7583f3a2fa023a091cfdda
   MMKV: 7f34558bbb5a33b0eaefae2de4b6a20a2ffdad6f
   MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
@@ -121,8 +144,9 @@ SPEC CHECKSUMS:
   WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
   WXActionSheet: 961d3c9e677cde473464242b1a99c6bc79bbb014
   WXGrowingTextView: 483849294508784a755212c925b70811f257f2db
+  YTKNetwork: c16be90b06be003de9e9cd0d3b187cc8eaf35c04
   ZLPhotoBrowser: 6fb0eff03c8269001e29ef233e7bdab0691e05fe
 
-PODFILE CHECKSUM: 7f7ab477482dba31b675a6fcff4d99ac8bb251b3
+PODFILE CHECKSUM: 6003daddaaf190b3ef4bd1d4634f270ec8ec1bfd
 
 COCOAPODS: 1.15.2

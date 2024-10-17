@@ -119,6 +119,7 @@ struct Colors {
     static let Green_BG_110 = UIColor(hexString: "#A0C452")
     static let Green_BG_100 = UIColor(hexString: "#96BE40")
     static let Green_BG_90 = UIColor(hexString: "#86AA39")
+    static let Green_standrad = UIColor(hexString: "07C05F")
     
     // LightGreen
     static let LightGreen = UIColor(hexString: "#97E86D")

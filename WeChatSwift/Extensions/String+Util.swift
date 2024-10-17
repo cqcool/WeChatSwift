@@ -37,6 +37,25 @@ public extension String {
     func containEmoji() -> Bool {
         contains { $0.isEmoji}
     }
+    
+    func moneyUnitAttribute(textColor: UIColor = .black, fontSize: CGFloat, unitSize: CGFloat? = nil) -> NSAttributedString {
+        let paragraphStyle1 = NSMutableParagraphStyle()
+        paragraphStyle1.alignment = .center
+        let mutableAttribtue = NSMutableAttributedString(string: self, attributes: [
+            .font: Fonts.font(.superScriptMedium, fontSize: fontSize)!,
+            .foregroundColor: textColor,
+            .paragraphStyle: paragraphStyle1
+        ])
+        let unit = "¥"
+        if self.contains(unit) {
+            if let range = self.range(of: unit) {
+                let nsRange = NSRange(range, in: self)
+                let size = unitSize ?? fontSize
+                mutableAttribtue.addAttribute(.font, value: UIFont.systemFont(ofSize: size, weight: .medium), range: nsRange)
+            }
+        }
+        return mutableAttribtue
+    }
 }
 
 extension String {

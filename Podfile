@@ -19,6 +19,15 @@ target 'WeChatSwift' do
   pod 'SFVideoPlayer', :path => 'DevelopmentPods/SFVideoPlayer'
   pod 'SnapKit', '~> 5.6.0'
   pod 'ZLPhotoBrowser'
+  pod 'YTKNetwork'
+  
+  pod 'KeenKeyboard', :git => 'https://github.com/cqcool/KeenKeyboard.git'
+  
+#  pod 'MJExtension'
+#  pod 'Masonry', '1.1.0'
+#  pod 'KLCPopup'
+#  pod 'SDWebImage', '5.10.2'
+#  pod 'MBProgressHUD', '1.1.0'
 end
 
 post_install do |installer|
