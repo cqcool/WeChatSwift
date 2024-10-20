@@ -56,6 +56,12 @@ class MockFactory {
         brandSession.content = "七麦研究院：从“消灭病毒”到“我的小家”"
         brandSession.avatarImage = UIImage(named: "ReadVerified_icon_45x45_")
         userSessions.insert(brandSession, at: 1)
+        
+        let groupSession = Session(sessionID: Constants.GroupSessionName, name: "xxx群")
+        groupSession.content = "xxx群"
+        groupSession.avatarImage = UIImage(named: "ReadVerified_icon_45x45_")
+        userSessions.insert(brandSession, at: 2)
+        
         return userSessions
     }
 

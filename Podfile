@@ -23,8 +23,9 @@ target 'WeChatSwift' do
   
   pod 'KeenKeyboard', :git => 'https://github.com/cqcool/KeenKeyboard.git'
   
-#  pod 'MJExtension'
-#  pod 'Masonry', '1.1.0'
+  pod 'MJExtension'
+  pod 'MBProgressHUD'
+  pod 'Masonry'
 #  pod 'KLCPopup'
 #  pod 'SDWebImage', '5.10.2'
 #  pod 'MBProgressHUD', '1.1.0'

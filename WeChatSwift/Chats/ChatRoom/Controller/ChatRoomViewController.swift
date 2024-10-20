@@ -12,6 +12,13 @@ import AsyncDisplayKit
 import WXActionSheet
 import PINRemoteImage
 
+enum ChatRoomStatus {
+    case ban /// 被封
+    case byRemove /// 被移出群聊
+    case dissolve /// 解散
+    case normal
+}
+
 class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     
     private let sessionID: String
@@ -26,7 +33,20 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     
     private let tableNode = ASTableNode(style: .plain)
     
+    private var roomStatus: ChatRoomStatus = .normal
+    
     internal var menuMessage: Message?
+    
+    private let errorTextNode = ASTextNode()
+    private let errorIconNode = ASImageNode()
+    private let errorNode = ASDisplayNode()
+    private let arrowNode = ASImageNode()
+    
+    private let notSendView = UIView()
+    private let notSendContentView = UIView()
+    private let notSendLabel = UILabel()
+    private let notSendImageView = UIImageView(image: UIImage(named: "lqt_deposit_info_icon"))
+    private let notSendLine = UIView()
     
     init(sessionID: String) {
         self.sessionID = sessionID
@@ -34,7 +54,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         self.user = MockFactory.shared.user(with: sessionID)!
         
         super.init(node: ASDisplayNode())
-
+        
         node.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
         tableNode.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
@@ -43,6 +63,22 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         node.addSubnode(backgroundImageNode)
         node.addSubnode(tableNode)
         node.addSubnode(inputNode)
+        let textSize = 16.0
+        let heightNode = 50.0
+        errorNode.backgroundColor = UIColor(hexString: "FAEDED")
+        errorNode.frame = CGRect(x: 0, y: Constants.navigationHeight, width: Constants.screenWidth, height: heightNode)
+        errorTextNode.frame = CGRectMake(54, (heightNode - textSize) / 2 , Constants.screenWidth, textSize + 2.0)
+        errorTextNode.attributedText = "本群涉嫩传播欺诈内容，已被停用。".addAttributed(font: .systemFont(ofSize: textSize), textColor: .black, lineSpacing: 0, wordSpacing: 0)
+        errorNode.addSubnode(errorTextNode)
+        errorIconNode.image = UIImage(named: "ExclamationMark")
+        errorIconNode.frame = CGRect(x: 10, y: (heightNode - 30) / 2, width: 36, height: 36)
+        errorNode.addSubnode(errorIconNode)
+        arrowNode.image = UIImage.SVGImage(named: "icons_outlined_arrow")
+        let size: CGSize = arrowNode.image!.size
+        arrowNode.frame = CGRect(x: Constants.screenWidth - 20 - size.width, y: (50.0 - size.height)/2, width: size.width, height: size.height)
+        errorNode.addSubnode(arrowNode)
+        errorNode.isHidden = true
+        
     }
     
     deinit {
@@ -55,7 +91,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.title = user.name
         let moreButtonItem = UIBarButtonItem(image: Constants.moreImage, style: .done, target: self, action: #selector(moreButtonClicked))
         navigationItem.rightBarButtonItem = moreButtonItem
@@ -65,21 +101,92 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         }
         node.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
         backgroundImageNode.frame = view.bounds
-        
+        let bottomHeight = 56 + Constants.bottomInset
         tableNode.allowsSelection = false
         tableNode.view.separatorStyle = .none
         tableNode.dataSource = self
         tableNode.delegate = self
         tableNode.view.backgroundColor = .clear
-        tableNode.frame = CGRect(x: 0, y: 0, width: Constants.screenWidth, height: Constants.screenHeight - 56 - Constants.bottomInset)
+        tableNode.frame = CGRect(x: 0, y: 0, width: Constants.screenWidth, height: Constants.screenHeight - bottomHeight)
         inputNode.tableNode = tableNode
         inputNode.delegate = self
         
         dataSource.tableNode = tableNode
         
         scrollToLastMessage(animated: false)
-        
         navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(handlePopGesture(_:)))
+        
+        node.addSubnode(errorNode)
+        
+        notSendView.frame = CGRect(x: 0, y: Constants.screenHeight - bottomHeight, width: Constants.screenWidth, height:  bottomHeight)
+        notSendView.isHidden = true
+        node.view.addSubview(notSendView)
+        notSendView.addSubview(notSendLine)
+        notSendLine.backgroundColor = UIColor(white: 0, alpha: 0.1)
+        notSendView.addSubview(notSendContentView)
+        notSendContentView.addSubview(notSendLabel)
+        notSendContentView.addSubview(notSendImageView)
+        notSendLabel.textColor = UIColor(white: 0, alpha: 0.6)
+        notSendLabel.font = .systemFont(ofSize: 15)
+        
+        updateChatRoomView(status: .normal)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+//            
+//            self.updateChatRoomView(status: .dissolve)
+//        }
+    }
+    
+    private func updateChatRoomView(status: ChatRoomStatus) {
+        switch status {
+        case .ban:
+            errorNode.isHidden = false
+            inputNode.isHidden = true
+            notSendView.isHidden = true
+            tableNode.frame = CGRect(x: 0, y: 0, width: Constants.screenWidth, height: Constants.screenHeight)
+        case .byRemove, .dissolve:
+            errorNode.isHidden = true
+            inputNode.isHidden = true
+            notSendView.isHidden = false
+            layoutNotSendView(status: status)
+        case .normal:
+            errorNode.isHidden = true
+            inputNode.isHidden = false
+            notSendView.isHidden = true
+        }
+    }
+    
+    private func layoutNotSendView(status: ChatRoomStatus) {
+        notSendLine.snp.remakeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(0.5)
+        }
+        notSendContentView.snp.remakeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(20)
+        }
+        notSendImageView.snp.remakeConstraints { make in
+            if status == .byRemove {
+                make.centerY.equalToSuperview()
+                make.right.equalToSuperview()
+                make.size.equalTo(CGSizeMake(24, 24))
+            } else {
+                make.centerY.equalToSuperview()
+                make.left.equalToSuperview()
+                make.size.equalTo(CGSizeMake(24, 24))
+            }
+        }
+        notSendLabel.text = status == .byRemove  ? "无法在已退出的群聊中发送消息" : "无法在已解散的群聊中发送消息"
+        notSendLabel.snp.remakeConstraints { make in
+            if status == .byRemove {
+                make.left.top.bottom.equalToSuperview()
+                make.right.equalTo(notSendImageView.snp.left).offset(-4)
+            } else {
+                make.right.top.bottom.equalToSuperview()
+                make.left.equalTo(notSendImageView.snp.right).offset(4)
+            }
+        }
+        
+        node.view.layoutIfNeeded()
     }
     
     func sendMediaAssets(_ assets: [MediaAsset]) {
@@ -126,7 +233,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
             self?.sendLocation()
         }))
         actionSheet.add(WXActionSheetItem(title: "共享实时位置", handler: { _ in
-                    
+            
         }))
         actionSheet.show()
     }
@@ -229,6 +336,7 @@ extension ChatRoomViewController: ASTableDataSource, ASTableDelegate {
         let message = dataSource.itemAtIndexPath(indexPath)
         let nodeBlock: ASCellNodeBlock = {
             let cellNode = ChatRoomCellNodeFactory.node(for: message)
+            cellNode.backgroundColor = .clear
             cellNode.delegate = self
             return cellNode
         }
@@ -344,6 +452,7 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
 extension ChatRoomViewController: MessageCellNodeDelegate {
     
     func messageCell(_ cellNode: MessageCellNode, didTapAvatar userID: String) {
+        return
         guard let user = MockFactory.shared.user(with: userID) else {
             return
         }
@@ -375,16 +484,17 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
     }
     
     func messageCell(_ cellNode: MessageCellNode, didTapLink url: URL?) {
-        if let url = url {
-            let webVC = WebViewController(url: url)
-            navigationController?.pushViewController(webVC, animated: true)
-            inputNode.dismissKeyboard()
-        }
+//        if let url = url {
+//            let webVC = WebViewController(url: url)
+//            navigationController?.pushViewController(webVC, animated: true)
+//            inputNode.dismissKeyboard()
+//        }
     }
     
     func messageCell(_ cellNode: MessageCellNode, showMenus menus: [MessageMenuAction], message: Message, targetRect: CGRect, targetView: UIView) {
-        self.becomeFirstResponder()
-        self.menuMessage = message
-        showMenus(menus, targetRect: targetRect, targetView: targetView)
+//        UIView()
+//        self.becomeFirstResponder()
+//        self.menuMessage = message
+//        showMenus(menus, targetRect: targetRect, targetView: targetView)
     }
 }

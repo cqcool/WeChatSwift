@@ -13,6 +13,8 @@ class ChatRoomContactInfoViewController: ASDKViewController<ASDisplayNode> {
     private var dataSource: [ChatRoomContactInfoSection] = []
     private var members: [AddChatRoomMemberItem] = []
     private let contact: Contact
+    private var isGroup: Bool = true
+    
     
     init(contact: Contact) {
         self.contact = contact
@@ -36,16 +38,53 @@ class ChatRoomContactInfoViewController: ASDKViewController<ASDisplayNode> {
         tableNode.frame = view.bounds
         tableNode.backgroundColor = .clear
         tableNode.view.separatorStyle = .none
-        navigationItem.title = LocalizedString("MessageContent_Title")
+        navigationItem.title = isGroup ? "聊天信息(\(8))" : LocalizedString("MessageContent_Title")
+        
     }
     
     private func setupDataSource() {
-        dataSource.append(ChatRoomContactInfoSection(items: [.addContactToChatRoom]))
-        dataSource.append(ChatRoomContactInfoSection(items: [.searchChatHistory]))
-        dataSource.append(ChatRoomContactInfoSection(items: [.mute, .stickToTop, .forceNotify]))
-        dataSource.append(ChatRoomContactInfoSection(items: [.chatBackground]))
-        dataSource.append(ChatRoomContactInfoSection(items: [.clearChat]))
-        dataSource.append(ChatRoomContactInfoSection(items: [.report]))
+        if isGroup {
+            
+            dataSource.append(ChatRoomContactInfoSection(items:
+                                                            [ChatRoomContactInfoModel(type: .addContactToChatRoom)]))
+            
+            dataSource.append(ChatRoomContactInfoSection(items:
+                                                            [ChatRoomContactInfoModel(type: .groupName, value: "xxxx"),
+                                                             ChatRoomContactInfoModel(type: .groupCode),
+                                                             ChatRoomContactInfoModel(type: .groupNotice),
+                                                             ChatRoomContactInfoModel(type: .remak)]))
+            
+            dataSource.append(ChatRoomContactInfoSection(items: [ChatRoomContactInfoModel(type: .searchChatHistory)]))
+            
+            dataSource.append(ChatRoomContactInfoSection(items: [
+                ChatRoomContactInfoModel(type: .mute),
+                ChatRoomContactInfoModel(type: .stickToTop),
+                ChatRoomContactInfoModel(type: .addressBook)]))
+            dataSource.append(ChatRoomContactInfoSection(items: [
+                ChatRoomContactInfoModel(type: .inGroupName, value: "xxxx"),
+                ChatRoomContactInfoModel(type: .showOtherName)]))
+            dataSource.append(ChatRoomContactInfoSection(items: [
+                ChatRoomContactInfoModel(type: .chatBackground),
+                ChatRoomContactInfoModel(type: .clearChat),
+                ChatRoomContactInfoModel(type: .report)]))
+             
+            dataSource.append(ChatRoomContactInfoSection(items: [
+                ChatRoomContactInfoModel(type: .logout)]))
+
+        } else {
+            dataSource.append(ChatRoomContactInfoSection(items:
+                                                            [ChatRoomContactInfoModel(type: .addContactToChatRoom)]))
+            
+            dataSource.append(ChatRoomContactInfoSection(items: [ChatRoomContactInfoModel(type: .searchChatHistory)]))
+            dataSource.append(ChatRoomContactInfoSection(items: [
+                ChatRoomContactInfoModel(type: .mute),
+                ChatRoomContactInfoModel(type: .stickToTop),
+                ChatRoomContactInfoModel(type: .forceNotify)]))
+            
+            dataSource.append(ChatRoomContactInfoSection(items: [ChatRoomContactInfoModel(type: .chatBackground)]))
+            dataSource.append(ChatRoomContactInfoSection(items: [ChatRoomContactInfoModel(type: .clearChat)]))
+            dataSource.append(ChatRoomContactInfoSection(items: [ ChatRoomContactInfoModel(type: .report)]))
+        }
     }
     
     private func updateMembers(selectedContacts: [MultiSelectContact]) {
@@ -56,7 +95,14 @@ class ChatRoomContactInfoViewController: ASDKViewController<ASDisplayNode> {
     
     private func setupMembers() {
         members.append(.contact(contact))
+        members.append(.contact(contact))
+        members.append(.contact(contact))
+        members.append(.contact(contact))
+        members.append(.contact(contact))
+        members.append(.contact(contact))
+        members.append(.contact(contact))
         members.append(.addButton)
+        members.append(.removeButton)
     }
     
     private func presentMultiSelectContacts() {
@@ -91,7 +137,7 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
         let isLastCell = indexPath.row == dataSource[indexPath.section].items.count - 1
         let members = self.members
         let block: ASCellNodeBlock = { [weak self] in
-            if indexPath.section == 0 {
+            if model.type == .addContactToChatRoom {
                 let addContactCell = ChatRoomAddContactCellNode(members: members)
                 addContactCell.addButtonHandler = { [weak self] in
 //                    self?.presentMultiSelectContacts()
@@ -100,7 +146,8 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
 //                    self?.viewContactInfo(contact)
                 }
                 return addContactCell
-            } else {
+            }
+            else {
                 return WCTableCellNode(model: model, isLastCell: isLastCell)
             }
         }
@@ -110,15 +157,25 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: false)
         
-        return
-        let model = dataSource[indexPath.section].items[indexPath.row]
-        switch model {
-        case .chatBackground:
-            let chatBackgroundVC = ChatRoomBackgroundEntranceViewController()
-            navigationController?.pushViewController(chatBackgroundVC, animated: true)
-        default:
-            break
+        var model = dataSource[indexPath.section].items[indexPath.row]
+        if model.type == .groupName {
+            let vc = ModifyRoomNameViewController()
+            vc.name = model.value
+            navigationController?.pushViewController(vc, animated: true)
+            vc.confirmBlock = { text in
+                model.value = ((text?.isEmpty) != nil) ? "未命名" : text
+                self.dataSource[indexPath.section].items[indexPath.row] = model
+                self.tableNode.reloadRows(at: [indexPath], with: .fade)
+            }
         }
+        return
+//        switch model {
+//        case .chatBackground:
+//            let chatBackgroundVC = ChatRoomBackgroundEntranceViewController()
+//            navigationController?.pushViewController(chatBackgroundVC, animated: true)
+//        default:
+//            break
+//        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -137,15 +194,15 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
         return nil
     }
     
-    func tableNode(_ tableNode: ASTableNode, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        let model = dataSource[indexPath.section].items[indexPath.row]
-        switch model {
-        case .addContactToChatRoom, .mute, .stickToTop, .forceNotify:
-            return false
-        default:
-            return true
-        }
-    }
+//    func tableNode(_ tableNode: ASTableNode, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+//        let model = dataSource[indexPath.section].items[indexPath.row]
+//        switch model {
+//        case .addContactToChatRoom, .mute, .stickToTop, .forceNotify:
+//            return false
+//        default:
+//            return true
+//        }
+//    }
     
 }
 
@@ -156,20 +213,20 @@ struct ChatRoomContactInfoSection {
 enum AddChatRoomMemberItem {
     case contact(Contact)
     case addButton
+    case removeButton
 }
 
-enum ChatRoomContactInfoModel: WCTableCellModel {
-    case addContactToChatRoom
-    case searchChatHistory
-    case mute
-    case stickToTop
-    case forceNotify
-    case chatBackground
-    case clearChat
-    case report
+struct ChatRoomContactInfoModel: WCTableCellModel {
     
+    var type: ChatCellType
+    var value: String?
+    
+    init(type: ChatCellType, value: String? = nil) {
+        self.type = type
+        self.value = value
+    }
     var wc_title: String {
-        switch self {
+        switch type {
         case .addContactToChatRoom:
             return ""
         case .searchChatHistory:
@@ -186,30 +243,98 @@ enum ChatRoomContactInfoModel: WCTableCellModel {
             return LocalizedString("ChatRoomSetting_ClearAll")
         case .report:
             return "投诉"
+        case .groupName:
+            return "群聊名称"
+        case .groupCode:
+            return "群二维码"
+        case .groupNotice:
+            return "群公告"
+        case .groupManage:
+            return "群管理"
+        case .remak:
+            return "备注"
+        case .inGroupName:
+            return "我在群里的昵称"
+        case .showOtherName:
+            return "显示群成员昵称"
+        case .addressBook :
+            return "显示群成员昵称"
+        case .logout:
+            return "退出群聊"
+        default:
+            return ""
         }
+        
     }
     
-    var wc_image: UIImage? { return nil }
+    var wc_accessoryNode: ASDisplayNode? {
+        if let value {
+            let valueNode = ASTextNode()
+            valueNode.attributedText = value.addAttributed(font: .systemFont(ofSize: 17), textColor: UIColor(white: 0, alpha: 0.7), lineSpacing: 0, wordSpacing: 0)
+            return valueNode
+        }
+        if type == .groupCode {
+            let iconNode = ASImageNode()
+            iconNode.image = UIImage.SVGImage(named: "icons_outlined_qr-code")
+            return iconNode
+        }
+        return nil
+    }
+    
+    var wc_image: UIImage? {
+        return nil
+    }
     
     var wc_showSwitch: Bool {
-        switch self {
-        case .mute, .stickToTop, .forceNotify:
-            return false
+        switch type {
+        case .mute, .stickToTop, .forceNotify, .addressBook, .showOtherName:
+            return true
         default:
             return false
         }
     }
     
     var wc_switchValue: Bool {
-        switch self {
+        switch type {
         case .mute:
-            return true
+            return false
         case .stickToTop:
             return false
         case .forceNotify:
             return false
+        case .showOtherName:
+            return true
         default:
             return false
         }
     }
+    var wc_cellStyle: WCTableCellStyle {
+        if type == .logout {
+            return .destructiveButton
+        }
+        return .default
+    }
+}
+
+enum ChatCellType {
+    case addContactToChatRoom
+    case searchChatHistory
+    case mute
+    case stickToTop
+    case forceNotify
+    case chatBackground
+    case clearChat
+    case report
+    
+    case remak
+    case groupName
+    case groupCode
+    case groupNotice
+    case groupManage
+    case addressBook
+    
+    case inGroupName
+    case showOtherName
+    
+    case logout
 }

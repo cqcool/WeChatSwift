@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        WXNavigationBar.setup()
         WXNavigationBarManger.shared.setup(["ZLImageNavController"])
-        rootViewController = RootViewController()
+        rootViewController =     RootViewController()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white

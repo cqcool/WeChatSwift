@@ -19,6 +19,7 @@ class ChatRoomMemberItemNode: ASDisplayNode {
     private let nameNode = ASTextNode()
     
     private let addButtonNode = ASButtonNode()
+    private let removeButtonNode = ASButtonNode()
     
     private let memberItem: AddChatRoomMemberItem
     
@@ -34,6 +35,9 @@ class ChatRoomMemberItemNode: ASDisplayNode {
         case .addButton:
             addButtonNode.setImage(UIImage(named: "AddGroupMemberBtn_50x50_"), for: .normal)
             addButtonNode.setImage(UIImage(named: "AddGroupMemberBtnHL_50x50_"), for: .highlighted)
+        case .removeButton:
+            removeButtonNode.setImage(UIImage(named: "AddGroupMemberBtn_50x50_"), for: .normal)
+            removeButtonNode.setImage(UIImage(named: "AddGroupMemberBtnHL_50x50_"), for: .highlighted)
         case .contact(let contact):
             avatarNode.url = contact.avatarURL
             avatarNode.cornerRoundingType = .precomposited
@@ -82,6 +86,11 @@ class ChatRoomMemberItemNode: ASDisplayNode {
             addButtonNode.style.layoutPosition = CGPoint(x: constrainedSize.max.width - 50, y: (constrainedSize.max.height - 50)/2)
             
             return ASAbsoluteLayoutSpec(children: [addButtonNode])
+        case .removeButton:
+            removeButtonNode.style.preferredSize = CGSize(width: 50, height: 50)
+            removeButtonNode.style.layoutPosition = CGPoint(x: constrainedSize.max.width - 50, y: (constrainedSize.max.height - 50)/2)
+            
+            return ASAbsoluteLayoutSpec(children: [removeButtonNode])
         case .contact(_):
             avatarNode.style.preferredSize = CGSize(width: 50, height: 50)
             avatarNode.style.layoutPosition = CGPoint(x: constrainedSize.max.width - 50, y: (constrainedSize.max.height - 50)/2)

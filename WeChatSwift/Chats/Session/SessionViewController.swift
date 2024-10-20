@@ -8,6 +8,7 @@
 
 import UIKit
 import AsyncDisplayKit
+import ZLPhotoBrowser
 
 class SessionViewController: ASDKViewController<ASDisplayNode> {
     
@@ -174,7 +175,10 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: false)
-        navigationController?.pushViewController(MakeRedEnvelopeViewController(), animated: true)
+//        navigationController?.pushViewController(MakeRedEnvelopeViewController(), animated: true)
+//        let vc = NewsViewController()
+//        navigationController?.pushViewController(vc, animated: true)
+         
         return
         
         let session = indexPath.section == 0 ? topSessions[indexPath.row] : dataSource[indexPath.row]

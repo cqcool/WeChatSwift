@@ -51,6 +51,8 @@ struct Colors {
     /// 默认链接高亮颜色
     static let DEFAULT_LINK_HIGHLIGHT_COLOR = UIColor(hexString: "#486497")
     
+    static let DEFAULT_TEXT_YELLOW_COLOR = UIColor(hexString: "C5974D")
+    
     /// 通用浅色背景颜色
     static let DEFAULT_BACKGROUND_COLOR = UIColor(hexString: "#EDEDED")
     
@@ -71,6 +73,7 @@ struct Colors {
     
     /// 默认OPENIM DESC描述文字颜色
     static let DEFAULT_OPENIM_DESC_TEXT_COLOR = UIColor(hexString: "#FD8F44")
+    static let RED_NAVIGATION_BAR_COLOR = UIColor(hexString: "#EE5141")
     
     // MARK: - red
     static let Red = UIColor(hexString: "#FA5151")
@@ -107,6 +110,7 @@ struct Colors {
     static let Yellow_BG_110 = UIColor(hexString: "#F0BD19")
     static let Yellow_BG_100 = UIColor(hexString: "#EFB600")
     static let Yellow_BG_90 = UIColor(hexString: "#D7A400")
+    
     
     // Green
     static let Green = UIColor(hexString: "#91D300")

@@ -594,10 +594,10 @@ extension MakeRedEnvelopeViewController {
         
         let actionSheet = WXActionSheet(cancelButtonTitle: LanguageManager.Common.cancel())
         actionSheet.add(WXActionSheetItem(title: "红包记录", handler: { _ in
-            
+            self.navigationController?.pushViewController(ReceiveRedViewContrroler(), animated: true)
         }))
         actionSheet.add(WXActionSheetItem(title: "帮助中心", handler: { _ in
-            
+            self.navigationController?.pushViewController(HelpRedViewController(), animated: true)
         }))
         actionSheet.show()
     }

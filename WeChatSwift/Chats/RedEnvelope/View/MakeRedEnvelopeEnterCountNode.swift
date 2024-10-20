@@ -35,7 +35,7 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
         
         randomTextNode.attributedText = NSAttributedString(string: "拼手气红包", attributes: [
             .font: UIFont.systemFont(ofSize: 15),
-            .foregroundColor: UIColor(hexString: "C5974D")
+            .foregroundColor: Colors.DEFAULT_TEXT_YELLOW_COLOR
         ])
         randomTextNode.addTarget(self, action: #selector(changeRandomAction), forControlEvents: .touchUpInside)
         randomArrowNode.image = UIImage(named: "LuckyMoney_ChangeArrow")

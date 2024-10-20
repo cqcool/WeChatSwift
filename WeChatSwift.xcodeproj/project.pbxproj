@@ -13,6 +13,33 @@
 		1E5E372E2CC10D24007F8944 /* WXInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37292CC10D24007F8944 /* WXInputView.m */; };
 		1E5E37322CC1113D007F8944 /* KeenCodeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37302CC1113D007F8944 /* KeenCodeUnit.swift */; };
 		1E5E37332CC1113D007F8944 /* KeenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37312CC1113D007F8944 /* KeenUtils.swift */; };
+		1E5E37362CC1EA42007F8944 /* ReceiveRedViewContrroler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37352CC1EA42007F8944 /* ReceiveRedViewContrroler.swift */; };
+		1E5E37382CC1EB43007F8944 /* ReceiveRedHeadNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37372CC1EB43007F8944 /* ReceiveRedHeadNode.swift */; };
+		1E5E373A2CC20637007F8944 /* ReceiveRedCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37392CC20637007F8944 /* ReceiveRedCellNode.swift */; };
+		1E5E373D2CC212DE007F8944 /* HelpRedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E373C2CC212DE007F8944 /* HelpRedViewController.swift */; };
+		1E5E373F2CC21AC6007F8944 /* HelpRedCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E373E2CC21AC6007F8944 /* HelpRedCellNode.swift */; };
+		1E5E37412CC21DF0007F8944 /* HelpRedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37402CC21DF0007F8944 /* HelpRedModel.swift */; };
+		1E5E37432CC2564C007F8944 /* ChatRootLogoutCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37422CC2564C007F8944 /* ChatRootLogoutCellNode.swift */; };
+		1E5E37452CC25A96007F8944 /* ModifyRoomNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37442CC25A96007F8944 /* ModifyRoomNameViewController.swift */; };
+		1E5E37482CC39AFE007F8944 /* RedDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37472CC39AFE007F8944 /* RedDetailsViewController.swift */; };
+		1E5E374A2CC39D76007F8944 /* RedDetailsHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37492CC39D76007F8944 /* RedDetailsHeaderNode.swift */; };
+		1E5E374C2CC3BAE0007F8944 /* RedDetailsCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E374B2CC3BAE0007F8944 /* RedDetailsCellNode.swift */; };
+		1E5E374F2CC4A153007F8944 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E374E2CC4A153007F8944 /* NewsViewController.swift */; };
+		1E5E37512CC4A241007F8944 /* NewsCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37502CC4A241007F8944 /* NewsCellNode.swift */; };
+		1E5E37532CC4CF82007F8944 /* NewDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37522CC4CF82007F8944 /* NewDetailsViewController.swift */; };
+		1E5E37562CC4D1C8007F8944 /* UIButton+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37552CC4D1C8007F8944 /* UIButton+Ext.m */; };
+		1E5E37692CC4F3B8007F8944 /* NSObject+DNKKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37632CC4F3B8007F8944 /* NSObject+DNKKeyValue.m */; };
+		1E5E376A2CC4F3B8007F8944 /* DNKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375F2CC4F3B8007F8944 /* DNKRequest.m */; };
+		1E5E376B2CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37652CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m */; };
+		1E5E376C2CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37672CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m */; };
+		1E5E376D2CC4F3B8007F8944 /* DNKApiUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375C2CC4F3B8007F8944 /* DNKApiUtils.m */; };
+		1E5E376E2CC4F3B8007F8944 /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37612CC4F3B8007F8944 /* FBEncryptorAES.m */; };
+		1E5E37712CC4F407007F8944 /* NSData+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37702CC4F407007F8944 /* NSData+Ext.m */; };
+		1E5E37752CC4FCBB007F8944 /* DNKProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */; };
+		1E5E37792CC4FD24007F8944 /* DNKCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37772CC4FD24007F8944 /* DNKCircleProgress.m */; };
+		1E5E377B2CC502E9007F8944 /* DNKAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E377A2CC502E9007F8944 /* DNKAnimation.swift */; };
+		1E5E377E2CC503EC007F8944 /* UICreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E377D2CC503EC007F8944 /* UICreate.m */; };
+		1E5E37812CC5045E007F8944 /* DNKDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37802CC5045E007F8944 /* DNKDevice.m */; };
 		1EC758132CBE326E0051E916 /* ZLCustomAlertAction+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */; };
 		1EC758142CBE326E0051E916 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */; };
 		1EC758152CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */; };
@@ -481,6 +508,47 @@
 		1E5E372B2CC10D24007F8944 /* WXPayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXPayView.m; sourceTree = "<group>"; };
 		1E5E37302CC1113D007F8944 /* KeenCodeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeenCodeUnit.swift; sourceTree = "<group>"; };
 		1E5E37312CC1113D007F8944 /* KeenUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeenUtils.swift; sourceTree = "<group>"; };
+		1E5E37352CC1EA42007F8944 /* ReceiveRedViewContrroler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveRedViewContrroler.swift; sourceTree = "<group>"; };
+		1E5E37372CC1EB43007F8944 /* ReceiveRedHeadNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveRedHeadNode.swift; sourceTree = "<group>"; };
+		1E5E37392CC20637007F8944 /* ReceiveRedCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveRedCellNode.swift; sourceTree = "<group>"; };
+		1E5E373C2CC212DE007F8944 /* HelpRedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpRedViewController.swift; sourceTree = "<group>"; };
+		1E5E373E2CC21AC6007F8944 /* HelpRedCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpRedCellNode.swift; sourceTree = "<group>"; };
+		1E5E37402CC21DF0007F8944 /* HelpRedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpRedModel.swift; sourceTree = "<group>"; };
+		1E5E37422CC2564C007F8944 /* ChatRootLogoutCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRootLogoutCellNode.swift; sourceTree = "<group>"; };
+		1E5E37442CC25A96007F8944 /* ModifyRoomNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyRoomNameViewController.swift; sourceTree = "<group>"; };
+		1E5E37472CC39AFE007F8944 /* RedDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedDetailsViewController.swift; sourceTree = "<group>"; };
+		1E5E37492CC39D76007F8944 /* RedDetailsHeaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedDetailsHeaderNode.swift; sourceTree = "<group>"; };
+		1E5E374B2CC3BAE0007F8944 /* RedDetailsCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedDetailsCellNode.swift; sourceTree = "<group>"; };
+		1E5E374E2CC4A153007F8944 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		1E5E37502CC4A241007F8944 /* NewsCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellNode.swift; sourceTree = "<group>"; };
+		1E5E37522CC4CF82007F8944 /* NewDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDetailsViewController.swift; sourceTree = "<group>"; };
+		1E5E37542CC4D1C8007F8944 /* UIButton+Ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+Ext.h"; sourceTree = "<group>"; };
+		1E5E37552CC4D1C8007F8944 /* UIButton+Ext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Ext.m"; sourceTree = "<group>"; };
+		1E5E37572CC4D27F007F8944 /* WeChatSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeChatSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		1E5E375B2CC4F3B8007F8944 /* DNKApiUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKApiUtils.h; sourceTree = "<group>"; };
+		1E5E375C2CC4F3B8007F8944 /* DNKApiUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKApiUtils.m; sourceTree = "<group>"; };
+		1E5E375D2CC4F3B8007F8944 /* DNKNetworkConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKNetworkConst.h; sourceTree = "<group>"; };
+		1E5E375E2CC4F3B8007F8944 /* DNKRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKRequest.h; sourceTree = "<group>"; };
+		1E5E375F2CC4F3B8007F8944 /* DNKRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKRequest.m; sourceTree = "<group>"; };
+		1E5E37602CC4F3B8007F8944 /* FBEncryptorAES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
+		1E5E37612CC4F3B8007F8944 /* FBEncryptorAES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
+		1E5E37622CC4F3B8007F8944 /* NSObject+DNKKeyValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DNKKeyValue.h"; sourceTree = "<group>"; };
+		1E5E37632CC4F3B8007F8944 /* NSObject+DNKKeyValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DNKKeyValue.m"; sourceTree = "<group>"; };
+		1E5E37642CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTKBaseRequest+DNKApi.h"; sourceTree = "<group>"; };
+		1E5E37652CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "YTKBaseRequest+DNKApi.m"; sourceTree = "<group>"; };
+		1E5E37662CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTKBaseRequest+DNKProgressHUD.h"; sourceTree = "<group>"; };
+		1E5E37672CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "YTKBaseRequest+DNKProgressHUD.m"; sourceTree = "<group>"; };
+		1E5E376F2CC4F407007F8944 /* NSData+Ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Ext.h"; sourceTree = "<group>"; };
+		1E5E37702CC4F407007F8944 /* NSData+Ext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Ext.m"; sourceTree = "<group>"; };
+		1E5E37722CC4FCBB007F8944 /* DNKProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKProgressHUD.h; sourceTree = "<group>"; };
+		1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKProgressHUD.m; sourceTree = "<group>"; };
+		1E5E37762CC4FD24007F8944 /* DNKCircleProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKCircleProgress.h; sourceTree = "<group>"; };
+		1E5E37772CC4FD24007F8944 /* DNKCircleProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKCircleProgress.m; sourceTree = "<group>"; };
+		1E5E377A2CC502E9007F8944 /* DNKAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNKAnimation.swift; sourceTree = "<group>"; };
+		1E5E377C2CC503EC007F8944 /* UICreate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICreate.h; sourceTree = "<group>"; };
+		1E5E377D2CC503EC007F8944 /* UICreate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UICreate.m; sourceTree = "<group>"; };
+		1E5E377F2CC5045E007F8944 /* DNKDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKDevice.h; sourceTree = "<group>"; };
+		1E5E37802CC5045E007F8944 /* DNKDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKDevice.m; sourceTree = "<group>"; };
 		1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZLCustomAlertAction+Color.swift"; sourceTree = "<group>"; };
 		1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertControllerTransitionAnimation.swift; sourceTree = "<group>"; };
@@ -989,6 +1057,91 @@
 			path = KeenKeyboard;
 			sourceTree = "<group>";
 		};
+		1E5E37342CC1EA2A007F8944 /* ReceiveRed */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E37352CC1EA42007F8944 /* ReceiveRedViewContrroler.swift */,
+				1E5E37372CC1EB43007F8944 /* ReceiveRedHeadNode.swift */,
+				1E5E37392CC20637007F8944 /* ReceiveRedCellNode.swift */,
+			);
+			path = ReceiveRed;
+			sourceTree = "<group>";
+		};
+		1E5E373B2CC212CF007F8944 /* HelpRed */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E373C2CC212DE007F8944 /* HelpRedViewController.swift */,
+				1E5E373E2CC21AC6007F8944 /* HelpRedCellNode.swift */,
+				1E5E37402CC21DF0007F8944 /* HelpRedModel.swift */,
+			);
+			path = HelpRed;
+			sourceTree = "<group>";
+		};
+		1E5E37462CC39AE7007F8944 /* RedDetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E37472CC39AFE007F8944 /* RedDetailsViewController.swift */,
+				1E5E37492CC39D76007F8944 /* RedDetailsHeaderNode.swift */,
+				1E5E374B2CC3BAE0007F8944 /* RedDetailsCellNode.swift */,
+			);
+			path = RedDetailsViewController;
+			sourceTree = "<group>";
+		};
+		1E5E374D2CC49863007F8944 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E374E2CC4A153007F8944 /* NewsViewController.swift */,
+				1E5E37502CC4A241007F8944 /* NewsCellNode.swift */,
+				1E5E37522CC4CF82007F8944 /* NewDetailsViewController.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		1E5E37682CC4F3B8007F8944 /* DNKNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E376F2CC4F407007F8944 /* NSData+Ext.h */,
+				1E5E37702CC4F407007F8944 /* NSData+Ext.m */,
+				1E5E375B2CC4F3B8007F8944 /* DNKApiUtils.h */,
+				1E5E375C2CC4F3B8007F8944 /* DNKApiUtils.m */,
+				1E5E375D2CC4F3B8007F8944 /* DNKNetworkConst.h */,
+				1E5E375E2CC4F3B8007F8944 /* DNKRequest.h */,
+				1E5E375F2CC4F3B8007F8944 /* DNKRequest.m */,
+				1E5E37602CC4F3B8007F8944 /* FBEncryptorAES.h */,
+				1E5E37612CC4F3B8007F8944 /* FBEncryptorAES.m */,
+				1E5E37622CC4F3B8007F8944 /* NSObject+DNKKeyValue.h */,
+				1E5E37632CC4F3B8007F8944 /* NSObject+DNKKeyValue.m */,
+				1E5E37642CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.h */,
+				1E5E37652CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m */,
+				1E5E37662CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.h */,
+				1E5E37672CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m */,
+			);
+			path = DNKNetworking;
+			sourceTree = "<group>";
+		};
+		1E5E37742CC4FCBB007F8944 /* DNKProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E377F2CC5045E007F8944 /* DNKDevice.h */,
+				1E5E37802CC5045E007F8944 /* DNKDevice.m */,
+				1E5E377C2CC503EC007F8944 /* UICreate.h */,
+				1E5E377D2CC503EC007F8944 /* UICreate.m */,
+				1E5E377A2CC502E9007F8944 /* DNKAnimation.swift */,
+				1E5E37722CC4FCBB007F8944 /* DNKProgressHUD.h */,
+				1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */,
+			);
+			path = DNKProgressHUD;
+			sourceTree = "<group>";
+		};
+		1E5E37782CC4FD24007F8944 /* DNKCircleProgress */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E37762CC4FD24007F8944 /* DNKCircleProgress.h */,
+				1E5E37772CC4FD24007F8944 /* DNKCircleProgress.m */,
+			);
+			path = DNKCircleProgress;
+			sourceTree = "<group>";
+		};
 		1EC758122CBE326E0051E916 /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -1002,6 +1155,9 @@
 		1ED3DA412CBE43A300D9C8A7 /* WXNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
+				1E5E37572CC4D27F007F8944 /* WeChatSwift-Bridging-Header.h */,
+				1E5E37542CC4D1C8007F8944 /* UIButton+Ext.h */,
+				1E5E37552CC4D1C8007F8944 /* UIButton+Ext.m */,
 				1ED3DA422CBE43B900D9C8A7 /* UINavigationBar+WXNavigationBar.swift */,
 				1ED3DA432CBE43B900D9C8A7 /* UINavigationController+WXNavigationBar.swift */,
 				1ED3DA442CBE43B900D9C8A7 /* UIViewController+WXNavigationBar.swift */,
@@ -1303,6 +1459,7 @@
 		A33DB2E722CCCA0D00A11776 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				1E5E374D2CC49863007F8944 /* News */,
 				A3709220231A6C9B003DA42D /* SelectSession */,
 				A3EE12332317CA9B000F287C /* RedEnvelope */,
 				A3E20018230AD179005B2B70 /* Search */,
@@ -1361,6 +1518,7 @@
 		A33DB2EB22CCCA3200A11776 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1E5E37742CC4FCBB007F8944 /* DNKProgressHUD */,
 				1E5E372F2CC1112D007F8944 /* KeenKeyboard */,
 				1ED3DA412CBE43A300D9C8A7 /* WXNavigationBar */,
 				1EF4E6AA2CBA86FE000F39E9 /* JFPopup */,
@@ -1382,6 +1540,8 @@
 				1EF4E6492CBA4DD5000F39E9 /* UITextField+Ext.swift */,
 				1EF4E64D2CBA5029000F39E9 /* String+Util.swift */,
 				1E5E372C2CC10D24007F8944 /* WXPayView */,
+				1E5E37682CC4F3B8007F8944 /* DNKNetworking */,
+				1E5E37782CC4FD24007F8944 /* DNKCircleProgress */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1467,6 +1627,8 @@
 				A3476FF722FAA047001B94EC /* ChatRoomContactInfoViewController.swift */,
 				A3476FF922FAA498001B94EC /* ChatRoomAddContactCellNode.swift */,
 				A3476FFB22FAABBF001B94EC /* ChatRoomMemberItemNode.swift */,
+				1E5E37422CC2564C007F8944 /* ChatRootLogoutCellNode.swift */,
+				1E5E37442CC25A96007F8944 /* ModifyRoomNameViewController.swift */,
 			);
 			path = ChatContactInfo;
 			sourceTree = "<group>";
@@ -2187,6 +2349,9 @@
 		A3EE12332317CA9B000F287C /* RedEnvelope */ = {
 			isa = PBXGroup;
 			children = (
+				1E5E37462CC39AE7007F8944 /* RedDetailsViewController */,
+				1E5E373B2CC212CF007F8944 /* HelpRed */,
+				1E5E37342CC1EA2A007F8944 /* ReceiveRed */,
 				1E58EC332CBFB2F900A360A6 /* View */,
 				A3EE12342317CABF000F287C /* MakeRedEnvelopeViewController.swift */,
 			);
@@ -2487,6 +2652,7 @@
 				A33DB2F722CCDCF500A11776 /* SessionViewController.swift in Sources */,
 				A3D9953D230B9D0E00E4F628 /* FTSFeatureCellNode.swift in Sources */,
 				1E5E37322CC1113D007F8944 /* KeenCodeUnit.swift in Sources */,
+				1E5E374A2CC39D76007F8944 /* RedDetailsHeaderNode.swift in Sources */,
 				1E5E37332CC1113D007F8944 /* KeenUtils.swift in Sources */,
 				A352AD252306CDA700332B21 /* StorageUsageSummaryNode.swift in Sources */,
 				A3CCEDE922FC0C78008BE41D /* ShakeSettingItem.swift in Sources */,
@@ -2503,6 +2669,7 @@
 				A3105D43232E035E0038D775 /* Notification+Extensions.swift in Sources */,
 				A3F9F002230E6F330032299C /* SightCameraPreviewView.swift in Sources */,
 				A33DB30222CCDDE200A11776 /* DiscoverModel.swift in Sources */,
+				1E5E37812CC5045E007F8944 /* DNKDevice.m in Sources */,
 				A33D2B2122F2FC3B0099927A /* MMPopAnimator.swift in Sources */,
 				A3CA51AC22CD99FD00C67D92 /* AddContactViewController.swift in Sources */,
 				A3F9F180230E983D0032299C /* SightCameraRecordView.swift in Sources */,
@@ -2525,13 +2692,16 @@
 				A33DB2F122CCCBA800A11776 /* UIColor+Extensions.swift in Sources */,
 				A322870022E0514A004E516E /* EmoticonBoardTabBarCellNode.swift in Sources */,
 				1E5E37272CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift in Sources */,
+				1E5E373F2CC21AC6007F8944 /* HelpRedCellNode.swift in Sources */,
 				A3CA51FD22CDAD1D00C67D92 /* User.swift in Sources */,
 				A389999D22E969FE00620069 /* EmoticonManageViewController.swift in Sources */,
+				1E5E37362CC1EA42007F8944 /* ReceiveRedViewContrroler.swift in Sources */,
 				A3D897EE22E1D94100814669 /* EmoticonBoardCameraEntryNode.swift in Sources */,
 				A3476FF822FAA047001B94EC /* ChatRoomContactInfoViewController.swift in Sources */,
 				A38999A122E96A3600620069 /* EmoticonDetailViewController.swift in Sources */,
 				A373D3D722F668F900451515 /* ChatRoomBackgroundSettingViewController.swift in Sources */,
 				A3FB0AA522F3D9AE00116329 /* PaymentMainViewController.swift in Sources */,
+				1E5E37412CC21DF0007F8944 /* HelpRedModel.swift in Sources */,
 				A37E73DE22D8245B008019A4 /* GridPageLayoutDelegate.swift in Sources */,
 				A3C9E22324375E4A002F82D9 /* SightCameraEditorViewController.swift in Sources */,
 				A32333B722DF070500B79555 /* WCTabBarItem.swift in Sources */,
@@ -2581,6 +2751,7 @@
 				A33DB2F522CCD92E00A11776 /* Colors.swift in Sources */,
 				A3B6889623004D5B007273CD /* RemarkEditDescriptionCellNode.swift in Sources */,
 				A35EDF5F22FD7A1200C56CAC /* PayOfflinePayAction.swift in Sources */,
+				1E5E37792CC4FD24007F8944 /* DNKCircleProgress.m in Sources */,
 				A3E58D9D23025B6A00F73763 /* MomentRefreshHeaderView.swift in Sources */,
 				A3CA51EF22CDA29000C67D92 /* MomentsViewController.swift in Sources */,
 				A3CA51F522CDA66E00C67D92 /* Moment.swift in Sources */,
@@ -2589,6 +2760,7 @@
 				A374864822D44CA6002EEC4F /* MiniProgramContentNode.swift in Sources */,
 				A3D9954B230B9E3E00E4F628 /* FTSTitleCellNode.swift in Sources */,
 				1EF4E6322CB66F77000F39E9 /* SmallChangeViewController.swift in Sources */,
+				1E5E373A2CC20637007F8944 /* ReceiveRedCellNode.swift in Sources */,
 				A354CE8E232741B900A2B35C /* MomentGroupTagViewController.swift in Sources */,
 				A3CA51A322CD997000C67D92 /* MockFactory.swift in Sources */,
 				A3C914582305886200B6E077 /* PublishMomentAction.swift in Sources */,
@@ -2598,6 +2770,7 @@
 				A369A4A822D36772004722C4 /* UIImage+Extensions.swift in Sources */,
 				A352AD152306523400332B21 /* MomentCoverCustomizeCellNode.swift in Sources */,
 				A34139362307EC5F008E0EBF /* PhotoBrowserTransitioningDelegate.swift in Sources */,
+				1E5E37752CC4FCBB007F8944 /* DNKProgressHUD.m in Sources */,
 				A352AD0F23064DA500332B21 /* MomentSetBackgroundViewController.swift in Sources */,
 				A3DE7CC72301095200E73944 /* MessageDatabase.swift in Sources */,
 				A3FB0AA722F3DA9C00116329 /* MallFunctionActivityNode.swift in Sources */,
@@ -2606,6 +2779,7 @@
 				A37FFB6422EE8E380001DD27 /* WebBottomToolBar.swift in Sources */,
 				A341393A230800C0008E0EBF /* PhotoBrowserPresentationController.swift in Sources */,
 				1EF4E64A2CBA4DD5000F39E9 /* UITextField+Ext.swift in Sources */,
+				1E5E37712CC4F407007F8944 /* NSData+Ext.m in Sources */,
 				1EF4E6482CBA493D000F39E9 /* AccountLoginUsersViewController.swift in Sources */,
 				A3E2001A230AD18C005B2B70 /* MainSearchViewController.swift in Sources */,
 				A3E2001E230AD270005B2B70 /* StreamVoiceInputControl.swift in Sources */,
@@ -2624,6 +2798,7 @@
 				A352AD2A2306CE9500332B21 /* SettingLanguageViewController.swift in Sources */,
 				A30347F922FF9983003ECF82 /* BrandContactsViewController.swift in Sources */,
 				A36E1B4922FA47F300C5DD32 /* ChatRoomBackgroundSettingCellNode.swift in Sources */,
+				1E5E374C2CC3BAE0007F8944 /* RedDetailsCellNode.swift in Sources */,
 				A322870522E07C64004E516E /* SessionMoreMenuFloatView.swift in Sources */,
 				A32333CF22DF504C00B79555 /* MomentMultiImageContentNode.swift in Sources */,
 				A3542F53230D7FB30034ED82 /* EmoticonDetailArtistNode.swift in Sources */,
@@ -2647,6 +2822,7 @@
 				A3D539A022EF258A006B4FCD /* ContactInfoViewController.swift in Sources */,
 				1EF4E6342CB68A6B000F39E9 /* SmallChangeCellNode.swift in Sources */,
 				1EF4E6302CB6304B000F39E9 /* WalletCellNode.swift in Sources */,
+				1E5E37382CC1EB43007F8944 /* ReceiveRedHeadNode.swift in Sources */,
 				A3105D45232E46940038D775 /* SettingLanguageModel.swift in Sources */,
 				A37E76CD2494E6220019F864 /* MommentCommentInputView.swift in Sources */,
 				A3CA51AE22CD9A1500C67D92 /* AddContactSource.swift in Sources */,
@@ -2661,6 +2837,12 @@
 				1EF4E68B2CBA86EA000F39E9 /* UIView+JFRect.swift in Sources */,
 				1EF4E68C2CBA86EA000F39E9 /* JF.swift in Sources */,
 				1EF4E68D2CBA86EA000F39E9 /* UIImage+JFColor.swift in Sources */,
+				1E5E37692CC4F3B8007F8944 /* NSObject+DNKKeyValue.m in Sources */,
+				1E5E376A2CC4F3B8007F8944 /* DNKRequest.m in Sources */,
+				1E5E376B2CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m in Sources */,
+				1E5E376C2CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m in Sources */,
+				1E5E376D2CC4F3B8007F8944 /* DNKApiUtils.m in Sources */,
+				1E5E376E2CC4F3B8007F8944 /* FBEncryptorAES.m in Sources */,
 				1EF4E68E2CBA86EA000F39E9 /* Size+Extenison.swift in Sources */,
 				1EF4E6AB2CBA86FE000F39E9 /* JFToastView.swift in Sources */,
 				1EF4E6AC2CBA86FE000F39E9 /* UIViewContoller+JFPopup.swift in Sources */,
@@ -2730,10 +2912,12 @@
 				A341CF0322E5554800F18106 /* AboutViewController.swift in Sources */,
 				A36EC0BF22FFCFC5004FD6B2 /* ContactSettingModel.swift in Sources */,
 				1EF4E6C42CBCFD35000F39E9 /* MyProfileCellNode.swift in Sources */,
+				1E5E37452CC25A96007F8944 /* ModifyRoomNameViewController.swift in Sources */,
 				1EF4E64E2CBA5029000F39E9 /* String+Util.swift in Sources */,
 				A3B6889023004CFB007273CD /* RemarkEditNameCellNode.swift in Sources */,
 				A35B21A1230022500057F8FC /* BrandTimelineViewController.swift in Sources */,
 				1EF4E6382CB7D7F4000F39E9 /* WeChatLoginOrRegisterViewController.swift in Sources */,
+				1E5E37482CC39AFE007F8944 /* RedDetailsViewController.swift in Sources */,
 				A3CCEDD822FBBD15008BE41D /* NearbyPeopleCellNode.swift in Sources */,
 				A3D9954D230BCE9400E4F628 /* UISearchBar+Extensions.swift in Sources */,
 				A33B88342307CFA100D28D57 /* PhotoBrowserViewController.swift in Sources */,
@@ -2741,6 +2925,7 @@
 				A3C9144523053D3600B6E077 /* ChatRoomListViewController.swift in Sources */,
 				A3EE12322317B4A0000F287C /* ChatRoomViewController+Menu.swift in Sources */,
 				A33D619222FD365A00B767F1 /* SettingPrivacyViewController.swift in Sources */,
+				1E5E37562CC4D1C8007F8944 /* UIButton+Ext.m in Sources */,
 				A34139382307F2C0008E0EBF /* PhotoBrowserZoomTransitioning.swift in Sources */,
 				A3485FB922F04949002A804B /* WeChatEmoticonsViewController.swift in Sources */,
 				A34CD64B23165FFB006B0262 /* MomentKeyboardNode.swift in Sources */,
@@ -2759,6 +2944,7 @@
 				A374864422D44C56002EEC4F /* VideoContentNode.swift in Sources */,
 				A3485FB022F021B1002A804B /* QRCodeCardNode.swift in Sources */,
 				A33DB30022CCDDBD00A11776 /* DiscoverViewController.swift in Sources */,
+				1E5E37432CC2564C007F8944 /* ChatRootLogoutCellNode.swift in Sources */,
 				A3542F55230D81810034ED82 /* EmoticonDetailRewardEntranceNode.swift in Sources */,
 				A3F6AD022303A9A9007FE74B /* ChatRoomDateFormatter.swift in Sources */,
 				A33B883A2307D89200D28D57 /* PhotoBrowserCollectionFlowLayout.swift in Sources */,
@@ -2766,8 +2952,10 @@
 				A3C9E22624375EAB002F82D9 /* SightCameraEditorToolBar.swift in Sources */,
 				A3CCEDE522FC066C008BE41D /* ShakeSettingCellNode.swift in Sources */,
 				A3D5DC0B2326420E0096849F /* MockData.swift in Sources */,
+				1E5E373D2CC212DE007F8944 /* HelpRedViewController.swift in Sources */,
 				A37FFB6A22EE95D90001DD27 /* WCWebViewDelegate.swift in Sources */,
 				A33D618A22FD0A6400B767F1 /* SettingPluginsViewController.swift in Sources */,
+				1E5E374F2CC4A153007F8944 /* NewsViewController.swift in Sources */,
 				1EF4E62E2CB54B28000F39E9 /* WalletViewController.swift in Sources */,
 				A352AD0D23064CFF00332B21 /* MomentBackground.swift in Sources */,
 				A3EE12442317D00D000F287C /* Fonts.swift in Sources */,
@@ -2783,6 +2971,8 @@
 				A3F9F182230EA0C50032299C /* SightCameraTouchDownView.swift in Sources */,
 				A34C7B0222F829FB00652B4F /* WCTableCellNode.swift in Sources */,
 				A3485FB322F03E29002A804B /* PayOfflinePayViewController.swift in Sources */,
+				1E5E377B2CC502E9007F8944 /* DNKAnimation.swift in Sources */,
+				1E5E377E2CC503EC007F8944 /* UICreate.m in Sources */,
 				A37221A322D5474A003403D4 /* ChatRoomTool.swift in Sources */,
 				A30807FB2314DB1500964126 /* ScrollActionSheetItemView.swift in Sources */,
 				A3CA522822CE1A8A00C67D92 /* MeTableModel.swift in Sources */,
@@ -2801,6 +2991,7 @@
 				A3E2000D230A6BCC005B2B70 /* NetworkCheckViewController.swift in Sources */,
 				A3B6889A2300E62C007273CD /* AboutFooterNode.swift in Sources */,
 				A3D99547230B9DEA00E4F628 /* FTSFavoriteCellNode.swift in Sources */,
+				1E5E37532CC4CF82007F8944 /* NewDetailsViewController.swift in Sources */,
 				1E5E372D2CC10D24007F8944 /* WXPayView.m in Sources */,
 				1E5E372E2CC10D24007F8944 /* WXInputView.m in Sources */,
 				A3FB0AA322F3D54500116329 /* VisualEffectView.swift in Sources */,
@@ -2815,6 +3006,7 @@
 				A3F89C43240F823100202710 /* UIViewController+Extensions.swift in Sources */,
 				A3B6889423004D2C007273CD /* RemarkPhoneNumberCellNode.swift in Sources */,
 				A374862A22D4383F002EEC4F /* ChatRoomViewController.swift in Sources */,
+				1E5E37512CC4A241007F8944 /* NewsCellNode.swift in Sources */,
 				A34760B622E6F2450043AE1D /* AlbumPickerTableViewCell.swift in Sources */,
 				A3913E97242726FD0083E7D3 /* WXColor.swift in Sources */,
 				A3D67FBF230FE24E00507B5F /* PublishMomentDragCollectionView.swift in Sources */,
@@ -2979,7 +3171,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
@@ -3003,7 +3195,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3083,7 +3275,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = INHOUSE;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -34,6 +34,11 @@ struct Constants {
         return iPhoneX ? 44.0: 20.0
     }
     
+    static var navigationHeight: CGFloat {
+        return iPhoneX ? 88.0: 64.0
+    }
+    
+    
     static let durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.calendar = Calendar(identifier: .chinese)
@@ -54,6 +59,7 @@ struct Constants {
     }
     
     static let BrandSessionName = "brandsessionholder"
+    static let GroupSessionName = "group"
     
     static let helpURL = URL(string: "https://kf.qq.com/touch/product/wechat_app.html?scene_id=kf338")
 

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 public extension String {
-    func addAttributed(font: UIFont, textColor: UIColor, lineSpacing: CGFloat, wordSpacing: Float) -> NSAttributedString {
+    func addAttributed(font: UIFont, textColor: UIColor, lineSpacing: CGFloat = 0, wordSpacing: Float = 0) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = lineSpacing
         let attributes: [NSAttributedString.Key: Any] = [
@@ -52,6 +52,24 @@ public extension String {
                 let nsRange = NSRange(range, in: self)
                 let size = unitSize ?? fontSize
                 mutableAttribtue.addAttribute(.font, value: UIFont.systemFont(ofSize: size, weight: .medium), range: nsRange)
+            }
+        }
+        return mutableAttribtue
+    }
+    func unitTextAttribute(textColor: UIColor = .black, fontSize: CGFloat, unitSize: CGFloat, unit: String, baseline: CGFloat = 0) -> NSAttributedString {
+        let paragraphStyle1 = NSMutableParagraphStyle()
+        
+        let mutableAttribtue = NSMutableAttributedString(string: self, attributes: [
+            .font: Fonts.font(.superScriptMedium, fontSize: fontSize)!,
+            .foregroundColor: textColor,
+            .paragraphStyle: paragraphStyle1
+        ])
+        if self.contains(unit) {
+            if let range = self.range(of: unit) {
+                let nsRange = NSRange(range, in: self)
+                let size = unitSize ?? fontSize
+                mutableAttribtue.addAttribute(.font, value: UIFont.systemFont(ofSize: size, weight: .medium), range: nsRange)
+                mutableAttribtue.addAttribute(.baselineOffset, value: baseline, range: nsRange)
             }
         }
         return mutableAttribtue
