@@ -7,6 +7,9 @@
 //
 
 #import "DNKApiUtils.h"
+#import <MJExtension.h>
+#import "NSString+AES.h"
+#import "NSString+Ext.h"
 #import <CommonCrypto/CommonCryptor.h>
 static NSString * identifierForVendorTag = @"identifierForVendor";
 
@@ -29,25 +32,29 @@ static NSString * identifierForVendorTag = @"identifierForVendor";
 //    
 //    return uniqueIdentifier;
 //}
-
-
+ 
 + (NSString *)encryptKey {
-    return @"df1acb570370615d7ee86de73cf66c6e";
+    return @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/VLbMOwpDVeQ9eHVhLM1UIkXlJbR22A4Z8myKvHLj80lfJrAJ7aP4lHwUNoiFe+tauhyJ5Zho1XwqO/iMxMU0RxVyTDkrKjxhxWhRnUJOYLQErSZme9FRlzgUxouRG0Yx4bXMHqIx3QPukCBGtTd3EpatBoUN30OqHj4LDHpk4QIDAQAB";
 }
-+ (NSString *)sign {
-    return @"d780d5f3c706851ad386e7d7acdaf6f7df1acb570370615d7ee86de73cf66c6e";
++ (NSString *)decryptAESKey {
+    return @"cl6uuegafuqv77pv";
 }
-+ (NSString *)authorization {
-    return @"d780d5f3c706851ad386e7d7acdaf6f7";
++ (NSString *)decryptAESOffset {
+    return @"pue9xsg75ru1y5jc";
 }
-+ (NSString *)rc4Key {
-    return @"df1acb570370615d7ee86de73cf66c6e";
-}
-
-+ (NSString *)aesKey {
-    return @"0a42f19954864f40a82fa853deaa24b0";
+ 
++ (NSString *)decryptDESOffset {
+    return @"Rf#6XaC#";
 }
 
++ (NSDictionary *)decryptResponseData:(NSDictionary *)responseData {
+    NSString *data = responseData[@"data"];
+    NSString *sign = responseData[@"sign"];
+    NSString *secretKey = [sign aci_decryptWithAESWithKey:[self decryptAESKey] iv:[self decryptAESOffset]];
+    NSString *json = [data decryptUseDESWithKey:secretKey offset:[self decryptDESOffset]];
+    NSLog(@"json: %@", json);
+    return @{};
+}
 
 #define DomainOfAppleToCheckNetwork @"http://captive.apple.com"
 #pragma mark - 检测网络是否真正可用

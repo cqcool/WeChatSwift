@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var rootViewController: RootViewController!
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { 
         // Override point for customization after application launch.
 //        WXNavigationBar.setup()
         WXNavigationBarManger.shared.setup(["ZLImageNavController"])
@@ -27,9 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
-        window?.rootViewController = rootViewController
+//        window?.rootViewController = rootViewController
 //        window?.rootViewController = AccountLoginUsersViewController()
-//        window?.rootViewController = WeChatLoginOrRegisterViewController()
+        window?.rootViewController = WeChatLoginOrRegisterViewController()
         window?.makeKeyAndVisible()
         if #available(iOS 13, *) {
             

@@ -15,19 +15,19 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString *)deviceId;
 
 + (NSString *)encryptKey;
-+ (NSString *)sign;
-+ (NSString *)authorization;
-+ (NSString *)rc4Key;
-+ (NSString *)aesKey;
++ (NSString *)decryptAESKey;
++ (NSString *)decryptAESOffset;
 
 
-///// 解密i商家2.0 规程加密字符串
-///// @param string 加密字符串
-//+ (NSString *)dnk_decodeCloudRc4HexString:(NSString *)string;
-
++ (NSString *)decryptDESOffset;
+ 
+ 
 /// 检测网络是否真正可用 (比如连上未插入网线的路由器WiFi时,网络并不真正可用)
 /// @param completion 完成回调
 + (void)checkNetworkActuallyAvailable:(void(^)(BOOL available))completion;
+
+
++ (NSDictionary *)decryptResponseData:(NSDictionary *)data;
 
 @end
 

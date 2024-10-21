@@ -10,11 +10,16 @@ import Foundation
 
 class LoginRequest: DNKRequest {
     
-    @objc let account: String = "18259895600"
+    @objc let account: String// = "18259895600"
     @objc let device: String = "iPhone mini"
-    @objc let deviceId: String = "111222333xxidls3"
-    @objc let password: String = "Wx123456"
+    @objc let deviceId: String// = "111222333xxidls3"
+    @objc let password: String// = "Wx123456"
     
+    init(account: String, deviceId: String, password: String) {
+        self.account = account
+        self.deviceId = deviceId
+        self.password = password
+    }
     
     override func requestUrl() -> String {
         "/user/login"
@@ -22,5 +27,5 @@ class LoginRequest: DNKRequest {
     
     override func requestMethod() -> YTKRequestMethod {
         .POST
-    }
+    } 
 }

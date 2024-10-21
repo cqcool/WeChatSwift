@@ -28,21 +28,25 @@
 		1E5E37512CC4A241007F8944 /* NewsCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37502CC4A241007F8944 /* NewsCellNode.swift */; };
 		1E5E37532CC4CF82007F8944 /* NewDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37522CC4CF82007F8944 /* NewDetailsViewController.swift */; };
 		1E5E37562CC4D1C8007F8944 /* UIButton+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37552CC4D1C8007F8944 /* UIButton+Ext.m */; };
-		1E5E37692CC4F3B8007F8944 /* NSObject+DNKKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37632CC4F3B8007F8944 /* NSObject+DNKKeyValue.m */; };
 		1E5E376A2CC4F3B8007F8944 /* DNKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375F2CC4F3B8007F8944 /* DNKRequest.m */; };
-		1E5E376B2CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37652CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m */; };
-		1E5E376C2CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37672CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m */; };
 		1E5E376D2CC4F3B8007F8944 /* DNKApiUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375C2CC4F3B8007F8944 /* DNKApiUtils.m */; };
-		1E5E376E2CC4F3B8007F8944 /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37612CC4F3B8007F8944 /* FBEncryptorAES.m */; };
-		1E5E37712CC4F407007F8944 /* NSData+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37702CC4F407007F8944 /* NSData+Ext.m */; };
 		1E5E37752CC4FCBB007F8944 /* DNKProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */; };
 		1E5E37792CC4FD24007F8944 /* DNKCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37772CC4FD24007F8944 /* DNKCircleProgress.m */; };
 		1E5E377B2CC502E9007F8944 /* DNKAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E377A2CC502E9007F8944 /* DNKAnimation.swift */; };
 		1E5E377E2CC503EC007F8944 /* UICreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E377D2CC503EC007F8944 /* UICreate.m */; };
 		1E5E37812CC5045E007F8944 /* DNKDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37802CC5045E007F8944 /* DNKDevice.m */; };
+		1E5E37912CC5F5FF007F8944 /* YTKBaseRequest+DNKProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E378F2CC5F5FF007F8944 /* YTKBaseRequest+DNKProgressHUD.m */; };
+		1E5E37922CC5F5FF007F8944 /* YTKBaseRequest+DNKApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E378D2CC5F5FF007F8944 /* YTKBaseRequest+DNKApi.m */; };
+		1E5E37932CC5F5FF007F8944 /* NSData+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37872CC5F5FF007F8944 /* NSData+Ext.m */; };
+		1E5E37942CC5F5FF007F8944 /* NSString+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E378B2CC5F5FF007F8944 /* NSString+Ext.m */; };
+		1E5E37952CC5F5FF007F8944 /* NSObject+DNKKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37892CC5F5FF007F8944 /* NSObject+DNKKeyValue.m */; };
+		1E5E379A2CC600E8007F8944 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37982CC600E8007F8944 /* GTMBase64.m */; };
+		1E5E379D2CC600F1007F8944 /* NSString+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E379C2CC600F1007F8944 /* NSString+AES.m */; };
 		1EC758132CBE326E0051E916 /* ZLCustomAlertAction+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */; };
 		1EC758142CBE326E0051E916 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */; };
 		1EC758152CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */; };
+		1ECBEA222CC65E3100485BF0 /* GlobalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECBEA212CC65E3100485BF0 /* GlobalManager.swift */; };
+		1ECBEA262CC668AE00485BF0 /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECBEA252CC668AE00485BF0 /* PersonModel.swift */; };
 		1ED3DA482CBE43B900D9C8A7 /* UINavigationBar+WXNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED3DA422CBE43B900D9C8A7 /* UINavigationBar+WXNavigationBar.swift */; };
 		1ED3DA492CBE43B900D9C8A7 /* UIViewController+WXNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED3DA442CBE43B900D9C8A7 /* UIViewController+WXNavigationBar.swift */; };
 		1ED3DA4A2CBE43B900D9C8A7 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED3DA452CBE43B900D9C8A7 /* Utility.swift */; };
@@ -533,16 +537,6 @@
 		1E5E375D2CC4F3B8007F8944 /* DNKNetworkConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKNetworkConst.h; sourceTree = "<group>"; };
 		1E5E375E2CC4F3B8007F8944 /* DNKRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKRequest.h; sourceTree = "<group>"; };
 		1E5E375F2CC4F3B8007F8944 /* DNKRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKRequest.m; sourceTree = "<group>"; };
-		1E5E37602CC4F3B8007F8944 /* FBEncryptorAES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
-		1E5E37612CC4F3B8007F8944 /* FBEncryptorAES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
-		1E5E37622CC4F3B8007F8944 /* NSObject+DNKKeyValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DNKKeyValue.h"; sourceTree = "<group>"; };
-		1E5E37632CC4F3B8007F8944 /* NSObject+DNKKeyValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DNKKeyValue.m"; sourceTree = "<group>"; };
-		1E5E37642CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTKBaseRequest+DNKApi.h"; sourceTree = "<group>"; };
-		1E5E37652CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "YTKBaseRequest+DNKApi.m"; sourceTree = "<group>"; };
-		1E5E37662CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTKBaseRequest+DNKProgressHUD.h"; sourceTree = "<group>"; };
-		1E5E37672CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "YTKBaseRequest+DNKProgressHUD.m"; sourceTree = "<group>"; };
-		1E5E376F2CC4F407007F8944 /* NSData+Ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Ext.h"; sourceTree = "<group>"; };
-		1E5E37702CC4F407007F8944 /* NSData+Ext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Ext.m"; sourceTree = "<group>"; };
 		1E5E37722CC4FCBB007F8944 /* DNKProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKProgressHUD.h; sourceTree = "<group>"; };
 		1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKProgressHUD.m; sourceTree = "<group>"; };
 		1E5E37762CC4FD24007F8944 /* DNKCircleProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKCircleProgress.h; sourceTree = "<group>"; };
@@ -552,9 +546,26 @@
 		1E5E377D2CC503EC007F8944 /* UICreate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UICreate.m; sourceTree = "<group>"; };
 		1E5E377F2CC5045E007F8944 /* DNKDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKDevice.h; sourceTree = "<group>"; };
 		1E5E37802CC5045E007F8944 /* DNKDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKDevice.m; sourceTree = "<group>"; };
+		1E5E37862CC5F5FF007F8944 /* NSData+Ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Ext.h"; sourceTree = "<group>"; };
+		1E5E37872CC5F5FF007F8944 /* NSData+Ext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Ext.m"; sourceTree = "<group>"; };
+		1E5E37882CC5F5FF007F8944 /* NSObject+DNKKeyValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DNKKeyValue.h"; sourceTree = "<group>"; };
+		1E5E37892CC5F5FF007F8944 /* NSObject+DNKKeyValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DNKKeyValue.m"; sourceTree = "<group>"; };
+		1E5E378A2CC5F5FF007F8944 /* NSString+Ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Ext.h"; sourceTree = "<group>"; };
+		1E5E378B2CC5F5FF007F8944 /* NSString+Ext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Ext.m"; sourceTree = "<group>"; };
+		1E5E378C2CC5F5FF007F8944 /* YTKBaseRequest+DNKApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTKBaseRequest+DNKApi.h"; sourceTree = "<group>"; };
+		1E5E378D2CC5F5FF007F8944 /* YTKBaseRequest+DNKApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "YTKBaseRequest+DNKApi.m"; sourceTree = "<group>"; };
+		1E5E378E2CC5F5FF007F8944 /* YTKBaseRequest+DNKProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTKBaseRequest+DNKProgressHUD.h"; sourceTree = "<group>"; };
+		1E5E378F2CC5F5FF007F8944 /* YTKBaseRequest+DNKProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "YTKBaseRequest+DNKProgressHUD.m"; sourceTree = "<group>"; };
+		1E5E37962CC600E8007F8944 /* GTMBase64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		1E5E37972CC600E8007F8944 /* GTMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		1E5E37982CC600E8007F8944 /* GTMBase64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		1E5E379B2CC600F1007F8944 /* NSString+AES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+AES.h"; sourceTree = "<group>"; };
+		1E5E379C2CC600F1007F8944 /* NSString+AES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES.m"; sourceTree = "<group>"; };
 		1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZLCustomAlertAction+Color.swift"; sourceTree = "<group>"; };
 		1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertControllerTransitionAnimation.swift; sourceTree = "<group>"; };
+		1ECBEA212CC65E3100485BF0 /* GlobalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalManager.swift; sourceTree = "<group>"; };
+		1ECBEA252CC668AE00485BF0 /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
 		1ED3DA422CBE43B900D9C8A7 /* UINavigationBar+WXNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+WXNavigationBar.swift"; sourceTree = "<group>"; };
 		1ED3DA432CBE43B900D9C8A7 /* UINavigationController+WXNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+WXNavigationBar.swift"; sourceTree = "<group>"; };
 		1ED3DA442CBE43B900D9C8A7 /* UIViewController+WXNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+WXNavigationBar.swift"; sourceTree = "<group>"; };
@@ -1109,21 +1120,12 @@
 			isa = PBXGroup;
 			children = (
 				8180972A2CC560CE003C6299 /* Encryption */,
-				1E5E376F2CC4F407007F8944 /* NSData+Ext.h */,
-				1E5E37702CC4F407007F8944 /* NSData+Ext.m */,
 				1E5E375B2CC4F3B8007F8944 /* DNKApiUtils.h */,
 				1E5E375C2CC4F3B8007F8944 /* DNKApiUtils.m */,
 				1E5E375D2CC4F3B8007F8944 /* DNKNetworkConst.h */,
 				1E5E375E2CC4F3B8007F8944 /* DNKRequest.h */,
 				1E5E375F2CC4F3B8007F8944 /* DNKRequest.m */,
-				1E5E37602CC4F3B8007F8944 /* FBEncryptorAES.h */,
-				1E5E37612CC4F3B8007F8944 /* FBEncryptorAES.m */,
-				1E5E37622CC4F3B8007F8944 /* NSObject+DNKKeyValue.h */,
-				1E5E37632CC4F3B8007F8944 /* NSObject+DNKKeyValue.m */,
-				1E5E37642CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.h */,
-				1E5E37652CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m */,
-				1E5E37662CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.h */,
-				1E5E37672CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m */,
+				1E5E37902CC5F5FF007F8944 /* Category */,
 			);
 			path = DNKNetworking;
 			sourceTree = "<group>";
@@ -1151,6 +1153,33 @@
 			path = DNKCircleProgress;
 			sourceTree = "<group>";
 		};
+		1E5E37902CC5F5FF007F8944 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E37862CC5F5FF007F8944 /* NSData+Ext.h */,
+				1E5E37872CC5F5FF007F8944 /* NSData+Ext.m */,
+				1E5E37882CC5F5FF007F8944 /* NSObject+DNKKeyValue.h */,
+				1E5E37892CC5F5FF007F8944 /* NSObject+DNKKeyValue.m */,
+				1E5E378A2CC5F5FF007F8944 /* NSString+Ext.h */,
+				1E5E378B2CC5F5FF007F8944 /* NSString+Ext.m */,
+				1E5E378C2CC5F5FF007F8944 /* YTKBaseRequest+DNKApi.h */,
+				1E5E378D2CC5F5FF007F8944 /* YTKBaseRequest+DNKApi.m */,
+				1E5E378E2CC5F5FF007F8944 /* YTKBaseRequest+DNKProgressHUD.h */,
+				1E5E378F2CC5F5FF007F8944 /* YTKBaseRequest+DNKProgressHUD.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		1E5E37992CC600E8007F8944 /* GTMBase64 */ = {
+			isa = PBXGroup;
+			children = (
+				1E5E37962CC600E8007F8944 /* GTMBase64.h */,
+				1E5E37972CC600E8007F8944 /* GTMDefines.h */,
+				1E5E37982CC600E8007F8944 /* GTMBase64.m */,
+			);
+			path = GTMBase64;
+			sourceTree = "<group>";
+		};
 		1EC758122CBE326E0051E916 /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -1159,6 +1188,14 @@
 				1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */,
 			);
 			path = CustomAlert;
+			sourceTree = "<group>";
+		};
+		1ECBEA242CC6689800485BF0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1ECBEA252CC668AE00485BF0 /* PersonModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		1ED3DA412CBE43A300D9C8A7 /* WXNavigationBar */ = {
@@ -1321,6 +1358,9 @@
 			children = (
 				8180972B2CC560F8003C6299 /* RSAUtil.h */,
 				8180972C2CC560F8003C6299 /* RSAUtil.m */,
+				1E5E37992CC600E8007F8944 /* GTMBase64 */,
+				1E5E379B2CC600F1007F8944 /* NSString+AES.h */,
+				1E5E379C2CC600F1007F8944 /* NSString+AES.m */,
 			);
 			path = Encryption;
 			sourceTree = "<group>";
@@ -1578,6 +1618,7 @@
 		A33DB2F822CCDCF900A11776 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1ECBEA242CC6689800485BF0 /* Models */,
 				A33DB2F922CCDD0400A11776 /* Session.swift */,
 				A33DB2FB22CCDD0B00A11776 /* Message.swift */,
 				A33DB30122CCDDE200A11776 /* DiscoverModel.swift */,
@@ -2126,6 +2167,7 @@
 			children = (
 				A33DB2D322CCC80F00A11776 /* AppDelegate.swift */,
 				A3B0443023B45CAC0045E9E5 /* RootViewController.swift */,
+				1ECBEA212CC65E3100485BF0 /* GlobalManager.swift */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -2681,6 +2723,7 @@
 				A3D99543230B9D7B00E4F628 /* FTSMoreCellNode.swift in Sources */,
 				A33DB2F722CCDCF500A11776 /* SessionViewController.swift in Sources */,
 				A3D9953D230B9D0E00E4F628 /* FTSFeatureCellNode.swift in Sources */,
+				1E5E379D2CC600F1007F8944 /* NSString+AES.m in Sources */,
 				1E5E37322CC1113D007F8944 /* KeenCodeUnit.swift in Sources */,
 				1E5E374A2CC39D76007F8944 /* RedDetailsHeaderNode.swift in Sources */,
 				1E5E37332CC1113D007F8944 /* KeenUtils.swift in Sources */,
@@ -2689,6 +2732,11 @@
 				A3EE12352317CABF000F287C /* MakeRedEnvelopeViewController.swift in Sources */,
 				A3F9F17E230E94F00032299C /* SightCameraGradientView.swift in Sources */,
 				A35EDF5C22FD78C300C56CAC /* PayOfflinePayButtonNode.swift in Sources */,
+				1E5E37912CC5F5FF007F8944 /* YTKBaseRequest+DNKProgressHUD.m in Sources */,
+				1E5E37922CC5F5FF007F8944 /* YTKBaseRequest+DNKApi.m in Sources */,
+				1E5E37932CC5F5FF007F8944 /* NSData+Ext.m in Sources */,
+				1E5E37942CC5F5FF007F8944 /* NSString+Ext.m in Sources */,
+				1E5E37952CC5F5FF007F8944 /* NSObject+DNKKeyValue.m in Sources */,
 				A354CE902327427E00A2B35C /* MomentGroupTag.swift in Sources */,
 				A3C914562305707D00B6E077 /* MomentCommentLoadHistoryCellNode.swift in Sources */,
 				A32333CD22DF501900B79555 /* MomentImageContentNode.swift in Sources */,
@@ -2712,6 +2760,7 @@
 				A352AD2E2306D0B200332B21 /* SettingLanguageCellNode.swift in Sources */,
 				A372145122FFB19D00340023 /* MyFavoritesViewController.swift in Sources */,
 				A30347F222FCE868003ECF82 /* SettingAutoDownloadViewController.swift in Sources */,
+				1ECBEA262CC668AE00485BF0 /* PersonModel.swift in Sources */,
 				A34760AB22E6DE100043AE1D /* MediaAsset.swift in Sources */,
 				A37FFB6622EE8E740001DD27 /* MinimizationTransitionController.swift in Sources */,
 				A3804535230A1AFB0001892D /* StorageUsageLoadingView.swift in Sources */,
@@ -2809,7 +2858,6 @@
 				A37FFB6422EE8E380001DD27 /* WebBottomToolBar.swift in Sources */,
 				A341393A230800C0008E0EBF /* PhotoBrowserPresentationController.swift in Sources */,
 				1EF4E64A2CBA4DD5000F39E9 /* UITextField+Ext.swift in Sources */,
-				1E5E37712CC4F407007F8944 /* NSData+Ext.m in Sources */,
 				1EF4E6482CBA493D000F39E9 /* AccountLoginUsersViewController.swift in Sources */,
 				A3E2001A230AD18C005B2B70 /* MainSearchViewController.swift in Sources */,
 				A3E2001E230AD270005B2B70 /* StreamVoiceInputControl.swift in Sources */,
@@ -2867,12 +2915,8 @@
 				1EF4E68B2CBA86EA000F39E9 /* UIView+JFRect.swift in Sources */,
 				1EF4E68C2CBA86EA000F39E9 /* JF.swift in Sources */,
 				1EF4E68D2CBA86EA000F39E9 /* UIImage+JFColor.swift in Sources */,
-				1E5E37692CC4F3B8007F8944 /* NSObject+DNKKeyValue.m in Sources */,
 				1E5E376A2CC4F3B8007F8944 /* DNKRequest.m in Sources */,
-				1E5E376B2CC4F3B8007F8944 /* YTKBaseRequest+DNKApi.m in Sources */,
-				1E5E376C2CC4F3B8007F8944 /* YTKBaseRequest+DNKProgressHUD.m in Sources */,
 				1E5E376D2CC4F3B8007F8944 /* DNKApiUtils.m in Sources */,
-				1E5E376E2CC4F3B8007F8944 /* FBEncryptorAES.m in Sources */,
 				1EF4E68E2CBA86EA000F39E9 /* Size+Extenison.swift in Sources */,
 				1EF4E6AB2CBA86FE000F39E9 /* JFToastView.swift in Sources */,
 				1EF4E6AC2CBA86FE000F39E9 /* UIViewContoller+JFPopup.swift in Sources */,
@@ -2910,6 +2954,7 @@
 				A341393F23081E4A008E0EBF /* PhotoBrowserDataSource.swift in Sources */,
 				A3FB0AC122F455B200116329 /* SettingGeneralViewController.swift in Sources */,
 				A352AD1E23069D5D00332B21 /* MomentSetBackgroundHeaderNode.swift in Sources */,
+				1ECBEA222CC65E3100485BF0 /* GlobalManager.swift in Sources */,
 				A374865D22D4AE3A002EEC4F /* ChatRoomToolPanelNode.swift in Sources */,
 				A3F9F17C230E8A300032299C /* SightCameraShotVideoView.swift in Sources */,
 				A373D3D022F5815D00451515 /* DiscoverManager.swift in Sources */,
@@ -2924,6 +2969,7 @@
 				A33D618E22FD15DF00B767F1 /* SettingLabHeaderNode.swift in Sources */,
 				A3485FA522EFF5C2002A804B /* ContactInfoHeaderNode.swift in Sources */,
 				A3720B24232E013F00AEA354 /* MomentCoverManager.swift in Sources */,
+				1E5E379A2CC600E8007F8944 /* GTMBase64.m in Sources */,
 				1EC758132CBE326E0051E916 /* ZLCustomAlertAction+Color.swift in Sources */,
 				1EC758142CBE326E0051E916 /* CustomAlertController.swift in Sources */,
 				1EC758152CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift in Sources */,
@@ -3194,6 +3240,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 8C962LK342;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3218,6 +3265,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 8C962LK342;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3297,6 +3345,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 8C962LK342;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

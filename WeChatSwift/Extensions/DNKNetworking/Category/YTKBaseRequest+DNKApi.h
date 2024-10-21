@@ -9,6 +9,7 @@
 #import "YTKBaseRequest.h"
 #import <YTKNetwork.h>
 #import "YTKBaseRequest+DNKProgressHUD.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -32,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 动态构建接口参数(未加密)
 - (NSDictionary *)dnk_dynamicBuildParameter;
 
-- (NSDictionary *)dnk_encryptParm:(NSString *)parmJson; 
+//- (NSDictionary *)dnk_encryptParm:(NSString *)parmJson; 
 /// 请求头
 - (NSDictionary<NSString *, NSString *> *)dnk_requestHeader;
 
@@ -48,17 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
                 showFailureHUD:(BOOL)showFailureHUD
                        success:(nullable YTKRequestCompletionBlock)success
                        failure:(nullable YTKRequestCompletionBlock)failure;
-
-#pragma mark -
-#pragma mark -- 二维码使用
-
-/// 解密 非标准rc4 字符串
-/// @param hexString 服务器返回的16进制 字符串
-+ (NSString *)dnk_decodeQrRc4HexString:(NSString *)hexString;
-
-/// 加密 非标准rc4 字符串
-/// @param string 参数字符串
-+ (NSString *)dnk_encryptQrString:(NSString *)string;
 
 @end
 

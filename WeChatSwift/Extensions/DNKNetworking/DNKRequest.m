@@ -8,8 +8,9 @@
 
 #import "DNKRequest.h"
 #import "RSAUtil.h"
-
-static NSString * RSAKEY = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/VLbMOwpDVeQ9eHVhLM1UIkXlJbR22A4Z8myKvHLj80lfJrAJ7aP4lHwUNoiFe+tauhyJ5Zho1XwqO/iMxMU0RxVyTDkrKjxhxWhRnUJOYLQErSZme9FRlzgUxouRG0Yx4bXMHqIx3QPukCBGtTd3EpatBoUN30OqHj4LDHpk4QIDAQAB";
+#import "DNKApiUtils.h"
+#import "WeChatSwift-Swift.h"
+ 
 @interface DNKRequest()
 @end
 
@@ -36,46 +37,48 @@ static NSString * RSAKEY = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/VLbMOwpDVeQ
     if (_param == nil) {
         return nil;
     }
-    YTKRequestMethod method = [self requestMethod];
-    if (method == YTKRequestMethodPOST) {
-        NSString *json = _param.mj_JSONString;
-        NSLog(@"%@", json);
-        NSString *sign = [RSAUtil encryptString:json publicKey:RSAKEY];
-        if (sign != nil) {
-            return @{@"sign": sign};
+    NSLog(@"\n*** request \n*** Url:%@ \n*** params:%@",self.requestUrl, _param.mj_JSONString);
+    if ([GlobalManager manager].isEncry) {
+        YTKRequestMethod method = [self requestMethod];
+        if (method == YTKRequestMethodPOST) {
+            NSString *json = _param.mj_JSONString;
+            NSLog(@"%@", json);
+            NSString *sign = [RSAUtil encryptString:json publicKey:DNKApiUtils.encryptKey];
+            if (sign != nil) {
+                return @{@"sign": sign};
+            }
+            return _param;
         }
-        
-        return _param;
     }
     
     
     // 使用排序选择器进行排序
-    NSArray *sortedArray = [_param.allKeys sortedArrayUsingComparator:^NSComparisonResult(id string1, id string2) {
-        return [string1 compare:string2 options:NSCaseInsensitiveSearch];
-    }];
+//    NSArray *sortedArray = [_param.allKeys sortedArrayUsingComparator:^NSComparisonResult(id string1, id string2) {
+//        return [string1 compare:string2 options:NSCaseInsensitiveSearch];
+//    }];
     
     // 输出排序后的数组
-    NSLog(@"Sorted array: %@", sortedArray);
+//    NSLog(@"Sorted array: %@", sortedArray);
 //    NSMutableString *mStr = [NSMutableString string];
 //    [_param.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
 //        [mStr appendFormat:@"%@%=@"];
 //    }];
     
-    NSLog(@"\n*** request \n*** Url:%@ \n*** params:%@",self.requestUrl, _param.mj_JSONString);
-    _encryptParam = [self dnk_encryptParm:_param.mj_JSONString];
-    return _encryptParam;
+//    NSLog(@"\n*** request \n*** Url:%@ \n*** params:%@",self.requestUrl, _param.mj_JSONString);
+//    _encryptParam = [self dnk_encryptParm:_param.mj_JSONString];
+    return _param;
 }
 
 - (NSDictionary<NSString *, NSString *> *)requestHeaderFieldValueDictionary {
     NSDictionary *headerMap = [self dnk_requestHeader].mutableCopy;
     NSLog(@"\n*** request \n*** Url:%@ \n*** header:%@",self.requestUrl, headerMap.mj_JSONString);
-    YTKRequestMethod method = [self requestMethod];
-    if (method == YTKRequestMethodGET) {
-        NSDictionary *params = [self requestArgument];
-        if (params != nil) {
-            
-        }
-    }
+//    YTKRequestMethod method = [self requestMethod];
+//    if (method == YTKRequestMethodGET) {
+//        NSDictionary *params = [self requestArgument];
+//        if (params != nil) {
+//            
+//        }
+//    }
     
     return headerMap;
 }

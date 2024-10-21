@@ -26,6 +26,8 @@ target 'WeChatSwift' do
   pod 'MJExtension'
   pod 'MBProgressHUD'
   pod 'Masonry'
+  
+  pod 'SwiftyJSON', '~> 4.0'
 #  pod 'KLCPopup'
 #  pod 'SDWebImage', '5.10.2'
 #  pod 'MBProgressHUD', '1.1.0'

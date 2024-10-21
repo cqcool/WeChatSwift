@@ -43,6 +43,7 @@ PODS:
   - SSZipArchive (2.4.3)
   - SVGKit (2.1.0):
     - CocoaLumberjack (~> 3.0)
+  - SwiftyJSON (4.3.0)
   - Texture (3.1.0):
     - Texture/AssetsLibrary (= 3.1.0)
     - Texture/Core (= 3.1.0)
@@ -87,6 +88,7 @@ DEPENDENCIES:
   - SnapKit (~> 5.6.0)
   - SSZipArchive
   - SVGKit (from `DevelopmentPods/SVGKit`)
+  - SwiftyJSON (~> 4.0)
   - Texture
   - WCDB.swift
   - WXActionSheet
@@ -111,6 +113,7 @@ SPEC REPOS:
     - SnapKit
     - SQLiteRepairKit
     - SSZipArchive
+    - SwiftyJSON
     - Texture
     - WCDB.swift
     - WCDBOptimizedSQLCipher
@@ -151,6 +154,7 @@ SPEC CHECKSUMS:
   SQLiteRepairKit: a66145aadae91886c800f75e16f5cc6476af1a93
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVGKit: eb32a7710074d7c543d70a745634a4358bda66ee
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
   WCDB.swift: 39e28fe29b5a3bf2927d9fb9218978f19bd49ff0
   WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
@@ -159,6 +163,6 @@ SPEC CHECKSUMS:
   YTKNetwork: c16be90b06be003de9e9cd0d3b187cc8eaf35c04
   ZLPhotoBrowser: 6fb0eff03c8269001e29ef233e7bdab0691e05fe
 
-PODFILE CHECKSUM: 4f10c15b792554c708fed70b5c3db5d3f0fa65da
+PODFILE CHECKSUM: fec4e12db3bc6dc815c5ccefc72c97f1843fb627
 
 COCOAPODS: 1.15.2
