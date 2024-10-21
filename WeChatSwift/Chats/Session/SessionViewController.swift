@@ -175,6 +175,9 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: false)
+        
+        let api = LoginRequest()
+        api.start()
 //        navigationController?.pushViewController(MakeRedEnvelopeViewController(), animated: true)
 //        let vc = NewsViewController()
 //        navigationController?.pushViewController(vc, animated: true)

@@ -7,7 +7,9 @@
 //
 
 #import "DNKRequest.h"
+#import "RSAUtil.h"
 
+static NSString * RSAKEY = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/VLbMOwpDVeQ9eHVhLM1UIkXlJbR22A4Z8myKvHLj80lfJrAJ7aP4lHwUNoiFe+tauhyJ5Zho1XwqO/iMxMU0RxVyTDkrKjxhxWhRnUJOYLQErSZme9FRlzgUxouRG0Yx4bXMHqIx3QPukCBGtTd3EpatBoUN30OqHj4LDHpk4QIDAQAB";
 @interface DNKRequest()
 @end
 
@@ -17,16 +19,33 @@
 }
 
 #pragma mark - Override
+
+- (NSString *)baseUrl {
+    return @"http://47.237.119.236:6001";
+}
+
 - (YTKRequestMethod)requestMethod {
     return YTKRequestMethodPOST;
 }
 - (NSTimeInterval)requestTimeoutInterval {
     return 10;
 }
+ 
 - (nullable id)requestArgument {
     _param = [self dnk_dynamicBuildParameter];
     if (_param == nil) {
-        return nil
+        return nil;
+    }
+    YTKRequestMethod method = [self requestMethod];
+    if (method == YTKRequestMethodPOST) {
+        NSString *json = _param.mj_JSONString;
+        NSLog(@"%@", json);
+        NSString *sign = [RSAUtil encryptString:json publicKey:RSAKEY];
+        if (sign != nil) {
+            return @{@"sign": sign};
+        }
+        
+        return _param;
     }
     
     
@@ -37,10 +56,10 @@
     
     // 输出排序后的数组
     NSLog(@"Sorted array: %@", sortedArray);
-    
-    _param.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        
-    }
+//    NSMutableString *mStr = [NSMutableString string];
+//    [_param.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//        [mStr appendFormat:@"%@%=@"];
+//    }];
     
     NSLog(@"\n*** request \n*** Url:%@ \n*** params:%@",self.requestUrl, _param.mj_JSONString);
     _encryptParam = [self dnk_encryptParm:_param.mj_JSONString];
@@ -48,8 +67,16 @@
 }
 
 - (NSDictionary<NSString *, NSString *> *)requestHeaderFieldValueDictionary {
-    NSDictionary *headerMap = [self dnk_requestHeader];
+    NSDictionary *headerMap = [self dnk_requestHeader].mutableCopy;
     NSLog(@"\n*** request \n*** Url:%@ \n*** header:%@",self.requestUrl, headerMap.mj_JSONString);
+    YTKRequestMethod method = [self requestMethod];
+    if (method == YTKRequestMethodGET) {
+        NSDictionary *params = [self requestArgument];
+        if (params != nil) {
+            
+        }
+    }
+    
     return headerMap;
 }
 

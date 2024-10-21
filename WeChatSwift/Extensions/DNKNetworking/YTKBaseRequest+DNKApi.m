@@ -67,6 +67,9 @@
 }
 - (NSDictionary<NSString *, NSString *> *)dnk_requestHeader {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    dict[@"h"] = @"011001010001";
+//    dict[@"isEnabled"] = @(NO);
 //    NSString *token = [[NSUserDefaults standardUserDefaults] valueForKey:kAccessTokenKey];
 //    NSString *bearer = [NSString stringWithFormat:@"bearer %@",token];
 //    [dict setObject:bearer forKey:@"Authorization"];

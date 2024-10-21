@@ -91,6 +91,9 @@
 		1EF4E6BE2CBA86FE000F39E9 /* fail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4E6A62CBA86FE000F39E9 /* fail@2x.png */; };
 		1EF4E6C22CBCF984000F39E9 /* MyProfileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6C12CBCF984000F39E9 /* MyProfileSection.swift */; };
 		1EF4E6C42CBCFD35000F39E9 /* MyProfileCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6C32CBCFD35000F39E9 /* MyProfileCellNode.swift */; };
+		8180972D2CC560F8003C6299 /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8180972C2CC560F8003C6299 /* RSAUtil.m */; };
+		818097302CC565A3003C6299 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180972F2CC565A3003C6299 /* LoginAPI.swift */; };
+		818097332CC565E5003C6299 /* xxx.m in Sources */ = {isa = PBXBuildFile; fileRef = 818097322CC565E5003C6299 /* xxx.m */; };
 		A30347F222FCE868003ECF82 /* SettingAutoDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */; };
 		A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */; };
 		A30347F922FF9983003ECF82 /* BrandContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */; };
@@ -601,6 +604,11 @@
 		1EF4E6A82CBA86FE000F39E9 /* success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success@2x.png"; sourceTree = "<group>"; };
 		1EF4E6C12CBCF984000F39E9 /* MyProfileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileSection.swift; sourceTree = "<group>"; };
 		1EF4E6C32CBCFD35000F39E9 /* MyProfileCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileCellNode.swift; sourceTree = "<group>"; };
+		8180972B2CC560F8003C6299 /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
+		8180972C2CC560F8003C6299 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
+		8180972F2CC565A3003C6299 /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
+		818097312CC565E5003C6299 /* xxx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xxx.h; sourceTree = "<group>"; };
+		818097322CC565E5003C6299 /* xxx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = xxx.m; sourceTree = "<group>"; };
 		A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAutoDownloadViewController.swift; sourceTree = "<group>"; };
 		A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCTableCellModel.swift; sourceTree = "<group>"; };
 		A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandContactsViewController.swift; sourceTree = "<group>"; };
@@ -1100,6 +1108,7 @@
 		1E5E37682CC4F3B8007F8944 /* DNKNetworking */ = {
 			isa = PBXGroup;
 			children = (
+				8180972A2CC560CE003C6299 /* Encryption */,
 				1E5E376F2CC4F407007F8944 /* NSData+Ext.h */,
 				1E5E37702CC4F407007F8944 /* NSData+Ext.m */,
 				1E5E375B2CC4F3B8007F8944 /* DNKApiUtils.h */,
@@ -1307,6 +1316,25 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8180972A2CC560CE003C6299 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				8180972B2CC560F8003C6299 /* RSAUtil.h */,
+				8180972C2CC560F8003C6299 /* RSAUtil.m */,
+			);
+			path = Encryption;
+			sourceTree = "<group>";
+		};
+		8180972E2CC56566003C6299 /* WXRequest */ = {
+			isa = PBXGroup;
+			children = (
+				8180972F2CC565A3003C6299 /* LoginAPI.swift */,
+				818097312CC565E5003C6299 /* xxx.h */,
+				818097322CC565E5003C6299 /* xxx.m */,
+			);
+			path = WXRequest;
+			sourceTree = "<group>";
+		};
 		A30347F722FF995C003ECF82 /* BrandContacts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1403,6 +1431,7 @@
 		A33DB2D222CCC80F00A11776 /* WeChatSwift */ = {
 			isa = PBXGroup;
 			children = (
+				8180972E2CC56566003C6299 /* WXRequest */,
 				A3CA51A422CD998C00C67D92 /* AppDelegate */,
 				A3E2000E230A71C2005B2B70 /* Account */,
 				A3CA51F922CDA87100C67D92 /* Context */,
@@ -2635,6 +2664,7 @@
 				A33DB2F322CCD16D00A11776 /* MeViewController.swift in Sources */,
 				A37FFB6C22EE95F20001DD27 /* WCWebViewScriptMessageHandler.swift in Sources */,
 				A3476FF522FA9827001B94EC /* UITabBar+Fix.swift in Sources */,
+				8180972D2CC560F8003C6299 /* RSAUtil.m in Sources */,
 				A3B6888E23004A3F007273CD /* RemarkViewController.swift in Sources */,
 				A352AD092306492E00332B21 /* MomentCoverCustomizeViewController.swift in Sources */,
 				A3E840D4231CF07B00EAC4CE /* AppConfiguration.swift in Sources */,
@@ -2943,6 +2973,7 @@
 				A34139302307DB77008E0EBF /* PurchasedEmoticonViewController.swift in Sources */,
 				A374864422D44C56002EEC4F /* VideoContentNode.swift in Sources */,
 				A3485FB022F021B1002A804B /* QRCodeCardNode.swift in Sources */,
+				818097302CC565A3003C6299 /* LoginAPI.swift in Sources */,
 				A33DB30022CCDDBD00A11776 /* DiscoverViewController.swift in Sources */,
 				1E5E37432CC2564C007F8944 /* ChatRootLogoutCellNode.swift in Sources */,
 				A3542F55230D81810034ED82 /* EmoticonDetailRewardEntranceNode.swift in Sources */,
@@ -2975,6 +3006,7 @@
 				1E5E377E2CC503EC007F8944 /* UICreate.m in Sources */,
 				A37221A322D5474A003403D4 /* ChatRoomTool.swift in Sources */,
 				A30807FB2314DB1500964126 /* ScrollActionSheetItemView.swift in Sources */,
+				818097332CC565E5003C6299 /* xxx.m in Sources */,
 				A3CA522822CE1A8A00C67D92 /* MeTableModel.swift in Sources */,
 				A3F9EFFF230E66DD0032299C /* ChatRoomEmoticonPreviewBottomNode.swift in Sources */,
 				A37FFB6822EE92210001DD27 /* WCWebView.swift in Sources */,
