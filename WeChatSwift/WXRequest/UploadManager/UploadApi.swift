@@ -40,16 +40,5 @@ class UploadRequest: DNKRequest {
     override func requestMethod() -> YTKRequestMethod {
         .GET
     }
-    
-    override func requestArgument() -> Any? {
-        return nil
-    }
-    
-//    override func dnk_requestHeader() -> [String : String] {
-//        var header = super.dnk_requestHeader()
-//        header["number"] = "\(number)"
-//        header["prefixType"] = "\(prefixType.rawValue)"
-//        header["type"] = "\(type.rawValue)"
-//        return header
-//    }
+ 
 }

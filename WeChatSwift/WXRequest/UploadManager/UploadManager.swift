@@ -8,11 +8,11 @@
 
 import Foundation
 //import AliyunOSSSwiftSDK
-//import AliyunOSSiOS
+import AliyunOSSiOS
 
 typealias UploadResult = ((_ error: NSError?)->Void)
 
-//let ourLogLevel = OSSDDLogLevel.verbose
+let ourLogLevel = OSSDDLogLevel.verbose
 @objcMembers
 class UploadManager: NSObject {
     static let manager = UploadManager()
@@ -45,65 +45,65 @@ class UploadManager: NSObject {
 
     }
     func uploadAvatar(image: UIImage, imageName: String) {
-//        let request = OSSPutObjectRequest()
-//        request.uploadingData = image.pngData()!
-//        request.bucketName = self.yunModel?.bucketName ?? ""
-//        request.objectKey = imageName
-//        request.uploadProgress = { (bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) -> Void in
-//            print("bytesSent:\(bytesSent),totalBytesSent:\(totalBytesSent),totalBytesExpectedToSend:\(totalBytesExpectedToSend)");
-//        };
-//        
-//        let provider = OSSFederationTokenCredentialProvider {
-//            let tcs = TaskCompletionSource()
-//            DispatchQueue(label: "test").async {
-//                Thread.sleep(forTimeInterval: 10)
-//                let token = OSSFederationToken()
-//                token.tAccessKey = self.yunModel?.accessKeyId ?? ""//"STS.tAccessKey"
-//                token.tSecretKey = self.yunModel?.accessKeySecret ?? ""//"tSecretKey"
-//                token.tToken = self.yunModel?.securityToken ?? ""//"tToken"
-//                token.expirationTimeInGMTFormat = self.yunModel?.expiration ?? ""
-//                tcs.trySetResult(token)
-//            }
-//            tcs.wait(timeout: 5)
-//            if let error = tcs.task.error {
-//                let nsError = error as NSError
-//                if nsError.code == OSSClientErrorCODE.codeNotKnown.rawValue,
-//                   let errorMessage = nsError.userInfo[OSSErrorMessageTOKEN] as? String,
-//                   errorMessage == "TaskCompletionSource wait timeout." {
-//                    // 超时错误
-//                }
-//                throw error
-//            } else if let result = tcs.task.result as? OSSFederationToken {
-//                return result
-//            }
-//            throw NSError(domain: OSSClientErrorDomain,
-//                          code: OSSClientErrorCODE.codeSignFailed.rawValue,
-//                          userInfo: [OSSErrorMessageTOKEN : "Can not get FederationToken."])
-//        }
-//        
-//        let client = OSSClient(endpoint: self.yunModel?.endpoint ?? "", credentialProvider: provider)
-//        let task = client.putObject(request)
-//        task.continue({ (t) -> Any? in
-//            if (t.error != nil) {
-//                let error: NSError = (t.error)! as NSError
-//                self.result?(error)
-//                self.result = nil
-////                self.ossAlert(title: "error", message: error.description)
-//            } else {
-//                let resultT = t.result
-//                print("resultT: \(resultT?.description)")
-//                self.result?(nil)
-//                self.result = nil
-////                self.ossAlert(title: "notice", message: result?.description)
-//            }
-//            return
-//        }).waitUntilFinished()
+        let request = OSSPutObjectRequest()
+        request.uploadingData = image.pngData()!
+        request.bucketName = self.yunModel?.bucketName ?? ""
+        request.objectKey = imageName
+        request.uploadProgress = { (bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) -> Void in
+            print("bytesSent:\(bytesSent),totalBytesSent:\(totalBytesSent),totalBytesExpectedToSend:\(totalBytesExpectedToSend)");
+        };
+        
+        let provider = OSSFederationTokenCredentialProvider {
+            let tcs = TaskCompletionSource()
+            DispatchQueue(label: "test").async {
+                Thread.sleep(forTimeInterval: 10)
+                let token = OSSFederationToken()
+                token.tAccessKey = self.yunModel?.accessKeyId ?? ""//"STS.tAccessKey"
+                token.tSecretKey = self.yunModel?.accessKeySecret ?? ""//"tSecretKey"
+                token.tToken = self.yunModel?.securityToken ?? ""//"tToken"
+                token.expirationTimeInGMTFormat = self.yunModel?.expiration ?? ""
+                tcs.trySetResult(token)
+            }
+            tcs.wait(timeout: 5)
+            if let error = tcs.task.error {
+                let nsError = error as NSError
+                if nsError.code == OSSClientErrorCODE.codeNotKnown.rawValue,
+                   let errorMessage = nsError.userInfo[OSSErrorMessageTOKEN] as? String,
+                   errorMessage == "TaskCompletionSource wait timeout." {
+                    // 超时错误
+                }
+                throw error
+            } else if let result = tcs.task.result as? OSSFederationToken {
+                return result
+            }
+            throw NSError(domain: OSSClientErrorDomain,
+                          code: OSSClientErrorCODE.codeSignFailed.rawValue,
+                          userInfo: [OSSErrorMessageTOKEN : "Can not get FederationToken."])
+        }
+        
+        let client = OSSClient(endpoint: self.yunModel?.endpoint ?? "", credentialProvider: provider)
+        let task = client.putObject(request)
+        task.continue({ (t) -> Any? in
+            if (t.error != nil) {
+                let error: NSError = (t.error)! as NSError
+                self.result?(error)
+                self.result = nil
+//                self.ossAlert(title: "error", message: error.description)
+            } else {
+                let resultT = t.result
+                print("resultT: \(resultT?.description)")
+                self.result?(nil)
+                self.result = nil
+//                self.ossAlert(title: "notice", message: result?.description)
+            }
+            return
+        }).waitUntilFinished()
     }
     
     
     func setup() {
-//        OSSDDLog.removeAllLoggers();
-//        OSSLog.enable();
+        OSSDDLog.removeAllLoggers();
+        OSSLog.enable();
         
         
     }
