@@ -30,8 +30,8 @@ target 'WeChatSwift' do
   pod 'Masonry'
   
   pod 'SwiftyJSON', '~> 4.0'
-  pod 'AliyunOSSiOS'
-  pod 'AliyunOSSSwiftSDK'
+#  pod 'AliyunOSSiOS'
+#  pod 'AliyunOSSSwiftSDK'
 #  pod 'KLCPopup'
 #  pod 'SDWebImage', '5.10.2'
 #  pod 'MBProgressHUD', '1.1.0'

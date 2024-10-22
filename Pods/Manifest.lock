@@ -7,7 +7,6 @@ PODS:
   - AFNetworking/Security (4.0.1)
   - AFNetworking/Serialization (4.0.1)
   - Alamofire (5.6.4)
-  - AliyunOSSiOS (2.8.0)
   - CocoaLumberjack (3.8.0):
     - CocoaLumberjack/Core (= 3.8.0)
   - CocoaLumberjack/Core (3.8.0)
@@ -78,7 +77,6 @@ PODS:
   - ZLPhotoBrowser/Core (4.5.5)
 
 DEPENDENCIES:
-  - AliyunOSSiOS
   - FLEX
   - KeenKeyboard (from `https://github.com/cqcool/KeenKeyboard.git`)
   - Masonry
@@ -99,8 +97,6 @@ DEPENDENCIES:
   - ZLPhotoBrowser
 
 SPEC REPOS:
-  https://github.com/aliyun/aliyun-specs.git:
-    - AliyunOSSiOS
   trunk:
     - AFNetworking
     - Alamofire
@@ -142,7 +138,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  AliyunOSSiOS: ba10c4324d45dec4173e51ee3169182692070a55
   CocoaLumberjack: 78abfb691154e2a9df8ded4350d504ee19d90732
   FLEX: f21ee4f498eed3f8a1eded66b21939fd3b7a22ce
   KeenKeyboard: ba9d14b8648851538d7583f3a2fa023a091cfdda
@@ -168,6 +163,6 @@ SPEC CHECKSUMS:
   YTKNetwork: c16be90b06be003de9e9cd0d3b187cc8eaf35c04
   ZLPhotoBrowser: 6fb0eff03c8269001e29ef233e7bdab0691e05fe
 
-PODFILE CHECKSUM: 56bf6dd525f78abe44eab391d3c730ef3d1eae3a
+PODFILE CHECKSUM: 0b263095d23f6c498c9046d6bdec71b01ef0103d
 
 COCOAPODS: 1.15.2
