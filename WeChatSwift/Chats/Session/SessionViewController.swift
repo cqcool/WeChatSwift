@@ -181,6 +181,23 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: false)
+//        print("xxxxxxx")
+//        UploadManager.manager.upload(prefixType: .avatar, number: "1", type: .image, image: UIImage(named: "Action_JD_index_60x60_")!) { error in
+////            self.wx_navigationBar.isHidden = false
+//            if let error {
+//                print(error.localizedDescription)
+//                DNKProgressHUD.brieflyProgressMsg("上传头像失败")
+//                return
+//            }
+////            self.avatarImg = image
+////            var model = self.dataSource[indexPath.section].items[indexPath.row]
+////            model.image = image
+////            self.dataSource[indexPath.section].items[indexPath.row] = model
+////            self.tableNode.reloadRows(at: [indexPath], with: .fade)
+//            DNKProgressHUD.brieflyProgressMsg("上传头像完成")
+//        }
+//        
+//        return
 //        DNKApiUtils.decryptResponseData(["1":"2"])
 //        return
         

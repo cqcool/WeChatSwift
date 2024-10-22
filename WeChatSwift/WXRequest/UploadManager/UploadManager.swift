@@ -22,21 +22,15 @@ class UploadManager: NSObject {
         super.init()
         setup()
     }
-    func upload(prefixType: PrefixType, number: Int, type: UploadType, image: UIImage, result: UploadResult?) {
+    func upload(prefixType: PrefixType, number: String, type: UploadType, image: UIImage, result: UploadResult?) {
         self.result = result
         let request = UploadRequest(prefixType: prefixType, number: number, type: type)
         request.startWithCompletionBlock { request in
             guard let resp = try? JSONDecoder().decode(ALiYunModel.self, from: request.wxResponseData()) else {
                 return
             }
-            var imageName: String = ""
-            if let name = resp.nameList?.first,
-               name.contains("/")  {
-                imageName = (name as NSString).components(separatedBy: "/").last ?? ""
-            }
-            print(resp.mj_JSONString() ?? "")
             self.yunModel = resp
-            self.uploadAvatar(image: image, imageName: imageName)
+            self.uploadAvatar(image: image, imageName: resp.nameList?.first ?? "", prefixType: prefixType)
             
         } failure: { request in
             self.result?(request.error as NSError?)
@@ -44,27 +38,28 @@ class UploadManager: NSObject {
         }
 
     }
-    func uploadAvatar(image: UIImage, imageName: String) {
+    func uploadAvatar(image: UIImage, imageName: String, prefixType: PrefixType) {
+        
         let request = OSSPutObjectRequest()
         request.uploadingData = image.pngData()!
         request.bucketName = self.yunModel?.bucketName ?? ""
-        request.objectKey = imageName
-        request.uploadProgress = { (bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) -> Void in
-            print("bytesSent:\(bytesSent),totalBytesSent:\(totalBytesSent),totalBytesExpectedToSend:\(totalBytesExpectedToSend)");
-        };
+        request.objectKey = imageName// + ".jpeg"
+//        request.uploadProgress = { (bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) -> Void in
+//            print("bytesSent:\(bytesSent),totalBytesSent:\(totalBytesSent),totalBytesExpectedToSend:\(totalBytesExpectedToSend)");
+//        };
         
         let provider = OSSFederationTokenCredentialProvider {
             let tcs = TaskCompletionSource()
-            DispatchQueue(label: "test").async {
-                Thread.sleep(forTimeInterval: 10)
+//            DispatchQueue(label: "test").async {
+//                Thread.sleep(forTimeInterval: 10)
                 let token = OSSFederationToken()
                 token.tAccessKey = self.yunModel?.accessKeyId ?? ""//"STS.tAccessKey"
                 token.tSecretKey = self.yunModel?.accessKeySecret ?? ""//"tSecretKey"
                 token.tToken = self.yunModel?.securityToken ?? ""//"tToken"
                 token.expirationTimeInGMTFormat = self.yunModel?.expiration ?? ""
                 tcs.trySetResult(token)
-            }
-            tcs.wait(timeout: 5)
+//            }
+//            tcs.wait(timeout:10)
             if let error = tcs.task.error {
                 let nsError = error as NSError
                 if nsError.code == OSSClientErrorCODE.codeNotKnown.rawValue,
@@ -90,16 +85,28 @@ class UploadManager: NSObject {
                 self.result = nil
 //                self.ossAlert(title: "error", message: error.description)
             } else {
-                let resultT = t.result
-                print("resultT: \(resultT?.description)")
-                self.result?(nil)
-                self.result = nil
+                self.updateUserInfo()
 //                self.ossAlert(title: "notice", message: result?.description)
             }
             return
         }).waitUntilFinished()
     }
     
+    func updateUserInfo() {
+        var imageName: String = ""
+        if let name = self.yunModel?.nameList?.first,
+           name.contains("/")  {
+            imageName = (name as NSString).components(separatedBy: "/").last ?? ""
+        }
+        let request = updateInfoRequest(head: imageName)
+        request.startWithCompletionBlock { request in
+            self.result?(nil)
+            self.result = nil
+        } failure: { request in
+            self.result?(request.error as NSError?)
+            self.result = nil
+        } 
+    }
     
     func setup() {
         OSSDDLog.removeAllLoggers();

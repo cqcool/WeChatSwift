@@ -164,7 +164,7 @@ extension SettingMyProfileViewController: ASTableDelegate, ASTableDataSource {
             guard let `self` = self else { return }
             guard let image = results.map({ $0.image }).first else { return }
             DNKProgressHUD.loadingViewMsg("正在加载", maskView: nil)
-            UploadManager.manager.upload(prefixType: .avatar, number: 1, type: .image, image: image) { error in
+            UploadManager.manager.upload(prefixType: .avatar, number: "1", type: .image, image: image) { error in
                 self.wx_navigationBar.isHidden = false
                 if let error {
                     DNKProgressHUD.brieflyProgressMsg("上传头像失败")

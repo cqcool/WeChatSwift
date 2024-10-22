@@ -129,7 +129,7 @@ extension GlobalManager {
         let request = ConfigRequest()
         request.startWithCompletionBlock { request in
             
-            print(request.responseString)
+//            print(request.responseString)
             
         }
     }

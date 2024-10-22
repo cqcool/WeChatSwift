@@ -21,17 +21,18 @@ enum UploadType: Int {
     case voice
     case gif
 }
-
+@objcMembers
 class UploadRequest: DNKRequest {
     
-    let prefixType: PrefixType
-    let number: Int
-    let type: UploadType
+    var prefixType: String = ""
+    var number: String? = ""
+    var type: String? = ""
     
-    init(prefixType: PrefixType, number: Int, type: UploadType) {
-        self.prefixType = prefixType
+    convenience init(prefixType: PrefixType, number: String, type: UploadType) {
+        self.init()
+        self.prefixType = "\(prefixType.rawValue)"
         self.number = number
-        self.type = type
+        self.type = "\(type.rawValue)"
     }
     
     override func requestUrl() -> String {

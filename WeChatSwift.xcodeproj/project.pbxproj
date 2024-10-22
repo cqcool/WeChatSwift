@@ -102,6 +102,9 @@
 		8180972D2CC560F8003C6299 /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8180972C2CC560F8003C6299 /* RSAUtil.m */; };
 		818097302CC565A3003C6299 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180972F2CC565A3003C6299 /* LoginAPI.swift */; };
 		818097352CC6B45E003C6299 /* Dictionary+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818097342CC6B45E003C6299 /* Dictionary+Util.swift */; };
+		818097372CC7FEDE003C6299 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818097362CC7FEDE003C6299 /* CoreTelephony.framework */; };
+		818097392CC7FEF0003C6299 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818097382CC7FEF0003C6299 /* SystemConfiguration.framework */; };
+		8180973B2CC7FF1B003C6299 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8180973A2CC7FF1B003C6299 /* libresolv.tbd */; };
 		A30347F222FCE868003ECF82 /* SettingAutoDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */; };
 		A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */; };
 		A30347F922FF9983003ECF82 /* BrandContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */; };
@@ -627,6 +630,9 @@
 		8180972C2CC560F8003C6299 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
 		8180972F2CC565A3003C6299 /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		818097342CC6B45E003C6299 /* Dictionary+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Util.swift"; sourceTree = "<group>"; };
+		818097362CC7FEDE003C6299 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		818097382CC7FEF0003C6299 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8180973A2CC7FF1B003C6299 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAutoDownloadViewController.swift; sourceTree = "<group>"; };
 		A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCTableCellModel.swift; sourceTree = "<group>"; };
 		A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandContactsViewController.swift; sourceTree = "<group>"; };
@@ -1045,6 +1051,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8180973B2CC7FF1B003C6299 /* libresolv.tbd in Frameworks */,
+				818097392CC7FEF0003C6299 /* SystemConfiguration.framework in Frameworks */,
+				818097372CC7FEDE003C6299 /* CoreTelephony.framework in Frameworks */,
 				EA44FD9B90D86A23F3A2DCC0 /* Pods_WeChatSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1356,6 +1365,9 @@
 		3B34DF561A8C79790A6E10A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8180973A2CC7FF1B003C6299 /* libresolv.tbd */,
+				818097382CC7FEF0003C6299 /* SystemConfiguration.framework */,
+				818097362CC7FEDE003C6299 /* CoreTelephony.framework */,
 				B6EE9FDFFD0D37885DDF7FB4 /* Pods_WeChatSwift.framework */,
 			);
 			name = Frameworks;

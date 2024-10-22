@@ -69,9 +69,15 @@ class UserInfoRequest: DNKRequest {
 
 /// 修改用户信息
 class updateInfoRequest: DNKRequest {
-    @objc let nickname: String
-    init(nickname: String) {
+    @objc var nickname: String? = nil
+    @objc var head: String? = nil
+    convenience init(nickname: String) {
+        self.init()
         self.nickname = nickname
+    }
+    convenience init(head: String) {
+        self.init()
+        self.head = head
     }
     override func requestUrl() -> String {
         "/user/update"
