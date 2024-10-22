@@ -40,13 +40,13 @@ class SettingMyProfileViewController: ASDKViewController<ASDisplayNode> {
         setupDataSource()
     }
     private func setupDataSource() {
-        
+        let person = GlobalManager.manager.personModel
         let avatar = MyProfileModel(type: .avatar, title: "头像")
         var name = MyProfileModel(type: .name, title: "名字")
-        name.value = "The_Handsome_Boy_"
+        name.value = person?.nickname ?? ""
         let takeShot = MyProfileModel(type: .takeShot, title: "拍一拍")
         var wechatNo = MyProfileModel(type: .wechatNo, title: "微信号")
-        wechatNo.value = "The_Handsome_Boy_"
+        wechatNo.value = person?.wechatId ?? ""
         let qrCode = MyProfileModel(type: .qrCode, title: "我的二维码")
         let more = MyProfileModel(type: .more, title: "更多")
         dataSource.append(MyProfileSection(items: [avatar, name, takeShot, wechatNo, qrCode, more]))
@@ -91,13 +91,14 @@ extension SettingMyProfileViewController: ASTableDelegate, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         var model = dataSource[indexPath.section].items[indexPath.row]
         if model.type ==  .avatar {
+            
             modifyAvatar(indexPath: indexPath)
             return
         }
         if model.type ==  .name {
             let vc = ModifyNameViewController()
             vc.modalPresentationStyle = .fullScreen
-            vc.name = "xxxxxx"
+            vc.name = GlobalManager.manager.personModel?.nickname
             present(vc, animated: true)
             vc.confirmBlock = { text in
                 model.value = text
@@ -109,18 +110,16 @@ extension SettingMyProfileViewController: ASTableDelegate, ASTableDataSource {
     }
     
     private func modifyAvatar(indexPath: IndexPath) {
+        
         self.wx_navigationBar.isHidden = true
         let minItemSpacing: CGFloat = 2
         let minLineSpacing: CGFloat = 2
-//        ZLPhotoUIConfiguration.default()
-//            .customAlertClass(CustomAlertController.self)
         // Custom UI
         ZLPhotoUIConfiguration.default()
             .minimumInteritemSpacing(minItemSpacing)
             .minimumLineSpacing(minLineSpacing)
             .columnCountBlock { Int(ceil($0 / (428.0 / 4))) }
             .showScrollToBottomBtn(false)
-//            UIView.appearance().semanticContentAttribute = .unspecified
          
         ZLPhotoConfiguration.default()
             .maxSelectCount(1)
@@ -162,14 +161,23 @@ extension SettingMyProfileViewController: ASTableDelegate, ASTableDataSource {
         let ac = ZLPhotoPreviewSheet(results: nil)
         
         ac.selectImageBlock = { [weak self] results, isOriginal in
-            self?.wx_navigationBar.isHidden = false
             guard let `self` = self else { return }
             guard let image = results.map({ $0.image }).first else { return }
-            self.avatarImg = image
-            var model = self.dataSource[indexPath.section].items[indexPath.row]
-            model.image = image
-            self.dataSource[indexPath.section].items[indexPath.row] = model
-            self.tableNode.reloadRows(at: [indexPath], with: .fade)
+            DNKProgressHUD.loadingViewMsg("正在加载", maskView: nil)
+            UploadManager.manager.upload(prefixType: .avatar, number: 1, type: .image, image: image) { error in
+                self.wx_navigationBar.isHidden = false
+                if let error {
+                    DNKProgressHUD.brieflyProgressMsg("上传头像失败")
+                    return
+                }
+                self.avatarImg = image
+                var model = self.dataSource[indexPath.section].items[indexPath.row]
+                model.image = image
+                self.dataSource[indexPath.section].items[indexPath.row] = model
+                self.tableNode.reloadRows(at: [indexPath], with: .fade)
+                DNKProgressHUD.brieflyProgressMsg("上传头像完成")
+            }
+            
         }
         ac.cancelBlock = {
             self.wx_navigationBar.isHidden = false

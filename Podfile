@@ -1,4 +1,6 @@
 platform:ios, '13.0'
+source 'https://github.com/aliyun/aliyun-specs.git'
+
 use_frameworks!
 
 target 'WeChatSwift' do
@@ -28,6 +30,8 @@ target 'WeChatSwift' do
   pod 'Masonry'
   
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'AliyunOSSiOS'
+  pod 'AliyunOSSSwiftSDK'
 #  pod 'KLCPopup'
 #  pod 'SDWebImage', '5.10.2'
 #  pod 'MBProgressHUD', '1.1.0'

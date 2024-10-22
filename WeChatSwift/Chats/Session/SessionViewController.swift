@@ -54,7 +54,12 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         navigationItem.title = "微信"
         
         setupSearchController()
-        GlobalManager.manager.requestRefreshToken();
+        GlobalManager.manager.requestRefreshToken()
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
+    }
+    
+    @objc func refreshTokenEvent() {
+        
     }
     
     private func loadSessions() {

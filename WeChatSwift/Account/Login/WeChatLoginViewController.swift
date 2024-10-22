@@ -63,7 +63,7 @@ class WeChatLoginViewController: UIViewController {
                 self.pswText = text
             }
         }
-
+        
     }
     
     deinit {
@@ -84,38 +84,41 @@ class WeChatLoginViewController: UIViewController {
             DNKProgressHUD.brieflyProgressMsg("请填写密码")
             return
         }
-        
+        DNKProgressHUD.showProgress()
         let psw = pswText.md5Encrpt().lowercased()
-        let api = LoginRequest(account: phone, password: psw)
-        api.start(withNetworkingHUD: true, showFailureHUD: false) { request in
-            if let responseObject = request.responseObject as? [String: Any],
-               let data = (responseObject["data"] as? [String: Any])?.toData() {
-                
-                if let resp = try? JSONDecoder().decode(PersonModel.self, from: data) {
-                    GlobalManager.manager.updatePersonModel(model: resp)
-                    let json = try? JSON(data: data)
-                    if let refreshToken = json?["refreshToken"]["refreshToken"].string {
+        let loginRequest = LoginRequest(account: phone, password: psw)
+        let chainRequest = YTKChainRequest()
+        chainRequest.add(loginRequest) { _, request in
+            if request.apiSuccess() {
+                if let json = try? JSON(data: request.wxResponseData()) {
+                    if let token = json["token"].string {
+                        GlobalManager.manager.updateToken(token: token)
+                    }
+                    if let refreshToken = json["refreshToken"]["refreshToken"].string {
                         GlobalManager.manager.updateRefreshToken(refreshToken: refreshToken)
                     }
-                    GlobalManager.manager.login()
                 }
+                return
             }
-        } failure: { request in
-            let popupView = JFPopupView.popup.alert {[
-                .subTitle(request.apiMessage()),
-                .subTitleColor(.black),
-                .showCancel(false),
-                .withoutAnimation(true),
-                .confirmAction([
-                    .text("确定"),
-                    .textColor(UIColor(hexString: "576B95")),
-                    .tapActionCallback({
-                    })
-                ])
-            ]}
-            popupView?.config.bgColor = UIColor(white: 0, alpha: 0.6)
+            DNKProgressHUD.hiddenProgressHUD()
+            self.showPopupAlert(msg: request.apiMessage())
         }
         
+        let infoRequest = UserInfoRequest()
+        chainRequest.add(infoRequest) { _, request in
+            DNKProgressHUD.hiddenProgressHUD()
+            if request.apiSuccess() {
+                if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
+                    GlobalManager.manager.updatePersonModel(model: resp)
+                    GlobalManager.manager.login()
+                }
+                return
+            }
+            GlobalManager.manager.updateRefreshToken(refreshToken: nil)
+            GlobalManager.manager.updateToken(token: nil)
+            self.showPopupAlert(msg: request.apiMessage())
+        }
+        chainRequest.start()
     }
     @objc func changeLoginType() {
         view.endEditing(true)
@@ -226,8 +229,8 @@ class WeChatLoginViewController: UIViewController {
             }
             
 #if DEBUG
-        accountTextField.text = "18259895600"
-        phoneTextField.text = "Wx123456"
+            accountTextField.text = "18259895600"
+            phoneTextField.text = "Wx123456"
             pswText = "Wx123456"
 #endif
         }
@@ -414,7 +417,21 @@ class WeChatLoginViewController: UIViewController {
         }
     }
     
-    
+    private func showPopupAlert(msg: String) {
+        let popupView = JFPopupView.popup.alert {[
+            .subTitle(msg),
+            .subTitleColor(.black),
+            .showCancel(false),
+            .withoutAnimation(true),
+            .confirmAction([
+                .text("确定"),
+                .textColor(UIColor(hexString: "576B95")),
+                .tapActionCallback({
+                })
+            ])
+        ]}
+        popupView?.config.bgColor = UIColor(white: 0, alpha: 0.6)
+    }
 }
 
 extension WeChatLoginViewController: WeChatCustomNavigationHeaderDelegate {

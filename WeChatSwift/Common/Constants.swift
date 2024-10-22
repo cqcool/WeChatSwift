@@ -74,3 +74,10 @@ struct Constants {
     
     static let backImage = UIImage.SVGImage(named: "icons_outlined_back")?.withRenderingMode(.alwaysTemplate)
 }
+
+@objcMembers
+class ConstantKey: NSObject {
+    static let NSNotificationRefreshToken = NSNotification.Name(rawValue: "refreshTokenKey")
+    
+    static let NSNotificationPersonToken = NSNotification.Name(rawValue: "refresh_person")
+}

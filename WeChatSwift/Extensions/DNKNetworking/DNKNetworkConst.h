@@ -8,7 +8,7 @@
 #ifndef DNKNetworkConst_h
 #define DNKNetworkConst_h
 
-typedef NS_ENUM = NSInteger, DNKNetworkCode) {
+typedef NS_ENUM (NSInteger, DNKNetworkCode) {
     // 临时token不匹配
     REFRESH_TOKEN_TIMEOUT = -5,
     // 您的账号已退出，请重新登录

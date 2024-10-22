@@ -21,10 +21,7 @@ class AccountLoginUsersViewController: UIViewController {
     var smsBtn: UIButton!
     var continueBtn: UIButton!
     var btmVerticalStack = UIStackView()
-    
-//    var phoneText: String?
-//    var accountText: String?
-//    var pswText: String?
+     
     
     override func viewDidLoad() {
         view.backgroundColor = .white
@@ -40,19 +37,13 @@ class AccountLoginUsersViewController: UIViewController {
             make.width.equalToSuperview()
             make.height.equalTo(view.bounds.height - Constants.statusBarHeight - 44)
         }
-//        navigationView = WeChatCustomNavigationHeaderView(frame: CGRectMake(0, 0, Constants.screenWidth, Constants.statusBarHeight+44), backImage: UIImage(named: "close_trusted_friend_tips_hl"), backTitle: nil, centerLabel: nil, rightButtonText: nil, rightButtonImage: nil, backgroundColor: UIColor(white: 1, alpha: 0.9), leftLabelColor: nil, rightLabelColor: nil)
-//        navigationView.delegate = self
-//        view.addSubview(navigationView)
         
         layoutContentView()
-//        updateContent()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        accountTextField.textDidChangeBlock = {
-//            self.accountText = $0
-//        }
-        formatePhoneNumber(number: "12345678900")
+        formatePhoneNumber(number: GlobalManager.manager.personModel?.account as? NSString)
 //        imageView.pin_setImage(from: URL(string: "https://pinterest.com/kitten.jpg")!)
+        NotificationCenter.default.addObserver(self, selector: #selector(popupAlertView(_:)), name: NSNotification.Name("showAlertViewOnLoginUI"), object: nil)
     }
     
     deinit {
@@ -62,20 +53,39 @@ class AccountLoginUsersViewController: UIViewController {
     @objc func loginAction() {
         view.endEditing(true)
         
-        let popupView = JFPopupView.popup.alert {[
-            .subTitle("帐号或密码错误，请重新填写。"),
-            .subTitleColor(.black),
-            .showCancel(false),
-            .withoutAnimation(true),
-            .confirmAction([
-                .text("确定"),
-                .textColor(UIColor(hexString: "576B95")),
-                .tapActionCallback({
-                })
-            ])
-        ]}
-        popupView?.config.bgColor = UIColor(white: 0, alpha: 0.6)
+//        let popupView = JFPopupView.popup.alert {[
+//            .subTitle("帐号或密码错误，请重新填写。"),
+//            .subTitleColor(.black),
+//            .showCancel(false),
+//            .withoutAnimation(true),
+//            .confirmAction([
+//                .text("确定"),
+//                .textColor(UIColor(hexString: "576B95")),
+//                .tapActionCallback({
+//                })
+//            ])
+//        ]}
+//        popupView?.config.bgColor = UIColor(white: 0, alpha: 0.6)
     }
+     
+    @objc func popupAlertView(_ notification: Notification) {
+        if let msg = notification.userInfo?["msg"] as? String {
+            let popupView = JFPopupView.popup.alert {[
+                .subTitle(msg),
+                .subTitleColor(.black),
+                .showCancel(false),
+                .withoutAnimation(true),
+                .confirmAction([
+                    .text("确定"),
+                    .textColor(UIColor(hexString: "576B95")),
+                    .tapActionCallback({
+                    })
+                ])
+            ]}
+            popupView?.config.bgColor = UIColor(white: 0, alpha: 0.6)
+        }
+    }
+    
     @objc func keyboardWillShow(_ notification: Notification) {
         // 处理键盘将要显示的逻辑
         if let userInfo = notification.userInfo,
@@ -108,12 +118,8 @@ class AccountLoginUsersViewController: UIViewController {
     @objc func keyboardWillHide(_ notification: Notification) {
         // 处理键盘将要隐藏的逻辑
         if let userInfo = notification.userInfo,
-//           let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
            let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
-//
-//            let frame = value.cgRectValue
-//            let intersection = frame.intersection(self.view.frame)
             btmVerticalStack.snp.updateConstraints { (make) in
                 make.bottom.equalTo(-20)
             }
@@ -149,11 +155,15 @@ class AccountLoginUsersViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func formatePhoneNumber(number: NSString) {
+    func formatePhoneNumber(number: NSString?) {
+        if number == nil {
+            phoneLabel.text = " "
+            return
+        }
         var strs: [NSString] = ["+86"]
-        strs.append(number.substring(with: NSMakeRange(0, 3)) as NSString)
-        strs.append(number.substring(with: NSMakeRange(3, 4)) as NSString)
-        strs.append(number.substring(with: NSMakeRange(7, 4)) as NSString)
+        strs.append(number!.substring(with: NSMakeRange(0, 3)) as NSString)
+        strs.append(number!.substring(with: NSMakeRange(3, 4)) as NSString)
+        strs.append(number!.substring(with: NSMakeRange(7, 4)) as NSString)
         phoneLabel.text = (strs as NSArray).componentsJoined(by: " ")
     }
     private func layoutContentView() {

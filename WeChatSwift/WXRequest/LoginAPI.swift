@@ -31,6 +31,18 @@ class LoginRequest: DNKRequest {
         .POST
     } 
 }
+/// 退出登录
+class LogoutRequest: DNKRequest {
+
+    override func requestUrl() -> String {
+        "/user/logout"
+    }
+    
+    override func requestMethod() -> YTKRequestMethod {
+        .POST
+    }
+}
+
 /// 获取临时token
 class RefreshTokenRequest: DNKRequest { 
     
@@ -38,6 +50,44 @@ class RefreshTokenRequest: DNKRequest {
         "/user/refresh/token"
     }
     
+    override func requestMethod() -> YTKRequestMethod {
+        .GET
+    }
+}
+
+/// 用户信息
+class UserInfoRequest: DNKRequest {
+    
+    override func requestUrl() -> String {
+        "/user/userInfo"
+    }
+    
+    override func requestMethod() -> YTKRequestMethod {
+        .GET
+    }
+}
+
+/// 修改用户信息
+class updateInfoRequest: DNKRequest {
+    @objc let nickname: String
+    init(nickname: String) {
+        self.nickname = nickname
+    }
+    override func requestUrl() -> String {
+        "/user/update"
+    }
+    
+    override func requestMethod() -> YTKRequestMethod {
+        .POST
+    }
+}
+
+/// 配置信息
+class ConfigRequest: DNKRequest {
+    
+    override func requestUrl() -> String {
+        "/config/info"
+    }
     override func requestMethod() -> YTKRequestMethod {
         .GET
     }

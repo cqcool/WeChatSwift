@@ -66,11 +66,12 @@
 }
 /// toast提示
 + (void)brieflyProgressMsg:(nullable NSString *)message {
-    
     [DNKProgressHUD brieflyProgressMsg:message duration:0];
 }
 + (void)brieflyProgressMsg:(nullable NSString *)message duration:(NSTimeInterval)duration {
-    [DNKProgressHUD brieflyProgressMsg:message maskView:nil duration:duration];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [DNKProgressHUD brieflyProgressMsg:message maskView:nil duration:duration];
+    });
 }
 + (void)brieflyProgressMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView duration:(NSTimeInterval)duration {
     if (message == nil || message.length == 0) {

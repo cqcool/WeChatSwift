@@ -71,6 +71,7 @@ class RootViewController: ASTabBarController {
             tabBar.standardAppearance = appearnce
             tabBar.scrollEdgeAppearance = appearnce
         }
+        
     }
     
     func handleLanguageDidChanged() {

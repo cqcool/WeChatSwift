@@ -11,15 +11,21 @@
 #import "DNKApiUtils.h"
 #import "NSObject+DNKKeyValue.h"
 #import "WeChatSwift-Swift.h"
+#import <MJExtension.h>
 
 @implementation YTKBaseRequest (DNKApi)
  
 - (BOOL)apiSuccess {
     return [self statusCodeValidator];
 }
-- (id)apiData {
+- (id)wxResponseObject {
     return self.responseObject[@"data"];
 }
+
+- (NSData *)wxResponseData {
+    return [self.wxResponseObject mj_JSONData];
+}
+
 - (NSString *)apiMessage {
     if ([self.responseObject isKindOfClass:[NSData class]]) {
         NSString *string = [[NSString alloc] initWithData:self.responseObject encoding:NSUTF8StringEncoding];
@@ -65,8 +71,10 @@
     dict[@"h"] = @"011001010001";
     dict[@"isEnabled"] = ([GlobalManager manager].isEncry) ? @"true": @"false";
     if ([GlobalManager manager].refreshToken != nil) {
-        dict[@"t"] = [GlobalManager manager].personModel.token;
         dict[@"t1"] = [GlobalManager manager].refreshToken;
+    }
+    if ([GlobalManager manager].token != nil) {
+        dict[@"t"] = [GlobalManager manager].token;
     }
     return dict;
 }

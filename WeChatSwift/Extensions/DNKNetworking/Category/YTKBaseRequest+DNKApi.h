@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YTKBaseRequest (DNKApi) 
 
-- (id)apiData;
+- (id)wxResponseObject;
+- (NSData *)wxResponseData;
 /// 服务端返回的请求结果失败时，返回服务端的描述信息
 ///
 /// @Note apiSuccess返回YES时，返回值为nil。请求完成时可用

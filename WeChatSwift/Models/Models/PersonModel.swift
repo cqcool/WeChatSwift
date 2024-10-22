@@ -11,24 +11,25 @@ import Foundation
 @objcMembers
 
 class PersonModel: NSObject, Codable {
+    var account: String?
+    var balance: String?
+    /// 零钱通收益率
+    var changeRate: String?
     var nickname: String?
     var userId: String?
     var token: String?
     var head: String?
-    
-//    init(nickname: String, userId: String, token: String, head: String) {
-//        self.nickname = nickname
-//        self.userId = userId
-//        self.token = token
-//        self.head = head
-//    }
-    
+    var wechatId: String?
+     
     // 注意：json的key和模型属性不同时，可以使用映射
     enum CodingKeys: String, CodingKey {
+        case account
+        case balance
         case nickname
         case userId
         case token
         case head
+        case wechatId
     }
     
     static func savePerson(person: PersonModel) {

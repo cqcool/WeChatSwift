@@ -95,9 +95,12 @@
 		1EF4E6BE2CBA86FE000F39E9 /* fail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EF4E6A62CBA86FE000F39E9 /* fail@2x.png */; };
 		1EF4E6C22CBCF984000F39E9 /* MyProfileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6C12CBCF984000F39E9 /* MyProfileSection.swift */; };
 		1EF4E6C42CBCFD35000F39E9 /* MyProfileCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6C32CBCFD35000F39E9 /* MyProfileCellNode.swift */; };
+		1EFACCFE2CC78A2400D6ABC8 /* ConfigInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACCFD2CC78A2400D6ABC8 /* ConfigInfoModel.swift */; };
+		1EFACD002CC7941100D6ABC8 /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACCFF2CC7941100D6ABC8 /* UploadManager.swift */; };
+		1EFACD022CC7947300D6ABC8 /* UploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD012CC7947300D6ABC8 /* UploadApi.swift */; };
+		1EFACD052CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD042CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift */; };
 		8180972D2CC560F8003C6299 /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8180972C2CC560F8003C6299 /* RSAUtil.m */; };
 		818097302CC565A3003C6299 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180972F2CC565A3003C6299 /* LoginAPI.swift */; };
-		818097332CC565E5003C6299 /* xxx.m in Sources */ = {isa = PBXBuildFile; fileRef = 818097322CC565E5003C6299 /* xxx.m */; };
 		818097352CC6B45E003C6299 /* Dictionary+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818097342CC6B45E003C6299 /* Dictionary+Util.swift */; };
 		A30347F222FCE868003ECF82 /* SettingAutoDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */; };
 		A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */; };
@@ -616,11 +619,13 @@
 		1EF4E6A82CBA86FE000F39E9 /* success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success@2x.png"; sourceTree = "<group>"; };
 		1EF4E6C12CBCF984000F39E9 /* MyProfileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileSection.swift; sourceTree = "<group>"; };
 		1EF4E6C32CBCFD35000F39E9 /* MyProfileCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileCellNode.swift; sourceTree = "<group>"; };
+		1EFACCFD2CC78A2400D6ABC8 /* ConfigInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigInfoModel.swift; sourceTree = "<group>"; };
+		1EFACCFF2CC7941100D6ABC8 /* UploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
+		1EFACD012CC7947300D6ABC8 /* UploadApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadApi.swift; sourceTree = "<group>"; };
+		1EFACD042CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSSFederationTokenCredentialProvider.swift; sourceTree = "<group>"; };
 		8180972B2CC560F8003C6299 /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
 		8180972C2CC560F8003C6299 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
 		8180972F2CC565A3003C6299 /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
-		818097312CC565E5003C6299 /* xxx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xxx.h; sourceTree = "<group>"; };
-		818097322CC565E5003C6299 /* xxx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = xxx.m; sourceTree = "<group>"; };
 		818097342CC6B45E003C6299 /* Dictionary+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Util.swift"; sourceTree = "<group>"; };
 		A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAutoDownloadViewController.swift; sourceTree = "<group>"; };
 		A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCTableCellModel.swift; sourceTree = "<group>"; };
@@ -1196,6 +1201,7 @@
 			isa = PBXGroup;
 			children = (
 				1ECBEA252CC668AE00485BF0 /* PersonModel.swift */,
+				1EFACCFD2CC78A2400D6ABC8 /* ConfigInfoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1337,6 +1343,16 @@
 			path = JFPopup;
 			sourceTree = "<group>";
 		};
+		1EFACD032CC7AFA600D6ABC8 /* UploadManager */ = {
+			isa = PBXGroup;
+			children = (
+				1EFACD042CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift */,
+				1EFACCFF2CC7941100D6ABC8 /* UploadManager.swift */,
+				1EFACD012CC7947300D6ABC8 /* UploadApi.swift */,
+			);
+			path = UploadManager;
+			sourceTree = "<group>";
+		};
 		3B34DF561A8C79790A6E10A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1370,9 +1386,8 @@
 		8180972E2CC56566003C6299 /* WXRequest */ = {
 			isa = PBXGroup;
 			children = (
+				1EFACD032CC7AFA600D6ABC8 /* UploadManager */,
 				8180972F2CC565A3003C6299 /* LoginAPI.swift */,
-				818097312CC565E5003C6299 /* xxx.h */,
-				818097322CC565E5003C6299 /* xxx.m */,
 			);
 			path = WXRequest;
 			sourceTree = "<group>";
@@ -2747,6 +2762,7 @@
 				A374863322D43C11002EEC4F /* MessageCellNode.swift in Sources */,
 				A3B6889223004D14007273CD /* RemarkTagCellNode.swift in Sources */,
 				A373D3DB22F6A72300451515 /* SettingFontSizeViewController.swift in Sources */,
+				1EFACD002CC7941100D6ABC8 /* UploadManager.swift in Sources */,
 				A3105D43232E035E0038D775 /* Notification+Extensions.swift in Sources */,
 				A3F9F002230E6F330032299C /* SightCameraPreviewView.swift in Sources */,
 				A33DB30222CCDDE200A11776 /* DiscoverModel.swift in Sources */,
@@ -2773,6 +2789,7 @@
 				A35B21A3230023910057F8FC /* BrandTimelineCellNode.swift in Sources */,
 				A33DB2F122CCCBA800A11776 /* UIColor+Extensions.swift in Sources */,
 				A322870022E0514A004E516E /* EmoticonBoardTabBarCellNode.swift in Sources */,
+				1EFACCFE2CC78A2400D6ABC8 /* ConfigInfoModel.swift in Sources */,
 				1E5E37272CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift in Sources */,
 				1E5E373F2CC21AC6007F8944 /* HelpRedCellNode.swift in Sources */,
 				A3CA51FD22CDAD1D00C67D92 /* User.swift in Sources */,
@@ -3040,6 +3057,7 @@
 				A352AD0D23064CFF00332B21 /* MomentBackground.swift in Sources */,
 				A3EE12442317D00D000F287C /* Fonts.swift in Sources */,
 				A33DB2D422CCC80F00A11776 /* AppDelegate.swift in Sources */,
+				1EFACD052CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift in Sources */,
 				A3CCEDE722FC0C50008BE41D /* ShakeType.swift in Sources */,
 				A3C9144C23054B4800B6E077 /* ChatRoomListItemModel.swift in Sources */,
 				A36CB5332307859C00F993B6 /* EmoticonManageCellNode.swift in Sources */,
@@ -3055,7 +3073,6 @@
 				1E5E377E2CC503EC007F8944 /* UICreate.m in Sources */,
 				A37221A322D5474A003403D4 /* ChatRoomTool.swift in Sources */,
 				A30807FB2314DB1500964126 /* ScrollActionSheetItemView.swift in Sources */,
-				818097332CC565E5003C6299 /* xxx.m in Sources */,
 				A3CA522822CE1A8A00C67D92 /* MeTableModel.swift in Sources */,
 				A3F9EFFF230E66DD0032299C /* ChatRoomEmoticonPreviewBottomNode.swift in Sources */,
 				A37FFB6822EE92210001DD27 /* WCWebView.swift in Sources */,
@@ -3078,6 +3095,7 @@
 				A3FB0AA322F3D54500116329 /* VisualEffectView.swift in Sources */,
 				A389999F22E96A2300620069 /* EmoticonStoreViewController.swift in Sources */,
 				818097352CC6B45E003C6299 /* Dictionary+Util.swift in Sources */,
+				1EFACD022CC7947300D6ABC8 /* UploadApi.swift in Sources */,
 				A352AD212306CB1E00332B21 /* StorageUsageViewController.swift in Sources */,
 				A3485FA722EFF5E0002A804B /* ContactInfoButtonCellNode.swift in Sources */,
 				A3D99549230B9E2000E4F628 /* FTSSearchCellNode.swift in Sources */,
@@ -3252,6 +3270,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
@@ -3277,6 +3296,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
@@ -3357,6 +3377,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = INHOUSE;

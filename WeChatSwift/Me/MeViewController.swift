@@ -62,13 +62,17 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
         
         setupDataSource()
         tableNode.reloadData()
-        
-//        let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_filled_camera"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
-//        navigationItem.rightBarButtonItem = rightButtonItem
+        headerNode.reloadContent()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateHeaderView), name: ConstantKey.NSNotificationPersonToken, object: nil)
     }
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     @objc func clickHeaderAction() {
         navigationController?.pushViewController(SettingMyProfileViewController(), animated: true)
+    }
+    @objc func updateHeaderView() {
+        headerNode.reloadContent()
     }
     
     private func setupDataSource() {

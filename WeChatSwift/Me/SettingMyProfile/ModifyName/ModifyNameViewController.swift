@@ -59,7 +59,8 @@ class ModifyNameViewController: UIViewController {
                 self.updateFinishView()
                 return
             }
-            if (self.name ?? "") == text {
+            if text.isEmpty ||
+                (self.name ?? "") == text {
                 self.navigationView.rightBtn.isEnabled = false
             } else {
                 self.navigationView.rightBtn.isEnabled = true
@@ -95,7 +96,6 @@ class ModifyNameViewController: UIViewController {
     }
     private func updateFinishView() {
         let isEnabled = navigationView.rightBtn.isEnabled
-        
         navigationView.rightBtn.backgroundColor = isEnabled ? UIColor(hexString: "07C160") : UIColor(hexString: "E1E0E0")
     }
      
@@ -108,10 +108,21 @@ extension ModifyNameViewController: WeChatCustomNavigationHeaderDelegate {
     }
     
     func rightBarClick() {
-        if let confirmBlock {
-            confirmBlock(textField.text ?? "")
+        view.endEditing(true)
+        guard let name = textField.text else {
+            return
         }
-        dismiss(animated: true)
+        let request = updateInfoRequest(nickname: name)
+        request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+            let personModel = PersonModel.getPerson()
+            personModel?.nickname = name
+            GlobalManager.manager.updatePersonModel(model: personModel)
+            NotificationCenter.default.post(name: ConstantKey.NSNotificationPersonToken, object: nil)
+            if let confirmBlock = self.confirmBlock {
+               confirmBlock(name)
+            }
+            self.dismiss(animated: true)
+        }
     }
 }
  

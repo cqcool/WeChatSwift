@@ -9,6 +9,8 @@
 import Foundation
 import SwiftyJSON
 
+
+
 @objcMembers
 class GlobalManager: NSObject {
     static let manager = GlobalManager()
@@ -21,12 +23,21 @@ class GlobalManager: NSObject {
             refreshTokenValue
         }
     }
+    private var tokenValue: String? = nil
+    @objc var token: String? {
+        get {
+            tokenValue
+        }
+    }
+    
     private var personModelValue: PersonModel? = nil
     @objc var personModel: PersonModel? {
         get {
             personModelValue
         }
     }
+
+    private var isShowLogin: Bool = false
     
     private override init() {
         super.init()
@@ -41,7 +52,14 @@ class GlobalManager: NSObject {
         }
         UserDefaults.standard.setValue(refreshToken, forKey: "refreshToken")
     }
-    
+    func updateToken(token: String?) {
+        tokenValue = token
+        guard let token else {
+            UserDefaults.standard.removeObject(forKey: "token")
+            return
+        }
+        UserDefaults.standard.setValue(token, forKey: "token")
+    }
     func updatePersonModel(model: PersonModel?) {
         personModelValue = model
         if personModel == nil {
@@ -51,11 +69,17 @@ class GlobalManager: NSObject {
        PersonModel.savePerson(person: model!)
     }
     func login() {
+        isShowLogin = false
         appDelegate.updateAppRoot()
     }
     
     func logout() {
+        if isShowLogin {
+            return
+        }
+        isShowLogin = true
         updateRefreshToken(refreshToken: nil)
+        updateToken(token: nil)
         appDelegate.updateAppRoot()
     }
     // 刷新token
@@ -68,9 +92,10 @@ class GlobalManager: NSObject {
             let json = try? JSON(data: responseData)
             if let refreshToken = json?["data"]["refreshToken"].string {
                 GlobalManager.manager.updateRefreshToken(refreshToken: refreshToken)
+                self.refreshUserInfo()
+                self.getConfigInfo()
+                NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
             }
-        } failure: { request in
-            
         }
 
     }
@@ -79,11 +104,33 @@ class GlobalManager: NSObject {
 extension GlobalManager {
     private func setup() {
         refreshTokenValue = getRefreshToken()
+        tokenValue = getToken()
         personModelValue = PersonModel.getPerson()
+        isShowLogin = (refreshToken != nil) ? false : true 
     }
     
     private func getRefreshToken() -> String? {
         UserDefaults.standard.object(forKey: "refreshToken") as? String
     }
+    private func getToken() -> String? {
+        UserDefaults.standard.object(forKey: "token") as? String
+    }
     
+    private func refreshUserInfo() {
+        let infoRequest = UserInfoRequest()
+        infoRequest.startWithCompletionBlock { request in
+            if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
+                 GlobalManager.manager.updatePersonModel(model: resp)
+             }
+        }
+    }
+    
+    private func getConfigInfo() {
+        let request = ConfigRequest()
+        request.startWithCompletionBlock { request in
+            
+            print(request.responseString)
+            
+        }
+    }
 }

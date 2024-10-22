@@ -132,7 +132,10 @@ extension SettingsViewController: ASTableDelegate, ASTableDataSource {
         case .logout:
             let actionSheet = WXActionSheet(cancelButtonTitle: LanguageManager.Common.cancel())
             actionSheet.add(WXActionSheetItem(title: "退出登录", handler: { _ in
-                
+                let logoutRequest = LogoutRequest()
+                logoutRequest.start(withNetworkingHUD: true, showFailureHUD: true) { _ in
+                    GlobalManager.manager.logout()
+                }
             }))
             actionSheet.add(WXActionSheetItem(title: "关闭微信", handler: { _ in
                 

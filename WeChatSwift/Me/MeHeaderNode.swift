@@ -27,20 +27,24 @@ class MeHeaderNode: ASButtonNode {
         avatarNode.cornerRoundingType = .precomposited
         avatarNode.url = AppContext.current.me.avatar
         
-        nameNode.attributedText = NSAttributedString(string: AppContext.current.me.name, attributes: [
-            .font: UIFont.systemFont(ofSize: 21, weight: .medium),
-            .foregroundColor: UIColor.black
-            ])
         qrCodeNode.image = UIImage.SVGImage(named: "icons_outlined_qr-code")
         qrCodeNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(Colors.DEFAULT_TEXT_GRAY_COLOR)
         arrowNode.image = UIImage.SVGImage(named: "icons_outlined_arrow")
         
-        descNode.attributedText = NSAttributedString(string: "微信号：wxid_xzhdsfghids", attributes: [
-            .font: UIFont.systemFont(ofSize: 17),
-            .foregroundColor: UIColor(white: 0, alpha: 0.5)
-            ])
+        
     }
-    
+    func reloadContent() {
+        if let person = GlobalManager.manager.personModel {
+            nameNode.attributedText = NSAttributedString(string: person.nickname ?? "未设置名称", attributes: [
+                .font: UIFont.systemFont(ofSize: 21, weight: .medium),
+                .foregroundColor: UIColor.black
+            ])
+            descNode.attributedText = NSAttributedString(string: "微信号：\(person.wechatId ?? " ")", attributes: [
+                .font: UIFont.systemFont(ofSize: 17),
+                .foregroundColor: UIColor(white: 0, alpha: 0.5)
+                ])
+        }
+    }
     override func didLoad() {
         super.didLoad()
     }

@@ -210,6 +210,9 @@ extension UIViewController {
     }()
     
     @objc private func wx_viewDidLoad() {
+        
+        print("Controller Name:\(self.className)")
+        
         if navigationController != nil && navigationController!.wx_enableWXNavigationBar {
             navigationController?.configureNavigationBar()
             // configure fake navigationBar

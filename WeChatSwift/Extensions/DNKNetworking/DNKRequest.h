@@ -8,6 +8,7 @@
 
 #import "YTKRequest.h"
 #import "YTKBaseRequest+DNKApi.h"
+#import "DNKNetworkConst.h"
 #import <MJExtension.h>
 NS_ASSUME_NONNULL_BEGIN
 @interface DNKRequest : YTKRequest
