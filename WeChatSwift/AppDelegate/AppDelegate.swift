@@ -16,21 +16,19 @@ typealias RelayCommand = () -> Void
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    var rootViewController: RootViewController!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { 
         // Override point for customization after application launch.
-//        WXNavigationBar.setup()
+//        WXNavigationBar.setup() 
+        GlobalManager.manager.appDelegate = self
+        
         WXNavigationBarManger.shared.setup(["ZLImageNavController"])
-        rootViewController =     RootViewController()
+        
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
-//        window?.rootViewController = rootViewController
-//        window?.rootViewController = AccountLoginUsersViewController()
-        window?.rootViewController = WeChatLoginOrRegisterViewController()
-        window?.makeKeyAndVisible()
+        updateAppRoot()
+       
         if #available(iOS 13, *) {
             
         } else {
@@ -40,6 +38,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIView.fixTabBarButtonFrame()
         return true
+    }
+    
+    
+    func updateAppRoot() {
+        if GlobalManager.manager.refreshToken != nil {
+            window?.rootViewController = RootViewController()
+            window?.makeKeyAndVisible()
+            return
+        }
+        if PersonModel.getPerson() != nil {
+            window?.rootViewController = AccountLoginUsersViewController()
+            window?.makeKeyAndVisible()
+            return
+        }
+        window?.rootViewController = WeChatLoginOrRegisterViewController()
+        window?.makeKeyAndVisible()
     }
     
     private func injectLongPressGestureToStatusBar() {

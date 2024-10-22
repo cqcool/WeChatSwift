@@ -10,3 +10,4 @@
 #import "DNKApiUtils.h"
 #import "NSString+Ext.h"
 
+#import "DNKDevice.h"

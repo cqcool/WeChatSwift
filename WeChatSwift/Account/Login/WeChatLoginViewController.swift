@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SwiftyJSON
 
 //登陆页面
 class WeChatLoginViewController: UIViewController {
@@ -62,7 +63,7 @@ class WeChatLoginViewController: UIViewController {
                 self.pswText = text
             }
         }
-        
+
     }
     
     deinit {
@@ -74,17 +75,29 @@ class WeChatLoginViewController: UIViewController {
         if loginType == .phone {
             return
         }
-        let psw = "Wx123456".md5Encrpt().lowercased()
-        let api = LoginRequest(account: "18259895600", deviceId: "111222333xxidls3", password: psw)
+        guard let phone = accountTextField.text else {
+            DNKProgressHUD.brieflyProgressMsg("请填写微信号/QQ号/邮箱")
+            return
+        }
+        
+        guard let pswText = self.pswText else {
+            DNKProgressHUD.brieflyProgressMsg("请填写密码")
+            return
+        }
+        
+        let psw = pswText.md5Encrpt().lowercased()
+        let api = LoginRequest(account: phone, password: psw)
         api.start(withNetworkingHUD: true, showFailureHUD: false) { request in
-            if let responseData = request.responseData {
-                if let resp = try? JSONDecoder().decode(PersonModel.self, from: responseData) {
-                    print(resp)
-                }
-                let jsonObj = try? JSONSerialization.jsonObject(with: responseData)
-                print("jsonObj = \(String(describing: jsonObj))")
-                if let dict = jsonObj as? Dictionary<String, Any?> {
-                    print("code = \(String(describing: dict["code"]))")
+            if let responseObject = request.responseObject as? [String: Any],
+               let data = (responseObject["data"] as? [String: Any])?.toData() {
+                
+                if let resp = try? JSONDecoder().decode(PersonModel.self, from: data) {
+                    GlobalManager.manager.updatePersonModel(model: resp)
+                    let json = try? JSON(data: data)
+                    if let refreshToken = json?["refreshToken"]["refreshToken"].string {
+                        GlobalManager.manager.updateRefreshToken(refreshToken: refreshToken)
+                    }
+                    GlobalManager.manager.login()
                 }
             }
         } failure: { request in
@@ -211,6 +224,12 @@ class WeChatLoginViewController: UIViewController {
             countryLabel.snp.updateConstraints { make in
                 make.width.equalTo(50)
             }
+            
+#if DEBUG
+        accountTextField.text = "18259895600"
+        phoneTextField.text = "Wx123456"
+            pswText = "Wx123456"
+#endif
         }
         view.layoutIfNeeded()
     }

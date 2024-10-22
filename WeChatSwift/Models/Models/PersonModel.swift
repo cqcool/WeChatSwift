@@ -8,7 +8,9 @@
 
 import Foundation
 
-class PersonModel: Codable {
+@objcMembers
+
+class PersonModel: NSObject, Codable {
     var nickname: String?
     var userId: String?
     var token: String?
@@ -47,6 +49,8 @@ class PersonModel: Codable {
         }
         return nil
     }
-    
+    static func clearPerson() {
+        UserDefaults.standard.removeObject(forKey: "myPersonKey")
+    }
 
 }

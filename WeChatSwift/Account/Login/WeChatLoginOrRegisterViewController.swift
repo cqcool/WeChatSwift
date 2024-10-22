@@ -59,6 +59,7 @@ class WeChatLoginOrRegisterViewController: UIViewController {
     
     //MARKS: 注册按钮事件
     @objc func loginButtonClick(){
+        
         if self.loginViewController == nil {
             self.loginViewController = WeChatLoginViewController()
         }
@@ -68,11 +69,12 @@ class WeChatLoginOrRegisterViewController: UIViewController {
     
     //MAKRS: 登陆按钮事件
     @objc func registerButtonClick(){
-        if self.registerViewController == nil {
-            self.registerViewController = WeChatRegisterViewController()
-        }
-        self.registerViewController?.modalPresentationStyle = .fullScreen
-        self.present(self.registerViewController!, animated: true, completion: nil)
+        
+//        if self.registerViewController == nil {
+//            self.registerViewController = WeChatRegisterViewController()
+//        }
+//        self.registerViewController?.modalPresentationStyle = .fullScreen
+//        self.present(self.registerViewController!, animated: true, completion: nil)
     }
     
     

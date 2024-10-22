@@ -54,6 +54,7 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         navigationItem.title = "微信"
         
         setupSearchController()
+        GlobalManager.manager.requestRefreshToken();
     }
     
     private func loadSessions() {

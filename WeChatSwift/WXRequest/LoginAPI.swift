@@ -10,15 +10,17 @@ import Foundation
 
 class LoginRequest: DNKRequest {
     
-    @objc let account: String// = "18259895600"
-    @objc let device: String = "iPhone mini"
-    @objc let deviceId: String// = "111222333xxidls3"
-    @objc let password: String// = "Wx123456"
+    @objc let account: String
+    @objc let device: String = DNKDevice.phoneModel()
+    @objc var deviceId: String = ""
+    @objc let password: String
     
-    init(account: String, deviceId: String, password: String) {
-        self.account = account
-        self.deviceId = deviceId
+    init(account: String, password: String) {
+        self.account = account 
         self.password = password
+        if let uuid = UIDevice.current.identifierForVendor?.uuidString {
+            deviceId = uuid
+        }
     }
     
     override func requestUrl() -> String {
@@ -28,4 +30,15 @@ class LoginRequest: DNKRequest {
     override func requestMethod() -> YTKRequestMethod {
         .POST
     } 
+}
+/// 获取临时token
+class RefreshTokenRequest: DNKRequest { 
+    
+    override func requestUrl() -> String {
+        "/user/refresh/token"
+    }
+    
+    override func requestMethod() -> YTKRequestMethod {
+        .GET
+    }
 }

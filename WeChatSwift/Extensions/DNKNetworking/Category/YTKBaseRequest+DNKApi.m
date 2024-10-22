@@ -64,7 +64,10 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"h"] = @"011001010001";
     dict[@"isEnabled"] = ([GlobalManager manager].isEncry) ? @"true": @"false";
-    
+    if ([GlobalManager manager].refreshToken != nil) {
+        dict[@"t"] = [GlobalManager manager].personModel.token;
+        dict[@"t1"] = [GlobalManager manager].refreshToken;
+    }
     return dict;
 }
 
