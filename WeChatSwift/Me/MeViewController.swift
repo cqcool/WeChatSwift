@@ -65,6 +65,14 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
         headerNode.reloadContent()
         NotificationCenter.default.addObserver(self, selector: #selector(updateHeaderView), name: ConstantKey.NSNotificationPersonToken, object: nil)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        var url = GlobalManager.headImageUrl(name: GlobalManager.manager.personModel?.head)
+        if url == nil {
+            url = PersonModel.getHeadUrl()
+        }
+        headerNode.avatarNode.url = url
+    }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

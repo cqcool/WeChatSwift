@@ -15,6 +15,7 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
     private let buttonBackground = ASDisplayNode()
     
     private let balanceButton = ASButtonNode()
+    private let balanceValueNode = ASTextNode()
     
     private let cardButton = ASButtonNode()
     
@@ -61,6 +62,9 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         
         cardButton.addTarget(self, action: #selector(cardButtonClicked), forControlEvents: .touchUpInside)
         balanceButton.addTarget(self, action: #selector(balanceButtonClicked), forControlEvents: .touchUpInside)
+        
+        let balance = GlobalManager.manager.personModel?.balance ?? "0.00"
+        balanceValueNode.attributedText = attributedStringForBalance(balance: balance)
     }
     
     override func viewDidLayoutSubviews() {
@@ -120,11 +124,10 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         ])
         balanceButton.addSubnode(titleNode)
         
-        let balanceValueNode = ASTextNode()
+       
         balanceValueNode.frame =  CGRect(x: 0, y: 100, width: buttonWidth, height: 22)
         let paragraphStyle1 = NSMutableParagraphStyle()
         paragraphStyle1.alignment = .center
-        balanceValueNode.attributedText = attributedStringForBalance(balance: "900.00")
         balanceButton.addSubnode(balanceValueNode)
     }
     private func attributedStringForBalance(balance: String) -> NSAttributedString {

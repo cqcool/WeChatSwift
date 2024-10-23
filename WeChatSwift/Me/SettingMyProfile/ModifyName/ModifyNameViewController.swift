@@ -114,9 +114,9 @@ extension ModifyNameViewController: WeChatCustomNavigationHeaderDelegate {
         }
         let request = updateInfoRequest(nickname: name)
         request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+            
             let personModel = PersonModel.getPerson()
-            personModel?.nickname = name
-            GlobalManager.manager.updatePersonModel(model: personModel)
+            personModel?.updateNickName(nameText: name) 
             NotificationCenter.default.post(name: ConstantKey.NSNotificationPersonToken, object: nil)
             if let confirmBlock = self.confirmBlock {
                confirmBlock(name)

@@ -9,6 +9,7 @@
 import UIKit
 import AsyncDisplayKit
 import ZLPhotoBrowser
+import SwiftyJSON
 
 class SessionViewController: ASDKViewController<ASDisplayNode> {
     
@@ -56,6 +57,11 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         setupSearchController()
         GlobalManager.manager.requestRefreshToken()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestUnreadMsg()
     }
     
     @objc func refreshTokenEvent() {
@@ -267,5 +273,23 @@ extension SessionViewController: UISearchControllerDelegate {
     func presentSearchController(_ searchController: UISearchController) {
         searchViewController?.searchResultsController?.view.isHidden = false
         searchController.searchBar.resetAlignment()
+    }
+}
+
+extension SessionViewController {
+    private func requestUnreadMsg() {
+        
+        let request = UnreadMsgRequest()
+        request.startWithCompletionBlock { request in
+            if let json = try? JSON(data: request.wxResponseData()) {
+                if let unreadNum = json["unreadNum"].int {
+                    if unreadNum > 0 {
+                        self.tabBarController?.tabBar.showBadgOn()
+                    } else {
+                        self.tabBarController?.tabBar.hideBadg()
+                    }
+                }
+            }
+        }
     }
 }

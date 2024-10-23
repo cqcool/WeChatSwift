@@ -44,6 +44,8 @@ class GlobalManager: NSObject {
         setup()
     }
     
+    private var headPrefix: String? = nil
+    
     func updateRefreshToken(refreshToken: String?) {
         refreshTokenValue = refreshToken
         guard let refreshToken else {
@@ -125,12 +127,40 @@ extension GlobalManager {
         }
     }
     
+    static func headImageUrl(name: String?) -> URL? {
+        guard let headPrefix = self.manager.headPrefix else {
+            self.manager.getConfigInfo()
+            return nil
+        }
+        guard let fileName = name else {
+            return nil
+        }
+        return URL(string: headPrefix + fileName)
+    }
     private func getConfigInfo() {
         let request = ConfigRequest()
         request.startWithCompletionBlock { request in
             
+            if let json = try? JSON(data: request.wxResponseData()) {
+                let configs: Array<JSON> = json["configs"].arrayValue
+                for config in configs {
+                    if let attribute = config["attribute"].string,
+                       attribute == "url_prefix",
+                       let values = config["values"].string as? NSString {
+                        if let valuesDic = values.mj_JSONObject() as? [NSString: NSString] {
+                            self.headPrefix = valuesDic["head"] as? String
+                            PersonModel.saveHeadUrl()
+                        }
+                        
+                        
+                    }
+                }
+            }
+             
 //            print(request.responseString)
-            
+            /*
+             {"configs":[{"id":"1","name":"临时token超时时间(毫秒)","attribute":"refresh_token_time","values":"600000"},{"id":"15","name":"访问前缀","attribute":"url_prefix","values":"{\"chat\":\"https:\/\/boxgroup.oss-accelerate.aliyuncs.com\/chat\/\",\"common\":\"https:\/\/boxgroup.oss-accelerate.aliyuncs.com\/common\/\",\"head\":\"https:\/\/boxgroup.oss-accelerate.aliyuncs.com\/head\/\"}"},{"id":"106","name":"零钱通收益率","attribute":"change_rate","values":"1.86%"}]}
+             */
         }
     }
 }

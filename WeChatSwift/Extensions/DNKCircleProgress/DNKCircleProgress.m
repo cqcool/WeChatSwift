@@ -6,6 +6,7 @@
 //
 
 #import "DNKCircleProgress.h"
+#import <Masonry.h>
 
 @interface DNKCircleProgress ()
 
@@ -24,9 +25,9 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = UIColor.whiteColor;
         self.trackWidth = 6;
-//        self.progressColor = UIColor.mainBlueColor;
-//        self.progressBgColor = UIColor.lightGrayBackgroundColorTow;
-//        UILabel *percentLbl = [UICreate labelWithText:@"0.0%" fontSize:13 textColor:UIColor blak];
+        self.progressColor = UIColor.whiteColor;
+        self.progressBgColor = UIColor.lightGrayColor;
+//        UILabel *percentLbl = [DNKCreate labelWithText:@"0.0%" fontSize:13 textColor:UIColor.black];
 //        [self addSubview:percentLbl];
 //        _percentLbl = percentLbl;
 //        [percentLbl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -45,19 +46,19 @@
     backgroundPath.lineWidth = self.trackWidth;
     
     [self.progressBgColor set];
-//    backgroundPath.lineCapStyle = kCGLineCapRound;
-//    backgroundPath.lineJoinStyle = kCGLineJoinRound;
-//    CGFloat width = MIN(self.width, self.height);
-//    CGFloat radius = (width - self.trackWidth)/2.0;
-//    [backgroundPath addArcWithCenter:CGPointMake(self.width/2.0, self.height/2.0) radius:radius startAngle:1.5*M_PI endAngle:1.5*M_PI+2*M_PI clockwise:YES];
-//    [backgroundPath stroke];
-//    UIBezierPath *progressPath = UIBezierPath.bezierPath;
-//    progressPath.lineWidth = self.trackWidth;
-//    [self.progressColor set];
-//    progressPath.lineCapStyle = kCGLineCapRound;
-//    progressPath.lineJoinStyle = kCGLineJoinRound;
-//    [progressPath addArcWithCenter:CGPointMake(self.width/2.0, self.height/2.0) radius:radius startAngle:1.5*M_PI endAngle:1.5*M_PI+2*M_PI*self.progress clockwise:YES];
-//    [progressPath stroke];
+    backgroundPath.lineCapStyle = kCGLineCapRound;
+    backgroundPath.lineJoinStyle = kCGLineJoinRound;
+    CGFloat width = MIN(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+    CGFloat radius = (width - self.trackWidth)/2.0;
+    [backgroundPath addArcWithCenter:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) radius:radius startAngle:1.5*M_PI endAngle:1.5*M_PI+2*M_PI clockwise:YES];
+    [backgroundPath stroke];
+    UIBezierPath *progressPath = UIBezierPath.bezierPath;
+    progressPath.lineWidth = self.trackWidth;
+    [self.progressColor set];
+    progressPath.lineCapStyle = kCGLineCapRound;
+    progressPath.lineJoinStyle = kCGLineJoinRound;
+    [progressPath addArcWithCenter:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) radius:radius startAngle:1.5*M_PI endAngle:1.5*M_PI+2*M_PI*self.progress clockwise:YES];
+    [progressPath stroke];
 }
 
 @end

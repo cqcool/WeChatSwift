@@ -72,6 +72,8 @@ class RootViewController: ASTabBarController {
             tabBar.scrollEdgeAppearance = appearnce
         }
         
+        
+
     }
     
     func handleLanguageDidChanged() {
@@ -79,6 +81,7 @@ class RootViewController: ASTabBarController {
         let settingsVC = SettingsViewController()
         navigationController?.pushViewController(settingsVC, animated: true)
     }
+    
 }
 
 enum HomeTab: String {
@@ -101,3 +104,41 @@ enum HomeTab: String {
         }
     }
 }
+let lxfFlag: Int = 100
+let itemIndex: Int = 0
+extension UITabBar {
+    
+    // MARK: - 显示小红点
+    
+    func showBadgOn(index: HomeTab = .discover, tabbarItemNums: CGFloat = 4.0) {
+        // 移除之前的小红点
+        removeBadgeOn(index: index)
+        // 创建小红点
+        let bageView = UIView()
+        bageView.tag = 2 + lxfFlag
+        bageView.layer.cornerRadius = 4
+        bageView.backgroundColor = UIColor.red
+        let tabFrame = frame
+        // 确定小红点的位置
+        let percentX: CGFloat = (CGFloat(itemIndex) + 0.55) / tabbarItemNums
+        
+        let x: CGFloat = CGFloat(ceilf(Float(percentX * tabFrame.size.width)))
+        let y: CGFloat = CGFloat(ceilf(Float(0.08 * tabFrame.size.height)+2.0))
+        bageView.frame = CGRect(x: x, y: y, width: 8, height: 8)
+        addSubview(bageView)
+    }
+    // MARK: - 隐藏小红点
+    func hideBadg(index: HomeTab = .discover) {
+        removeBadgeOn(index: index)
+    }
+    // MARK: - 移除小红点
+    fileprivate func removeBadgeOn(index itemIndex: HomeTab) {
+        // 按照tag值进行移除
+        _ = subviews.map {
+            if $0.tag == 2 + lxfFlag {
+                $0.removeFromSuperview()
+            }
+        }
+    }
+}
+

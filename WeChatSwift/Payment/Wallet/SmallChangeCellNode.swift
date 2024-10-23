@@ -31,7 +31,7 @@ class SmallChangeCellNode: ASCellNode {
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: UIColor(white: 0, alpha: 1)
             ])
-        smallChangeNode.attributedText = smallChangeAttributeText(value:"948.80")
+        smallChangeNode.attributedText = smallChangeAttributeText(value:model)
         tipsNode.attributedText = NSAttributedString(string: "转入零钱通，能赚又能花 ", attributes: [
             .font: UIFont.systemFont(ofSize: 16),
             .foregroundColor: Colors.Orange_100

@@ -10,7 +10,7 @@ import Foundation
 //import AliyunOSSSwiftSDK
 import AliyunOSSiOS
 
-typealias UploadResult = ((_ error: NSError?)->Void)
+typealias UploadResult = ((_ obj: Any?, _ error: NSError?)->Void)
 
 let ourLogLevel = OSSDDLogLevel.verbose
 @objcMembers
@@ -33,7 +33,7 @@ class UploadManager: NSObject {
             self.uploadAvatar(image: image, imageName: resp.nameList?.first ?? "", prefixType: prefixType)
             
         } failure: { request in
-            self.result?(request.error as NSError?)
+            self.result?(nil, request.error as NSError?)
             self.result = nil
         }
 
@@ -81,7 +81,7 @@ class UploadManager: NSObject {
         task.continue({ (t) -> Any? in
             if (t.error != nil) {
                 let error: NSError = (t.error)! as NSError
-                self.result?(error)
+                self.result?(nil, error)
                 self.result = nil
 //                self.ossAlert(title: "error", message: error.description)
             } else {
@@ -100,10 +100,10 @@ class UploadManager: NSObject {
         }
         let request = updateInfoRequest(head: imageName)
         request.startWithCompletionBlock { request in
-            self.result?(nil)
+            self.result?(imageName, nil)
             self.result = nil
         } failure: { request in
-            self.result?(request.error as NSError?)
+            self.result?(nil, request.error as NSError?)
             self.result = nil
         } 
     }

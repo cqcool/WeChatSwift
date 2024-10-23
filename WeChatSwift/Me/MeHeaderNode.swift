@@ -10,7 +10,7 @@ import AsyncDisplayKit
 
 class MeHeaderNode: ASButtonNode {
     
-    private let avatarNode = ASNetworkImageNode()
+    let avatarNode = ASNetworkImageNode()
     
     private let nameNode = ASTextNode()
     
@@ -25,12 +25,10 @@ class MeHeaderNode: ASButtonNode {
         
         avatarNode.cornerRadius = 10
         avatarNode.cornerRoundingType = .precomposited
-        avatarNode.url = AppContext.current.me.avatar
-        
+        avatarNode.defaultImage = UIImage(named: "login_defaultAvatar")
         qrCodeNode.image = UIImage.SVGImage(named: "icons_outlined_qr-code")
         qrCodeNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(Colors.DEFAULT_TEXT_GRAY_COLOR)
         arrowNode.image = UIImage.SVGImage(named: "icons_outlined_arrow")
-        
         
     }
     func reloadContent() {

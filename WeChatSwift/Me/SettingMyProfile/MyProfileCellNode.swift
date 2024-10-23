@@ -49,15 +49,6 @@ class MyProfileCellNode: ASCellNode {
         arrowNode.image = UIImage.SVGImage(named: "icons_outlined_arrow")
         badgeNode.update(count: model.wc_badgeCount, showDot: false)
         
-//        if model.wc_showSwitch {
-//            isUserInteractionEnabled = true
-//            let isOn = model.wc_switchValue
-//            switchNode = ASDisplayNode(viewBlock: { [weak self] () -> UIView in
-//                let button = self?.switchButton ?? UISwitch()
-//                button.isOn = isOn
-//                return button
-//            })
-//        }
         if model.wc_imageCornerRadius > 0 {
 //            iconNode.cornerRadius = model.wc_imageCornerRadius
 //            iconNode.cornerRoundingType = .precomposited

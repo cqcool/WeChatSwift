@@ -1,4 +1,6 @@
 platform:ios, '13.0'
+
+source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/aliyun/aliyun-specs.git'
 
 use_frameworks!
@@ -26,6 +28,8 @@ target 'WeChatSwift' do
   pod 'KeenKeyboard', :git => 'https://github.com/cqcool/KeenKeyboard.git'
   
   pod 'MJExtension'
+  pod 'MJRefresh'
+  pod 'BGFMDB', :git => 'https://github.com/dnakeyun/BGFMDB.git', :branch => 'dev-2.0.15'
   pod 'MBProgressHUD'
   pod 'Masonry'
   

@@ -44,7 +44,7 @@ extension MyProfileModel: WCTableCellModel {
     
     var wc_image: UIImage? { return image }
     var wc_imageURL: URL? {
-        URL(string: avatarUrl ?? "")
+        GlobalManager.headImageUrl(name: GlobalManager.manager.personModel?.head)
     }
     var wc_title: String { return title }
     

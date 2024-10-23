@@ -32,7 +32,17 @@ class PersonModel: NSObject, Codable {
         case wechatId
     }
     
+    func updateHead(headText: String) {
+        self.head = headText
+        GlobalManager.manager.updatePersonModel(model: self)
+    }
+    func updateNickName(nameText: String) {
+        self.nickname = nameText
+        GlobalManager.manager.updatePersonModel(model: self)
+    }
+    
     static func savePerson(person: PersonModel) {
+        
         if let jsonData = try? JSONEncoder().encode(person) {
             // 将JSON数据转换为String
             let jsonString = String(data: jsonData, encoding: .utf8)
@@ -53,5 +63,20 @@ class PersonModel: NSObject, Codable {
     static func clearPerson() {
         UserDefaults.standard.removeObject(forKey: "myPersonKey")
     }
-
+    
+    static func saveHeadUrl() {
+        guard let head = GlobalManager.manager.personModel?.head else {
+            return
+        }
+        guard let headUrl = GlobalManager.headImageUrl(name: head) else {
+            return
+        }
+        UserDefaults.standard.set(headUrl.absoluteString, forKey: "AvatarPath")
+    }
+    static func getHeadUrl() -> URL? {
+        guard let headPath = UserDefaults.standard.object(forKey: "AvatarPath") else {
+            return nil
+        }
+        return URL(string: headPath as! String)
+    }
 }

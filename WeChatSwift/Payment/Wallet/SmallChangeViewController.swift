@@ -46,7 +46,8 @@ extension SmallChangeViewController: ASTableDataSource, ASTableDelegate {
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         let block: ASCellNodeBlock = {
-            let cell = SmallChangeCellNode(model: "xxxx")
+            let balance = GlobalManager.manager.personModel?.balance ?? "0.00"
+            let cell = SmallChangeCellNode(model: balance)
             cell.selectionStyle = .none
             return cell
         }

@@ -48,14 +48,14 @@ class WalletViewController: ASDKViewController<ASDisplayNode> {
         footerView.addSubview(footerLabel)
         tableNode.view.tableFooterView = footerView
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            var section = self.dataSource.first
-            var smallChange = section?.items.first
-            smallChange?.value = "¥90.00"
-            section?.items[0] = smallChange!
-            self.dataSource[0] = section!
-            self.tableNode.reloadRows(at: [IndexPath(row: 0, section: 0)], with:.fade)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+//            var section = self.dataSource.first
+//            var smallChange = section?.items.first
+//            smallChange?.value = "¥90.00"
+//            section?.items[0] = smallChange!
+//            self.dataSource[0] = section!
+//            self.tableNode.reloadRows(at: [IndexPath(row: 0, section: 0)], with:.fade)
+//        }
     }
     func attributedText() -> NSAttributedString {
         let text = "身份信息  |  支付设置"
@@ -70,11 +70,13 @@ class WalletViewController: ASDKViewController<ASDisplayNode> {
         return attribute
     }
     private func setupDataSource() {
+        let balance = GlobalManager.manager.personModel?.balance ?? "0.00"
         var smallChange = WalletModel(type: .smallChange, title: "零钱", icon: "icons_outlined_wechatpay")
-        smallChange.value = "¥0.00"
+        smallChange.value = "¥" + balance
         var  changePass = WalletModel(type: .changePass, title: "零钱通", icon: "icons_outlined_wechatpay")
-        changePass.value = "¥0.00"
-        changePass.additionalContent = "收益率0.00%"
+//        changePass.value = "¥0.00"
+        let changeRate = GlobalManager.manager.personModel?.changeRate ?? "0.00"
+        changePass.additionalContent = "收益率\(changeRate)%"
         let bankCard = WalletModel(type: .bankCard, title: "银行卡", icon: "icons_outlined_wechatpay")
         let relativeCard = WalletModel(type: .relativeCard, title: "亲属卡", icon: "icons_outlined_wechatpay")
         dataSource.append(WalletSection(items: [smallChange, changePass, bankCard, relativeCard]))

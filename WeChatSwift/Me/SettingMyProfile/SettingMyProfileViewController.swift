@@ -13,7 +13,7 @@ class SettingMyProfileViewController: ASDKViewController<ASDisplayNode> {
     
     private let tableNode = ASTableNode(style: .grouped)
     private var dataSource: [MyProfileSection] = []
-    private var avatarImg: UIImage?
+//    private var avatarImg: UIImage?
     
     override init() {
         super.init(node: ASDisplayNode())
@@ -163,19 +163,22 @@ extension SettingMyProfileViewController: ASTableDelegate, ASTableDataSource {
         ac.selectImageBlock = { [weak self] results, isOriginal in
             guard let `self` = self else { return }
             guard let image = results.map({ $0.image }).first else { return }
-            DNKProgressHUD.loadingViewMsg("正在加载", maskView: nil)
-            UploadManager.manager.upload(prefixType: .avatar, number: "1", type: .image, image: image) { error in
-                self.wx_navigationBar.isHidden = false
-                if let error {
-                    DNKProgressHUD.brieflyProgressMsg("上传头像失败")
-                    return
+            DNKProgressHUD.showProgressMsg("正在加载")
+            UploadManager.manager.upload(prefixType: .avatar, number: "1", type: .image, image: image) {obj, error in
+                DispatchQueue.main.async {
+                    self.wx_navigationBar.isHidden = false
+                    if error != nil {
+                        DNKProgressHUD.brieflyProgressMsg("上传头像失败")
+                        return
+                    }
+                    let head = obj as! String
+                    GlobalManager.manager.personModel?.updateHead(headText: head) 
+                    var model = self.dataSource[indexPath.section].items[indexPath.row]
+                    model.image = image
+                    self.dataSource[indexPath.section].items[indexPath.row] = model
+                    self.tableNode.reloadRows(at: [indexPath], with: .fade)
+                    DNKProgressHUD.brieflyProgressMsg("上传头像完成")
                 }
-                self.avatarImg = image
-                var model = self.dataSource[indexPath.section].items[indexPath.row]
-                model.image = image
-                self.dataSource[indexPath.section].items[indexPath.row] = model
-                self.tableNode.reloadRows(at: [indexPath], with: .fade)
-                DNKProgressHUD.brieflyProgressMsg("上传头像完成")
             }
             
         }

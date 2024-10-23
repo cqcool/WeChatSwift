@@ -99,6 +99,10 @@
 		1EFACD002CC7941100D6ABC8 /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACCFF2CC7941100D6ABC8 /* UploadManager.swift */; };
 		1EFACD022CC7947300D6ABC8 /* UploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD012CC7947300D6ABC8 /* UploadApi.swift */; };
 		1EFACD052CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD042CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift */; };
+		1EFACD092CC8DC3F00D6ABC8 /* DiscoverApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD082CC8DC3F00D6ABC8 /* DiscoverApi.swift */; };
+		1EFACD0C2CC8DE0B00D6ABC8 /* GroupApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */; };
+		1EFACD0F2CC8E1C300D6ABC8 /* FriendsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD0E2CC8E1C300D6ABC8 /* FriendsApi.swift */; };
+		1EFACD112CC8EAC700D6ABC8 /* GroupEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */; };
 		8180972D2CC560F8003C6299 /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8180972C2CC560F8003C6299 /* RSAUtil.m */; };
 		818097302CC565A3003C6299 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180972F2CC565A3003C6299 /* LoginAPI.swift */; };
 		818097352CC6B45E003C6299 /* Dictionary+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818097342CC6B45E003C6299 /* Dictionary+Util.swift */; };
@@ -626,6 +630,10 @@
 		1EFACCFF2CC7941100D6ABC8 /* UploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
 		1EFACD012CC7947300D6ABC8 /* UploadApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadApi.swift; sourceTree = "<group>"; };
 		1EFACD042CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSSFederationTokenCredentialProvider.swift; sourceTree = "<group>"; };
+		1EFACD082CC8DC3F00D6ABC8 /* DiscoverApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverApi.swift; sourceTree = "<group>"; };
+		1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupApi.swift; sourceTree = "<group>"; };
+		1EFACD0E2CC8E1C300D6ABC8 /* FriendsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsApi.swift; sourceTree = "<group>"; };
+		1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEntity.swift; sourceTree = "<group>"; };
 		8180972B2CC560F8003C6299 /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
 		8180972C2CC560F8003C6299 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
 		8180972F2CC565A3003C6299 /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
@@ -1362,6 +1370,31 @@
 			path = UploadManager;
 			sourceTree = "<group>";
 		};
+		1EFACD072CC8DC1500D6ABC8 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				1EFACD082CC8DC3F00D6ABC8 /* DiscoverApi.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		1EFACD0A2CC8DDFA00D6ABC8 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */,
+				1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
+		1EFACD0D2CC8E19700D6ABC8 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				1EFACD0E2CC8E1C300D6ABC8 /* FriendsApi.swift */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
 		3B34DF561A8C79790A6E10A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1398,6 +1431,9 @@
 		8180972E2CC56566003C6299 /* WXRequest */ = {
 			isa = PBXGroup;
 			children = (
+				1EFACD0D2CC8E19700D6ABC8 /* Friends */,
+				1EFACD0A2CC8DDFA00D6ABC8 /* Group */,
+				1EFACD072CC8DC1500D6ABC8 /* Discover */,
 				1EFACD032CC7AFA600D6ABC8 /* UploadManager */,
 				8180972F2CC565A3003C6299 /* LoginAPI.swift */,
 			);
@@ -2770,6 +2806,7 @@
 				A354CE902327427E00A2B35C /* MomentGroupTag.swift in Sources */,
 				A3C914562305707D00B6E077 /* MomentCommentLoadHistoryCellNode.swift in Sources */,
 				A32333CD22DF501900B79555 /* MomentImageContentNode.swift in Sources */,
+				1EFACD112CC8EAC700D6ABC8 /* GroupEntity.swift in Sources */,
 				A352AD272306CDB300332B21 /* StorageUsageDetail.swift in Sources */,
 				A374863322D43C11002EEC4F /* MessageCellNode.swift in Sources */,
 				A3B6889223004D14007273CD /* RemarkTagCellNode.swift in Sources */,
@@ -2978,6 +3015,7 @@
 				A3DE7CCA2301142200E73944 /* StoryTakePhotoTeachViewController.swift in Sources */,
 				A3D67FBD230FC8B900507B5F /* GrowingTextView.swift in Sources */,
 				A3C9145423056FFA00B6E077 /* MomentCommentListCellNode.swift in Sources */,
+				1EFACD092CC8DC3F00D6ABC8 /* DiscoverApi.swift in Sources */,
 				A374864222D44C48002EEC4F /* LocationContentNode.swift in Sources */,
 				A3993A702323A90B000C86D9 /* RadarSearchViewController.swift in Sources */,
 				A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */,
@@ -2985,6 +3023,7 @@
 				A3476FFF22FAD681001B94EC /* MultiSelectContactsViewController.swift in Sources */,
 				A341393F23081E4A008E0EBF /* PhotoBrowserDataSource.swift in Sources */,
 				A3FB0AC122F455B200116329 /* SettingGeneralViewController.swift in Sources */,
+				1EFACD0C2CC8DE0B00D6ABC8 /* GroupApi.swift in Sources */,
 				A352AD1E23069D5D00332B21 /* MomentSetBackgroundHeaderNode.swift in Sources */,
 				1ECBEA222CC65E3100485BF0 /* GlobalManager.swift in Sources */,
 				A374865D22D4AE3A002EEC4F /* ChatRoomToolPanelNode.swift in Sources */,
@@ -3099,6 +3138,7 @@
 				A3709226231A8B28003DA42D /* MomentVideoContentNode.swift in Sources */,
 				A3F9F186230EAC6D0032299C /* SightMovieRecorder.swift in Sources */,
 				A3E2000D230A6BCC005B2B70 /* NetworkCheckViewController.swift in Sources */,
+				1EFACD0F2CC8E1C300D6ABC8 /* FriendsApi.swift in Sources */,
 				A3B6889A2300E62C007273CD /* AboutFooterNode.swift in Sources */,
 				A3D99547230B9DEA00E4F628 /* FTSFavoriteCellNode.swift in Sources */,
 				1E5E37532CC4CF82007F8944 /* NewDetailsViewController.swift in Sources */,

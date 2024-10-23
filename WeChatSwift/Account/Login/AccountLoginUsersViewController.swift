@@ -42,7 +42,8 @@ class AccountLoginUsersViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         formatePhoneNumber(number: GlobalManager.manager.personModel?.account as? NSString)
-//        imageView.pin_setImage(from: URL(string: "https://pinterest.com/kitten.jpg")!)
+        avatarView.pin_setImage(from: PersonModel.getHeadUrl(), placeholderImage: UIImage(named: "login_defaultAvatar"))
+        
         NotificationCenter.default.addObserver(self, selector: #selector(popupAlertView(_:)), name: NSNotification.Name("showAlertViewOnLoginUI"), object: nil)
     }
     
@@ -167,8 +168,7 @@ class AccountLoginUsersViewController: UIViewController {
         phoneLabel.text = (strs as NSArray).componentsJoined(by: " ")
     }
     private func layoutContentView() {
-        
-        avatarView.image = UIImage(named: "login_defaultAvatar")
+          
         avatarView.layer.cornerRadius = 6
         avatarView.layer.masksToBounds = true
         contentView.addSubview(avatarView)
