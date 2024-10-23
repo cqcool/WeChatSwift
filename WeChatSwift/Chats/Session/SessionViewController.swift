@@ -47,7 +47,8 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         tableNode.dataSource = self
         tableNode.delegate = self
         
-        loadSessions()
+        loadGroupData()
+//        loadSessions()
         tableNode.reloadData()
         
         let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_outlined_addoutline"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
@@ -59,6 +60,7 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
         
         GlobalManager.manager.createTiming()
+        GlobalManager.manager.timingManager?.addDelegate(delegate: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -278,9 +280,16 @@ extension SessionViewController: UISearchControllerDelegate {
     }
 }
 
-extension SessionViewController {
+extension SessionViewController: TimingGroupDelegate {
+    func updateGroupList(list: [GroupEntity]) {
+        list.map { entity in
+            
+        }
+    }
+}
+
+private extension SessionViewController {
     private func requestUnreadMsg() {
-        
         let request = UnreadMsgRequest()
         request.startWithCompletionBlock { request in
             if let json = try? JSON(data: request.wxResponseData()) {
@@ -293,5 +302,9 @@ extension SessionViewController {
                 }
             }
         }
+    }
+    
+    func loadGroupData() {
+        
     }
 }

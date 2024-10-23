@@ -15,7 +15,12 @@ import SwiftyJSON
 class GlobalManager: NSObject {
     static let manager = GlobalManager()
     var appDelegate: AppDelegate!
-    private var timingManager: TimingGroupManager? = nil
+    private var timingManagerPrivate: TimingGroupManager? = nil
+    var timingManager: TimingGroupManager? {
+        get {
+            timingManagerPrivate
+        }
+    }
     
     @objc var isEncry: Bool = false
     private var refreshTokenValue: String? = nil
@@ -72,8 +77,8 @@ class GlobalManager: NSObject {
        PersonModel.savePerson(person: model!)
     }
     func createTiming() {
-        self.timingManager = TimingGroupManager()
-        self.timingManager?.startTimer()
+        self.timingManagerPrivate = TimingGroupManager()
+        self.timingManagerPrivate?.startTimer()
     }
     func login() {
         isShowLogin = false
@@ -81,8 +86,8 @@ class GlobalManager: NSObject {
     }
     
     func logout() {
-        self.timingManager?.stopTimer()
-        self.timingManager = nil
+        self.timingManagerPrivate?.stopTimer()
+        self.timingManagerPrivate = nil
         if isShowLogin {
             return
         }

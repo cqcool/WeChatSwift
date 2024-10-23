@@ -21,9 +21,9 @@ extension Dictionary {
 }
 
 extension Array {
-    func toData(array: [Any]) -> Data? {
+    func toData() -> Data? {
         do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: array, requiringSecureCoding: false)
+            let data = try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
             return data
         } catch {
             print("Error converting array to data: \(error)")
