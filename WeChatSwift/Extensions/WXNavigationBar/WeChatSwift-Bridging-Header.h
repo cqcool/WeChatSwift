@@ -4,6 +4,7 @@
 #import <YTKNetwork.h>
 #import <YTKNetwork/YTKChainRequest.h>
 #import <MJExtension.h>
+#import <BGFMDB.h>
 #import "YTKBaseRequest+DNKApi.h"
 #import "UIButton+Ext.h"
 

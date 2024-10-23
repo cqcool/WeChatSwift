@@ -103,6 +103,8 @@
 		1EFACD0C2CC8DE0B00D6ABC8 /* GroupApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */; };
 		1EFACD0F2CC8E1C300D6ABC8 /* FriendsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD0E2CC8E1C300D6ABC8 /* FriendsApi.swift */; };
 		1EFACD112CC8EAC700D6ABC8 /* GroupEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */; };
+		1EFACD132CC8F87F00D6ABC8 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD122CC8F87F00D6ABC8 /* MessageEntity.swift */; };
+		1EFACD152CC8FED000D6ABC8 /* TimingGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD142CC8FED000D6ABC8 /* TimingGroupManager.swift */; };
 		8180972D2CC560F8003C6299 /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8180972C2CC560F8003C6299 /* RSAUtil.m */; };
 		818097302CC565A3003C6299 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180972F2CC565A3003C6299 /* LoginAPI.swift */; };
 		818097352CC6B45E003C6299 /* Dictionary+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818097342CC6B45E003C6299 /* Dictionary+Util.swift */; };
@@ -634,6 +636,8 @@
 		1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupApi.swift; sourceTree = "<group>"; };
 		1EFACD0E2CC8E1C300D6ABC8 /* FriendsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsApi.swift; sourceTree = "<group>"; };
 		1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEntity.swift; sourceTree = "<group>"; };
+		1EFACD122CC8F87F00D6ABC8 /* MessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
+		1EFACD142CC8FED000D6ABC8 /* TimingGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingGroupManager.swift; sourceTree = "<group>"; };
 		8180972B2CC560F8003C6299 /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
 		8180972C2CC560F8003C6299 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
 		8180972F2CC565A3003C6299 /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
@@ -1383,6 +1387,8 @@
 			children = (
 				1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */,
 				1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */,
+				1EFACD122CC8F87F00D6ABC8 /* MessageEntity.swift */,
+				1EFACD142CC8FED000D6ABC8 /* TimingGroupManager.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -2773,6 +2779,7 @@
 				A37FFB6C22EE95F20001DD27 /* WCWebViewScriptMessageHandler.swift in Sources */,
 				A3476FF522FA9827001B94EC /* UITabBar+Fix.swift in Sources */,
 				8180972D2CC560F8003C6299 /* RSAUtil.m in Sources */,
+				1EFACD132CC8F87F00D6ABC8 /* MessageEntity.swift in Sources */,
 				A3B6888E23004A3F007273CD /* RemarkViewController.swift in Sources */,
 				A352AD092306492E00332B21 /* MomentCoverCustomizeViewController.swift in Sources */,
 				A3E840D4231CF07B00EAC4CE /* AppConfiguration.swift in Sources */,
@@ -3060,6 +3067,7 @@
 				A36EC0BF22FFCFC5004FD6B2 /* ContactSettingModel.swift in Sources */,
 				1EF4E6C42CBCFD35000F39E9 /* MyProfileCellNode.swift in Sources */,
 				1E5E37452CC25A96007F8944 /* ModifyRoomNameViewController.swift in Sources */,
+				1EFACD152CC8FED000D6ABC8 /* TimingGroupManager.swift in Sources */,
 				1EF4E64E2CBA5029000F39E9 /* String+Util.swift in Sources */,
 				A3B6889023004CFB007273CD /* RemarkEditNameCellNode.swift in Sources */,
 				A35B21A1230022500057F8FC /* BrandTimelineViewController.swift in Sources */,

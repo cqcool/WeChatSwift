@@ -19,3 +19,15 @@ extension Dictionary {
         return nil
     }
 }
+
+extension Array {
+    func toData(array: [Any]) -> Data? {
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: array, requiringSecureCoding: false)
+            return data
+        } catch {
+            print("Error converting array to data: \(error)")
+            return nil
+        }
+    }
+}

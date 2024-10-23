@@ -57,6 +57,8 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         setupSearchController()
         GlobalManager.manager.requestRefreshToken()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
+        
+        GlobalManager.manager.createTiming()
     }
     
     override func viewWillAppear(_ animated: Bool) {
