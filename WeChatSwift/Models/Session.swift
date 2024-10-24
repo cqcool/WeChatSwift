@@ -9,7 +9,7 @@
 import Foundation
 import WCDBSwift
 
-public class Session {
+public class Session1 {
     
     var sessionID: String
     
@@ -45,7 +45,7 @@ public class Session {
     }
 }
 
-extension Session {
+extension Session1 {
     
     func attributedStringForTitle() -> NSAttributedString {
         let attributes: [NSAttributedString.Key: Any] = [

@@ -17,9 +17,9 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     
     private var menuFloatView: SessionMoreFrameFloatView?
     
-    private var topSessions: [Session] = []
+    private var topSessions: [GroupEntity] = []
     
-    private var dataSource: [Session] = []
+    private var dataSource: [GroupEntity] = []
     
     private lazy var mainSearchViewController: MainSearchViewController = {
         return MainSearchViewController()
@@ -191,62 +191,40 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: false)
-//        print("xxxxxxx")
-//        UploadManager.manager.upload(prefixType: .avatar, number: "1", type: .image, image: UIImage(named: "Action_JD_index_60x60_")!) { error in
-////            self.wx_navigationBar.isHidden = false
-//            if let error {
-//                print(error.localizedDescription)
-//                DNKProgressHUD.brieflyProgressMsg("上传头像失败")
-//                return
-//            }
-////            self.avatarImg = image
-////            var model = self.dataSource[indexPath.section].items[indexPath.row]
-////            model.image = image
-////            self.dataSource[indexPath.section].items[indexPath.row] = model
-////            self.tableNode.reloadRows(at: [indexPath], with: .fade)
-//            DNKProgressHUD.brieflyProgressMsg("上传头像完成")
-//        }
-//        
-//        return
-//        DNKApiUtils.decryptResponseData(["1":"2"])
-//        return
-        
-//        navigationController?.pushViewController(MakeRedEnvelopeViewController(), animated: true)
-//        let vc = NewsViewController()
-//        navigationController?.pushViewController(vc, animated: true)
-         
-//        return
-        
         let session = indexPath.section == 0 ? topSessions[indexPath.row] : dataSource[indexPath.row]
-        if session.sessionID == Constants.BrandSessionName {
-            let brandTimelineVC = BrandTimelineViewController()
-            navigationController?.pushViewController(brandTimelineVC, animated: true)
-        } else {
-            let chatVC = ChatRoomViewController(sessionID: session.sessionID)
-            navigationController?.pushViewController(chatVC, animated: true)
+//        if session.sessionID == Constants.BrandSessionName {
+//            let brandTimelineVC = BrandTimelineViewController()
+//            navigationController?.pushViewController(brandTimelineVC, animated: true)
+//        } else {
+        guard let groupNo = session.groupNo else {
+            return
         }
+            let chatVC = ChatRoomViewController(sessionID: groupNo)
+            navigationController?.pushViewController(chatVC, animated: true)
+        
+//        }
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         var actions: [UITableViewRowAction] = []
-        let deleteAction = UITableViewRowAction(style: .default, title: "删除") { (_, _) in
-            
-        }
-        actions.append(deleteAction)
-        
-        let session = indexPath.section == 0 ? topSessions[indexPath.row] : dataSource[indexPath.row]
-        if session.unreadCount > 0 {
-            let readAction = UITableViewRowAction(style: .normal, title: "标记为已读") { (_, _) in
-                
-            }
-            actions.append(readAction)
-        } else {
-            let unReadAction = UITableViewRowAction(style: .normal, title: "标记为未读") { (_, _) in
-                
-            }
-            actions.append(unReadAction)
-        }
+//        let deleteAction = UITableViewRowAction(style: .default, title: "删除") { (_, _) in
+//            
+//        }
+//        actions.append(deleteAction)
+//        
+//        let session = indexPath.section == 0 ? topSessions[indexPath.row] : dataSource[indexPath.row]
+//        if session.unreadCount > 0 {
+//            let readAction = UITableViewRowAction(style: .normal, title: "标记为已读") { (_, _) in
+//                
+//            }
+//            actions.append(readAction)
+//        } else {
+//            let unReadAction = UITableViewRowAction(style: .normal, title: "标记为未读") { (_, _) in
+//                
+//            }
+//            actions.append(unReadAction)
+//        }
         return actions
     }
 }

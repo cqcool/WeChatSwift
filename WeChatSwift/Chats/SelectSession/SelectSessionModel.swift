@@ -10,14 +10,14 @@ import Foundation
 
 class SelectSessionModel: WCTableCellModel {
     
-    private let session: Session
+    private let session: GroupEntity
     
-    init(session: Session) {
+    init(session: GroupEntity) {
         self.session = session
     }
     
     var wc_title: String {
-        return session.name
+        return session.name ?? "未命名"
     }
     
 }

@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import WCDBSwift
+
 
 @objcMembers
-class MessageEntity: NSObject, Codable {
+class MessageEntity: NSObject, Codable, TableCodable {
     var content: String? = "" //string
     var contentType: Int? = 0//0,
     var createTime: String? = "" //2024-10-23T08:45:36.828Z
@@ -34,7 +36,34 @@ class MessageEntity: NSObject, Codable {
     var type: Int? = 0//0,
     var userId: Int? = 0//0
     
-    override class func bg_uniqueKeys() -> [Any] {
-        ["no"]
+    enum CodingKeys: String, CodingTableKey {
+
+        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) 
+        
+        typealias Root = MessageEntity
+        case content
+        case contentType
+        case createTime
+        case groupNo
+        case groupType
+        case head
+        case isAllDel
+        case isUp
+        case linkContent
+        case nickname
+        case no
+        case orderNumber
+        case referContent
+        case referContentType
+        case referLinkContent
+        case referMsgNo
+        case referUserHead
+        case referUserId
+        case referUserNickname
+        case showTime
+        case toUserId
+        case type
+        case userId
+         
     }
 }

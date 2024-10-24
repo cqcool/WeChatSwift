@@ -10,7 +10,7 @@ import AsyncDisplayKit
 
 class SessionCellNode: ASCellNode {
     
-    private let session: Session
+    private let session: GroupEntity
     
     private let avatarNode = ASNetworkImageNode()
     
@@ -28,7 +28,7 @@ class SessionCellNode: ASCellNode {
     
     private let hairlineNode = ASDisplayNode()
     
-    init(session: Session) {
+    init(session: GroupEntity) {
         self.session = session
         super.init()
         
@@ -37,11 +37,11 @@ class SessionCellNode: ASCellNode {
         avatarNode.cornerRadius = 4.0
         avatarNode.cornerRoundingType = .precomposited
         avatarNode.defaultImage = UIImage.as_imageNamed("DefaultHead_48x48_")
-        if session.avatarImage != nil {
-            avatarNode.image = session.avatarImage
-        } else {
-            avatarNode.url = session.avatar
-        }
+//        if session.avatarImage != nil {
+//            avatarNode.image = session.avatarImage
+//        } else {
+            avatarNode.url = GlobalManager.headImageUrl(name: session.head)
+//        }
         
         titleNode.attributedText = session.attributedStringForTitle()
         titleNode.maximumNumberOfLines = 1
