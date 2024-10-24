@@ -105,6 +105,7 @@
 		1EFACD112CC8EAC700D6ABC8 /* GroupEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */; };
 		1EFACD132CC8F87F00D6ABC8 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD122CC8F87F00D6ABC8 /* MessageEntity.swift */; };
 		1EFACD152CC8FED000D6ABC8 /* TimingGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD142CC8FED000D6ABC8 /* TimingGroupManager.swift */; };
+		1EFACD1F2CCA341300D6ABC8 /* LoadingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD1E2CCA341300D6ABC8 /* LoadingCircle.swift */; };
 		8180972D2CC560F8003C6299 /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8180972C2CC560F8003C6299 /* RSAUtil.m */; };
 		818097302CC565A3003C6299 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180972F2CC565A3003C6299 /* LoginAPI.swift */; };
 		818097352CC6B45E003C6299 /* Dictionary+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818097342CC6B45E003C6299 /* Dictionary+Util.swift */; };
@@ -638,6 +639,7 @@
 		1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEntity.swift; sourceTree = "<group>"; };
 		1EFACD122CC8F87F00D6ABC8 /* MessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		1EFACD142CC8FED000D6ABC8 /* TimingGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingGroupManager.swift; sourceTree = "<group>"; };
+		1EFACD1E2CCA341300D6ABC8 /* LoadingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircle.swift; sourceTree = "<group>"; };
 		8180972B2CC560F8003C6299 /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
 		8180972C2CC560F8003C6299 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
 		8180972F2CC565A3003C6299 /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
@@ -1401,6 +1403,14 @@
 			path = Friends;
 			sourceTree = "<group>";
 		};
+		1EFACD1D2CCA33E800D6ABC8 /* LoadingCircle */ = {
+			isa = PBXGroup;
+			children = (
+				1EFACD1E2CCA341300D6ABC8 /* LoadingCircle.swift */,
+			);
+			path = LoadingCircle;
+			sourceTree = "<group>";
+		};
 		3B34DF561A8C79790A6E10A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1644,6 +1654,7 @@
 		A33DB2EA22CCCA2A00A11776 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1EFACD1D2CCA33E800D6ABC8 /* LoadingCircle */,
 				1EF4E6432CB8FAA7000F39E9 /* DNKCreate.swift */,
 				A3CA520A22CDD58800C67D92 /* Constants.swift */,
 				A33DB2F422CCD92E00A11776 /* Colors.swift */,
@@ -2953,6 +2964,7 @@
 				A30347F922FF9983003ECF82 /* BrandContactsViewController.swift in Sources */,
 				A36E1B4922FA47F300C5DD32 /* ChatRoomBackgroundSettingCellNode.swift in Sources */,
 				1E5E374C2CC3BAE0007F8944 /* RedDetailsCellNode.swift in Sources */,
+				1EFACD1F2CCA341300D6ABC8 /* LoadingCircle.swift in Sources */,
 				A322870522E07C64004E516E /* SessionMoreMenuFloatView.swift in Sources */,
 				A32333CF22DF504C00B79555 /* MomentMultiImageContentNode.swift in Sources */,
 				A3542F53230D7FB30034ED82 /* EmoticonDetailArtistNode.swift in Sources */,

@@ -21,6 +21,8 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     
     private var dataSource: [GroupEntity] = []
     
+    private var loadingView = LoadingCircle(circleWidth: 4, circleColor: .black)
+    
     private lazy var mainSearchViewController: MainSearchViewController = {
         return MainSearchViewController()
     }()
@@ -53,11 +55,19 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         
         let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_outlined_addoutline"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
         navigationItem.rightBarButtonItem = rightButtonItem
-        navigationItem.title = "微信"
+//        navigationItem.title = "微信"
         
         setupSearchController()
         GlobalManager.manager.requestRefreshToken()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
+         
+        wx_navigationBar.containerView.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(CGSize(width: 34, height: 34))
+        }
+        wx_navigationBar.layoutIfNeeded()
+        loadingView.start()
         
         GlobalManager.manager.createTiming()
         GlobalManager.manager.timingManager?.addDelegate(delegate: self)
@@ -196,10 +206,7 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
 //            let brandTimelineVC = BrandTimelineViewController()
 //            navigationController?.pushViewController(brandTimelineVC, animated: true)
 //        } else {
-        guard let groupNo = session.groupNo else {
-            return
-        }
-            let chatVC = ChatRoomViewController(sessionID: groupNo)
+        let chatVC = ChatRoomViewController(session: session)
             navigationController?.pushViewController(chatVC, animated: true)
         
 //        }
@@ -260,9 +267,18 @@ extension SessionViewController: UISearchControllerDelegate {
 
 extension SessionViewController: TimingGroupDelegate {
     func updateGroupList(list: [GroupEntity]) {
-        list.map { entity in
-            
+        if list.count == 0 {
+            return
         }
+        for group in list.reversed() {
+            if dataSource.contains(where: {$0.groupNo == group.groupNo}) {
+                dataSource.removeAll {$0.groupNo == group.groupNo}
+                dataSource.insert(group, at: 0)
+            } else {
+                dataSource.insert(group, at: 0)
+            }
+        }
+        tableNode.reloadData()
     }
 }
 

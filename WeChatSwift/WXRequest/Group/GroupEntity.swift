@@ -14,8 +14,10 @@ final class GroupEntity: NSObject, Codable, TableCodable {
 //    var pk: Int?
     var contentType: Int?//  0,
     var groupNo: String?
+    /// 类别： 1、私聊；2、群聊
     var groupType: Int?
     var head: String?
+    /// 是否管理员 0否 1是
     var isAdmin: Int?
     var isDel: Int?
     var isNotify: Int?
@@ -30,8 +32,15 @@ final class GroupEntity: NSObject, Codable, TableCodable {
     var newAckMsgUserNickname: String?
     var unReadNum: String?
     var userId:String?
+    /// 用户消息类型(1正常,2微信团队,3腾讯新闻)
     var userMsgType: Int?
+    /// 成员数量(原先memberNum)
     var userNum: Int?
+    /// 群介绍
+    var intro: String?
+    /// 群状态 0正常 1解散 2封禁
+    var status: Int = 0
+    
     
     // 注意：json的key和模型属性不同时，可以使用映射
     enum CodingKeys: String, CodingKey, CodingTableKey {
@@ -77,20 +86,27 @@ extension GroupEntity {
     }
     
     func attributedStringForSubTitle() -> NSAttributedString {
-        if newAckMsgType == 0 ||
-            newAckMsgType == 1 ||
-            newAckMsgType == 2 {
+        guard let msgType = newAckMsgType else {
+            return NSAttributedString(string: "")
+        }
+        if msgType == 0 ||
+            msgType == 1 ||
+            msgType == 2 {
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 14),
                 .foregroundColor: UIColor(hexString: "9B9B9B")
             ]
-            return NSAttributedString(string: "[\(String(describing: msgNum))条] \(String(describing: newAckMsgUserNickname)): \(newAckMsgInfo ?? "")", attributes: attributes)
+            if let unRead = Int(unReadNum ?? "0"), unRead > 0 {
+                return NSAttributedString(string: "[\(String(describing: unRead))条] \(String(describing: newAckMsgUserNickname ?? "")): \(newAckMsgInfo ?? "")", attributes: attributes)
+            }
+            return NSAttributedString(string: "\(newAckMsgUserNickname ?? ""): \(newAckMsgInfo ?? "")", attributes: attributes)
         }
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 14),
             .foregroundColor: Colors.Red
         ]
-        return NSAttributedString(string: "[\(newAckMsgInfo ?? "通知消息")]", attributes: attributes)
+        let msg = (newAckMsgInfo ?? "").isEmpty ? "通知消息" : newAckMsgInfo!
+        return NSAttributedString(string: "[\(msg)]", attributes: attributes)
     }
     
     func attributedStringForTime() -> NSAttributedString {

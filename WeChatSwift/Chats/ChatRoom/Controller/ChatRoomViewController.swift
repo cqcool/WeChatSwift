@@ -11,6 +11,7 @@ import UIKit
 import AsyncDisplayKit
 import WXActionSheet
 import PINRemoteImage
+import SwiftyJSON
 
 enum ChatRoomStatus {
     case ban /// 被封
@@ -21,11 +22,11 @@ enum ChatRoomStatus {
 
 class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     
-    private let sessionID: String
+    private let session: GroupEntity
     
     private let dataSource: ChatRoomDataSource
     
-    private let user: MockData.User
+//    private let user: MockData.User
     
     private let inputNode = ChatRoomKeyboardNode()
     
@@ -48,10 +49,10 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     private let notSendImageView = UIImageView(image: UIImage(named: "lqt_deposit_info_icon"))
     private let notSendLine = UIView()
     
-    init(sessionID: String) {
-        self.sessionID = sessionID
-        self.dataSource = ChatRoomDataSource(sessionID: sessionID)
-        self.user = MockFactory.shared.user(with: sessionID)!
+    init(session: GroupEntity) {
+        self.session = session
+        self.dataSource = ChatRoomDataSource(sessionID: session.groupNo!)
+//        self.user = MockFactory.shared.user(with: sessionID)!
         
         super.init(node: ASDisplayNode())
         
@@ -91,8 +92,9 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadMessage()
         
-        navigationItem.title = user.name
+        navigationItem.title = session.name
         let moreButtonItem = UIBarButtonItem(image: Constants.moreImage, style: .done, target: self, action: #selector(moreButtonClicked))
         navigationItem.rightBarButtonItem = moreButtonItem
         
@@ -136,6 +138,28 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
 //        }
     }
     
+    func loadMessage() {
+        
+        let request = MessageRequest(groupNo: session.groupNo!)
+        request.startWithCompletionBlock { request in
+            if let json = try? JSON(data: request.wxResponseData()) {
+                if let groupList = json["groupList"].arrayObject,
+                   let jsonData = (groupList as NSArray).mj_JSONData() {
+                   
+                    do {
+                        let resp = try JSONDecoder().decode([MessageEntity].self, from: jsonData)
+                       
+                        print(resp)
+                    }  catch {
+                        print("Error decoding JSON: \(error)")
+                    }
+                }
+            }
+        } failure: { request in
+            
+        }
+
+    }
     private func updateChatRoomView(status: ChatRoomStatus) {
         switch status {
         case .ban:
@@ -195,7 +219,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
                 let thumbImage = mediaAsset.asset.thumbImage(with: CGSize(width: 500, height: 500))
                 let imageMsg = ImageMessage(image: thumbImage, size: mediaAsset.asset.pixelSize)
                 let message = Message()
-                message.chatID = sessionID
+                message.chatID = session.groupNo!
                 message.content = .image(imageMsg)
                 message.senderID = AppContext.current.userID
                 message.localMsgID = UUID().uuidString
@@ -207,7 +231,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
                 let size = mediaAsset.asset.pixelSize
                 let videoMsg = VideoMessage(url: nil, thumb: thumbImage, size: size, fileSize: 0, duration: Float(duration))
                 let message = Message()
-                message.chatID = sessionID
+                message.chatID = session.groupNo!
                 message.content = .video(videoMsg)
                 message.senderID = AppContext.current.userID
                 message.localMsgID = UUID().uuidString
@@ -240,7 +264,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     
     private func sendLocation() {
         let message = Message()
-        message.chatID = sessionID
+        message.chatID = session.groupNo!
         
         message.content = .location(LocationMessage(coordinate: CLLocationCoordinate2DMake(39.996074, 116.480813), thumbImage: UIImage(named: "location_thumb"), title: "望京SOHOT2(北京市朝阳区)", subTitle: "北京市朝阳区阜通东大街"))
         message.senderID = AppContext.current.userID
@@ -313,9 +337,9 @@ extension ChatRoomViewController {
     }
     
     @objc private func moreButtonClicked() {
-        let contact = user.toContact()
-        let contactVC = ChatRoomContactInfoViewController(contact: contact)
-        navigationController?.pushViewController(contactVC, animated: true)
+//        let contact = user.toContact()
+//        let contactVC = ChatRoomContactInfoViewController(contact: contact)
+//        navigationController?.pushViewController(contactVC, animated: true)
     }
     
     
@@ -359,7 +383,7 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
     
     func keyboard(_ keyboard: ChatRoomKeyboardNode, didSendText text: String) {
         let message = Message()
-        message.chatID = sessionID
+        message.chatID = session.groupNo!
         message.content = .text(text)
         message.senderID = AppContext.current.userID
         message.localMsgID = UUID().uuidString
@@ -405,7 +429,7 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
     
     func keyboard(_ keyboard: ChatRoomKeyboardNode, didSendSticker sticker: WCEmotion) {
         let message = Message()
-        message.chatID = sessionID
+        message.chatID = session.groupNo!
         message.content = .emoticon(EmoticonMessage(md5: sticker.name, packageID: sticker.packageID, title: sticker.title))
         message.senderID = AppContext.current.userID
         message.localMsgID = UUID().uuidString
@@ -421,7 +445,7 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
         switch game.type {
         case .dice:
             let message = Message()
-            message.chatID = sessionID
+            message.chatID = session.groupNo!
             message.content = .game(GameMessage(gameType: .dice))
             message.senderID = AppContext.current.userID
             message.localMsgID = UUID().uuidString
@@ -487,7 +511,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
 //        if let url = url {
 //            let webVC = WebViewController(url: url)
 //            navigationController?.pushViewController(webVC, animated: true)
-//            inputNode.dismissKeyboard()
+//            inputNode.dismissKeyboard()·
 //        }
     }
     

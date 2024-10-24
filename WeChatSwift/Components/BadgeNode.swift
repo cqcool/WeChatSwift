@@ -37,7 +37,7 @@ class BadgeNode: ASDisplayNode {
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
             NSAttributedString.Key.foregroundColor: UIColor.white
         ]
-        textNode.attributedText = NSAttributedString(string: String(count), attributes: attributes)
+        textNode.attributedText = NSAttributedString(string: count > 99 ? "\(count)+" : "\(count)", attributes: attributes)
         setNeedsLayout()
     }
     

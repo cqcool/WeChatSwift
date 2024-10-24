@@ -68,15 +68,22 @@ class SessionCellNode: ASCellNode {
         super.didLoad()
         
         backgroundColor = false/*session.stickTop*/ ? UIColor(hexString: "#F2F2F2") : UIColor(hexString: "#FEFFFF")
-        badgeNode.update(count: session.msgNum ?? 0, showDot: true/*session.showUnreadAsRedDot*/)
+        badgeNode.update(count: Int(session.unReadNum ?? "0")!, showDot: false/*session.showUnreadAsRedDot*/)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        badgeNode.style.preferredSize = CGSize(width: 30, height: 30)
+        let unReadNum = (session.unReadNum ?? "0").isEmpty ? 0 : Int(session.unReadNum!)!
+        var badgeSize = CGSizeZero
+        if unReadNum < 99 {
+            badgeSize = CGSize(width: 30, height: 30)
+        } else {
+            badgeSize = CGSize(width: 40, height: 30)
+        }
+        badgeNode.style.preferredSize = badgeSize
         avatarNode.style.preferredSize = CGSize(width: 48.0, height: 48.0)
         
         let avatarLayout: ASLayoutSpec
-        if ((session.msgNum ?? 0)) > 0 {
+        if unReadNum > 0 {
             avatarNode.style.layoutPosition = CGPoint(x: 16.0, y: 12.0)
             badgeNode.style.layoutPosition = CGPoint(x: 47, y: -1)
             avatarLayout = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: ASAbsoluteLayoutSpec(children: [avatarNode, badgeNode]))
