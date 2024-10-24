@@ -7,10 +7,10 @@
 //
 
 import Foundation
+import WCDBSwift
 
 @objcMembers
-class GroupEntity: NSObject, Codable {
-    
+final class GroupEntity: NSObject, Codable, TableCodable {
 //    var pk: Int?
     var contentType: Int?//  0,
     var groupNo: String?
@@ -34,7 +34,14 @@ class GroupEntity: NSObject, Codable {
     var userNum: Int?
     
     // 注意：json的key和模型属性不同时，可以使用映射
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey, CodingTableKey {
+        typealias Root = GroupEntity
+        
+        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+            BindColumnConstraint(groupNo, isPrimary: true)
+            BindColumnConstraint(newAckMsgDate, isPrimary: false, orderBy: .descending)
+        }
+        
 //        case pk
         case contentType
         case groupNo
@@ -56,10 +63,6 @@ class GroupEntity: NSObject, Codable {
         case userId
         case userMsgType
         case userNum
-    }
-    
-    override class func bg_uniqueKeys() -> [Any] {
-        ["groupNo"]
     }
 }
 

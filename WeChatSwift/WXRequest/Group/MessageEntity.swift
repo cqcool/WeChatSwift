@@ -11,7 +11,7 @@ import WCDBSwift
 
 
 @objcMembers
-class MessageEntity: NSObject, Codable, TableCodable {
+final class MessageEntity: NSObject, Codable, TableCodable {
     var content: String? = "" //string
     var contentType: Int? = 0//0,
     var createTime: String? = "" //2024-10-23T08:45:36.828Z
@@ -38,7 +38,10 @@ class MessageEntity: NSObject, Codable, TableCodable {
     
     enum CodingKeys: String, CodingTableKey {
 
-        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) 
+        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+            BindColumnConstraint(no, isPrimary: true)
+            BindColumnConstraint(createTime, isPrimary: false, orderBy: .descending)
+        }
         
         typealias Root = MessageEntity
         case content

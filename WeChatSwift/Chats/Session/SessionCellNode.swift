@@ -67,8 +67,8 @@ class SessionCellNode: ASCellNode {
     override func didLoad() {
         super.didLoad()
         
-        backgroundColor = session.stickTop ? UIColor(hexString: "#F2F2F2") : UIColor(hexString: "#FEFFFF")
-        badgeNode.update(count: session.unreadCount, showDot: session.showUnreadAsRedDot)
+        backgroundColor = false/*session.stickTop*/ ? UIColor(hexString: "#F2F2F2") : UIColor(hexString: "#FEFFFF")
+        badgeNode.update(count: session.msgNum ?? 0, showDot: true/*session.showUnreadAsRedDot*/)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -76,7 +76,7 @@ class SessionCellNode: ASCellNode {
         avatarNode.style.preferredSize = CGSize(width: 48.0, height: 48.0)
         
         let avatarLayout: ASLayoutSpec
-        if session.unreadCount > 0 {
+        if ((session.msgNum ?? 0)) > 0 {
             avatarNode.style.layoutPosition = CGPoint(x: 16.0, y: 12.0)
             badgeNode.style.layoutPosition = CGPoint(x: 47, y: -1)
             avatarLayout = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: ASAbsoluteLayoutSpec(children: [avatarNode, badgeNode]))
@@ -96,11 +96,11 @@ class SessionCellNode: ASCellNode {
         topStack.children = [titleNode, timeNode]
         
         var bottomElements: [ASLayoutElement] = []
-        if session.showDrafts {
+        if false/*session.showDrafts*/ {
             bottomElements.append(draftNode)
         }
         bottomElements.append(subTitleNode)
-        if session.muted {
+        if false/*session.muted*/ {
             bottomElements.append(muteNode)
         }
         let bottomStack = ASStackLayoutSpec.horizontal()

@@ -12,22 +12,22 @@ import CoreLocation
 import WCDBSwift
 import PINRemoteImage
 
-public class Message: TableCodable {
+public class Message/*: TableCodable*/ {
     
-    public enum CodingKeys: String, CodingTableKey {
-        public typealias Root = Message
-        public static let objectRelationalMapping = TableBinding(CodingKeys.self)
-        
-        case localMsgID = "localMsgID"
-        case serverMsgID
-        case type
-        
-        public static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
-            return [
-                localMsgID: ColumnConstraintBinding(isPrimary: true)
-            ]
-        }
-    }
+//    public enum CodingKeys: String, CodingTableKey {
+//        public typealias Root = Message
+//        public static let objectRelationalMapping = TableBinding(CodingKeys.self)
+//        
+//        case localMsgID = "localMsgID"
+//        case serverMsgID
+//        case type
+//        
+////        public static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
+////            return [
+////                localMsgID: ColumnConstraintBinding(isPrimary: true)
+////            ]
+////        }
+//    }
     
     var localMsgID: String = ""
     

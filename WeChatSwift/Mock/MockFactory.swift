@@ -36,33 +36,34 @@ class MockFactory {
         return data.users.first(where: { $0.identifier == identifier })
     }
     
-    func sessions() -> [Session] {
-        var userSessions: [Session] = data.users.map { user in
-            let session = Session(sessionID: user.identifier, name: user.name)
-            session.content = randomMessage()
-            session.avatar = user.avatar
-            if user.identifier == "20001" {
-                session.unreadCount = 5
-            }
-            if user.identifier == "20002" {
-                session.unreadCount = 2
-                session.showUnreadAsRedDot = true
-                session.muted = true
-            }
-            return session
-        }
-
-        let brandSession = Session(sessionID: Constants.BrandSessionName, name: "订阅号消息")
-        brandSession.content = "七麦研究院：从“消灭病毒”到“我的小家”"
-        brandSession.avatarImage = UIImage(named: "ReadVerified_icon_45x45_")
-        userSessions.insert(brandSession, at: 1)
-        
-        let groupSession = Session(sessionID: Constants.GroupSessionName, name: "xxx群")
-        groupSession.content = "xxx群"
-        groupSession.avatarImage = UIImage(named: "ReadVerified_icon_45x45_")
-        userSessions.insert(brandSession, at: 2)
-        
-        return userSessions
+    func sessions() -> [GroupEntity] {
+        return []
+//        var userSessions: [Session] = data.users.map { user in
+//            let session = Session(sessionID: user.identifier, name: user.name)
+//            session.content = randomMessage()
+//            session.avatar = user.avatar
+//            if user.identifier == "20001" {
+//                session.unreadCount = 5
+//            }
+//            if user.identifier == "20002" {
+//                session.unreadCount = 2
+//                session.showUnreadAsRedDot = true
+//                session.muted = true
+//            }
+//            return session
+//        }
+//
+//        let brandSession = Session(sessionID: Constants.BrandSessionName, name: "订阅号消息")
+//        brandSession.content = "七麦研究院：从“消灭病毒”到“我的小家”"
+//        brandSession.avatarImage = UIImage(named: "ReadVerified_icon_45x45_")
+//        userSessions.insert(brandSession, at: 1)
+//        
+//        let groupSession = Session(sessionID: Constants.GroupSessionName, name: "xxx群")
+//        groupSession.content = "xxx群"
+//        groupSession.avatarImage = UIImage(named: "ReadVerified_icon_45x45_")
+//        userSessions.insert(brandSession, at: 2)
+//        
+//        return userSessions
     }
 
     func messages(with user: MockData.User, count: Int = 30) -> [Message] {
