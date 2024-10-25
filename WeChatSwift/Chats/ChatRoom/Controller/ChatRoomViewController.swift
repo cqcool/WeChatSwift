@@ -25,8 +25,9 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     private let session: GroupEntity
     
     private let dataSource: ChatRoomDataSource
+    private var members: [MemberModel]?
     
-//    private let user: MockData.User
+    //    private let user: MockData.User
     
     private let inputNode = ChatRoomKeyboardNode()
     
@@ -52,7 +53,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     init(session: GroupEntity) {
         self.session = session
         self.dataSource = ChatRoomDataSource(sessionID: session.groupNo!)
-//        self.user = MockFactory.shared.user(with: sessionID)!
+        //        self.user = MockFactory.shared.user(with: sessionID)!
         
         super.init(node: ASDisplayNode())
         
@@ -132,29 +133,12 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         notSendLabel.font = .systemFont(ofSize: 15)
         
         updateChatRoomView(status: ChatRoomStatus(rawValue: session.status) ?? .byRemove)
-    }
-    
-    func loadMessage() {
-        
-        let request = MessageRequest(groupNo: session.groupNo!)
-        request.startWithCompletionBlock { request in
-            if let json = try? JSON(data: request.wxResponseData()) {
-                if let groupList = json["groupList"].arrayObject,
-                   let jsonData = (groupList as NSArray).mj_JSONData() {
-                   
-                    do {
-                        let resp = try JSONDecoder().decode([MessageEntity].self, from: jsonData)
-                       
-                        print(resp)
-                    }  catch {
-                        print("Error decoding JSON: \(error)")
-                    }
-                }
-            }
-        } failure: { request in
-            
+        // 群聊
+        if session.groupType == 2 {
+            requestMembers(showHUD: false)
+        } else {
+            members = [session.toMember()]
         }
-
     }
     private func updateChatRoomView(status: ChatRoomStatus) {
         switch status {
@@ -333,12 +317,45 @@ extension ChatRoomViewController {
     }
     
     @objc private func moreButtonClicked() {
-//        let contact = user.toContact()
-//        let contactVC = ChatRoomContactInfoViewController(contact: contact)
-//        navigationController?.pushViewController(contactVC, animated: true)
+        if members == nil {
+            requestMembers(showHUD: true)
+            return
+        }
+        let contactVC = ChatRoomContactInfoViewController(contact: session, members: members!)
+        navigationController?.pushViewController(contactVC, animated: true)
     }
     
-    
+    private func loadMessage() {
+        
+        let request = MessageRequest(groupNo: session.groupNo!)
+        request.startWithCompletionBlock { request in
+
+        } failure: { request in
+            
+        }
+        
+    }
+    private func requestMembers(showHUD: Bool) {
+        let request = GroupMembersRequest(groupNo: session.groupNo)
+        request.start(withNetworkingHUD: showHUD, showFailureHUD: showHUD) { request in
+            if let json = try? JSON(data: request.wxResponseData()) {
+                if let groupList = json["friendList"].arrayObject,
+                   let jsonData = (groupList as NSArray).mj_JSONData() {
+                    
+                    do {
+                        let resp = try JSONDecoder().decode([MemberModel].self, from: jsonData)
+                        self.members = resp
+                        if showHUD {
+                            self.moreButtonClicked()
+                        }
+                        print(resp)
+                    }  catch {
+                        print("Error decoding JSON: \(error)")
+                    }
+                }
+            }
+        }
+    }
 }
 
 // MARK: - ASTableDataSource & ASTableDelegate
@@ -504,17 +521,17 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
     }
     
     func messageCell(_ cellNode: MessageCellNode, didTapLink url: URL?) {
-//        if let url = url {
-//            let webVC = WebViewController(url: url)
-//            navigationController?.pushViewController(webVC, animated: true)
-//            inputNode.dismissKeyboard()·
-//        }
+        //        if let url = url {
+        //            let webVC = WebViewController(url: url)
+        //            navigationController?.pushViewController(webVC, animated: true)
+        //            inputNode.dismissKeyboard()·
+        //        }
     }
     
     func messageCell(_ cellNode: MessageCellNode, showMenus menus: [MessageMenuAction], message: Message, targetRect: CGRect, targetView: UIView) {
-//        UIView()
-//        self.becomeFirstResponder()
-//        self.menuMessage = message
-//        showMenus(menus, targetRect: targetRect, targetView: targetView)
+        //        UIView()
+        //        self.becomeFirstResponder()
+        //        self.menuMessage = message
+        //        showMenus(menus, targetRect: targetRect, targetView: targetView)
     }
 }

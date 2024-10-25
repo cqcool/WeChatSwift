@@ -12,7 +12,6 @@ import AsyncDisplayKit
 //登陆页面
 class ModifyRoomNameViewController: UIViewController {
     
-    
     let scrollView = UIScrollView()
     let contentView = UIView()
     var titleLabel: UILabel!
@@ -21,7 +20,7 @@ class ModifyRoomNameViewController: UIViewController {
     var textField: UITextField!
     var confirmButton: UIButton!
      
-    var name: String?
+    var group: GroupEntity!
     
     var confirmBlock: ((String?)->Void)?
     override func viewDidLoad() {
@@ -31,14 +30,14 @@ class ModifyRoomNameViewController: UIViewController {
         setupViews()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        if name == nil {
+        if group.name == nil {
             textField.placeholder = "未命名"
         } else {
-            textField.text = name
+            textField.text = group.name
         }
         
         textField.textDidChangeBlock = { text in
-            if text == self.name {
+            if text == self.group.name {
                 self.confirmButton.isEnabled = false
             } else {
                 self.confirmButton.isEnabled = true
@@ -89,8 +88,15 @@ class ModifyRoomNameViewController: UIViewController {
     }
     
     @objc func confirmAction() {
-        confirmBlock?(textField.text)
-        navigationController?.popViewController(animated: true)
+        let request = UpdateGroupRequest(groupNo: group.groupNo)
+        let text = textField.text
+        request.name = text ?? ""
+        request.start(withNetworkingHUD: true, showFailureHUD: true) { _ in
+            self.group.name = text
+            GroupEntity.updateName(group: self.group)
+            self.confirmBlock?(text)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func setupViews() {

@@ -11,14 +11,17 @@ import AsyncDisplayKit
 class ChatRoomContactInfoViewController: ASDKViewController<ASDisplayNode> {
     private let tableNode = ASTableNode(style: .grouped)
     private var dataSource: [ChatRoomContactInfoSection] = []
-    private var members: [AddChatRoomMemberItem] = []
-    private let contact: Contact
+    private var roomItems: [AddChatRoomMemberItem] = []
+    private let contact: GroupEntity
+    private let members: [MemberModel]
     private var isGroup: Bool = true
     
     
-    init(contact: Contact) {
+    init(contact: GroupEntity, members: [MemberModel]) {
         self.contact = contact
+        self.members = members
         super.init(node: ASDisplayNode())
+        isGroup = contact.groupType == 2 ? true : false
         node.addSubnode(tableNode)
         tableNode.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableNode.dataSource = self
@@ -38,7 +41,7 @@ class ChatRoomContactInfoViewController: ASDKViewController<ASDisplayNode> {
         tableNode.frame = view.bounds
         tableNode.backgroundColor = .clear
         tableNode.view.separatorStyle = .none
-        navigationItem.title = isGroup ? "聊天信息(\(8))" : LocalizedString("MessageContent_Title")
+        navigationItem.title = isGroup ? "聊天信息(\(members.count))" : "聊天信息"
         
     }
     
@@ -49,7 +52,7 @@ class ChatRoomContactInfoViewController: ASDKViewController<ASDisplayNode> {
                                                             [ChatRoomContactInfoModel(type: .addContactToChatRoom)]))
             
             dataSource.append(ChatRoomContactInfoSection(items:
-                                                            [ChatRoomContactInfoModel(type: .groupName, value: "xxxx"),
+                                                            [ChatRoomContactInfoModel(type: .groupName, value: contact.name),
                                                              ChatRoomContactInfoModel(type: .groupCode),
                                                              ChatRoomContactInfoModel(type: .groupNotice),
                                                              ChatRoomContactInfoModel(type: .remak)]))
@@ -61,7 +64,7 @@ class ChatRoomContactInfoViewController: ASDKViewController<ASDisplayNode> {
                 ChatRoomContactInfoModel(type: .stickToTop),
                 ChatRoomContactInfoModel(type: .addressBook)]))
             dataSource.append(ChatRoomContactInfoSection(items: [
-                ChatRoomContactInfoModel(type: .inGroupName, value: "xxxx"),
+                ChatRoomContactInfoModel(type: .inGroupName, value: contact.name),
                 ChatRoomContactInfoModel(type: .showOtherName)]))
             dataSource.append(ChatRoomContactInfoSection(items: [
                 ChatRoomContactInfoModel(type: .chatBackground),
@@ -89,20 +92,23 @@ class ChatRoomContactInfoViewController: ASDKViewController<ASDisplayNode> {
     
     private func updateMembers(selectedContacts: [MultiSelectContact]) {
         let insert = selectedContacts.map { return AddChatRoomMemberItem.contact($0) }
-        members.insert(contentsOf: insert, at: members.count - 1)
+        roomItems.insert(contentsOf: insert, at: roomItems.count - 1)
         tableNode.reloadRows(at: [IndexPath(item: 0, section: 0)], with: .none)
     }
     
     private func setupMembers() {
-        members.append(.contact(contact))
-        members.append(.contact(contact))
-        members.append(.contact(contact))
-        members.append(.contact(contact))
-        members.append(.contact(contact))
-        members.append(.contact(contact))
-        members.append(.contact(contact))
-        members.append(.addButton)
-        members.append(.removeButton)
+        roomItems = members.map { .contact($0.toContact())}
+//        members.append(.contact(contact))
+//        members.append(.contact(contact))
+//        members.append(.contact(contact))
+//        members.append(.contact(contact))
+//        members.append(.contact(contact))
+//        members.append(.contact(contact))
+//        members.append(.contact(contact))
+        roomItems.append(.addButton)
+        if isGroup {
+            roomItems.append(.removeButton)
+        }
     }
     
     private func presentMultiSelectContacts() {
@@ -135,7 +141,7 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         let model = dataSource[indexPath.section].items[indexPath.row]
         let isLastCell = indexPath.row == dataSource[indexPath.section].items.count - 1
-        let members = self.members
+        let members = self.roomItems
         let block: ASCellNodeBlock = { [weak self] in
             if model.type == .addContactToChatRoom {
                 let addContactCell = ChatRoomAddContactCellNode(members: members)
@@ -160,7 +166,7 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
         var model = dataSource[indexPath.section].items[indexPath.row]
         if model.type == .groupName {
             let vc = ModifyRoomNameViewController()
-            vc.name = model.value
+            vc.group = contact
             navigationController?.pushViewController(vc, animated: true)
             vc.confirmBlock = { text in
                 model.value = ((text?.isEmpty) != nil) ? "未命名" : text

@@ -11,6 +11,7 @@
 		1E3369202CCB2BB5005AF4A4 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33691F2CCB2BB5005AF4A4 /* DBManager.swift */; };
 		1E3369252CCB4735005AF4A4 /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3369242CCB4735005AF4A4 /* Convenience.swift */; };
 		1E33692B2CCB72C7005AF4A4 /* WXUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33692A2CCB72C7005AF4A4 /* WXUserDefault.swift */; };
+		1E33692E2CCB9733005AF4A4 /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33692D2CCB9733005AF4A4 /* MemberModel.swift */; };
 		1E58EC352CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */; };
 		1E5E37272CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */; };
 		1E5E372D2CC10D24007F8944 /* WXPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E372B2CC10D24007F8944 /* WXPayView.m */; };
@@ -529,6 +530,7 @@
 		1E3369242CCB4735005AF4A4 /* Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
 		1E3369262CCB6216005AF4A4 /* WCDBSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WCDBSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E33692A2CCB72C7005AF4A4 /* WXUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXUserDefault.swift; sourceTree = "<group>"; };
+		1E33692D2CCB9733005AF4A4 /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCountNode.swift; sourceTree = "<group>"; };
 		1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCoverNode.swift; sourceTree = "<group>"; };
 		1E5E37282CC10D24007F8944 /* WXInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXInputView.h; sourceTree = "<group>"; };
@@ -1093,6 +1095,14 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
+		1E33692C2CCB9728005AF4A4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1E33692D2CCB9733005AF4A4 /* MemberModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		1E58EC332CBFB2F900A360A6 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1405,6 +1415,7 @@
 		1EFACD0A2CC8DDFA00D6ABC8 /* Group */ = {
 			isa = PBXGroup;
 			children = (
+				1E33692C2CCB9728005AF4A4 /* Models */,
 				1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */,
 				1E33691D2CCB2A4F005AF4A4 /* ChatDataManager.swift */,
 			);
@@ -3066,6 +3077,7 @@
 				A3FB0AC122F455B200116329 /* SettingGeneralViewController.swift in Sources */,
 				1EFACD0C2CC8DE0B00D6ABC8 /* GroupApi.swift in Sources */,
 				A352AD1E23069D5D00332B21 /* MomentSetBackgroundHeaderNode.swift in Sources */,
+				1E33692E2CCB9733005AF4A4 /* MemberModel.swift in Sources */,
 				1ECBEA222CC65E3100485BF0 /* GlobalManager.swift in Sources */,
 				A374865D22D4AE3A002EEC4F /* ChatRoomToolPanelNode.swift in Sources */,
 				A3F9F17C230E8A300032299C /* SightCameraShotVideoView.swift in Sources */,

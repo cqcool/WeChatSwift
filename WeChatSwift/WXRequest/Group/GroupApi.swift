@@ -17,7 +17,7 @@ class UnreadMsgRequest: DNKRequest {
     override func requestMethod() -> YTKRequestMethod {
         .GET
     }
-
+    
 }
 
 /// 会话-列表同步
@@ -27,7 +27,7 @@ class GroupListRequest: DNKRequest {
     var limit: String = "100"
     /// 下个id(根据上次返回请求)
     var nextId: String? = nil
-
+    
     /// 下个时间(根据上次返回请求)
     var nextTime: String? = nil
     
@@ -38,10 +38,11 @@ class GroupListRequest: DNKRequest {
     override func requestMethod() -> YTKRequestMethod {
         .GET
     }
-
+    
 }
 
 /// 消息列表
+@objcMembers
 class MessageRequest: DNKRequest {
     /*
      如果我要拿最新的数据，我要传lastAckMsgNo(最新的消息no)，sort，groupNo，go。
@@ -69,5 +70,42 @@ class MessageRequest: DNKRequest {
     override func requestMethod() -> YTKRequestMethod {
         .GET
     }
+}
 
+/// 群成员列表
+@objcMembers
+class GroupMembersRequest: DNKRequest {
+    var groupNo: String? = nil
+    
+    init(groupNo: String?) {
+        self.groupNo = groupNo
+    }
+    
+    override func requestUrl() -> String {
+        "/group/member/list"
+    }
+    
+    override func requestMethod() -> YTKRequestMethod {
+        .GET
+    }
+}
+
+/// 群信息修改
+@objcMembers
+class UpdateGroupRequest: DNKRequest {
+    var groupNo: String? = nil
+    var head: String? = nil
+    var intro: String? = nil
+    var name: String? = nil
+    init(groupNo: String?) {
+        self.groupNo = groupNo
+    }
+    
+    override func requestUrl() -> String {
+        "/group/updateInfo"
+    }
+    
+    override func requestMethod() -> YTKRequestMethod {
+        .POST
+    }
 }

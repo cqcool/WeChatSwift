@@ -95,6 +95,7 @@ class Contact {
     var wxid: String? = ""
     
     var group: GroupEntity?
+    var member: MemberModel?
 }
 
 enum ContactInfo {
