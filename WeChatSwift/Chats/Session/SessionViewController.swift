@@ -21,7 +21,9 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     
     private var dataSource: [GroupEntity] = []
     
-    private var loadingView = LoadingCircle(circleWidth: 4, circleColor: .black)
+    private var loadingView = LoadingCircle(circleWidth: 2, circleColor: .black)
+    
+    private var loadingContentView = UIView()
     
     private lazy var mainSearchViewController: MainSearchViewController = {
         return MainSearchViewController()
@@ -55,22 +57,13 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         
         let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_outlined_addoutline"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
         navigationItem.rightBarButtonItem = rightButtonItem
-//        navigationItem.title = "微信"
+        navigationItem.title = "微信"
         
         setupSearchController()
         GlobalManager.manager.requestRefreshToken()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
-         
-        wx_navigationBar.containerView.addSubview(loadingView)
-        loadingView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.size.equalTo(CGSize(width: 34, height: 34))
-        }
-        wx_navigationBar.layoutIfNeeded()
-        loadingView.start()
-        
-        GlobalManager.manager.createTiming()
-        GlobalManager.manager.timingManager?.addDelegate(delegate: self)
+        GlobalManager.manager.timingManager.addDelegate(delegate: self)
+        GlobalManager.manager.timingManager.startLoadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -265,12 +258,42 @@ extension SessionViewController: UISearchControllerDelegate {
     }
 }
 
-extension SessionViewController: TimingGroupDelegate {
+extension SessionViewController: ChatDataDelegate {
+    func willLoadAllChat() {
+        navigationItem.title = nil
+        loadingContentView.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.top.left.bottom.equalToSuperview()
+            make.size.equalTo(CGSize(width: 18, height: 18))
+        }
+        let label = DNKCreate.label(text: "加载中", textColor: Colors.DEFAULT_TEXT_COLOR, fontSize: 15)
+        loadingContentView.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.top.right.bottom.equalToSuperview()
+            make.left.equalTo(self.loadingView.snp.right).offset(6)
+        }
+        wx_navigationBar.containerView.addSubview(loadingContentView)
+        loadingContentView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        wx_navigationBar.layoutIfNeeded()
+        loadingView.start()
+    }
+    
+    func didLoadAllChat() {
+        navigationItem.title = "微信"
+        loadingView.stop()
+//        loadingContentView.removeFromSuperview()
+        loadingContentView.isHidden = true
+    }
+    
     func updateGroupList(list: [GroupEntity]) {
         if list.count == 0 {
             return
         }
         for group in list.reversed() {
+            group.formatTime()
+            
             if dataSource.contains(where: {$0.groupNo == group.groupNo}) {
                 dataSource.removeAll {$0.groupNo == group.groupNo}
                 dataSource.insert(group, at: 0)

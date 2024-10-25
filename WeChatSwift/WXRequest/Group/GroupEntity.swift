@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import WCDBSwift
+//import WCDBSwift
 
 @objcMembers
-final class GroupEntity: NSObject, Codable, TableCodable {
+final class GroupEntity: NSObject, Codable/*, TableCodable*/ {
 //    var pk: Int?
     var contentType: Int?//  0,
     var groupNo: String?
@@ -41,15 +41,16 @@ final class GroupEntity: NSObject, Codable, TableCodable {
     /// 群状态 0正常 1解散 2封禁
     var status: Int = 0
     
-    
+    var _formattedTime: String?
+    private let dateFormatter = ChatRoomDateFormatter()
     // 注意：json的key和模型属性不同时，可以使用映射
-    enum CodingKeys: String, CodingKey, CodingTableKey {
+    enum CodingKeys: String, CodingKey/*, CodingTableKey*/ {
         typealias Root = GroupEntity
         
-        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
-            BindColumnConstraint(groupNo, isPrimary: true)
-            BindColumnConstraint(newAckMsgDate, isPrimary: false, orderBy: .descending)
-        }
+//        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+//            BindColumnConstraint(groupNo, isPrimary: true)
+//            BindColumnConstraint(newAckMsgDate, isPrimary: false, orderBy: .descending)
+//        }
         
 //        case pk
         case contentType
@@ -114,6 +115,19 @@ extension GroupEntity {
             .font: UIFont.systemFont(ofSize: 11),
             .foregroundColor: Colors.DEFAUTL_TABLE_INTROL_COLOR
         ]
-        return NSAttributedString(string: "12:40", attributes: attributes)
+        return NSAttributedString(string: _formattedTime ?? "", attributes: attributes)
+    }
+    
+    func formatTime() {
+        guard var time = newAckMsgDate else {
+            return
+        }
+        _formattedTime = dateFormatter.formatTimestamp(TimeInterval(time))
+//        if message.time - time > 300 {
+//            time = message.time
+//            message._formattedTime = dateFormatter.formatTimestamp(TimeInterval(time))
+//        } else {
+//            message._formattedTime = nil
+//        }
     }
 }

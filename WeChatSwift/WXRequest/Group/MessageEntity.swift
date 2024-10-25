@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import WCDBSwift
+//import WCDBSwift
 
 
 @objcMembers
-final class MessageEntity: NSObject, Codable, TableCodable {
+final class MessageEntity: NSObject, Codable/*, TableCodable*/ {
     var content: String? = "" //string
     var contentType: Int? = 0//0,
     var createTime: String? = "" //2024-10-23T08:45:36.828Z
@@ -36,37 +36,37 @@ final class MessageEntity: NSObject, Codable, TableCodable {
     var type: Int? = 0//0,
     var userId: Int? = 0//0
     
-    enum CodingKeys: String, CodingTableKey {
-
-        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
-            BindColumnConstraint(no, isPrimary: true)
-            BindColumnConstraint(createTime, isPrimary: false, orderBy: .descending)
-        }
-        
-        typealias Root = MessageEntity
-        case content
-        case contentType
-        case createTime
-        case groupNo
-        case groupType
-        case head
-        case isAllDel
-        case isUp
-        case linkContent
-        case nickname
-        case no
-        case orderNumber
-        case referContent
-        case referContentType
-        case referLinkContent
-        case referMsgNo
-        case referUserHead
-        case referUserId
-        case referUserNickname
-        case showTime
-        case toUserId
-        case type
-        case userId
-         
-    }
+//    enum CodingKeys: String, CodingTableKey {
+//
+//        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+//            BindColumnConstraint(no, isPrimary: true)
+//            BindColumnConstraint(createTime, isPrimary: false, orderBy: .descending)
+//        }
+//        
+//        typealias Root = MessageEntity
+//        case content
+//        case contentType
+//        case createTime
+//        case groupNo
+//        case groupType
+//        case head
+//        case isAllDel
+//        case isUp
+//        case linkContent
+//        case nickname
+//        case no
+//        case orderNumber
+//        case referContent
+//        case referContentType
+//        case referLinkContent
+//        case referMsgNo
+//        case referUserHead
+//        case referUserId
+//        case referUserNickname
+//        case showTime
+//        case toUserId
+//        case type
+//        case userId
+//         
+//    }
 }
