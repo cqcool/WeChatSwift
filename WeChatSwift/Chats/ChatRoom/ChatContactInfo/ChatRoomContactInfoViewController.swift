@@ -169,7 +169,7 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
             vc.group = contact
             navigationController?.pushViewController(vc, animated: true)
             vc.confirmBlock = { text in
-                model.value = ((text?.isEmpty) != nil) ? "未命名" : text
+                model.value = (text != nil && !text!.isEmpty) ? text:"未命名" 
                 self.dataSource[indexPath.section].items[indexPath.row] = model
                 self.tableNode.reloadRows(at: [indexPath], with: .fade)
             }
