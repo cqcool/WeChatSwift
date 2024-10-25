@@ -63,20 +63,4 @@ class PersonModel: NSObject, Codable {
     static func clearPerson() {
         UserDefaults.standard.removeObject(forKey: "myPersonKey")
     }
-    
-    static func saveHeadUrl() {
-        guard let head = GlobalManager.manager.personModel?.head else {
-            return
-        }
-        guard let headUrl = GlobalManager.headImageUrl(name: head) else {
-            return
-        }
-        UserDefaults.standard.set(headUrl.absoluteString, forKey: "AvatarPath")
-    }
-    static func getHeadUrl() -> URL? {
-        guard let headPath = UserDefaults.standard.object(forKey: "AvatarPath") else {
-            return nil
-        }
-        return URL(string: headPath as! String)
-    }
 }

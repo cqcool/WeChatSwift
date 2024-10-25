@@ -16,6 +16,9 @@ struct ContactSection {
     
     var firstLetter: String = ""
     
+    mutating func updateModels(list: [ContactModel]) {
+        self.models = list
+    }
 }
 
 enum ContactModel {
@@ -37,7 +40,7 @@ enum ContactModel {
         case .officialAccounts:
             return LocalizedString("Contacts_App")
         case .contact(let user):
-            return user.name
+            return user.name ?? ""
         }
     }
     
@@ -81,7 +84,7 @@ extension ContactModel: WCTableCellModel {
 
 class Contact {
     
-    var name: String = ""
+    var name: String? = ""
     
     var avatarURL: URL? = nil
     
@@ -89,7 +92,9 @@ class Contact {
     
     var gender: MockData.Gender = .male
     
-    var wxid: String = ""
+    var wxid: String? = ""
+    
+    var group: GroupEntity?
 }
 
 enum ContactInfo {
@@ -145,7 +150,7 @@ struct ContactTag {
     }
     
     func attributedStringForDesc() -> NSAttributedString {
-        let text = users.map { return $0.name }.joined(separator: ",")
+        let text = users.map { return ($0.name  ?? "") }.joined(separator: ",")
         let attributes = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
             NSAttributedString.Key.foregroundColor: Colors.DEFAULT_TEXT_GRAY_COLOR

@@ -45,7 +45,7 @@ class ChatRoomMemberItemNode: ASDisplayNode {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
             
-            nameNode.attributedText = NSAttributedString(string: contact.name, attributes: [
+            nameNode.attributedText = NSAttributedString(string: contact.name  ?? "", attributes: [
                 .font: UIFont.systemFont(ofSize: 12),
                 .foregroundColor: UIColor(hexString: "#454545"),
                 .paragraphStyle: paragraphStyle

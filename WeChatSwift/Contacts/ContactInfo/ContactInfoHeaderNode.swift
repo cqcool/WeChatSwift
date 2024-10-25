@@ -31,7 +31,7 @@ class ContactInfoHeaderNode: ASDisplayNode {
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .medium),
             NSAttributedString.Key.foregroundColor: Colors.black
         ]
-        nicknameNode.attributedText = NSAttributedString(string: contact.name, attributes: nameAttributes)
+        nicknameNode.attributedText = NSAttributedString(string: contact.name ?? "", attributes: nameAttributes)
         
         let genderImage = contact.gender == .male ? "Contact_Male_18x18_" : "Contact_Female_18x18_"
         genderNode.image = UIImage(named: genderImage)
@@ -40,7 +40,7 @@ class ContactInfoHeaderNode: ASDisplayNode {
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
             NSAttributedString.Key.foregroundColor: UIColor(white: 0, alpha: 0.5)
         ]
-        wechatIDNode.attributedText = NSAttributedString(string: "微信号：" + contact.wxid, attributes: wechatIDAttributes)
+        wechatIDNode.attributedText = NSAttributedString(string: "微信号：" + (contact.wxid ?? ""), attributes: wechatIDAttributes)
         
         regionNode.attributedText = NSAttributedString(string: "国家：", attributes: wechatIDAttributes)
         

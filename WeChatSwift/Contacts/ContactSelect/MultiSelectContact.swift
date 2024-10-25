@@ -21,7 +21,7 @@ class MultiSelectContact: Contact {
     var isSelected: Bool = false
     
     func attributedTextForName() -> NSAttributedString {
-        return NSAttributedString(string: name, attributes: [
+        return NSAttributedString(string: name ?? "", attributes: [
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: UIColor(white: 0, alpha: 0.9)
         ])

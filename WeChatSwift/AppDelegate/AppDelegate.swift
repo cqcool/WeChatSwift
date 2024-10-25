@@ -19,12 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { 
         // Override point for customization after application launch.
-//        WXNavigationBar.setup() 
+//        WXNavigationBar.setup()
+        GlobalManager.manager.setup()
         GlobalManager.manager.appDelegate = self
         
         WXNavigationBarManger.shared.setup(["ZLImageNavController"])
-        
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
         updateAppRoot()
@@ -37,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppContext.current.doHeavySetup()
         
         UIView.fixTabBarButtonFrame()
+        DBManager.share.setup()
         return true
     }
     

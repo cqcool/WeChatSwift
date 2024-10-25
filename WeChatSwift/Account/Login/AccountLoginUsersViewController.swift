@@ -42,7 +42,11 @@ class AccountLoginUsersViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         formatePhoneNumber(number: GlobalManager.manager.personModel?.account as? NSString)
-        avatarView.pin_setImage(from: PersonModel.getHeadUrl(), placeholderImage: UIImage(named: "login_defaultAvatar"))
+        avatarView.pin_setPlaceholder(with: UIImage(named: "login_defaultAvatar"))
+        let headUrl = GlobalManager.headImageUrl(name: GlobalManager.manager.personModel?.head)
+        if headUrl != nil {
+            avatarView.pin_setImage(from: headUrl)
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(popupAlertView(_:)), name: NSNotification.Name("showAlertViewOnLoginUI"), object: nil)
     }

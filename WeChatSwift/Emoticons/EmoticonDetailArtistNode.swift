@@ -24,7 +24,7 @@ class EmoticonDetailArtistNode: ASDisplayNode {
         
         avatarNode.url = artist.avatarURL
         
-        nameNode.attributedText = NSAttributedString(string: artist.name, attributes: [
+        nameNode.attributedText = NSAttributedString(string: artist.name ?? "", attributes: [
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: Colors.black
             ])

@@ -47,7 +47,6 @@ class GlobalManager: NSObject {
     
     private override init() {
         super.init()
-        setup()
     }
     
     private var headPrefix: String? = nil
@@ -111,11 +110,15 @@ class GlobalManager: NSObject {
 }
 
 extension GlobalManager {
-    private func setup() {
+    func setup() {
         refreshTokenValue = getRefreshToken()
+        if refreshTokenValue != nil {
+            requestRefreshToken()
+        }
         tokenValue = getToken()
         personModelValue = PersonModel.getPerson()
-        isShowLogin = (refreshToken != nil) ? false : true 
+        isShowLogin = (refreshToken != nil) ? false : true
+        self.headPrefix = WXUserDefault.headPrefix()
     }
     
     private func getRefreshToken() -> String? {
@@ -136,7 +139,6 @@ extension GlobalManager {
     
     static func headImageUrl(name: String?) -> URL? {
         guard let headPrefix = self.manager.headPrefix else {
-            self.manager.getConfigInfo()
             return nil
         }
         guard let fileName = name else {
@@ -147,7 +149,6 @@ extension GlobalManager {
     private func getConfigInfo() {
         let request = ConfigRequest()
         request.startWithCompletionBlock { request in
-            
             if let json = try? JSON(data: request.wxResponseData()) {
                 let configs: Array<JSON> = json["configs"].arrayValue
                 for config in configs {
@@ -155,10 +156,13 @@ extension GlobalManager {
                        attribute == "url_prefix",
                        let values = config["values"].string as? NSString {
                         if let valuesDic = values.mj_JSONObject() as? [NSString: NSString] {
-                            self.headPrefix = valuesDic["head"] as? String
-                            PersonModel.saveHeadUrl()
+                            let headPrefix = valuesDic["head"] as? String
+                            if self.headPrefix != headPrefix {
+                                NotificationCenter.default.post(name: ConstantKey.NSNotificationConfigUpdate, object: nil)
+                                self.headPrefix = headPrefix
+                                WXUserDefault.updateHeadPrefix(str: headPrefix)
+                            }
                         }
-                        
                         
                     }
                 }

@@ -7,11 +7,11 @@
 //
 
 import Foundation
-//import WCDBSwift
+import WCDBSwift
 
 @objcMembers
-final class GroupEntity: NSObject, Codable/*, TableCodable*/ {
-//    var pk: Int?
+final class GroupEntity: NSObject, Codable, TableCodable, Named {
+    //    var pk: Int?
     var contentType: Int?//  0,
     var groupNo: String?
     /// 类别： 1、私聊；2、群聊
@@ -31,6 +31,7 @@ final class GroupEntity: NSObject, Codable/*, TableCodable*/ {
     var newAckMsgUserId: String?
     var newAckMsgUserNickname: String?
     var unReadNum: String?
+    /// 好友id
     var userId:String?
     /// 用户消息类型(1正常,2微信团队,3腾讯新闻)
     var userMsgType: Int?
@@ -43,16 +44,17 @@ final class GroupEntity: NSObject, Codable/*, TableCodable*/ {
     
     var _formattedTime: String?
     
-    // 注意：json的key和模型属性不同时，可以使用映射
-    enum CodingKeys: String, CodingKey/*, CodingTableKey*/ {
+    /*
+     对于变量名与表的字段名不一样的情况，可以使用别名进行映射，如 case identifier = "id"
+     对于不需要写入数据库的字段，则不需要在 CodingKeys 内定义，如 debugDescription
+     */
+    enum CodingKeys: String, CodingKey, CodingTableKey {
         typealias Root = GroupEntity
         
-//        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
-//            BindColumnConstraint(groupNo, isPrimary: true)
-//            BindColumnConstraint(newAckMsgDate, isPrimary: false, orderBy: .descending)
-//        }
-        
-//        case pk
+        nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+            BindColumnConstraint(groupNo, isPrimary: true)
+            BindColumnConstraint(newAckMsgDate, isPrimary: false, orderBy: .descending)
+        }
         case contentType
         case groupNo
         case groupType
@@ -116,5 +118,38 @@ extension GroupEntity {
             .foregroundColor: Colors.DEFAUTL_TABLE_INTROL_COLOR
         ]
         return NSAttributedString(string: _formattedTime ?? "", attributes: attributes)
+    }
+    
+    func toContact() -> Contact {
+        let contact = Contact()
+        contact.avatarURL = GlobalManager.headImageUrl(name: head)
+        contact.name = name ?? "未命名"
+        contact.gender = .male
+        contact.wxid = userId
+        contact.group = self
+        let str = NSMutableString(string: contact.name!) as CFMutableString
+        if CFStringTransform(str, nil, kCFStringTransformToLatin, false) && CFStringTransform(str, nil, kCFStringTransformStripDiacritics, false) {
+            contact.letter = String(((str as NSString) as String).first!).uppercased()
+        }
+        return contact
+    }
+}
+
+extension GroupEntity {
+    static func insert(list: [GroupEntity]) {
+        DBManager.share.insert(objects: list)
+    }
+    /// 查找群聊
+    static func queryGroupChats()-> [GroupEntity]? {
+        DBManager.share.getObjects(tableName: self.tableName,
+                                   where: ((GroupEntity.Properties.userMsgType == 2 ||
+                                            GroupEntity.Properties.userMsgType == 3) || GroupEntity.Properties.groupType == 2))
+    }
+    
+    /// 查找群聊
+    static func queryFriends()-> [GroupEntity]? {
+        DBManager.share.getObjects(tableName: self.tableName,
+                                   where: (GroupEntity.Properties.userMsgType == 2  ||
+                                           GroupEntity.Properties.groupType == 1))
     }
 }

@@ -68,9 +68,6 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         var url = GlobalManager.headImageUrl(name: GlobalManager.manager.personModel?.head)
-        if url == nil {
-            url = PersonModel.getHeadUrl()
-        }
         headerNode.avatarNode.url = url
     }
     deinit {

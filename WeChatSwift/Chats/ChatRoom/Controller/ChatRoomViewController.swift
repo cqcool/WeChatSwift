@@ -13,11 +13,11 @@ import WXActionSheet
 import PINRemoteImage
 import SwiftyJSON
 
-enum ChatRoomStatus {
-    case ban /// 被封
+enum ChatRoomStatus: Int {
+    case normal = 0
+    case dissolve = 1/// 解散
+    case ban = 2 /// 被封
     case byRemove /// 被移出群聊
-    case dissolve /// 解散
-    case normal
 }
 
 class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
@@ -131,11 +131,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         notSendLabel.textColor = UIColor(white: 0, alpha: 0.6)
         notSendLabel.font = .systemFont(ofSize: 15)
         
-        updateChatRoomView(status: .normal)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-//            
-//            self.updateChatRoomView(status: .dissolve)
-//        }
+        updateChatRoomView(status: ChatRoomStatus(rawValue: session.status) ?? .byRemove)
     }
     
     func loadMessage() {

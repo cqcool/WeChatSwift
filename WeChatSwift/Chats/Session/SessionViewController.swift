@@ -62,8 +62,8 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         navigationItem.title = "微信"
         
         setupSearchController()
-        GlobalManager.manager.requestRefreshToken()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(configUpdate), name: ConstantKey.NSNotificationConfigUpdate, object: nil)
         GlobalManager.manager.timingManager.addDelegate(delegate: self)
         GlobalManager.manager.timingManager.startLoadData()
     }
@@ -75,6 +75,9 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     
     @objc func refreshTokenEvent() {
         
+    }
+    @objc func configUpdate() {
+        tableNode.reloadData()
     }
     
     private func loadSessions() {
@@ -285,7 +288,6 @@ extension SessionViewController: ChatDataDelegate {
     func didLoadAllChat(error: NSError?) {
         navigationItem.title = "微信"
         loadingView.stop()
-//        loadingContentView.removeFromSuperview()
         loadingContentView.isHidden = true
     }
     

@@ -33,15 +33,14 @@ class ChatDataManager {
     func startLoadData() {
         nextId = getNextId()
         nextTime = getNextTime()
-        
-        nextId = nil
-        nextTime = nil
-        
         if nextId == nil ||
             nextTime == nil {
             notify_willLoadAllChat()
             loadChatData(isLoop: true)
             return
+        }
+        if let list = GroupEntity.queryGroupChats() {
+            notify_updateGroupList(list: list)
         }
         startTimer()
     }
@@ -124,8 +123,8 @@ extension ChatDataManager {
                 self.saveNext(id: self.nextId, time: self.nextTime)
                 guard let groupList = json["groupList"].arrayObject,
                       groupList.count > 0 else {
+                    // 首次安装加载所有会话
                     if isLoop {
-                        
                         self.notify_didLoadAllChat(error: nil)
                         self.giveUpOne = true
                         self.startTimer()
@@ -136,6 +135,7 @@ extension ChatDataManager {
                 if let jsonData = (groupList as NSArray).mj_JSONData() {
                     do {
                         let resp = try JSONDecoder().decode([GroupEntity].self, from: jsonData)
+                        GroupEntity.insert(list: resp)
                         let list = resp.filter { group in
                             if group.userMsgType == 2 || group.userMsgType == 3 {
                                 return true

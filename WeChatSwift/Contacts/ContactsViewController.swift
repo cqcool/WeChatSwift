@@ -15,6 +15,7 @@ class ContactsViewController: ASDKViewController<ASDisplayNode> {
     private var dataSource: [ContactSection] = []
     private var lettersArray: [String] = []
     private var searchViewController: UISearchController?
+    private var footerLabel: UILabel!
     
     override init() {
         super.init(node: ASDisplayNode())
@@ -37,15 +38,13 @@ class ContactsViewController: ASDKViewController<ASDisplayNode> {
         tableNode.frame = view.bounds
         tableNode.view.backgroundColor = .clear
         
-        setupDataSource()
-        
         let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_outlined_addfriends"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
         navigationItem.rightBarButtonItem = rightButtonItem
         navigationItem.title = LocalizedString("TabBar_ContactsTitle")
         // header
         setupSearchController()
         // footer
-        let footerLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 60))
+        footerLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 60))
         footerLabel.textColor = UIColor(white: 0, alpha: 0.5)
         footerLabel.font = UIFont.systemFont(ofSize: 17)
         footerLabel.text = String(format: "%d个朋友", dataSource.count)
@@ -53,21 +52,28 @@ class ContactsViewController: ASDKViewController<ASDisplayNode> {
         footerLabel.backgroundColor = .white
         tableNode.view.tableFooterView = footerLabel
     }
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        print(searchViewController?.searchBar.frame)
-//        if let textField = findTextField() {
-//            print(textField.frame)
-//            let x = CGRectGetMinX(textField.frame)
-//            let y = CGRectGetMinY(textField.frame)
-//            let height = CGRectGetHeight(textField.frame)
-//            textField.frame = CGRectMake(0, y, view.bounds.width, height)
-//            textField.backgroundColor = .red
-//            print(textField.layer.cornerRadius)
-//            searchViewController?.searchBar.layoutIfNeeded()
-//        }
-//        tableNode.reloadData()
-//    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupDataSource()
+        tableNode.reloadData()
+    }
+    
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //        print(searchViewController?.searchBar.frame)
+    //        if let textField = findTextField() {
+    //            print(textField.frame)
+    //            let x = CGRectGetMinX(textField.frame)
+    //            let y = CGRectGetMinY(textField.frame)
+    //            let height = CGRectGetHeight(textField.frame)
+    //            textField.frame = CGRectMake(0, y, view.bounds.width, height)
+    //            textField.backgroundColor = .red
+    //            print(textField.layer.cornerRadius)
+    //            searchViewController?.searchBar.layoutIfNeeded()
+    //        }
+    //        tableNode.reloadData()
+    //    }
     func findTextField() -> UITextField! {
         if #available(iOS 13.0, *) {
             return searchViewController!.searchBar.searchTextField
@@ -85,16 +91,51 @@ class ContactsViewController: ASDKViewController<ASDisplayNode> {
         let searchSection = ContactSection(title: "", models: [.newFriends, .groupChats, .tags, .officialAccounts])
         dataSource.append(searchSection)
         
-        let users = MockFactory.shared.contacts()
-        let groupingDict = Dictionary(grouping: users, by: { $0.letter })
-        var contacts = groupingDict.map { return ContactSection(title: $0.key, models: $0.value.map { return ContactModel.contact($0) }) }
-        contacts.sort(by: { $0.title < $1.title })
+        guard let users = GroupEntity.queryFriends() else {
+            footerLabel.text = "0个朋友"
+            return
+        }
+        footerLabel.text = String(format: "%d个朋友", users.count)
+        let friends = users.map { $0.toContact() }
+        let groupingDict = Dictionary(grouping: friends, by: { contact in
+            if isNotLetter(letter: contact.letter) {
+                contact.letter = "#"
+            }
+            return contact.letter
+        })
+        var contacts = groupingDict.map {
+            return ContactSection(title: $0.key, models: $0.value.map { return ContactModel.contact($0) })
+        }
+        contacts = contacts.sorted { one, two in
+            if (isNotLetter(letter: one.title)) {
+                return false
+            } else if (isNotLetter(letter: two.title)) {
+                return true
+            } else {
+                return one.title < two.title
+            }
+        }
+        for (index, contact) in contacts.enumerated() {
+            var vContact = contact
+            let models = vContact.models.sorted(by: { $0.name < $1.name })
+            vContact.updateModels(list: models)
+            contacts[index] = vContact
+        }
+        //        contacts.sort(by: { $0.title < $1.title })
         lettersArray = contacts.map { $0.title.uppercased() }
         //往索引数组的开始处添加一个放大镜🔍 放大镜是系统定义好的一个常量字符串表示UITableViewIndexSearch 当然除了放大镜外也可以添加其他文字
         lettersArray.insert(UITableView.indexSearch, at:0)
         dataSource.append(contentsOf: contacts)
     }
-    
+    private func isNotLetter(letter: String)-> Bool {
+        let upperCaseStr: String = letter.uppercased()
+        let c = Character(upperCaseStr)
+        if  c >= "A", c <= "Z"{
+            return false
+        } else {
+            return true
+        }
+    }
 }
 
 // MARK: - Event Handlers
@@ -189,15 +230,15 @@ extension ContactsViewController: ASTableDelegate, ASTableDataSource {
     //    }
     
     private func setupSearchController() {
-//        let searchBarView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 56))
-//        searchBarView.backgroundColor = .clear
-//        let searchContentView = UIView(frame: CGRect(x: 8, y: 10, width: view.bounds.width - 16 , height: 36))
-//        searchBarView.addSubview(searchContentView)
-//        searchContentView.backgroundColor = .white
-//        searchContentView.layer.cornerRadius = 4
-//        let searchPlaceholder = UILabel()
-//        searchPlaceholder.text = "搜索"
-//        searchPlaceholder.textColor = Colors.DEFAULT_BACKGROUND_COLOR
+        //        let searchBarView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 56))
+        //        searchBarView.backgroundColor = .clear
+        //        let searchContentView = UIView(frame: CGRect(x: 8, y: 10, width: view.bounds.width - 16 , height: 36))
+        //        searchBarView.addSubview(searchContentView)
+        //        searchContentView.backgroundColor = .white
+        //        searchContentView.layer.cornerRadius = 4
+        //        let searchPlaceholder = UILabel()
+        //        searchPlaceholder.text = "搜索"
+        //        searchPlaceholder.textColor = Colors.DEFAULT_BACKGROUND_COLOR
         
         searchViewController = UISearchController(searchResultsController: nil)
         searchViewController?.view.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR

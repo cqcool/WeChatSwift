@@ -80,4 +80,6 @@ class ConstantKey: NSObject {
     static let NSNotificationRefreshToken = NSNotification.Name(rawValue: "refreshTokenKey")
     
     static let NSNotificationPersonToken = NSNotification.Name(rawValue: "refresh_person")
+    
+    static let NSNotificationConfigUpdate = NSNotification.Name(rawValue: "config_update")
 }
