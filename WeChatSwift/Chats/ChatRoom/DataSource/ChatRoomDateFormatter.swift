@@ -26,7 +26,7 @@ import Foundation
 class ChatRoomDateFormatter {
     
     func formatTimestamp(_ timestamp: TimeInterval) -> String? {
-        let nowTimestamp = Date().timeIntervalSince1970
+        let nowTimestamp = Date().timeIntervalSince1970 * 1000
         let day: TimeInterval = 24 * 60 * 60
         let intervals = nowTimestamp - timestamp
         if timestamp >= nowTimestamp {
@@ -41,5 +41,96 @@ class ChatRoomDateFormatter {
         } else {
             return "下午2:14"
         }
+    }
+    
+    static func groupFormatTime(groupList: [GroupEntity]) {
+        let nowTimestamp = Date().timeIntervalSince1970 * 1000
+        let oneDaySecond: TimeInterval = 24 * 60 * 60 * 1000
+        
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday, .weekOfYear], from: date)
+        let curYear = components.year
+        let curDay = components.day
+        for group in groupList {
+            if let groupTimestamp = group.newAckMsgDate {
+                let groupDate = Date(timeIntervalSince1970: groupTimestamp/1000)
+                let groupComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday, .weekOfYear], from: groupDate)
+                    
+                    /*
+                     今天：小于24h且在同一天
+                     昨天：小于24h且不在同一天
+                     */
+                if nowTimestamp - groupTimestamp < oneDaySecond {
+                    var time: String = ""
+                    if curDay != (groupComponents.day ?? 0) {
+                        time = "昨天 "
+                    }
+                    group._formattedTime = time + "\(String(format: "%02d", groupComponents.hour ?? 0)):\(String(format: "%02d", groupComponents.minute ?? 0))"
+                    continue
+                }
+                // 同一星期
+                
+                if date.isSameWeek(date: groupDate) {
+                    group._formattedTime = "星期" + numberToChinese(number: groupComponents.weekday ?? 1)
+                    return
+                }
+                // 不是同一年的
+                if let groupYear = groupComponents.year,
+                   let year = curYear {
+                    var yearStr: String = ""
+                    if groupYear != year {
+                        yearStr = "\(groupYear)年"
+                    }
+                    group._formattedTime = "\(yearStr)\(groupComponents.month ?? 1)月\(groupComponents.day ?? 1)日"
+                    continue
+                }
+            }
+            group._formattedTime = nil
+        }
+    }
+    
+    static func numberToChinese(number: Int) -> String {
+        let array = ["一", "二", "三", "四", "五", "六", "日"]
+        return array[number - 1]
+    }
+}
+
+// MARK: - 分类.  时间间隔判断
+extension Date {
+    // MARK: - private method
+    // MARK: 两个日期的间隔
+    private func daysBetweenDate(toDate: Date) -> Int {
+        let components = Calendar.current.dateComponents([.day], from: self, to: toDate)
+        return abs(components.day!)
+    }
+    
+    // MARK: 日期对应当周的周几. 周一为开始, 周天为结束
+    private func dayForWeekAtIndex() -> Int {
+        let components = Calendar.current.dateComponents([.weekday], from: self)
+        
+        return (components.weekday! - 1) == 0 ? 7 : (components.weekday! - 1)
+    }
+    
+    // MARK: - public method
+    // MARK: 判断是否为同一周
+    func isSameWeek(date: Date) -> Bool {
+        let differ = self.daysBetweenDate(toDate: date)
+        // 判断哪一个日期更早
+        let compareResult = Calendar.current.compare(self, to: date, toGranularity: Calendar.Component.day)
+        
+        // 获取更早的日期
+        var earlyDate: Date
+        if compareResult == ComparisonResult.orderedAscending {
+            earlyDate = self
+        }else {
+            earlyDate = date
+        }
+        print(earlyDate)
+        
+        let indexOfWeek = earlyDate.dayForWeekAtIndex()
+        let result = differ + indexOfWeek
+        
+        return result > 7 ? false : true
     }
 }

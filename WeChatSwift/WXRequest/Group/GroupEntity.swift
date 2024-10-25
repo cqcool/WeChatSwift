@@ -25,7 +25,7 @@ final class GroupEntity: NSObject, Codable/*, TableCodable*/ {
     var lastAckMsgNo: String?
     var msgNum: Int?
     var name: String?
-    var newAckMsgDate: Int?
+    var newAckMsgDate: TimeInterval?
     var newAckMsgInfo: String?
     var newAckMsgType: Int?
     var newAckMsgUserId: String?
@@ -42,7 +42,7 @@ final class GroupEntity: NSObject, Codable/*, TableCodable*/ {
     var status: Int = 0
     
     var _formattedTime: String?
-    private let dateFormatter = ChatRoomDateFormatter()
+    
     // 注意：json的key和模型属性不同时，可以使用映射
     enum CodingKeys: String, CodingKey/*, CodingTableKey*/ {
         typealias Root = GroupEntity
@@ -116,18 +116,5 @@ extension GroupEntity {
             .foregroundColor: Colors.DEFAUTL_TABLE_INTROL_COLOR
         ]
         return NSAttributedString(string: _formattedTime ?? "", attributes: attributes)
-    }
-    
-    func formatTime() {
-        guard var time = newAckMsgDate else {
-            return
-        }
-        _formattedTime = dateFormatter.formatTimestamp(TimeInterval(time))
-//        if message.time - time > 300 {
-//            time = message.time
-//            message._formattedTime = dateFormatter.formatTimestamp(TimeInterval(time))
-//        } else {
-//            message._formattedTime = nil
-//        }
     }
 }

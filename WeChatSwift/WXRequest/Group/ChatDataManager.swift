@@ -15,7 +15,7 @@ protocol ChatDataDelegate {
     
     func willLoadAllChat()
     
-    func didLoadAllChat()
+    func didLoadAllChat(error: NSError?)
     
     func updateGroupList(list: [GroupEntity])
 }
@@ -78,9 +78,9 @@ class ChatDataManager {
             d.willLoadAllChat()
         }
     }
-    private func notify_didLoadAllChat() {
+    private func notify_didLoadAllChat(error: NSError?) {
         for d in self.delegates {
-            d.didLoadAllChat()
+            d.didLoadAllChat(error: error)
         }
     }
     private func notify_updateGroupList(list: [GroupEntity]) {
@@ -126,7 +126,7 @@ extension ChatDataManager {
                       groupList.count > 0 else {
                     if isLoop {
                         
-                        self.notify_didLoadAllChat()
+                        self.notify_didLoadAllChat(error: nil)
                         self.giveUpOne = true
                         self.startTimer()
                     }
@@ -151,6 +151,8 @@ extension ChatDataManager {
                     }
                 }
             }
+        } failure: {
+            self.notify_didLoadAllChat(error: $0.dnkError() as NSError)
         }
     }
 }

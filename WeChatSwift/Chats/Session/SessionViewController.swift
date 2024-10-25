@@ -30,6 +30,8 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     }()
     
     private var searchViewController: UISearchController?
+    private let dateFormatter = ChatRoomDateFormatter()
+    
     
     override init() {
         super.init(node: ASDisplayNode())
@@ -280,7 +282,7 @@ extension SessionViewController: ChatDataDelegate {
         loadingView.start()
     }
     
-    func didLoadAllChat() {
+    func didLoadAllChat(error: NSError?) {
         navigationItem.title = "微信"
         loadingView.stop()
 //        loadingContentView.removeFromSuperview()
@@ -292,8 +294,6 @@ extension SessionViewController: ChatDataDelegate {
             return
         }
         for group in list.reversed() {
-            group.formatTime()
-            
             if dataSource.contains(where: {$0.groupNo == group.groupNo}) {
                 dataSource.removeAll {$0.groupNo == group.groupNo}
                 dataSource.insert(group, at: 0)
@@ -301,6 +301,8 @@ extension SessionViewController: ChatDataDelegate {
                 dataSource.insert(group, at: 0)
             }
         }
+        dataSource = dataSource.sorted(by: { $0.newAckMsgDate ?? 0 > $1.newAckMsgDate ?? 0})
+        ChatRoomDateFormatter.groupFormatTime(groupList: dataSource)
         tableNode.reloadData()
     }
 }

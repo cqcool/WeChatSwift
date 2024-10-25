@@ -93,10 +93,12 @@ class SessionCellNode: ASCellNode {
         avatarLayout.style.preferredSize = CGSize(width: 72.0, height: 76.0)
         
         titleNode.style.flexGrow = 1.0
+        titleNode.style.flexShrink = 1.0
+        titleNode.style.spacingAfter = 15
+        timeNode.style.spacingAfter = 16
         subTitleNode.style.flexGrow = 1.0
         subTitleNode.style.flexShrink = 1.0
         subTitleNode.style.spacingAfter = 12
-        timeNode.style.spacingAfter = 16
         
         let topStack = ASStackLayoutSpec.horizontal()
         topStack.alignItems = .center

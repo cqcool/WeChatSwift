@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E33691E2CCB2A4F005AF4A4 /* ChatDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33691D2CCB2A4F005AF4A4 /* ChatDataManager.swift */; };
+		1E3369202CCB2BB5005AF4A4 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33691F2CCB2BB5005AF4A4 /* DBManager.swift */; };
 		1E58EC352CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */; };
 		1E5E37272CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */; };
 		1E5E372D2CC10D24007F8944 /* WXPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E372B2CC10D24007F8944 /* WXPayView.m */; };
@@ -104,7 +106,6 @@
 		1EFACD0F2CC8E1C300D6ABC8 /* FriendsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD0E2CC8E1C300D6ABC8 /* FriendsApi.swift */; };
 		1EFACD112CC8EAC700D6ABC8 /* GroupEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */; };
 		1EFACD132CC8F87F00D6ABC8 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD122CC8F87F00D6ABC8 /* MessageEntity.swift */; };
-		1EFACD152CC8FED000D6ABC8 /* TimingGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD142CC8FED000D6ABC8 /* TimingGroupManager.swift */; };
 		1EFACD1F2CCA341300D6ABC8 /* LoadingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD1E2CCA341300D6ABC8 /* LoadingCircle.swift */; };
 		8180972D2CC560F8003C6299 /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8180972C2CC560F8003C6299 /* RSAUtil.m */; };
 		818097302CC565A3003C6299 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180972F2CC565A3003C6299 /* LoginAPI.swift */; };
@@ -521,6 +522,8 @@
 
 /* Begin PBXFileReference section */
 		04841C8B18BE984EE8C1B6BB /* Pods-WeChatSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChatSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeChatSwift/Pods-WeChatSwift.release.xcconfig"; sourceTree = "<group>"; };
+		1E33691D2CCB2A4F005AF4A4 /* ChatDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDataManager.swift; sourceTree = "<group>"; };
+		1E33691F2CCB2BB5005AF4A4 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCountNode.swift; sourceTree = "<group>"; };
 		1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCoverNode.swift; sourceTree = "<group>"; };
 		1E5E37282CC10D24007F8944 /* WXInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXInputView.h; sourceTree = "<group>"; };
@@ -638,7 +641,6 @@
 		1EFACD0E2CC8E1C300D6ABC8 /* FriendsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsApi.swift; sourceTree = "<group>"; };
 		1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEntity.swift; sourceTree = "<group>"; };
 		1EFACD122CC8F87F00D6ABC8 /* MessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
-		1EFACD142CC8FED000D6ABC8 /* TimingGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingGroupManager.swift; sourceTree = "<group>"; };
 		1EFACD1E2CCA341300D6ABC8 /* LoadingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircle.swift; sourceTree = "<group>"; };
 		8180972B2CC560F8003C6299 /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
 		8180972C2CC560F8003C6299 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
@@ -1390,7 +1392,8 @@
 				1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */,
 				1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */,
 				1EFACD122CC8F87F00D6ABC8 /* MessageEntity.swift */,
-				1EFACD142CC8FED000D6ABC8 /* TimingGroupManager.swift */,
+				1E33691D2CCB2A4F005AF4A4 /* ChatDataManager.swift */,
+				1E33691F2CCB2BB5005AF4A4 /* DBManager.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -2919,6 +2922,7 @@
 				A35EDF5F22FD7A1200C56CAC /* PayOfflinePayAction.swift in Sources */,
 				1E5E37792CC4FD24007F8944 /* DNKCircleProgress.m in Sources */,
 				A3E58D9D23025B6A00F73763 /* MomentRefreshHeaderView.swift in Sources */,
+				1E3369202CCB2BB5005AF4A4 /* DBManager.swift in Sources */,
 				A3CA51EF22CDA29000C67D92 /* MomentsViewController.swift in Sources */,
 				A3CA51F522CDA66E00C67D92 /* Moment.swift in Sources */,
 				A3E3C5B72313D715001869CE /* MultiSelectContact.swift in Sources */,
@@ -2955,6 +2959,7 @@
 				A3E58DA62302CF0500F73763 /* CameraScanType.swift in Sources */,
 				A32333C622DF296600B79555 /* EmoticonGridCellNode.swift in Sources */,
 				A3485FA922EFF5F9002A804B /* ContactInfoCellNode.swift in Sources */,
+				1E33691E2CCB2A4F005AF4A4 /* ChatDataManager.swift in Sources */,
 				A352AD2C2306D03C00332B21 /* Language.swift in Sources */,
 				A33DB2ED22CCCB4D00A11776 /* UIImage+SVG.swift in Sources */,
 				A34760AF22E6ECB00043AE1D /* AssetPickerCollectionViewCell.swift in Sources */,
@@ -3079,7 +3084,6 @@
 				A36EC0BF22FFCFC5004FD6B2 /* ContactSettingModel.swift in Sources */,
 				1EF4E6C42CBCFD35000F39E9 /* MyProfileCellNode.swift in Sources */,
 				1E5E37452CC25A96007F8944 /* ModifyRoomNameViewController.swift in Sources */,
-				1EFACD152CC8FED000D6ABC8 /* TimingGroupManager.swift in Sources */,
 				1EF4E64E2CBA5029000F39E9 /* String+Util.swift in Sources */,
 				A3B6889023004CFB007273CD /* RemarkEditNameCellNode.swift in Sources */,
 				A35B21A1230022500057F8FC /* BrandTimelineViewController.swift in Sources */,
