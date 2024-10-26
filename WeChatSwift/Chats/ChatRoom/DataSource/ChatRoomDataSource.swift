@@ -27,8 +27,8 @@ final class ChatRoomDataSource {
         self.sessionID = sessionID
         
 //        let user = MockFactory.shared.user(with: sessionID)!
-//        messages = MockFactory.shared.messages(with: user)
-        formatTime()
+
+//        formatTime()
     }
     
     func numberOfRows() -> Int {

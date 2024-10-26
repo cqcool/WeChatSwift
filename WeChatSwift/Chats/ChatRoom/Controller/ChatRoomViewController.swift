@@ -93,46 +93,9 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadMessage()
         
-        navigationItem.title = session.name
-        let moreButtonItem = UIBarButtonItem(image: Constants.moreImage, style: .done, target: self, action: #selector(moreButtonClicked))
-        navigationItem.rightBarButtonItem = moreButtonItem
-        
-        if let backgroundImageName = AppContext.current.userSettings.globalBackgroundImage {
-            backgroundImageNode.image = UIImage.as_imageNamed(backgroundImageName)
-        }
-        node.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
-        backgroundImageNode.frame = view.bounds
-        let bottomHeight = 56 + Constants.bottomInset
-        tableNode.allowsSelection = false
-        tableNode.view.separatorStyle = .none
-        tableNode.dataSource = self
-        tableNode.delegate = self
-        tableNode.view.backgroundColor = .clear
-        tableNode.frame = CGRect(x: 0, y: 0, width: Constants.screenWidth, height: Constants.screenHeight - bottomHeight)
-        inputNode.tableNode = tableNode
-        inputNode.delegate = self
-        
-        dataSource.tableNode = tableNode
-        
-        scrollToLastMessage(animated: false)
-        navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(handlePopGesture(_:)))
-        
-        node.addSubnode(errorNode)
-        
-        notSendView.frame = CGRect(x: 0, y: Constants.screenHeight - bottomHeight, width: Constants.screenWidth, height:  bottomHeight)
-        notSendView.isHidden = true
-        node.view.addSubview(notSendView)
-        notSendView.addSubview(notSendLine)
-        notSendLine.backgroundColor = UIColor(white: 0, alpha: 0.1)
-        notSendView.addSubview(notSendContentView)
-        notSendContentView.addSubview(notSendLabel)
-        notSendContentView.addSubview(notSendImageView)
-        notSendLabel.textColor = UIColor(white: 0, alpha: 0.6)
-        notSendLabel.font = .systemFont(ofSize: 15)
-        
-        updateChatRoomView(status: ChatRoomStatus(rawValue: session.status) ?? .byRemove)
+        layoutUI()
+        loadGroupMessage()
         // 群聊
         if session.groupType == 2 {
             requestMembers(showHUD: false)
@@ -325,16 +288,42 @@ extension ChatRoomViewController {
         navigationController?.pushViewController(contactVC, animated: true)
     }
     
-    private func loadMessage() {
+    private func loadGroupMessage() {
+        // 先加载本地数据
         
-        let request = MessageRequest(groupNo: session.groupNo!)
-        request.startWithCompletionBlock { request in
-
-        } failure: { request in
-            
-        }
+        loadRemoteMessage(msgNo: nil)
         
     }
+    private func loadRemoteMessage(sort: String = "0", msgNo: String?) {
+        let request = MessageRequest(groupNo: session.groupNo!)
+        request.groupNo = session.groupNo!
+        request.sort = sort
+        /*
+         msgNo = nil, 获取最新消息
+         */
+        if let no = msgNo {
+            
+            if sort == "0" {
+                request.lastAckMsgNo = msgNo
+            } else {
+                request.no = msgNo
+            }
+        }
+        request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
+            do {
+                let resp = try JSONDecoder().decode([MessageEntity].self, from: request.wxResponseData())
+                MessageEntity.insert(list: resp)
+            }  catch {
+                print("Error decoding JSON: \(error)")
+            }
+        }
+    }
+    
+    private func readMessage(no: Int) {
+        let request = MsgReadRequest(no: no)
+        request.start()
+    }
+    
     private func requestMembers(showHUD: Bool) {
         let request = GroupMembersRequest(groupNo: session.groupNo)
         request.start(withNetworkingHUD: showHUD, showFailureHUD: showHUD) { request in
@@ -533,5 +522,48 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         //        self.becomeFirstResponder()
         //        self.menuMessage = message
         //        showMenus(menus, targetRect: targetRect, targetView: targetView)
+    }
+}
+
+extension ChatRoomViewController {
+    private func layoutUI() {
+        navigationItem.title = session.name
+        let moreButtonItem = UIBarButtonItem(image: Constants.moreImage, style: .done, target: self, action: #selector(moreButtonClicked))
+        navigationItem.rightBarButtonItem = moreButtonItem
+        
+        if let backgroundImageName = AppContext.current.userSettings.globalBackgroundImage {
+            backgroundImageNode.image = UIImage.as_imageNamed(backgroundImageName)
+        }
+        node.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
+        backgroundImageNode.frame = view.bounds
+        let bottomHeight = 56 + Constants.bottomInset
+        tableNode.allowsSelection = false
+        tableNode.view.separatorStyle = .none
+        tableNode.dataSource = self
+        tableNode.delegate = self
+        tableNode.view.backgroundColor = .clear
+        tableNode.frame = CGRect(x: 0, y: 0, width: Constants.screenWidth, height: Constants.screenHeight - bottomHeight)
+        inputNode.tableNode = tableNode
+        inputNode.delegate = self
+        
+        dataSource.tableNode = tableNode
+        
+        scrollToLastMessage(animated: false)
+        navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(handlePopGesture(_:)))
+        
+        node.addSubnode(errorNode)
+        
+        notSendView.frame = CGRect(x: 0, y: Constants.screenHeight - bottomHeight, width: Constants.screenWidth, height:  bottomHeight)
+        notSendView.isHidden = true
+        node.view.addSubview(notSendView)
+        notSendView.addSubview(notSendLine)
+        notSendLine.backgroundColor = UIColor(white: 0, alpha: 0.1)
+        notSendView.addSubview(notSendContentView)
+        notSendContentView.addSubview(notSendLabel)
+        notSendContentView.addSubview(notSendImageView)
+        notSendLabel.textColor = UIColor(white: 0, alpha: 0.6)
+        notSendLabel.font = .systemFont(ofSize: 15)
+        
+        updateChatRoomView(status: ChatRoomStatus(rawValue: session.status) ?? .byRemove)
     }
 }

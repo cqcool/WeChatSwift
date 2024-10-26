@@ -35,7 +35,9 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
     var toUserId: Int? = 0//0,
     var type: Int? = 0//0,
     var userId: Int? = 0//0
-    
+    /*
+     {"referContent":"","referUserHead":"","nickname":"一二三四五六七八九十十一十二十三","linkContent":"{\"name\":\"恭喜发财，大吉大利\",\"orderNumber\":\"RP202410246829772967533\",\"type\":1}","referContentType":null,"isUp":1,"toUserId":null,"orderNumber":"RP202410246829772967533","isAllDel":0,"type":1,"groupNo":"712557675480748032","groupType":2,"no":"721199312935194624","referUserId":null,"showTime":null,"contentType":7,"head":"fc8976205c794d92b8678dbeb324d930.webp","referLinkContent":"","referMsgNo":null,"referUserNickname":"","createTime":1729772967533,"content":"","userId":"865021641"}
+     */
     enum CodingKeys: String, CodingTableKey {
 
         nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
@@ -68,5 +70,11 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
         case type
         case userId
          
+    }
+}
+
+extension MessageEntity {
+    static func insert(list: [MessageEntity]) {
+        DBManager.share.insert(objects: list)
     }
 }

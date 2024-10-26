@@ -116,6 +116,7 @@
 		818097372CC7FEDE003C6299 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818097362CC7FEDE003C6299 /* CoreTelephony.framework */; };
 		818097392CC7FEF0003C6299 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818097382CC7FEF0003C6299 /* SystemConfiguration.framework */; };
 		8180973B2CC7FF1B003C6299 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8180973A2CC7FF1B003C6299 /* libresolv.tbd */; };
+		81938D0D2CCBEB6E000CBB32 /* MessageApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81938D0C2CCBEB6E000CBB32 /* MessageApi.swift */; };
 		A30347F222FCE868003ECF82 /* SettingAutoDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */; };
 		A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */; };
 		A30347F922FF9983003ECF82 /* BrandContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */; };
@@ -656,6 +657,7 @@
 		818097362CC7FEDE003C6299 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		818097382CC7FEF0003C6299 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8180973A2CC7FF1B003C6299 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		81938D0C2CCBEB6E000CBB32 /* MessageApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageApi.swift; sourceTree = "<group>"; };
 		A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAutoDownloadViewController.swift; sourceTree = "<group>"; };
 		A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCTableCellModel.swift; sourceTree = "<group>"; };
 		A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandContactsViewController.swift; sourceTree = "<group>"; };
@@ -1418,6 +1420,7 @@
 				1E33692C2CCB9728005AF4A4 /* Models */,
 				1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */,
 				1E33691D2CCB2A4F005AF4A4 /* ChatDataManager.swift */,
+				81938D0C2CCBEB6E000CBB32 /* MessageApi.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -3079,6 +3082,7 @@
 				A352AD1E23069D5D00332B21 /* MomentSetBackgroundHeaderNode.swift in Sources */,
 				1E33692E2CCB9733005AF4A4 /* MemberModel.swift in Sources */,
 				1ECBEA222CC65E3100485BF0 /* GlobalManager.swift in Sources */,
+				81938D0D2CCBEB6E000CBB32 /* MessageApi.swift in Sources */,
 				A374865D22D4AE3A002EEC4F /* ChatRoomToolPanelNode.swift in Sources */,
 				A3F9F17C230E8A300032299C /* SightCameraShotVideoView.swift in Sources */,
 				A373D3D022F5815D00451515 /* DiscoverManager.swift in Sources */,
