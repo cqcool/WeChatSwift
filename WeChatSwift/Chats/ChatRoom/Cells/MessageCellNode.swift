@@ -59,7 +59,7 @@ public class MessageCellNode: ASCellNode {
         if let node = bottomTextNode { addSubnode(node) }
         
         selectionStyle = .none
-        let avatar = MockFactory.shared.user(with: message.senderID)?.avatar
+        let avatar = GlobalManager.headImageUrl(name: message.entity?.head)
         avatarNode.url = avatar
         avatarNode.cornerRadius = 6.0
         avatarNode.cornerRoundingType = .precomposited
@@ -143,7 +143,7 @@ public class MessageCellNode: ASCellNode {
         }
         layoutSpec.children = layoutElements
         
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12), child: layoutSpec)
+        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 50, left: 12, bottom: 5, right: 12), child: layoutSpec)
         
     }
 }

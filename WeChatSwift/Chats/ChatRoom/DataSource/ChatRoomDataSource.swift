@@ -26,9 +26,9 @@ final class ChatRoomDataSource {
     init(sessionID: String) {
         self.sessionID = sessionID
         
-//        let user = MockFactory.shared.user(with: sessionID)!
-
-//        formatTime()
+        //        let user = MockFactory.shared.user(with: sessionID)!
+        
+        //        formatTime()
     }
     
     func numberOfRows() -> Int {
@@ -43,9 +43,7 @@ final class ChatRoomDataSource {
         let _ = lock.wait(timeout: .distantFuture)
         messages.append(message)
         formatTime()
-        
         tableNode?.insertRows(at: [IndexPath(row: messages.count - 1, section: 0)], with: .none)
-        
         if scrollToLastMessage {
             let last = messages.count - 1
             if last > 0 {
@@ -55,6 +53,23 @@ final class ChatRoomDataSource {
         }
         
         lock.signal()
+    }
+    func appendMsgList(_ msgList: [MessageEntity], scrollToLastMessage: Bool = true) {
+        let _ = lock.wait(timeout: .distantFuture)
+        for message in msgList {
+            messages.append(message.toMessage())
+            formatTime()
+            tableNode?.insertRows(at: [IndexPath(row: messages.count - 1, section: 0)], with: .none)
+        }
+        if scrollToLastMessage {
+            let last = messages.count - 1
+            if last > 0 {
+                let indexPath = IndexPath(row: last, section: 0)
+                tableNode?.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        }
+        lock.signal()
+        
     }
     
     func formatTime() {

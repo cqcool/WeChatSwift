@@ -11,23 +11,27 @@ import UIKit
 import AsyncDisplayKit
 
 fileprivate struct ExpressionRegexResult {
+    
+    /// 1：红包icon，2: 蓝色字体，3: 红包文本（可点击）
+    var type: Int?
     var range: NSRange
     var text: String
     var expression: String?
+    
 }
 
 class ExpressionParser {
     
     static let shared = try? ExpressionParser()
     
-    private let regex: NSRegularExpression
+    private let emojiRegex: NSRegularExpression
     
     private init() throws {
-        regex = try NSRegularExpression(pattern: pattern, options: [])
+        emojiRegex = try NSRegularExpression(pattern: emojiPattern, options: [])
     }
-    
-    private let pattern = "\\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]"
-    
+    // \\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]
+    private let emojiPattern = "</?u>"
+//    private let emojiPattern = "[\\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]]?[</?u>]?"
     func attributedText(with attributedText: NSAttributedString) -> NSAttributedString {
         let regexes = parse(text: attributedText.string)
         if regexes.count == 0 {
@@ -56,12 +60,11 @@ class ExpressionParser {
         guard text.count > 2 else { return [] }
         
         let length = text.count
-        let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: length))
+        let matches = emojiRegex.matches(in: text, options: [], range: NSRange(location: 0, length: length))
         if matches.count == 0 {
             return []
         }
         let expressions = Expression.all
-        
         var resultList: [ExpressionRegexResult] = []
         var offset: Int = 0
         for (index, match) in matches.enumerated() {

@@ -294,25 +294,31 @@ extension ChatRoomViewController {
         loadRemoteMessage(msgNo: nil)
         
     }
-    private func loadRemoteMessage(sort: String = "0", msgNo: String?) {
+    private func loadRemoteMessage(sort: String = "1", msgNo: String?) {
         let request = MessageRequest(groupNo: session.groupNo!)
         request.groupNo = session.groupNo!
         request.sort = sort
         /*
-         msgNo = nil, 获取最新消息
+         sort=1, 获取新数据，分3种情况
+            1. 无本地数据，lastAckMsgNo = nil
+            2. 有本地数据，lastAckMsgNo = 本地最新数据no
+            3. 有消息时，lastAckMsgNo = 本地最新数据no
+         sort=0，获取历史数据，
+            no = 最早的历史数据no
          */
-        if let no = msgNo {
-            
-            if sort == "0" {
+        if sort == "1" {
+            // 无本地数据
+            if msgNo != nil {
                 request.lastAckMsgNo = msgNo
-            } else {
-                request.no = msgNo
             }
+        } else {
+            request.no = msgNo
         }
+        
         request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
             do {
-                let resp = try JSONDecoder().decode([MessageEntity].self, from: request.wxResponseData())
-                MessageEntity.insert(list: resp)
+                let resp = try JSONDecoder().decode([MessageEntity].self, from: request.wxResponseData()) 
+                self.dataSource.appendMsgList(resp, scrollToLastMessage: true)
             }  catch {
                 print("Error decoding JSON: \(error)")
             }
@@ -334,6 +340,7 @@ extension ChatRoomViewController {
                     do {
                         let resp = try JSONDecoder().decode([MemberModel].self, from: jsonData)
                         self.members = resp
+                        self.navigationItem.title = self.session.name ?? "群聊\(String(describing: self.members?.count))"
                         if showHUD {
                             self.moreButtonClicked()
                         }
@@ -527,7 +534,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
 
 extension ChatRoomViewController {
     private func layoutUI() {
-        navigationItem.title = session.name
+        navigationItem.title = session.name ?? "群聊"
         let moreButtonItem = UIBarButtonItem(image: Constants.moreImage, style: .done, target: self, action: #selector(moreButtonClicked))
         navigationItem.rightBarButtonItem = moreButtonItem
         

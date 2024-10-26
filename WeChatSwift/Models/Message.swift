@@ -11,31 +11,17 @@ import UIKit
 import CoreLocation
 import WCDBSwift
 import PINRemoteImage
+import SwiftyJSON
 
-public class Message/*: TableCodable*/ {
+public class Message {
     
-//    public enum CodingKeys: String, CodingTableKey {
-//        public typealias Root = Message
-//        public static let objectRelationalMapping = TableBinding(CodingKeys.self)
-//        
-//        case localMsgID = "localMsgID"
-//        case serverMsgID
-//        case type
-//        
-////        public static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
-////            return [
-////                localMsgID: ColumnConstraintBinding(isPrimary: true)
-////            ]
-////        }
-//    }
+        var localMsgID: String = ""
     
-    var localMsgID: String = ""
+        var serverMsgID: String = ""
     
-    var serverMsgID: String = ""
+        var type: Int = 0
     
-    var type: Int = 0
-    
-    var chatID: String = ""
+        var chatID: String = ""
     
     var senderID: String = ""
     
@@ -44,11 +30,12 @@ public class Message/*: TableCodable*/ {
     var time: Int = 0
     
     var _formattedTime: String?
+    var entity: MessageEntity?
 }
 
 public extension Message {
     
-    var isOutgoing: Bool { return senderID == AppContext.current.userID }
+    var isOutgoing: Bool { return senderID == GlobalManager.manager.personModel?.userId }
     
     func attributedStringForTime() -> NSAttributedString? {
         guard let timeString = _formattedTime else { return nil }
@@ -57,6 +44,41 @@ public extension Message {
             NSAttributedString.Key.foregroundColor: UIColor(white: 0, alpha: 0.9)
         ]
         return NSAttributedString(string: timeString, attributes: attributes)
+    }
+}
+
+
+extension MessageEntity {
+    func toMessage() -> Message {
+        let msg = Message()
+        msg.entity = self
+        msg.senderID = userId ?? ""
+        msg.content = messageContent()
+        msg.time = showTime ?? 0
+        return msg
+    }
+    private func messageContent() -> MessageContent {
+        guard let typeInt = contentType else {
+            return .none
+        }
+        switch (typeInt) {
+        case 0: return .text(content ?? "")
+        case 7:
+            if let data = linkContent?.data(using: .utf8),
+               let json = try? JSON(data: data) {
+                var redMsg = RedPacketMessage()
+                redMsg.name = json["name"].string
+                redMsg.orderNumber = json["orderNumber"].string
+                redMsg.type = json["type"].string
+                return .redPacket(redMsg)
+            }
+            return .none
+//        case 1:
+//            let msg = ImageMessage(url: image.url, size: image.size.value)
+//            return .image(content ?? "")
+        default:
+            return .none
+        }
     }
 }
 
@@ -139,8 +161,8 @@ public struct VoiceMessage {
     
     func attributedStringForDuration() -> NSAttributedString {
         let attributes = [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-        NSAttributedString.Key.foregroundColor: Colors.DEFAULT_TEXT_COLOR
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+            NSAttributedString.Key.foregroundColor: Colors.DEFAULT_TEXT_COLOR
         ]
         let text = String(format: "%d\"", duration)
         return NSAttributedString(string: text, attributes: attributes)
@@ -148,11 +170,20 @@ public struct VoiceMessage {
 }
 
 // MARK: - RedPacketMessage
-public struct RedPacketMessage {
+public struct RedPacketMessage: Codable {
     
-    var title: String
+    var name: String?
+    var orderNumber: String?
+    /// 1：拼手气红包
+    var type: String?
+    /// 0:未点开
+    var status: Int = 0
     
-    var amount: Float
+    enum CodingKeys: String, CodingKey {
+        case name
+        case orderNumber
+        case type
+    }
 }
 
 // MARK: - AppURLMessage

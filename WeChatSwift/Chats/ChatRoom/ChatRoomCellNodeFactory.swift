@@ -15,6 +15,8 @@ final class ChatRoomCellNodeFactory {
         switch message.content {
         case .text(let txtMsg):
             contentNode = TextContentNode(message: message, text: txtMsg)
+        case .redPacket(let redMsg):
+            contentNode = RedPacketContentNode(message: message, redPacket: redMsg)
         case .image(let imageMsg):
             contentNode = MessageImageContentNode(message: message, imageMsg: imageMsg)
         case .video(let videoMsg):
