@@ -106,18 +106,22 @@ class WeChatLoginViewController: UIViewController {
         
         let infoRequest = UserInfoRequest()
         chainRequest.add(infoRequest) { _, request in
-            DNKProgressHUD.hiddenProgressHUD()
-            if request.apiSuccess() {
-                if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
-                    GlobalManager.manager.updatePersonModel(model: resp)
-                    GlobalManager.manager.login()
+            GlobalManager.manager.getConfigInfo { error in
+                DNKProgressHUD.hiddenProgressHUD()
+                if request.apiSuccess() {
+                    if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
+                        GlobalManager.manager.updatePersonModel(model: resp)
+                        GlobalManager.manager.login()
+                    }
+                    return
                 }
-                return
+                GlobalManager.manager.updateRefreshToken(refreshToken: nil)
+                GlobalManager.manager.updateToken(token: nil)
+                self.showPopupAlert(msg: request.apiMessage())
             }
-            GlobalManager.manager.updateRefreshToken(refreshToken: nil)
-            GlobalManager.manager.updateToken(token: nil)
-            self.showPopupAlert(msg: request.apiMessage())
         }
+        
+        
         chainRequest.start()
     }
     @objc func changeLoginType() {

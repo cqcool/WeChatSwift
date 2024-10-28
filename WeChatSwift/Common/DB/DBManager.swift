@@ -32,6 +32,14 @@ class DBManager {
             debugPrint(error.localizedDescription)
         }
     }
+    /// 主键出现冲突，新数据覆盖就数据
+    public func insertOrReplace<T: TableCodable & Named>(objects: [T]) {
+        do {
+            try db.insertOrReplace(objects, intoTable: objects.first!.className)
+        }catch let error {
+            debugPrint(error.localizedDescription)
+        }
+    }
     /// 改
     public func update<T: TableCodable & Named>(objects: [T]) {
         do {

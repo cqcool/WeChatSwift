@@ -12,6 +12,8 @@
 		1E3369252CCB4735005AF4A4 /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3369242CCB4735005AF4A4 /* Convenience.swift */; };
 		1E33692B2CCB72C7005AF4A4 /* WXUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33692A2CCB72C7005AF4A4 /* WXUserDefault.swift */; };
 		1E33692E2CCB9733005AF4A4 /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33692D2CCB9733005AF4A4 /* MemberModel.swift */; };
+		1E3369302CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1E33692F2CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg */; };
+		1E3369332CCFAA0D005AF4A4 /* RedEnvelopeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3369322CCFAA0C005AF4A4 /* RedEnvelopeApi.swift */; };
 		1E58EC352CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */; };
 		1E5E37272CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */; };
 		1E5E372D2CC10D24007F8944 /* WXPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E372B2CC10D24007F8944 /* WXPayView.m */; };
@@ -532,6 +534,8 @@
 		1E3369262CCB6216005AF4A4 /* WCDBSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WCDBSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E33692A2CCB72C7005AF4A4 /* WXUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXUserDefault.swift; sourceTree = "<group>"; };
 		1E33692D2CCB9733005AF4A4 /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
+		1E33692F2CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg; sourceTree = "<group>"; };
+		1E3369322CCFAA0C005AF4A4 /* RedEnvelopeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedEnvelopeApi.swift; sourceTree = "<group>"; };
 		1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCountNode.swift; sourceTree = "<group>"; };
 		1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCoverNode.swift; sourceTree = "<group>"; };
 		1E5E37282CC10D24007F8944 /* WXInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXInputView.h; sourceTree = "<group>"; };
@@ -1105,6 +1109,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		1E3369312CCFAA01005AF4A4 /* RedEnvelope */ = {
+			isa = PBXGroup;
+			children = (
+				1E3369322CCFAA0C005AF4A4 /* RedEnvelopeApi.swift */,
+			);
+			path = RedEnvelope;
+			sourceTree = "<group>";
+		};
 		1E58EC332CBFB2F900A360A6 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1478,6 +1490,7 @@
 		8180972E2CC56566003C6299 /* WXRequest */ = {
 			isa = PBXGroup;
 			children = (
+				1E3369312CCFAA01005AF4A4 /* RedEnvelope */,
 				1EFACD0D2CC8E19700D6ABC8 /* Friends */,
 				1EFACD0A2CC8DDFA00D6ABC8 /* Group */,
 				1EFACD072CC8DC1500D6ABC8 /* Discover */,
@@ -2307,6 +2320,7 @@
 		A3CA51C322CD9C1C00C67D92 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				1E33692F2CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg */,
 				A37343E823129CC10064E510 /* ui-resources_checkbox_selected.svg */,
 				A37343E723129CC10064E510 /* ui-resources_checkbox_unselected.svg */,
 				A3542F50230D7E6B0034ED82 /* icons_outlined_share.svg */,
@@ -2741,6 +2755,7 @@
 				A3CA51CF22CD9C7B00C67D92 /* icons_outlined_me.svg in Resources */,
 				A3CA51C722CD9C5400C67D92 /* icons_filled_contacts.svg in Resources */,
 				A3D5DC092325F4590096849F /* MockData.json in Resources */,
+				1E3369302CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg in Resources */,
 				A32333B922DF091D00B79555 /* icons_outlined_mute.svg in Resources */,
 				A3D897EC22E1D14900814669 /* 15031638347220abdd83283a10.png in Resources */,
 				A3CA523222CE1D0000C67D92 /* icons_outlined_sticker.svg in Resources */,
@@ -2944,6 +2959,7 @@
 				A3CA51A822CD99CF00C67D92 /* ContactsViewController.swift in Sources */,
 				A37E73E422D89AFB008019A4 /* SessionCellNode.swift in Sources */,
 				A33D619422FD499D00B767F1 /* SettingPrivacyModel.swift in Sources */,
+				1E3369332CCFAA0D005AF4A4 /* RedEnvelopeApi.swift in Sources */,
 				A3CCEDD622FBBD00008BE41D /* NearbyPeopleViewController.swift in Sources */,
 				A374864C22D44D34002EEC4F /* UnknownContentNode.swift in Sources */,
 				A3E58D2D22E72CC8006C362F /* AssetPickerBottomBar.swift in Sources */,

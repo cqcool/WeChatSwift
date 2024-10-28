@@ -149,6 +149,9 @@ extension GroupEntity {
     static func insert(list: [GroupEntity]) {
         DBManager.share.insert(objects: list)
     }
+    static func insertOrReplace(list: [GroupEntity]) {
+        DBManager.share.insertOrReplace(objects: list)
+    }
     
     static func updateName(group: GroupEntity) {
         DBManager.share.update(object: group, on: [GroupEntity.Properties.name], where: GroupEntity.Properties.groupNo == group.groupNo ?? "")

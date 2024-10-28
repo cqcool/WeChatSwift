@@ -11,8 +11,8 @@ import Foundation
 @objcMembers
 ///消息已读
 class MsgReadRequest: DNKRequest {
-    let no: Int
-    init(no: Int) {
+    let no: String
+    init(no: String) {
         self.no = no
     }
     override func requestUrl() -> String {

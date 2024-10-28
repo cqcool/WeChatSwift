@@ -16,7 +16,7 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
     /// 类型(0文字,1图文,2视频,3超链接,4文件,5语音,6GIF,7红包,8新闻)
     var contentType: Int? = 0//0,
     /// 发布时间
-    var createTime: Int?
+    var createTime: TimeInterval?
     var groupNo: String? = ""//0,
     /// 会话类别 1私聊 2群组
     var groupType: Int? = 0//0,
@@ -41,7 +41,7 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
     /// 被指向的用户昵称
     var referUserNickname: String? = "" //string
     /// 展示时间
-    var showTime: Int? = 0 //2024-10-23T08:45:36.828Z
+    var showTime: TimeInterval? = 0 //2024-10-23T08:45:36.828Z
     /// 对应用户id(删除消息用)
     var toUserId: String? = ""//0,
     /// 类型(0 通知消息 1正常消息,2回复消息,3删除单条消息4删除所有消息,5系统通知消息,6会话变更消息
@@ -55,7 +55,7 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
 
         nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
             BindColumnConstraint(no, isPrimary: true)
-            BindColumnConstraint(createTime, isPrimary: false, orderBy: .descending)
+            BindColumnConstraint(createTime, isPrimary: false, orderBy: .ascending)
         }
         
         typealias Root = MessageEntity
@@ -89,6 +89,14 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
 extension MessageEntity {
     static func insert(list: [MessageEntity]) {
         DBManager.share.insert(objects: list)
+    }
+    static func insertOrReplace(list: [MessageEntity]) {
+        DBManager.share.insertOrReplace(objects: list)
+    }
+    
+    static func queryMessag(groupNo: String) -> [MessageEntity]? {
+        DBManager.share.getObjects(tableName: self.tableName,
+                                   where: (MessageEntity.Properties.groupNo == groupNo))
     }
 }
 

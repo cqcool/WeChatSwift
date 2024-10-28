@@ -76,7 +76,7 @@ class MockFactory {
             let msg = Message()
             msg.chatID = user.identifier
             msg.senderID = index % 2 == 0 ? user.identifier: myID
-            msg.time = randomTime
+            msg.time = TimeInterval(randomTime)
             let r = Int.random(in: 0 ..< 5)
             switch r {
             case 0:

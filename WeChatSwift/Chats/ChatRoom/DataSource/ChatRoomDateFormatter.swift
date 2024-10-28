@@ -24,22 +24,46 @@ import Foundation
  */
 
 class ChatRoomDateFormatter {
-    
-    func formatTimestamp(_ timestamp: TimeInterval) -> String? {
+    func chatSingleFormatTime(message: Message) {
+        chatFormatTime(messageList: [message])
+    }
+    func chatFormatTime(messageList: [Message]) {
         let nowTimestamp = Date().timeIntervalSince1970 * 1000
-        let day: TimeInterval = 24 * 60 * 60
-        let intervals = nowTimestamp - timestamp
-        if timestamp >= nowTimestamp {
-            return "11:20"
-        }
-        if intervals >= 7 * day {
-            return "2019年7月22号 下午7:00"
-        } else if intervals > day {
-            return "星期一 上午8:14"
-        } else if intervals > 0 {
-            return "下午2:14"
-        } else {
-            return "下午2:14"
+        let oneDaySecond: TimeInterval = 24 * 60 * 60 * 1000
+        
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday, .weekOfYear], from: date)
+        let curYear = components.year
+        let curDay = components.day
+        for message in messageList {
+            let groupTimestamp = message.time
+            let groupDate = Date(timeIntervalSince1970: groupTimestamp/1000)
+            let groupComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday, .weekOfYear], from: groupDate)
+            
+            /*
+             今天：小于24h且在同一天
+             昨天：小于24h且不在同一天
+             */
+            if nowTimestamp - groupTimestamp < oneDaySecond {
+                var time: String = ""
+                if curDay != (groupComponents.day ?? 0) {
+                    time = "昨天 "
+                }
+                message._formattedTime = time + "\(String(format: "%02d", groupComponents.hour ?? 0)):\(String(format: "%02d", groupComponents.minute ?? 0))"
+                continue
+            }
+            
+            // 不是同一年的
+            if let groupYear = groupComponents.year,
+               let year = curYear {
+                var yearStr: String = ""
+                if groupYear != year {
+                    yearStr = "\(groupYear)年"
+                }
+                message._formattedTime = "\(yearStr)\(groupComponents.month ?? 1)月\(groupComponents.day ?? 1)日"
+                continue
+            }
         }
     }
     
@@ -56,11 +80,11 @@ class ChatRoomDateFormatter {
             if let groupTimestamp = group.newAckMsgDate {
                 let groupDate = Date(timeIntervalSince1970: groupTimestamp/1000)
                 let groupComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday, .weekOfYear], from: groupDate)
-                    
-                    /*
-                     今天：小于24h且在同一天
-                     昨天：小于24h且不在同一天
-                     */
+                
+                /*
+                 今天：小于24h且在同一天
+                 昨天：小于24h且不在同一天
+                 */
                 if nowTimestamp - groupTimestamp < oneDaySecond {
                     var time: String = ""
                     if curDay != (groupComponents.day ?? 0) {

@@ -13,7 +13,7 @@ final class ChatRoomDataSource {
     
     private let dateFormatter = ChatRoomDateFormatter()
     
-    private var messages: [Message] = []
+    var messages: [Message] = []
     
     private var currentPage = 0
     
@@ -42,7 +42,7 @@ final class ChatRoomDataSource {
     func append(_ message: Message, scrollToLastMessage: Bool = true) {
         let _ = lock.wait(timeout: .distantFuture)
         messages.append(message)
-        formatTime()
+//        formatTime()
         tableNode?.insertRows(at: [IndexPath(row: messages.count - 1, section: 0)], with: .none)
         if scrollToLastMessage {
             let last = messages.count - 1
@@ -54,12 +54,21 @@ final class ChatRoomDataSource {
         
         lock.signal()
     }
-    func appendMsgList(_ msgList: [MessageEntity], scrollToLastMessage: Bool = true) {
+    func appendMsgList(_ msgList: [MessageEntity], scrollToLastMessage: Bool = true, lookUpHistory: Bool = false, showMsgTime: Bool) {
         let _ = lock.wait(timeout: .distantFuture)
-        for message in msgList {
-            messages.append(message.toMessage())
-            formatTime()
-            tableNode?.insertRows(at: [IndexPath(row: messages.count - 1, section: 0)], with: .none)
+        formatTime()
+        for messageEntity in msgList {
+            let message = messageEntity.toMessage()
+            if showMsgTime  {
+                dateFormatter.chatSingleFormatTime(message: message)
+            }
+            if lookUpHistory {
+                messages.insert(message, at: 0)
+                tableNode?.insertRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+            } else {
+                messages.append(message)
+                tableNode?.insertRows(at: [IndexPath(row: messages.count - 1, section: 0)], with: .none)
+            }
         }
         if scrollToLastMessage {
             let last = messages.count - 1
@@ -73,18 +82,7 @@ final class ChatRoomDataSource {
     }
     
     func formatTime() {
-        guard var time = messages.first?.time else {
-            return
-        }
-        messages.first?._formattedTime = dateFormatter.formatTimestamp(TimeInterval(time))
-        for message in messages {
-            if message.time - time > 300 {
-                time = message.time
-                message._formattedTime = dateFormatter.formatTimestamp(TimeInterval(time))
-            } else {
-                message._formattedTime = nil
-            }
-        }
+        dateFormatter.chatFormatTime(messageList: messages)
     }
     
 }

@@ -121,7 +121,7 @@ public class MessageCellNode: ASCellNode {
         let contentHorizontalStack = ASStackLayoutSpec.horizontal()
         contentHorizontalStack.justifyContent = .start
         let fakeAvatarNode = ASDisplayNode()
-        fakeAvatarNode.style.preferredSize = CGSize(width: 40, height: 40)
+        fakeAvatarNode.style.preferredSize = CGSize(width: 30, height: 40)
         if isOutgoing {
             contentHorizontalStack.children = [fakeAvatarNode, contentVerticalStack, avatarNode]
         } else {
@@ -143,7 +143,7 @@ public class MessageCellNode: ASCellNode {
         }
         layoutSpec.children = layoutElements
         
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 50, left: 12, bottom: 5, right: 12), child: layoutSpec)
+        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12), child: layoutSpec)
         
     }
 }

@@ -52,11 +52,12 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     /// 1: 支付密码键盘
     private var keyboardType: Int = 0
     
-    var numberOfPerson: Int = 6
+    var numberOfPerson: Int = 0
     var redPackeyMoney: String? = ""
     var moneyLabel: UILabel?
     var payTFHeight: CGFloat = 44
     var payTFWidth: CGFloat = 40
+    var session: GroupEntity! = nil
     
     
     private var keyboardHeight: CGFloat = 216 + .safeAreaBottomHeight
@@ -151,7 +152,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         navigationItem.rightBarButtonItem = moreItem
         
 
-        
+        numberOfPerson = Int(exactly: session.userNum ?? 0)!
         redEnvelopeButton.addTarget(self, action: #selector(sendRedPacket), forControlEvents: .touchUpInside)
         enterCountNode.updateNumberOfPersons(count: numberOfPerson)
         enterCountNode.countChangeBlock = { count in
@@ -603,7 +604,6 @@ extension MakeRedEnvelopeViewController {
     }
     
     @objc func sendRedPacket() {
-        //        alertType(type: .pswError)
         
         let type = validateRedMoeny(checkZero: true)
         if type != .normal {
@@ -614,12 +614,18 @@ extension MakeRedEnvelopeViewController {
         keyboardType = 1
         codeUnit.textFiled.bindCustomKeyboard(delegate: self)
         codeUnit.textFiled.becomeFirstResponder()
-        var rect = payView!.frame
-        rect.origin.y = Constants.screenHeight - payViewHeight - keyboardHeight
-        UIView.animate(withDuration: 0.25) {
-            self.backView?.isHidden = false
-            self.payView?.frame = rect
+        let request = RedPacketVerify(amount: redPackeyMoney!, groupNo: session.groupNo!, num: enterCountNode.count!, type: "1")
+        request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+            var rect = self.payView!.frame
+            rect.origin.y = Constants.screenHeight - self.payViewHeight - self.keyboardHeight
+            UIView.animate(withDuration: 0.25) {
+                self.backView?.isHidden = false
+                self.payView?.frame = rect
+            }
+        } failure: { request in
+            
         }
+
     }
     @objc func lateButtonAction() {
         popupView?.dismissPopupView(completion: { _ in

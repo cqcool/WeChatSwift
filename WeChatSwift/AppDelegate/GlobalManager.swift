@@ -146,7 +146,7 @@ extension GlobalManager {
         }
         return URL(string: headPrefix + fileName)
     }
-    private func getConfigInfo() {
+    func getConfigInfo(result: ((NSError?)->Void)? = nil) {
         let request = ConfigRequest()
         request.startWithCompletionBlock { request in
             if let json = try? JSON(data: request.wxResponseData()) {
@@ -161,17 +161,15 @@ extension GlobalManager {
                                 NotificationCenter.default.post(name: ConstantKey.NSNotificationConfigUpdate, object: nil)
                                 self.headPrefix = headPrefix
                                 WXUserDefault.updateHeadPrefix(str: headPrefix)
+                                result?(nil)
                             }
                         }
                         
                     }
                 }
             }
-             
-//            print(request.responseString)
-            /*
-             {"configs":[{"id":"1","name":"临时token超时时间(毫秒)","attribute":"refresh_token_time","values":"600000"},{"id":"15","name":"访问前缀","attribute":"url_prefix","values":"{\"chat\":\"https:\/\/boxgroup.oss-accelerate.aliyuncs.com\/chat\/\",\"common\":\"https:\/\/boxgroup.oss-accelerate.aliyuncs.com\/common\/\",\"head\":\"https:\/\/boxgroup.oss-accelerate.aliyuncs.com\/head\/\"}"},{"id":"106","name":"零钱通收益率","attribute":"change_rate","values":"1.86%"}]}
-             */
+        } failure: { request in
+            result?(request.error as NSError?)
         }
     }
 }

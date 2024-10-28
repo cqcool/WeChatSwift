@@ -22,6 +22,7 @@ class TextContentNode: MessageContentNode {
         super.init(message: message)
         
         let icon = message.isOutgoing ? "ChatRoom_Bubble_Text_Sender_Green_57x40_": "ChatRoom_Bubble_Text_Receiver_White_57x40_"
+//        let icon = message.isOutgoing ? "ChatRoom_Bubble_Text_Receiver_Origin_57x40_": "ChatRoom_Bubble_Text_Receiver_Origin_57x40_"
         bubbleNode.image = UIImage(named: icon)
         bubbleNode.style.flexShrink = 1
         
