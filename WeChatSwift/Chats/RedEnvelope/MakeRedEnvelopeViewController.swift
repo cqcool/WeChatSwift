@@ -49,8 +49,8 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     private var backView: UIView?
     //    private var pswTextField: UITextField?
     private var codeUnit: KeenCodeUnit!
-    /// 1: 支付密码键盘， 2: 数量
-    private var keyboardType: Int = 0
+    /// 1: 支付密码键盘， 2: 数量 3: 金额
+    private var keyboardType: Int = 2
     
     var numberOfPerson: Int = 0
     var redPackeyMoney: String? = ""
@@ -58,7 +58,8 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     var payTFHeight: CGFloat = 44
     var payTFWidth: CGFloat = 40
     var session: GroupEntity! = nil
-    
+    private var keyboard: KeenKeyboard?
+    var style: KeenKeyboardAtrributes.Style = .number
     
     private var keyboardHeight: CGFloat = 216 + .safeAreaBottomHeight
     private var payViewHeight: CGFloat = 360
@@ -155,9 +156,19 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         numberOfPerson = Int(exactly: session.userNum ?? 0)!
         redEnvelopeButton.addTarget(self, action: #selector(sendRedPacket), forControlEvents: .touchUpInside)
         enterCountNode.updateNumberOfPersons(count: numberOfPerson)
-        enterCountNode.inputTextNode.textView.bindCustomKeyboard(delegate: self)
         enterCountNode.countKeyboardBlock = {
+            if self.keyboardType == 1{
+                self.keyboard = nil
+            }
             self.keyboardType = 2
+            self.style = .number
+            self.enterCountNode.countTextField.bindCustomKeyboard(delegate: self)
+//            if self.keyboard == nil {
+////                self.enterMoneyNode.moneyField.bindCustomKeyboard(delegate: self)
+//            }
+            if (self.keyboard != nil) {
+                self.keyboard?.reloadKeyboardStyle(style: self.style)
+            }
         }
         enterCountNode.countChangeBlock = { count in
             self.checkRedPacket()
@@ -181,6 +192,20 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         enterMoneyNode.moneyChangeBlock = { money in
             self.checkRedPacket()
             self.moneyAttribute(money: money ?? "0.00")
+        }
+        enterMoneyNode.countKeyboardBlock = {
+            if self.keyboardType == 1 {
+                self.keyboard = nil
+            }
+            self.keyboardType = 3
+            self.style = .decimal
+//            if self.keyboard == nil {
+////                self.enterCountNode.countTextField.bindCustomKeyboard(delegate: self)
+//            }
+            self.enterMoneyNode.moneyField.bindCustomKeyboard(delegate: self)
+            if (self.keyboard != nil) {
+                self.keyboard?.reloadKeyboardStyle(style: self.style)
+            }
         }
         
         moneyAttribute(money: "0.00")
@@ -399,6 +424,10 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         card.layer.mask = mask
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     private func buildPayView() {
         backView = UIView()
         backView?.backgroundColor = UIColor(white: 0, alpha: 0.4)
@@ -612,18 +641,19 @@ extension MakeRedEnvelopeViewController {
     }
     
     @objc func sendRedPacket() {
-        
+        self.keyboard = nil
+        dismissKeyboard()
         let type = validateRedMoeny(checkZero: true)
         if type != .normal {
             showError(type: type)
             return
         }
         moneyLabel?.attributedText = ("¥" + redPackeyMoney!).moneyUnitAttribute(textColor: .black, fontSize: 25)
-        keyboardType = 1
-        codeUnit.textFiled.bindCustomKeyboard(delegate: self)
-        codeUnit.textFiled.becomeFirstResponder()
         let request = RedPacketVerifyRequest(amount: redPackeyMoney!, groupNo: session.groupNo!, num: enterCountNode.count!, type: "1")
         request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+            self.keyboardType = 1
+            self.codeUnit.textFiled.bindCustomKeyboard(delegate: self)
+            self.codeUnit.textFiled.becomeFirstResponder()
             var rect = self.payView!.frame
             rect.origin.y = Constants.screenHeight - self.payViewHeight - self.keyboardHeight
             UIView.animate(withDuration: 0.25) {
@@ -657,7 +687,7 @@ extension MakeRedEnvelopeViewController {
 extension MakeRedEnvelopeViewController: ASTableDelegate, ASTableDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        dismissKeyboard()
+//        dismissKeyboard()
     }
     
 }
@@ -672,10 +702,13 @@ extension MakeRedEnvelopeViewController: KeenKeyboardDelegate {
     }
     
     func other(_ keyboard: KeenKeyboard, text: String) {
-        
+        if keyboardType == 1 {
+            
+        }
     }
     
     func attributesOfKeyboard(for keyboard: KeenKeyboard) -> KeenKeyboardAtrributes {
+        self.keyboard = keyboard
         var attr = KeenKeyboardAtrributes()
         if keyboardType == 1 {
             attr.displayRandom = false
@@ -683,11 +716,15 @@ extension MakeRedEnvelopeViewController: KeenKeyboardDelegate {
             attr.style = .number
             attr.titleOfOther = nil
         }
-        if keyboardType == 2 {
-            attr.displayRandom = false
-            attr.layout = .separator
-            attr.style = .number
-            attr.titleOfOther = nil
+        if keyboardType == 2 ||
+            keyboardType == 3 {
+            attr.keyboardStyle = .wechat
+            attr.style = self.style
+            attr.titleOfOther = "完成"
+            attr.fontOfOther = .systemFont(ofSize: 20)
+            attr.viewBackColor = UIColor.color(hexString: "#F6F6F5")
+            attr.colorOfOther = .white
+            attr.backColorOfOther = UIColor.color(hexString: "#FE6046")
         }
         return attr
     }
@@ -715,11 +752,12 @@ extension MakeRedEnvelopeViewController: KeenCodeUnitDelegate {
     
     func codeUnit(_ codeUnit: KeenCodeUnit, codeText: String, complete: Bool) {
         if complete {
-            /// 验证输入内容是否为 "202103" 不是错误处理
-            //            if codeText != "202103" {
-            ////                self.codeUnit.verifyErrorAction()
-            //            }
-            print(codeText)
+            let request = RedPacketPayRquest(amount: enterMoneyNode.money!, groupNo: session.groupNo!, num: enterCountNode.count!, payPassword: codeText.md5Encrpt().lowercased())
+            request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+                debugPrint(request)
+            } failure: { _ in
+                codeUnit.cleanContent()
+            }
         }
     }
 }

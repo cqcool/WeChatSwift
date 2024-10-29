@@ -47,6 +47,23 @@ private var UITextFieldManager: Void?
         }
     }
     
+    var shouldBeginEditingBlock: (()->Bool)? {
+        get {
+            self.manager().shouldBeginEditingBlock
+        }
+        set {
+            self.manager().shouldBeginEditingBlock = newValue
+        }
+    }
+    var dnkDelegate: (any UITextFieldDelegate)? {
+        get {
+            self.manager().dnkDelegate
+        }
+        set {
+            self.manager().dnkDelegate = newValue
+        }
+    }
+    
     private func manager() -> DNKTextFieldManager {
         if let manager = objc_getAssociatedObject(self, &UITextFieldManager) {
             return manager as! DNKTextFieldManager
@@ -64,6 +81,8 @@ class DNKTextFieldManager : NSObject {
     var filterEmoji: Bool = false
     var enableEditing: Bool = true
     var textDidChangeBlock: ((String?)->Void)?
+    var shouldBeginEditingBlock: (()->Bool)?
+    var dnkDelegate: (any UITextFieldDelegate)?
     
     override init() {
         super.init()
@@ -72,9 +91,18 @@ class DNKTextFieldManager : NSObject {
 
 extension DNKTextFieldManager : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        enableEditing
+//        if dnkDelegate != nil &&{
+//            return dnkDelegate!.textFieldShouldBeginEditing!(textField)
+//        }
+        if let block = shouldBeginEditingBlock {
+            return block()
+        }
+        return enableEditing
     }
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        if dnkDelegate != nil {
+            dnkDelegate!.textFieldDidChangeSelection?(textField)
+        }
         textDidChangeBlock?(textField.text)
         if let markedRange = textField.markedTextRange,
            textField.position(from: markedRange.start, offset: 0) != nil {
@@ -89,5 +117,11 @@ extension DNKTextFieldManager : UITextFieldDelegate {
                 textField.text = String(string[string.startIndex ... string.index(string.startIndex, offsetBy: textLength-1)]);
             }
         }
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if dnkDelegate != nil {
+            return dnkDelegate!.textField!(textField, shouldChangeCharactersIn: range, replacementString: string)
+        }
+        return true
     }
 }

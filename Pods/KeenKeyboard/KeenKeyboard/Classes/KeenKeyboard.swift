@@ -9,6 +9,11 @@ import UIKit
 
 public extension KeenKeyboardAtrributes {
     
+    /// 键盘风格
+    enum KeyboardStyle {
+        case none
+        case wechat
+    }
     /// 键盘样式
     enum Style {
         /// 数字样式
@@ -33,6 +38,8 @@ public struct KeenKeyboardAtrributes {
     
     /// 视图背景色 默认 #F5F5F5
     public var viewBackColor: UIColor = UIColor.color(hexString: "#F5F5F5")
+    
+    public var keyboardStyle: KeenKeyboardAtrributes.KeyboardStyle = .none
     
     /// 样式  默认 number
     public var style: KeenKeyboardAtrributes.Style = .number
@@ -160,6 +167,8 @@ public class KeenKeyboard: UIView {
     /// 右下角 item 标识
     private let identifierOfDelete: String = "rightIdentifier"
     
+    private let tagOfWechatZero: Int = LONG_MAX - 214
+    private let tagOfWechatDot: Int = LONG_MAX - 213
     /// 属性参数
     private lazy var attributes: KeenKeyboardAtrributes = {
         if let d = delegate {
@@ -172,6 +181,9 @@ public class KeenKeyboard: UIView {
     private lazy var datas: [String] = {
         let leftTitle: String!
         var nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+        if attributes.keyboardStyle == .wechat {
+            return nums
+        }
         switch attributes.style {
         case .number: leftTitle = attributes.titleOfOther ?? ""
         case .decimal: leftTitle = "."
@@ -202,6 +214,16 @@ public class KeenKeyboard: UIView {
         self.backColor(attributes.viewBackColor)
         textField = field
         createSubviews()
+    }
+    public func reloadKeyboardStyle(style: KeenKeyboardAtrributes.Style) {
+        if attributes.keyboardStyle == .none {
+            return
+        }
+        if style == attributes.style {
+            return
+        }
+        attributes.style = style
+        updateWeChatKeyboard()
     }
     
     /// 绑定自定义键盘 其中代理不设置的话 属性参数取默认值 回调事件可选
@@ -237,6 +259,10 @@ private extension KeenKeyboard {
                 offset: CGSize(width: 0, height: -1)
             )
         }
+        if attributes.keyboardStyle == .wechat {
+            createWeChatSubviews()
+            return
+        }
         var index = 0
         let row: Int = 4, column: Int = 3;
         let safeAreaHeight = attributes.keyboardHeight - 216
@@ -245,11 +271,11 @@ private extension KeenKeyboard {
         let vSpaces = CGFloat(row + 1) * space + CGFloat(row) * attributes.separatorScale
         let itemW = (frame.width - hSpaces) / CGFloat(column)
         let itemH = (frame.height - vSpaces - safeAreaHeight) / CGFloat(row)
-        
         for idx in 0..<4 {
             for ikx in 0..<3 {
                 let itemX = space + CGFloat(ikx) * (itemW+space) + 0.5 * CGFloat((ikx+1))
                 let itemY = space + CGFloat(idx) * (itemH+space) + 0.5 * CGFloat((idx+1))
+                
                 let item = UIButton(type: .custom)
                     .frame(CGRect(x: itemX, y: itemY, width: itemW, height: itemH))
                     .title(datas[index])
@@ -340,7 +366,142 @@ private extension KeenKeyboard {
         }
         textField.inputView = self
     }
-    
+    func updateWeChatKeyboard() {
+        let zeroItem = self.viewWithTag(tagOfWechatZero) as! UIButton
+        let itemH = CGRectGetHeight(zeroItem.frame)
+        let itemY = CGRectGetMinY(zeroItem.frame)
+//        let itemX = CGRectGetMinX(zeroItem.frame)
+        let space = attributes.layout == .separator ? 0 : attributes.itemSpacing
+        let row: Int = 4, column: Int = 4;
+        let hSpaces = CGFloat(row+1)*space + CGFloat((column-1))*attributes.separatorScale
+        let itemW = (frame.width - hSpaces) / CGFloat(column)
+        let lastItemW = itemW * 3.0 + space * 2.0
+        if attributes.style == .number {
+            let dotItem = self.viewWithTag(tagOfWechatDot)
+            dotItem?.isHidden = true
+            zeroItem.width = lastItemW
+            wechatCorner(item: zeroItem)
+            layoutIfNeeded()
+            return
+        }
+        zeroItem.width = itemW * 2.0 + space
+        wechatCorner(item: zeroItem)
+        let dotItem = self.viewWithTag(tagOfWechatDot)
+        if dotItem == nil {
+            let dotItem = buildItem(index: 0)
+            dotItem.tag = tagOfWechatDot
+            dotItem.title(".")
+            dotItem.frame(CGRect(x: CGRectGetMaxX(zeroItem.frame)+space, y: itemY, width: itemW, height: itemH))
+            wechatCorner(item: dotItem)
+            
+        }
+        dotItem?.isHidden = false
+        layoutIfNeeded()
+    }
+    func createWeChatSubviews() {
+        var index = 0
+        let row: Int = 4, column: Int = 4;
+        let safeAreaHeight = attributes.keyboardHeight - 216
+        let space = attributes.layout == .separator ? 0 : attributes.itemSpacing
+        let hSpaces = CGFloat(row+1)*space + CGFloat((column-1))*attributes.separatorScale
+        let vSpaces = CGFloat(row + 1) * space + CGFloat(row) * attributes.separatorScale
+        let itemW = (frame.width - hSpaces) / CGFloat(column)
+        let itemH = (frame.height - vSpaces - safeAreaHeight) / CGFloat(row)
+        for idx in 0..<4 {
+            var itemX: CGFloat = 0
+            var itemY: CGFloat = 0
+            if idx == 0 {
+                for ikx in 0..<4 {
+                    itemX = space + CGFloat(ikx) * (itemW+space)
+                    itemY = space + CGFloat(idx) * (itemH+space)
+                    let item = buildItem(index: index)
+                    item.frame(CGRect(x: itemX, y: itemY, width: itemW, height: itemH))
+                    if ikx == 3 {
+                        item.title(nil)
+                            .image(attributes.imageOfDelete)
+                        item.tag = tagOfDelete
+                    } else {
+                        index += 1
+                    }
+                    wechatCorner(item: item)
+                }
+            } else if idx == 3 {
+                itemX = space
+                itemY = space + CGFloat(idx) * (itemH+space)
+                let zeroItem = buildItem(index: index)
+                zeroItem.tag = tagOfWechatZero
+                if attributes.style == .number {
+                    // 0
+                    let lastItemW = itemW * 3.0 + space * 2.0
+                    zeroItem.frame(CGRect(x: itemX, y: itemY, width: lastItemW, height: itemH))
+                    wechatCorner(item: zeroItem)
+                } else {
+                    let lastItemW = itemW * 2.0 + space
+                    zeroItem.frame(CGRect(x: itemX, y: itemY, width: lastItemW, height: itemH))
+                    wechatCorner(item: zeroItem)
+                    let dotItem = buildItem(index: index)
+                    dotItem.tag = tagOfWechatDot
+                    dotItem.title(".")
+                    dotItem.frame(CGRect(x: CGRectGetMaxX(zeroItem.frame)+space, y: itemY, width: itemW, height: itemH))
+                    wechatCorner(item: dotItem)
+                    
+                }
+            } else {
+                let oneColumn = idx == 1 ? 0..<4 : 0..<3
+                for ikx in oneColumn {
+                    itemX = space + CGFloat(ikx) * (itemW+space) + 0.5 * CGFloat((ikx+1))
+                    itemY = space + CGFloat(idx) * (itemH+space) + 0.5 * CGFloat((idx+1))
+                    let item = buildItem(index: index)
+                    var lastItemH = itemH
+                    if ikx != 3 {
+                        index += 1
+                    } else {
+                        lastItemH = itemH*3 + space
+                        item.tag = tagOfOther
+                        item.title(attributes.titleOfOther)
+                        item.titleColor(attributes.colorOfOther)
+                        item.backColor(attributes.backColorOfOther)
+                        item.font(attributes.fontOfOther)
+                    }
+                    item.frame(CGRect(x: itemX, y: itemY, width: itemW, height: lastItemH))
+                    wechatCorner(item: item)
+                }
+            }
+            
+        }
+        textField.inputView = self
+    }
+    func wechatCorner(item: UIButton) {
+        /// 圆角阴影
+        item.viewCornerShadow(
+            superview: self,
+            rect: item.frame,
+            radius: attributes.itemRadius,
+            corner: .allCorners,
+            shadowColor: attributes.itemShadowColor,
+            shadowOpacity: attributes.itemShadowOpacity,
+            shadowRadius: 0,
+            shadowOffset: CGSize(width: 0, height: 1)
+        )
+    }
+    func buildItem(index: Int) -> UIButton{
+        let item = UIButton(type: .custom)
+            .title(datas[index])
+            .font(attributes.titleFont)
+            .titleColor(attributes.titleColor, .normal)
+            .titleColor(attributes.titleHighlightedColor, .highlighted)
+            .isUserInteractionEnabled(!datas[index].isEmpty)
+            .addViewTo(self)
+        item.backColor(attributes.titleBackColor, .normal)
+            .backColor(attributes.titleHighlightedBackColor, .highlighted)
+        item.addTarget(
+            self,
+            action: #selector(clickKeyboardAction(_:)),
+            for: .touchUpInside
+        )
+
+        return item
+    }
     /// 点击键盘
     @objc func clickKeyboardAction(_ sender: UIButton) {
         if sender.tag == tagOfDelete {
@@ -351,6 +512,13 @@ private extension KeenKeyboard {
                 }
             }
         }else if sender.tag == tagOfOther {
+            if attributes.keyboardStyle == .wechat {
+                textField.resignFirstResponder()
+                if let d = delegate {
+                    d.other(self, text: content)
+                }
+                return
+            }
             if attributes.style == .number {
                 textField.resignFirstResponder()
                 if let d = delegate {

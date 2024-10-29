@@ -12,8 +12,8 @@
 		1E3369252CCB4735005AF4A4 /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3369242CCB4735005AF4A4 /* Convenience.swift */; };
 		1E33692B2CCB72C7005AF4A4 /* WXUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33692A2CCB72C7005AF4A4 /* WXUserDefault.swift */; };
 		1E33692E2CCB9733005AF4A4 /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33692D2CCB9733005AF4A4 /* MemberModel.swift */; };
-		1E3369302CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1E33692F2CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg */; };
 		1E3369332CCFAA0D005AF4A4 /* RedEnvelopeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3369322CCFAA0C005AF4A4 /* RedEnvelopeApi.swift */; };
+		1E3369352CD06D98005AF4A4 /* ChatRoom_Bubble_Text_Receiver_White_57x40__3x.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1E3369342CD06D98005AF4A4 /* ChatRoom_Bubble_Text_Receiver_White_57x40__3x.svg */; };
 		1E58EC352CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */; };
 		1E5E37272CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */; };
 		1E5E372D2CC10D24007F8944 /* WXPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E372B2CC10D24007F8944 /* WXPayView.m */; };
@@ -49,6 +49,7 @@
 		1E5E37952CC5F5FF007F8944 /* NSObject+DNKKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37892CC5F5FF007F8944 /* NSObject+DNKKeyValue.m */; };
 		1E5E379A2CC600E8007F8944 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37982CC600E8007F8944 /* GTMBase64.m */; };
 		1E5E379D2CC600F1007F8944 /* NSString+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E379C2CC600F1007F8944 /* NSString+AES.m */; };
+		1E6C17AE2CD0F6AD00000785 /* RedPacketRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C17AD2CD0F6AD00000785 /* RedPacketRecordModel.swift */; };
 		1EC758132CBE326E0051E916 /* ZLCustomAlertAction+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */; };
 		1EC758142CBE326E0051E916 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */; };
 		1EC758152CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */; };
@@ -534,8 +535,8 @@
 		1E3369262CCB6216005AF4A4 /* WCDBSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WCDBSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E33692A2CCB72C7005AF4A4 /* WXUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXUserDefault.swift; sourceTree = "<group>"; };
 		1E33692D2CCB9733005AF4A4 /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
-		1E33692F2CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg; sourceTree = "<group>"; };
 		1E3369322CCFAA0C005AF4A4 /* RedEnvelopeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedEnvelopeApi.swift; sourceTree = "<group>"; };
+		1E3369342CD06D98005AF4A4 /* ChatRoom_Bubble_Text_Receiver_White_57x40__3x.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ChatRoom_Bubble_Text_Receiver_White_57x40__3x.svg; sourceTree = "<group>"; };
 		1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCountNode.swift; sourceTree = "<group>"; };
 		1E5E37262CBFE4B3007F8944 /* MakeRedEnvelopeEnterCoverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRedEnvelopeEnterCoverNode.swift; sourceTree = "<group>"; };
 		1E5E37282CC10D24007F8944 /* WXInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXInputView.h; sourceTree = "<group>"; };
@@ -590,6 +591,7 @@
 		1E5E37982CC600E8007F8944 /* GTMBase64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		1E5E379B2CC600F1007F8944 /* NSString+AES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+AES.h"; sourceTree = "<group>"; };
 		1E5E379C2CC600F1007F8944 /* NSString+AES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES.m"; sourceTree = "<group>"; };
+		1E6C17AD2CD0F6AD00000785 /* RedPacketRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketRecordModel.swift; sourceTree = "<group>"; };
 		1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZLCustomAlertAction+Color.swift"; sourceTree = "<group>"; };
 		1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertControllerTransitionAnimation.swift; sourceTree = "<group>"; };
@@ -1113,6 +1115,7 @@
 			isa = PBXGroup;
 			children = (
 				1E3369322CCFAA0C005AF4A4 /* RedEnvelopeApi.swift */,
+				1E6C17AD2CD0F6AD00000785 /* RedPacketRecordModel.swift */,
 			);
 			path = RedEnvelope;
 			sourceTree = "<group>";
@@ -2320,7 +2323,7 @@
 		A3CA51C322CD9C1C00C67D92 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				1E33692F2CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg */,
+				1E3369342CD06D98005AF4A4 /* ChatRoom_Bubble_Text_Receiver_White_57x40__3x.svg */,
 				A37343E823129CC10064E510 /* ui-resources_checkbox_selected.svg */,
 				A37343E723129CC10064E510 /* ui-resources_checkbox_unselected.svg */,
 				A3542F50230D7E6B0034ED82 /* icons_outlined_share.svg */,
@@ -2755,7 +2758,6 @@
 				A3CA51CF22CD9C7B00C67D92 /* icons_outlined_me.svg in Resources */,
 				A3CA51C722CD9C5400C67D92 /* icons_filled_contacts.svg in Resources */,
 				A3D5DC092325F4590096849F /* MockData.json in Resources */,
-				1E3369302CCF3DCD005AF4A4 /* ChatRoom_Bubble_Red_Receiver_Sel_57x40_.svg in Resources */,
 				A32333B922DF091D00B79555 /* icons_outlined_mute.svg in Resources */,
 				A3D897EC22E1D14900814669 /* 15031638347220abdd83283a10.png in Resources */,
 				A3CA523222CE1D0000C67D92 /* icons_outlined_sticker.svg in Resources */,
@@ -2779,6 +2781,7 @@
 				A3CA51B522CD9B0A00C67D92 /* icons_filled_group-detail.svg in Resources */,
 				A31057E022E8532E00856D71 /* dice_5.pic in Resources */,
 				A3CA51C222CD9C1900C67D92 /* icons_outlined_back.svg in Resources */,
+				1E3369352CD06D98005AF4A4 /* ChatRoom_Bubble_Text_Receiver_White_57x40__3x.svg in Resources */,
 				A3542F51230D7E6B0034ED82 /* icons_outlined_share.svg in Resources */,
 				A3DE7CCC2301155E00E73944 /* icons_outlined_camera.svg in Resources */,
 				A31057E322E8532E00856D71 /* dice_3.pic in Resources */,
@@ -3025,6 +3028,7 @@
 				A3485FBF22F05435002A804B /* WeChatEmoticonBannerCellNode.swift in Sources */,
 				A30807FF2314DB9B00964126 /* ScrollActionSheet.swift in Sources */,
 				A37343EC23129D000064E510 /* MultiSelectContactsCellNode.swift in Sources */,
+				1E6C17AE2CD0F6AD00000785 /* RedPacketRecordModel.swift in Sources */,
 				A3CA51A622CD99B200C67D92 /* ContactModel.swift in Sources */,
 				A374864622D44C74002EEC4F /* EmoticonContentNode.swift in Sources */,
 				A341394123081E63008E0EBF /* PhotoBrowserLocalDataSource.swift in Sources */,

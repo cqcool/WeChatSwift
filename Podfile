@@ -25,7 +25,7 @@ target 'WeChatSwift' do
   pod 'ZLPhotoBrowser'
   pod 'YTKNetwork'
   
-  pod 'KeenKeyboard', :git => 'https://github.com/cqcool/KeenKeyboard.git'
+  pod 'KeenKeyboard', :git => 'https://github.com/cqcool/KeenKeyboard.git', :branch => 'master'
   
   pod 'MJExtension'
   pod 'MJRefresh'
@@ -35,10 +35,6 @@ target 'WeChatSwift' do
   
   pod 'SwiftyJSON', '~> 4.0'
   pod 'AliyunOSSiOS'
-#  pod 'AliyunOSSSwiftSDK'
-#  pod 'KLCPopup'
-#  pod 'SDWebImage', '5.10.2'
-#  pod 'MBProgressHUD', '1.1.0'
 end
 
 post_install do |installer|

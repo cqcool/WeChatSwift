@@ -79,3 +79,23 @@ class RedPacketPayRquest: DNKRequest {
         .POST
     }
 }
+
+
+@objcMembers
+/// 红包收到记录
+class RedPacketRecordRquest: DNKRequest {
+    
+    let page: String
+    let year: String
+    
+    init(page: String, year: String) {
+        self.page = page
+        self.year = year
+    }
+    override func requestUrl() -> String {
+        "/group/redPacket/receiveRecord"
+    }
+    override func requestMethod() -> YTKRequestMethod {
+        .GET
+    }
+}

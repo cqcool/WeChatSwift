@@ -135,7 +135,7 @@ extension ChatDataManager {
                 if let jsonData = (groupList as NSArray).mj_JSONData() {
                     do {
                         let resp = try JSONDecoder().decode([GroupEntity].self, from: jsonData)
-                        GroupEntity.insert(list: resp)
+                        GroupEntity.insertOrReplace(list: resp)
                         let list = resp.filter { group in
                             if group.userMsgType == 2 || group.userMsgType == 3 {
                                 return true

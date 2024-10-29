@@ -371,16 +371,16 @@ extension UIView {
         shadowOffset: CGSize
     ) {
         viewCorner(size: rect.size, radius: radius, corner: corner)
-        let subLayer = CALayer()
-        subLayer.frame = rect
-        subLayer.cornerRadius    = radius
-        subLayer.backgroundColor = (backgroundColor ?? .white).cgColor
-        subLayer.masksToBounds   = false
-        subLayer.shadowColor     = shadowColor.cgColor
-        subLayer.shadowOpacity   = shadowOpacity
-        subLayer.shadowRadius    = shadowRadius
-        subLayer.shadowOffset    = shadowOffset
-        superview.layer.insertSublayer(subLayer, below: layer)
+//        let subLayer = CALayer()
+//        subLayer.frame = rect
+//        subLayer.cornerRadius    = radius
+//        subLayer.backgroundColor = (backgroundColor ?? .white).cgColor
+//        subLayer.masksToBounds   = false
+//        subLayer.shadowColor     = shadowColor.cgColor
+//        subLayer.shadowOpacity   = shadowOpacity
+//        subLayer.shadowRadius    = shadowRadius
+//        subLayer.shadowOffset    = shadowOffset
+//        superview.layer.insertSublayer(subLayer, below: layer)
     }
 }
 

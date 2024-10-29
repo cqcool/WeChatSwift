@@ -85,7 +85,7 @@ DEPENDENCIES:
   - AliyunOSSiOS
   - BGFMDB (from `https://github.com/dnakeyun/BGFMDB.git`, branch `dev-2.0.15`)
   - FLEX
-  - KeenKeyboard (from `https://github.com/cqcool/KeenKeyboard.git`)
+  - KeenKeyboard (from `https://github.com/cqcool/KeenKeyboard.git`, branch `master`)
   - Masonry
   - MBProgressHUD
   - MJExtension
@@ -138,6 +138,7 @@ EXTERNAL SOURCES:
     :branch: dev-2.0.15
     :git: https://github.com/dnakeyun/BGFMDB.git
   KeenKeyboard:
+    :branch: master
     :git: https://github.com/cqcool/KeenKeyboard.git
   SFVideoPlayer:
     :path: DevelopmentPods/SFVideoPlayer
@@ -149,7 +150,7 @@ CHECKOUT OPTIONS:
     :commit: 6d9f08aeba36f8611b4e62208ff2844aee3b7c23
     :git: https://github.com/dnakeyun/BGFMDB.git
   KeenKeyboard:
-    :commit: abd61e90a0a5f09f666d7a7af82a6063c752a324
+    :commit: 4a46575d5efb9fd43200f8b7daca3d04df5ff7d6
     :git: https://github.com/cqcool/KeenKeyboard.git
 
 SPEC CHECKSUMS:
@@ -182,6 +183,6 @@ SPEC CHECKSUMS:
   YTKNetwork: c16be90b06be003de9e9cd0d3b187cc8eaf35c04
   ZLPhotoBrowser: 6fb0eff03c8269001e29ef233e7bdab0691e05fe
 
-PODFILE CHECKSUM: 5bfa2a4221cd17da48e5db9e5c91e4e29ac42972
+PODFILE CHECKSUM: 496347128fbc131afd9ba3c4544d6012acd0a635
 
 COCOAPODS: 1.15.2

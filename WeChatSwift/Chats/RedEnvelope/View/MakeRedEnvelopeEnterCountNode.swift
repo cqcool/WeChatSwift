@@ -21,8 +21,9 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
     private let leadingTextNode = ASTextNode()
     private let cardNode = ASDisplayNode()
     private let redPacketNode = ASImageNode()
+    private let spacer = ASDisplayNode()
     
-    let inputTextNode = ASEditableTextNode()
+    let countTextField = UITextField()
     
     private let trailingTextNode = ASTextNode()
     
@@ -55,21 +56,21 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: Colors.black
         ])
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .right
-        let attributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17),
-            NSAttributedString.Key.foregroundColor:UIColor(hexString: "BCBCBE"),
-            NSAttributedString.Key.paragraphStyle: paragraphStyle
-        ]
-        inputTextNode.keyboardType = .numberPad
-        inputTextNode.delegate = self
-        inputTextNode.attributedPlaceholderText = NSAttributedString(string: "填写红包个数", attributes: attributes)
-        inputTextNode.typingAttributes = [
-            NSAttributedString.Key.font.rawValue: UIFont.systemFont(ofSize: 17),
-            NSAttributedString.Key.foregroundColor.rawValue: Colors.black,
-            NSAttributedString.Key.paragraphStyle.rawValue: paragraphStyle
-        ]
+        countTextField.attributedPlaceholder = "填写红包个数".addAttributed(font: .systemFont(ofSize: 17), textColor: UIColor(hexString: "BCBCBE"))
+        countTextField.font = UIFont.systemFont(ofSize: 17)
+        countTextField.textColor = Colors.black
+        countTextField.textAlignment = .right
+        countTextField.keyboardType = .numberPad
+        countTextField.shouldBeginEditingBlock = {
+            self.countKeyboardBlock?()
+            return true
+        }
+        countTextField.textDidChangeBlock = { text in
+            self.count = text
+            if self.countChangeBlock != nil {
+                self.countChangeBlock!(text)
+            }
+        }
         countAttribute(count: 0)
     }
     @objc func changeRandomAction() {
@@ -77,6 +78,10 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
     }
     override func didLoad() {
         super.didLoad()
+        spacer.view.addSubview(countTextField)
+        countTextField.snp.makeConstraints { make in
+            make.edges.equalTo(spacer.view)
+        }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -92,13 +97,13 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
         
         redPacketNode.style.spacingBefore = 18
         leadingTextNode.style.spacingBefore = 6
-        inputTextNode.style.flexGrow = 1.0
-        inputTextNode.style.flexShrink = 1.0
+        spacer.style.flexGrow = 1.0
+        spacer.style.flexShrink = 1.0
         trailingTextNode.style.spacingBefore = 10
         trailingTextNode.style.spacingAfter = 17
         let countStack = ASStackLayoutSpec.horizontal()
         countStack.alignItems = .center
-        countStack.children = [redPacketNode, leadingTextNode, inputTextNode, trailingTextNode]
+        countStack.children = [redPacketNode, leadingTextNode, spacer, trailingTextNode]
         countStack.style.preferredSize = CGSizeMake(constrainedSize.max.width, 55)
         countStack.style.spacingBefore = 5
         
@@ -119,7 +124,7 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
     
     @discardableResult
     override func resignFirstResponder() -> Bool {
-        return inputTextNode.resignFirstResponder()
+        return countTextField.resignFirstResponder()
     }
     
     func updateContent(type: RedPacketError) {
@@ -132,15 +137,8 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: color
         ])
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .right
-        let attributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17),
-            NSAttributedString.Key.foregroundColor: color,
-            NSAttributedString.Key.paragraphStyle: paragraphStyle
-        ]
-        let text = inputTextNode.textView.text ?? ""
-        inputTextNode.attributedText = NSAttributedString(string: text, attributes: attributes)
+        
+        countTextField.textColor = color
     }
     func updateNumberOfPersons(count: Int) {
         countAttribute(count: count)
@@ -151,50 +149,5 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
             .font: UIFont.systemFont(ofSize: 15),
             .foregroundColor: UIColor(hexString: "878788")
         ])
-    }
-}
-
-extension MakeRedEnvelopeEnterCountNode: ASEditableTextNodeDelegate {
-    func editableTextNodeShouldBeginEditing(_ editableTextNode: ASEditableTextNode) -> Bool {
-        countKeyboardBlock?()
-        return true
-    }
-    func editableTextNode(_ editableTextNode: ASEditableTextNode, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let futureString = NSMutableString(string: editableTextNode.textView.text ?? "")
-        futureString.insert(text, at: range.location)
-        var flag = 0;
-        let limited = 2;//小数点后需要限制的个数
-        if !futureString.isEqual(to: "") {
-            for i in stride(from: (futureString.length - 1), through: 0, by: -1) {
-                let char = Character(UnicodeScalar(futureString.character(at: i))!)
-                if char == "." {
-                    if flag > limited {
-                        return false
-                    }
-                    break
-                }
-                flag += 1
-            }
-        }
-        return true
-    }
-    func editableTextNodeDidUpdateText(_ editableTextNode: ASEditableTextNode) {
-        let text = editableTextNode.textView.text
-        updateInput(text: text ?? "")
-        count = editableTextNode.textView.text
-        if let countChangeBlock {
-            countChangeBlock(count)
-        }
-    }
-    
-    private func updateInput(text: String) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .right
-        inputTextNode.attributedText = NSAttributedString(string: text,
-                                                          attributes: [
-                                                            NSAttributedString.Key.font: Fonts.font(.superScriptMedium, fontSize: 17)!,
-                                                            NSAttributedString.Key.foregroundColor: Colors.black,
-                                                            NSAttributedString.Key.paragraphStyle: paragraphStyle
-                                                          ])
     }
 }
