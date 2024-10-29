@@ -11,6 +11,7 @@ import WXActionSheet
 
 class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
     
+    var countKeyboardBlock: (() -> Void)?
     var countChangeBlock: ((_ money: String?) -> Void)?
     var randomChangeBlock: (() -> Void)?
     var count: String?
@@ -21,7 +22,7 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
     private let cardNode = ASDisplayNode()
     private let redPacketNode = ASImageNode()
     
-    private let inputTextNode = ASEditableTextNode()
+    let inputTextNode = ASEditableTextNode()
     
     private let trailingTextNode = ASTextNode()
     
@@ -154,7 +155,10 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
 }
 
 extension MakeRedEnvelopeEnterCountNode: ASEditableTextNodeDelegate {
-    
+    func editableTextNodeShouldBeginEditing(_ editableTextNode: ASEditableTextNode) -> Bool {
+        countKeyboardBlock?()
+        return true
+    }
     func editableTextNode(_ editableTextNode: ASEditableTextNode, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let futureString = NSMutableString(string: editableTextNode.textView.text ?? "")
         futureString.insert(text, at: range.location)

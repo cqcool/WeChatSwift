@@ -49,7 +49,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     private var backView: UIView?
     //    private var pswTextField: UITextField?
     private var codeUnit: KeenCodeUnit!
-    /// 1: 支付密码键盘
+    /// 1: 支付密码键盘， 2: 数量
     private var keyboardType: Int = 0
     
     var numberOfPerson: Int = 0
@@ -155,6 +155,10 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         numberOfPerson = Int(exactly: session.userNum ?? 0)!
         redEnvelopeButton.addTarget(self, action: #selector(sendRedPacket), forControlEvents: .touchUpInside)
         enterCountNode.updateNumberOfPersons(count: numberOfPerson)
+        enterCountNode.inputTextNode.textView.bindCustomKeyboard(delegate: self)
+        enterCountNode.countKeyboardBlock = {
+            self.keyboardType = 2
+        }
         enterCountNode.countChangeBlock = { count in
             self.checkRedPacket()
         }
@@ -264,8 +268,12 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     }
     
     private func dismissKeyboard() {
-        enterDescNode.resignFirstResponder()
-        enterMoneyNode.resignFirstResponder()
+        view.endEditing(true)
+//        enterCountNode.resignFirstResponder()
+//        enterCountNode.resignFirstResponder()
+//        enterDescNode.resignFirstResponder()
+//        enterMoneyNode.resignFirstResponder()
+//        resignFirstResponder()
     }
     
     private func moneyAttribute(money: String) {
@@ -614,7 +622,7 @@ extension MakeRedEnvelopeViewController {
         keyboardType = 1
         codeUnit.textFiled.bindCustomKeyboard(delegate: self)
         codeUnit.textFiled.becomeFirstResponder()
-        let request = RedPacketVerify(amount: redPackeyMoney!, groupNo: session.groupNo!, num: enterCountNode.count!, type: "1")
+        let request = RedPacketVerifyRequest(amount: redPackeyMoney!, groupNo: session.groupNo!, num: enterCountNode.count!, type: "1")
         request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
             var rect = self.payView!.frame
             rect.origin.y = Constants.screenHeight - self.payViewHeight - self.keyboardHeight
@@ -670,6 +678,12 @@ extension MakeRedEnvelopeViewController: KeenKeyboardDelegate {
     func attributesOfKeyboard(for keyboard: KeenKeyboard) -> KeenKeyboardAtrributes {
         var attr = KeenKeyboardAtrributes()
         if keyboardType == 1 {
+            attr.displayRandom = false
+            attr.layout = .separator
+            attr.style = .number
+            attr.titleOfOther = nil
+        }
+        if keyboardType == 2 {
             attr.displayRandom = false
             attr.layout = .separator
             attr.style = .number
