@@ -52,9 +52,7 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         tableNode.view.allowsMultipleSelectionDuringEditing = false
         tableNode.dataSource = self
         tableNode.delegate = self
-        
-        loadGroupData()
-//        loadSessions()
+         
         tableNode.reloadData()
         
         let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_outlined_addoutline"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
@@ -323,9 +321,5 @@ private extension SessionViewController {
                 }
             }
         }
-    }
-    
-    func loadGroupData() {
-        
     }
 }

@@ -99,72 +99,9 @@ class RedPacketRecordRquest: DNKRequest {
         .GET
     }
 }
-
-/*
- amount    number
- 总金额
-
- completeTime    integer($int64)
- 完成时间(毫秒)
-
- detailList    [
- 领取列表
-
- RedPacketGetDetailVO{
- amount    number
- 领取金额
-
- head    string
- 头像
-
- isBest    integer($int32)
- 是否最佳
-
- nickname    string
- 昵称
-
- receiveTime    string($date-time)
- 领取时间
-
- }]
- getGroupMsg    消息主体{...}
- isMyselfReceive    integer($int32)
- 自己是否领取(1是,0否)
-
- myselfReceiveAmount    number
- 自己领取金额
-
- name    string
- 备注(恭喜发财,大吉大利)
-
- num    integer($int32)
- 总数量
-
- receiveAmount    number
- 领取金额
-
- receiveNum    integer($int32)
- 领取数量
-
- senderUserHead    string
- 发送者头像
-
- senderUserId    integer($int64)
- 发送者用户id
-
- senderUserNickname    string
- 发送者昵称
-
- status    integer($int32)
- 状态(1进行中,2已完成,3已过期)
-
- type    integer($int32)
- 类型(1拼手气红包)
-
- userBalance    number
- 用户余额
- */
+ 
 /// 红包领取
+@objcMembers
 class RedPacketGetRequest: DNKRequest {
     
     /// 会话no

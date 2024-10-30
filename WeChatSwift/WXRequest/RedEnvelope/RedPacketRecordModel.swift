@@ -25,7 +25,7 @@ class RedPacketRecordModel: NSObject, Codable {
 
     /// 领取金额
     var amount: String?
- 
+    var head: String?
 
     /// 是否最佳
     var isBest: Int?
@@ -41,6 +41,7 @@ class RedPacketRecordModel: NSObject, Codable {
         typealias Root = RedPacketRecordModel
         
         case amount
+        case head
         case isBest
         case nickname
         case receiveTime

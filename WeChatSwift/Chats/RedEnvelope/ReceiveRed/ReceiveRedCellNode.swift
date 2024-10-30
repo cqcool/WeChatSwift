@@ -17,16 +17,16 @@ class ReceiveRedCellNode: ASCellNode {
     private let lineNode = ASDisplayNode()
     private let isLastCell: Bool
     
-    init(model: MeTableSection, isLastCell: Bool) {
+    init(model: RedPacketRecordModel, isLastCell: Bool) {
         self.isLastCell = isLastCell
         super.init()
         automaticallyManagesSubnodes = true
         
-        nameNode.attributedText = "陈".addAttributed(font: .systemFont(ofSize: 17), textColor: .black, lineSpacing: 0, wordSpacing: 0)
+        nameNode.attributedText = (model.nickname ?? "").addAttributed(font: .systemFont(ofSize: 17), textColor: .black, lineSpacing: 0, wordSpacing: 0)
         pinImageNode.image = UIImage(named: "LuckyMoney_PinIcon")
         pinImageNode.style.preferredSize = CGSize(width: 15, height: 15)
-        timeNode.attributedText = "x月x日".addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.7), lineSpacing: 0, wordSpacing: 0)
-        moneyNode.attributedText = "0.00元".addAttributed(font: .systemFont(ofSize: 17), textColor: .black, lineSpacing: 0, wordSpacing: 0)
+        timeNode.attributedText = (model.receiveTime ?? "x月x日").addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.7), lineSpacing: 0, wordSpacing: 0)
+        moneyNode.attributedText = ((model.amount ?? "0.00" + "元")).addAttributed(font: .systemFont(ofSize: 17), textColor: .black, lineSpacing: 0, wordSpacing: 0)
         lineNode.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
     }
     

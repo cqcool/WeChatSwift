@@ -556,6 +556,8 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         case .video(let videoMsg):
             let originView = (cellNode.contentNode as? VideoContentNode)?.imageView ?? cellNode.contentNode.view
             previewVideo(videoMsg: videoMsg, originView: originView)
+        case .redPacket(let msg):
+            clickRedPacket(msg: msg)
         default:
             break
         }
@@ -574,6 +576,29 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         //        self.becomeFirstResponder()
         //        self.menuMessage = message
         //        showMenus(menus, targetRect: targetRect, targetView: targetView)
+    }
+    
+    func clickRedPacket(msg: RedPacketMessage) {
+        let request = RedPacketGetRequest(groupNo: session.groupNo ?? "", isGet: "1", orderNumber: msg.orderNumber ?? "")
+        request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+            do {
+                let resp = try JSONDecoder().decode(RedPacketGetModel.self, from: request.wxResponseData())
+                let status = Int(resp.status ?? "0")
+                if (status == 1) {
+                    
+                }
+                
+            }  catch {
+                print("Error decoding JSON: \(error)")
+            }
+        } failure: { request in
+            
+        }
+
+    }
+    
+    func redWaitOpen(model: RedPacketGetModel) {
+        
     }
 }
 

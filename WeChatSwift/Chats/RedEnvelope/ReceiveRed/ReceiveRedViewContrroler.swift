@@ -9,18 +9,20 @@
 import AsyncDisplayKit
 import WXActionSheet
 import KeenKeyboard
- 
+import SwiftyJSON
+import MJRefresh
+
 
 class ReceiveRedViewContrroler: ASDKViewController<ASDisplayNode> {
     
     private let tableNode = ASTableNode()
     private let headNode = ReceiveRedHeadNode()
-    private var dataSource: [MeTableSection] = []
-    
+    private var dataSource: [RedPacketRecordModel] = []
+    private var page:Int = 1
     override init() {
         
         super.init(node: ASDisplayNode())
- 
+        
         
     }
     
@@ -39,7 +41,7 @@ class ReceiveRedViewContrroler: ASDKViewController<ASDisplayNode> {
         
         let moreItem = UIBarButtonItem(image: Constants.moreImage, style: .plain, target: self, action: #selector(handleMoreButtonClicked))
         navigationItem.rightBarButtonItem = moreItem
- 
+        
         node.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
         node.addSubnode(tableNode)
         tableNode.frame = node.bounds
@@ -54,7 +56,44 @@ class ReceiveRedViewContrroler: ASDKViewController<ASDisplayNode> {
         headerView.backgroundColor = .blue
         headNode.frame = headerView.bounds
         tableNode.view.tableHeaderView = headerView
-        tableNode.reloadData()
+        
+        let mjFooter = MJRefreshBackNormalFooter {
+            self.page += 1
+            self.loadRecordData()
+        }
+        mjFooter.stateLabel?.isHidden = true
+        mjFooter.arrowView?.image = nil
+        tableNode.view.mj_footer = mjFooter
+    }
+    
+    func loadRecordData() {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year], from: Date())
+        let request = RedPacketRecordRquest(page: "\(page)", year: "\(components.year ?? 2024)")
+        let showHUD = page == 1 ? true : false
+        request.start(withNetworkingHUD: showHUD, showFailureHUD: true) { request in
+            self.tableNode.view.mj_footer?.endRefreshing()
+            if let json = try? JSON(data: request.wxResponseData()) {
+                self.headNode.updateContent(json: json)
+                guard let detailList = json["detailList"].arrayObject,
+                      detailList.count > 0 else {
+                    self.tableNode.view.mj_footer?.isUserInteractionEnabled = false
+                    return
+                }
+                if let jsonData = (detailList as NSArray).mj_JSONData() {
+                    do {
+                        let resp = try JSONDecoder().decode([RedPacketRecordModel].self, from: jsonData)
+                        self.dataSource += resp
+                        self.tableNode.reloadData()
+                    }  catch {
+                        print("Error decoding JSON: \(error)")
+                    }
+                }
+            }
+        } failure: { request in
+            self.tableNode.view.mj_footer?.endRefreshing()
+        }
+        
     }
     
 }
@@ -71,17 +110,17 @@ extension ReceiveRedViewContrroler {
 
 // MARK: - ASTableDelegate & ASTableDataSource
 extension ReceiveRedViewContrroler: ASTableDelegate, ASTableDataSource {
-     
+    
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 8//dataSource[section].items.count
+        return dataSource.count
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-//        let model = dataSource[indexPath.section].items[indexPath.row]
-       let isLastCell = indexPath.row == (8-1)
+        //        let model = dataSource[indexPath.section].items[indexPath.row]
+        let isLastCell = indexPath.row == (dataSource.count-1)
         let block: ASCellNodeBlock = {
-            return ReceiveRedCellNode(model: MeTableSection(items: []), isLastCell: isLastCell)
+            return ReceiveRedCellNode(model: self.dataSource[indexPath.row], isLastCell: isLastCell)
         }
         return block
     }
@@ -90,4 +129,4 @@ extension ReceiveRedViewContrroler: ASTableDelegate, ASTableDataSource {
         tableNode.deselectRow(at: indexPath, animated: false)
     }
 }
- 
+

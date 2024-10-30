@@ -1,11 +1,12 @@
 import AsyncDisplayKit
+import SwiftyJSON
 
 class ReceiveRedHeadNode: ASDisplayNode {
      
     private var model: Contact?
     private let timeNode = ASTextNode()
     private let arrowNode = ASImageNode()
-    private let avatarNode = ASImageNode()
+    private let avatarNode = ASNetworkImageNode()
     private let nameNode = ASTextNode()
     private let totalMoneyNode = ASTextNode()
     private let countNode = ASTextNode()
@@ -30,9 +31,9 @@ class ReceiveRedHeadNode: ASDisplayNode {
         avatarNode.image = UIImage(named: "login_defaultAvatar")
     
         nameNode.attributedText = "\("x x x")共收到".addAttributed(font: .systemFont(ofSize: 15, weight: .medium), textColor: .black, lineSpacing: 0, wordSpacing: 0)
-        totalMoneyNode.attributedText = "\(998.15)元".unitTextAttribute(fontSize: 32, unitSize: 16, unit: "元", baseline: 0)
+        totalMoneyNode.attributedText = "\(0.00)元".unitTextAttribute(fontSize: 32, unitSize: 16, unit: "元", baseline: 0)
         countNode.attributedText = "收到红包".addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
-        countLabelNode.attributedText = "\(21)".addAttributed(font: .systemFont(ofSize: 30, weight: .medium), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
+        countLabelNode.attributedText = "\(0)".addAttributed(font: .systemFont(ofSize: 30, weight: .medium), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
         
         bestNode.attributedText = "手气最佳".addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
         bestLabelNode.attributedText = "\(4)".addAttributed(font: .systemFont(ofSize: 30, weight: .medium), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
@@ -41,7 +42,27 @@ class ReceiveRedHeadNode: ASDisplayNode {
     
     override func didLoad() {
         super.didLoad()
+        guard let personModel = GlobalManager.manager.personModel else {
+            return
+        }
         backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
+        avatarNode.url = GlobalManager.headImageUrl(name: personModel.head)
+        nameNode.attributedText = "\(personModel.nickname ?? "")共收到".addAttributed(font: .systemFont(ofSize: 15, weight: .medium), textColor: .black, lineSpacing: 0, wordSpacing: 0)
+    }
+    
+    func updateContent(json: JSON) {
+        var countReceiveAmount = json["countReceiveAmount"].stringValue
+        countReceiveAmount = countReceiveAmount.isEmpty ? "0.00" : countReceiveAmount
+        totalMoneyNode.attributedText = "\(countReceiveAmount)元".unitTextAttribute(fontSize: 32, unitSize: 16, unit: "元", baseline: 0)
+        
+        var countReceiveNum = json["countReceiveNum"].stringValue
+        countReceiveNum = countReceiveNum.isEmpty ? "0" : countReceiveNum
+        countLabelNode.attributedText = countReceiveNum.addAttributed(font: .systemFont(ofSize: 30, weight: .medium), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
+        
+        var countBestNum = json["countBestNum"].stringValue
+        countBestNum = countBestNum.isEmpty ? "0" : countBestNum
+        bestLabelNode.attributedText = countBestNum.addAttributed(font: .systemFont(ofSize: 30, weight: .medium), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
+        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

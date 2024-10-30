@@ -44,18 +44,15 @@ class RedPacketContentNode: MessageContentNode {
     
     func bubbleIcon() -> String {
         let isOpen = redPacket.status == 0
-        return isOpen ? "ChatRoom_Bubble_Text_Receiver_Origin_57x40_" : "ChatRoom_Bubble_Text_Receiver_Origin_57x40_"
-//        return isOpen ? "chat_room_red_owner_nor" : "chat_room_red_sel"
-//        if message.isOutgoing {
-//            return isOpen ? "ChatRoom_Bubble_HB_Sender_57x40_" : "chat_room_red_owner_nor"
-//        }
-//        return isOpen ? "chat_room_red_other_sel" : "ChatRoom_Bubble_HB_Receiver_Handled_57x40_"
+        if message.isOutgoing {
+            return isOpen ? "ChatRoom_Bubble_HB_Sender_Handled_57x40_" : "ChatRoom_Bubble_HB_Sender_57x40_"
+        }
+        return isOpen ? "ChatRoom_Bubble_HB_Receiver_Handled_57x40_" : "ChatRoom_Bubble_Text_Receiver_Origin_57x40_"
     }
     
     override func didLoad() {
         super.didLoad()
         bubbleNode.image = UIImage(named: bubbleIcon())
-        bubbleNode.style.flexShrink = 1
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -87,6 +84,11 @@ class RedPacketContentNode: MessageContentNode {
         
         
         let insetsLayout = ASInsetLayoutSpec(insets: insets, child: verticalStack)
+        let spacer = ASDisplayNode()
+        spacer.style.flexGrow = 1
+        spacer.style.flexShrink = 1
+//        bubbleNode.style.flexGrow = 1
+//        spacer.addSubnode(bubbleNode)
         let spec = ASBackgroundLayoutSpec()
             spec.background = bubbleNode
         

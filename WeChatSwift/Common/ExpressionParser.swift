@@ -30,8 +30,8 @@ class ExpressionParser {
         emojiRegex = try NSRegularExpression(pattern: emojiPattern, options: [])
     }
     // \\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]
-    private let emojiPattern = "</?u>"
-//    private let emojiPattern = "[\\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]]?[</?u>]?"
+    private let tagPattern = "</?u>"
+    private let emojiPattern = "[\\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]]?[</?u>]?"
     func attributedText(with attributedText: NSAttributedString) -> NSAttributedString {
         let regexes = parse(text: attributedText.string)
         if regexes.count == 0 {

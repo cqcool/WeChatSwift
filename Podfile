@@ -35,6 +35,7 @@ target 'WeChatSwift' do
   
   pod 'SwiftyJSON', '~> 4.0'
   pod 'AliyunOSSiOS'
+  pod 'Socket.IO-Client-Swift'
 end
 
 post_install do |installer|
