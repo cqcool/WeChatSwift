@@ -120,6 +120,8 @@
 		818097392CC7FEF0003C6299 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818097382CC7FEF0003C6299 /* SystemConfiguration.framework */; };
 		8180973B2CC7FF1B003C6299 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8180973A2CC7FF1B003C6299 /* libresolv.tbd */; };
 		81938D0D2CCBEB6E000CBB32 /* MessageApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81938D0C2CCBEB6E000CBB32 /* MessageApi.swift */; };
+		8196E3462CD198BE008767AD /* RedEnvelopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8196E3452CD198BE008767AD /* RedEnvelopView.swift */; };
+		8196E3482CD19B6F008767AD /* RedPacketGetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8196E3472CD19B6F008767AD /* RedPacketGetEntity.swift */; };
 		A30347F222FCE868003ECF82 /* SettingAutoDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */; };
 		A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */; };
 		A30347F922FF9983003ECF82 /* BrandContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */; };
@@ -664,6 +666,8 @@
 		818097382CC7FEF0003C6299 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8180973A2CC7FF1B003C6299 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		81938D0C2CCBEB6E000CBB32 /* MessageApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageApi.swift; sourceTree = "<group>"; };
+		8196E3452CD198BE008767AD /* RedEnvelopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedEnvelopView.swift; sourceTree = "<group>"; };
+		8196E3472CD19B6F008767AD /* RedPacketGetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketGetEntity.swift; sourceTree = "<group>"; };
 		A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAutoDownloadViewController.swift; sourceTree = "<group>"; };
 		A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCTableCellModel.swift; sourceTree = "<group>"; };
 		A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandContactsViewController.swift; sourceTree = "<group>"; };
@@ -1116,6 +1120,7 @@
 			children = (
 				1E3369322CCFAA0C005AF4A4 /* RedEnvelopeApi.swift */,
 				1E6C17AD2CD0F6AD00000785 /* RedPacketRecordModel.swift */,
+				8196E3472CD19B6F008767AD /* RedPacketGetEntity.swift */,
 			);
 			path = RedEnvelope;
 			sourceTree = "<group>";
@@ -1123,6 +1128,7 @@
 		1E58EC332CBFB2F900A360A6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8196E3452CD198BE008767AD /* RedEnvelopView.swift */,
 				A3EE12452317DE16000F287C /* MakeRedEnvelopeEnterMoneyNode.swift */,
 				A3EE12472317E62B000F287C /* MakeRedEnvelopeEnterDescNode.swift */,
 				1E58EC342CBFB30900A360A6 /* MakeRedEnvelopeEnterCountNode.swift */,
@@ -2899,6 +2905,7 @@
 				A30347F222FCE868003ECF82 /* SettingAutoDownloadViewController.swift in Sources */,
 				1ECBEA262CC668AE00485BF0 /* PersonModel.swift in Sources */,
 				A34760AB22E6DE100043AE1D /* MediaAsset.swift in Sources */,
+				8196E3462CD198BE008767AD /* RedEnvelopView.swift in Sources */,
 				A37FFB6622EE8E740001DD27 /* MinimizationTransitionController.swift in Sources */,
 				A3804535230A1AFB0001892D /* StorageUsageLoadingView.swift in Sources */,
 				A3709222231A6CB4003DA42D /* SelectSessionViewController.swift in Sources */,
@@ -3016,6 +3023,7 @@
 				A374864E22D44D46002EEC4F /* NoticeContentNode.swift in Sources */,
 				A372227C22D62033003403D4 /* Expression.swift in Sources */,
 				A352AD2A2306CE9500332B21 /* SettingLanguageViewController.swift in Sources */,
+				8196E3482CD19B6F008767AD /* RedPacketGetEntity.swift in Sources */,
 				A30347F922FF9983003ECF82 /* BrandContactsViewController.swift in Sources */,
 				A36E1B4922FA47F300C5DD32 /* ChatRoomBackgroundSettingCellNode.swift in Sources */,
 				1E5E374C2CC3BAE0007F8944 /* RedDetailsCellNode.swift in Sources */,

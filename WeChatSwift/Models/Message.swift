@@ -31,6 +31,7 @@ public class Message {
     
     var _formattedTime: String?
     var entity: MessageEntity?
+    
 }
 
 public extension Message {
@@ -70,6 +71,7 @@ extension MessageEntity {
                 redMsg.name = json["name"].string
                 redMsg.orderNumber = json["orderNumber"].string
                 redMsg.type = json["type"].string
+//                redMsg.status =
                 return .redPacket(redMsg)
             }
             return .none
@@ -176,8 +178,8 @@ public struct RedPacketMessage: Codable {
     var orderNumber: String?
     /// 1：拼手气红包
     var type: String?
-    /// 0:未点开
-    var status: Int = 0
+    /// 状态(1进行中,2已完成,3已过期)
+    var status: Int = 1
     
     enum CodingKeys: String, CodingKey {
         case name
