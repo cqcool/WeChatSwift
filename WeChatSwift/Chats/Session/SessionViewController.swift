@@ -72,7 +72,10 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     }
     
     @objc func refreshTokenEvent() {
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            debugPrint("joinGroup")
+            Socket.shared.joinGroup()
+        }
     }
     @objc func configUpdate() {
         tableNode.reloadData()
@@ -202,8 +205,19 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
 //            let brandTimelineVC = BrandTimelineViewController()
 //            navigationController?.pushViewController(brandTimelineVC, animated: true)
 //        } else {
-        let chatVC = ChatRoomViewController(session: session)
+        guard let userMsgType = session.userMsgType else {
+            return
+        }
+        if userMsgType == 3 {
+            let vc = NewsViewController()
+            vc.session = session
+            navigationController?.pushViewController(vc, animated: true)
+            return
+        }
+        if userMsgType == 1 {
+            let chatVC = ChatRoomViewController(session: session)
             navigationController?.pushViewController(chatVC, animated: true)
+        }
         
 //        }
     }

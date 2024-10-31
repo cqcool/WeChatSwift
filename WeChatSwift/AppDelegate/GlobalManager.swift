@@ -50,6 +50,7 @@ class GlobalManager: NSObject {
     }
     
     private var headPrefix: String? = nil
+    private var chatPrefix: String? = nil
     
     func updateRefreshToken(refreshToken: String?) {
         refreshTokenValue = refreshToken
@@ -127,6 +128,7 @@ extension GlobalManager {
         personModelValue = PersonModel.getPerson()
         isShowLogin = (refreshToken != nil) ? false : true
         self.headPrefix = WXUserDefault.headPrefix()
+        self.chatPrefix = WXUserDefault.chatPrefix()
     }
     
     private func getRefreshToken() -> String? {
@@ -154,6 +156,15 @@ extension GlobalManager {
         }
         return URL(string: headPrefix + fileName)
     }
+    static func chatImageUrl(name: String?) -> URL? {
+        guard let chatPrefix = self.manager.chatPrefix else {
+            return nil
+        }
+        guard let fileName = name else {
+            return nil
+        }
+        return URL(string: chatPrefix + fileName)
+    }
     func getConfigInfo(result: ((NSError?)->Void)? = nil) {
         let request = ConfigRequest()
         request.startWithCompletionBlock { request in
@@ -169,6 +180,13 @@ extension GlobalManager {
                                 NotificationCenter.default.post(name: ConstantKey.NSNotificationConfigUpdate, object: nil)
                                 self.headPrefix = headPrefix
                                 WXUserDefault.updateHeadPrefix(str: headPrefix)
+                                result?(nil)
+                            }
+                            
+                            let chatPrefix = valuesDic["chat"] as? String
+                            if self.chatPrefix != chatPrefix {
+                                self.chatPrefix = chatPrefix
+                                WXUserDefault.updateChatPrefix(str: chatPrefix)
                                 result?(nil)
                             }
                         }

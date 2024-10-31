@@ -14,10 +14,12 @@ class Socket: NSObject {
     static let shared = Socket()
     private var socketManager: SocketManager! = nil
     private var client: SocketIOClient! = nil
-    private static let url = "http://47.237.119.236:6002"
+    private static let url = "ws://47.237.119.236:6002"
     override init() {
         // https://gitcode.com/gh_mirrors/so/socket.io-client-swift/overview?utm_source=artical_gitcode&index=bottom&type=card&&isLogin=1
-        socketManager = SocketManager(socketURL: URL(string: Socket.url)!, config:  [.log(true), .compress])
+        
+        // https://github.com/socketio/socket.io-client-swift/blob/master/Usage%20Docs/Compatibility.md
+        socketManager = SocketManager(socketURL: URL(string: Socket.url)!, config:  [.log(true)])
         client = socketManager.defaultSocket
         client.on(clientEvent: .error) { data, ack in
             debugPrint("Socket error")
@@ -30,6 +32,12 @@ class Socket: NSObject {
         }
         // 发送会话消息
         client.on("sendGroupMsg") { data, ack in
+            if let message = data.first as? String {
+                print("新消息收到: \(message)")
+            }
+        }
+        // 发送会话消息
+        client.on("joinGroup") { data, ack in
             if let message = data.first as? String {
                 print("新消息收到: \(message)")
             }
@@ -47,6 +55,13 @@ class Socket: NSObject {
     
     func sendData() {
         //        client.emit1
+    }
+    
+    func joinGroup() {
+//        client.emit("joinGroup") {
+//            
+//            debugPrint("joinGroup")
+//        }
     }
     
 }

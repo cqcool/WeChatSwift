@@ -17,6 +17,8 @@ class NewDetailsViewController: UIViewController {
     private var zanBtn: UIButton! = nil
     private var zhuanBtn: UIButton! = nil
     
+    
+   
     override func viewDidLoad() {
         
         navigationItem.title = "腾讯新闻"
@@ -70,4 +72,6 @@ class NewDetailsViewController: UIViewController {
     @objc func handleMoreButtonClicked() {
         
     }
+    
+ 
 }

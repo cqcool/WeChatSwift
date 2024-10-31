@@ -370,7 +370,7 @@ extension ChatRoomViewController {
         let request = MsgReadRequest(no: no)
         request.startWithCompletionBlock { _ in
             self.session.unReadNum = "0"
-            GroupEntity.updateName(group: self.session)
+            GroupEntity.updateUnreadNum(group: self.session)
         }
     }
     

@@ -156,7 +156,9 @@ extension GroupEntity {
     static func updateName(group: GroupEntity) {
         DBManager.share.update(object: group, on: [GroupEntity.Properties.name], where: GroupEntity.Properties.groupNo == group.groupNo ?? "")
     }
-    
+    static func updateUnreadNum(group: GroupEntity) {
+        DBManager.share.update(object: group, on: [GroupEntity.Properties.unReadNum], where: GroupEntity.Properties.groupNo == group.groupNo ?? "")
+    }
     /// 查找群聊
     static func queryGroupChats()-> [GroupEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
