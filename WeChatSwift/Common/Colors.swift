@@ -52,6 +52,7 @@ struct Colors {
     static let DEFAULT_LINK_HIGHLIGHT_COLOR = UIColor(hexString: "#486497")
     
     static let DEFAULT_TEXT_YELLOW_COLOR = UIColor(hexString: "C5974D")
+    static let DEFAULT_RED_YELLOW_COLOR = UIColor(hexString: "FCDDAC")
     
     /// 通用浅色背景颜色
     static let DEFAULT_BACKGROUND_COLOR = UIColor(hexString: "#EDEDED")

@@ -15,12 +15,13 @@ class RedEnvelopView: UIViewController {
     lazy var redWidth = UIScreen.main.bounds.width - 32*2
     
     var callBackClosure: (() -> ())? = nil
+    var detailsClosure: (() -> ())? = nil
     var openImageView = UIImageView()
     
     lazy var alertWindow: UIWindow = {
         let alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
         alertWindow.windowLevel = UIWindow.Level.alert
-        alertWindow.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.3)
+        alertWindow.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
         alertWindow.makeKeyAndVisible()
         alertWindow.rootViewController = self
         return alertWindow
@@ -35,6 +36,7 @@ class RedEnvelopView: UIViewController {
 //        iv.con
         iv.clipsToBounds = true
         iv.image = resizableImage
+        iv.isUserInteractionEnabled = true
         return iv
     }()
     
@@ -49,6 +51,7 @@ class RedEnvelopView: UIViewController {
         let iv = UIImageView.init(frame: CGRect.init(x: 0, y: self.backgroundTop.frame.height - 60, width: redWidth, height: height + 60.0))
         iv.image = resizableImage
         iv.clipsToBounds = true
+        iv.isUserInteractionEnabled = true
         return iv
     }()
     
@@ -111,6 +114,9 @@ class RedEnvelopView: UIViewController {
     let avatarView = UIImageView()
     let contentView = UIView()
     let nickLabel = UILabel()
+    let tipsLabel = UILabel()
+    let detailBtn = UIButton()
+    let closeBtn = UIButton()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
@@ -122,7 +128,7 @@ class RedEnvelopView: UIViewController {
         backgroundImageView.insertSubview(backgroundBottom, belowSubview: backgroundTop)
         backgroundImageView.addSubview(openButton)
         backgroundImageView.addSubview(openImageView)
-        backgroundImageView.addSubview(contentView)
+        backgroundTop.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(100)
             make.centerX.equalToSuperview()
@@ -135,27 +141,64 @@ class RedEnvelopView: UIViewController {
             make.top.left.bottom.equalToSuperview()
         }
         
-        nickLabel.textColor = Colors.DEFAULT_TEXT_YELLOW_COLOR
+        nickLabel.textColor = Colors.DEFAULT_RED_YELLOW_COLOR
         nickLabel.font = .systemFont(ofSize: 18, weight: .bold)
         contentView.addSubview(nickLabel)
         nickLabel.snp.makeConstraints { make in
             make.top.right.bottom.equalToSuperview()
             make.left.equalTo(self.avatarView.snp.right).offset(7)
         }
+        tipsLabel.textAlignment = .center
+        tipsLabel.numberOfLines = 2
+        tipsLabel.textColor = Colors.DEFAULT_RED_YELLOW_COLOR
+        tipsLabel.font = .systemFont(ofSize: 25)
+        backgroundTop.addSubview(tipsLabel)
+        tipsLabel.snp.makeConstraints { make in
+            make.left.equalTo(15)
+            make.right.equalTo(-15)
+            make.top.equalTo(contentView.snp.bottom).offset(25)
+        }
+        detailBtn.clipsToBounds = true
+        detailBtn.enlargeEdge = 6
+        detailBtn.setTitle("查看领取详情", for: .normal)
+        detailBtn.titleLabel?.font = .systemFont(ofSize: 15)
+        detailBtn.setTitleColor(Colors.DEFAULT_RED_YELLOW_COLOR, for: .normal)
+        detailBtn.image(UIImage.SVGImage(named: "icons_outlined_arrow", fillColor: Colors.DEFAULT_RED_YELLOW_COLOR), .normal)
+        detailBtn.adjustContentSpace(2, imageInLeft: false)
+        detailBtn.isHidden = true
+        backgroundBottom.addSubview(detailBtn)
+        detailBtn.addTarget(self, action: #selector(detailsAction), for: .touchUpInside)
+        detailBtn.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(-20)
+        }
         
-        let tapGes = UITapGestureRecognizer.init(target: self, action: #selector(closeViewAction))
-        tapGes.delegate = self
-        self.view.addGestureRecognizer(tapGes)
+       
+        closeBtn.image(UIImage(named: "HongBao_Close_Image"), .normal)
+        self.alertWindow.addSubview(closeBtn)
+        closeBtn.addTarget(self, action: #selector(closeViewAction), for: .touchUpInside)
+        closeBtn.snp.makeConstraints { make in
+            make.size.equalTo(CGSizeMake(48, 48))
+            make.centerX.equalToSuperview()
+            make.top.equalTo(backgroundImageView.snp.bottom).offset(25)
+        }
+        
+//        let tapGes = UITapGestureRecognizer.init(target: self, action: #selector(closeViewAction))
+//        tapGes.delegate = self
+//        self.view.addGestureRecognizer(tapGes)
 
     }
-    
-    
+     
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    @objc func detailsAction() {
+        detailsClosure?()
+        closeViewAction()
+    }
     @objc func closeViewAction() {
+        closeBtn.isHidden = true
         UIView.animate(withDuration: 0.2, animations: {
             self.backgroundImageView.transform = CGAffineTransform.init(scaleX: 0.2, y: 0.2)
         }) { (finished) in
@@ -220,15 +263,38 @@ extension RedEnvelopView {
         guard let status = model.status else {
             return
         }
-        if status == 1 {
-//            backgroundTop.isHidden = true
-//            backgroundBottom.isHidden = true
-            openButton.isHidden = true
-            openImageView.isHidden = true
-        }
         let headUrl = GlobalManager.headImageUrl(name: model.senderUserHead ?? "")
         avatarView.pin_setImage(from: headUrl, placeholderImage: UIImage(named: "login_defaultAvatar"))
         nickLabel.text = (model.senderUserNickname ?? "") + "发出的红包"
+        backgroundTop.isHidden = false
+        backgroundBottom.isHidden = false
+        // 自己已经领取了
+        if (model.isMyselfReceive ?? 0) == 1 {
+            openButton.isHidden = true
+            openImageView.isHidden = true
+            detailBtn.isHidden = false
+            tipsLabel.attributedText = ((model.myselfReceiveAmount ?? "0.00") + "元").unitTextAttribute(textColor: Colors.DEFAULT_RED_YELLOW_COLOR, fontSize: 33, unitSize: 15, unit: "元", baseline: 0)
+            return
+        }
+        // 状态(1进行中,2已完成,3已过期)
+        if status == 1 {
+            tipsLabel.isHidden = true
+            openButton.isHidden = false
+            openImageView.isHidden = false
+            detailBtn.isHidden = true
+        } else if status == 2 {
+            openButton.isHidden = true
+            openImageView.isHidden = true
+            tipsLabel.isHidden = false
+            tipsLabel.text = "手慢了，红包派完了"
+            detailBtn.isHidden = false
+        } else if status == 3 {
+            openButton.isHidden = true
+            openImageView.isHidden = true
+            tipsLabel.isHidden = false
+            tipsLabel.text = "该红包已超过24小时，如已领取，可在“红包记录”中查看。"
+            detailBtn.isHidden = true
+        }
     }
     func myselfReceiveRed() {
 //        backgroundImageView

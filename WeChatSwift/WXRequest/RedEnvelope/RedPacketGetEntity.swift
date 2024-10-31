@@ -98,6 +98,10 @@ class RedPacketGetModel: NSObject, Codable {
     // 用户余额
     var userBalance: String?
     
+    var groupNo: String?
+    
+    var orderNumber: String?
+    
     enum CodingKeys: String, CodingKey {
         
         case amount
@@ -140,5 +144,7 @@ class RedPacketGetModel: NSObject, Codable {
 
         // 用户余额
         case userBalance
+        case groupNo
+        case orderNumber
     }
 }

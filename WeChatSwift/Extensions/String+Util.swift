@@ -58,7 +58,7 @@ public extension String {
     }
     func unitTextAttribute(textColor: UIColor = .black, fontSize: CGFloat, unitSize: CGFloat, unit: String, baseline: CGFloat = 0) -> NSAttributedString {
         let paragraphStyle1 = NSMutableParagraphStyle()
-        
+        paragraphStyle1.alignment = .center
         let mutableAttribtue = NSMutableAttributedString(string: self, attributes: [
             .font: Fonts.font(.superScriptMedium, fontSize: fontSize)!,
             .foregroundColor: textColor,

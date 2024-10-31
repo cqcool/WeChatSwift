@@ -583,6 +583,8 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
             do {
                 let resp = try JSONDecoder().decode(RedPacketGetModel.self, from: request.wxResponseData())
+                resp.groupNo = self.session.groupNo!
+                resp.orderNumber = msg.orderNumber
                 self.handleRedPacket(model: resp)
 //                let status = Int(resp.status ?? "0")
 //                if (status == 1) {
@@ -603,6 +605,11 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         red.callBackClosure = {
             let vc = UIViewController.init()
             vc.view.backgroundColor = .white
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
+        red.detailsClosure = {
+            let vc = RedDetailsViewController() 
+            vc.redPacket = model
             self.navigationController?.pushViewController(vc, animated: false)
         }
         // 自己领取了

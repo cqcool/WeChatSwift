@@ -46,6 +46,14 @@ class RedDetailsHeaderNode: ASButtonNode {
         super.didLoad()
     }
     
+    func updateContent(resp:RedPacketGetModel) {
+        let headUrl = GlobalManager.headImageUrl(name: resp.senderUserHead ?? "")
+        avavarNode.url = headUrl
+        
+        senderNameNode.attributedText = "\(resp.senderUserNickname ?? "")发出的红包".addAttributed(font: .systemFont(ofSize: 22, weight: .medium), textColor: .black)
+        moneyNode.attributedText = ((resp.myselfReceiveAmount ?? "0.00") + "元").unitTextAttribute(textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR, fontSize: 40, unitSize: 16, unit: "元", baseline: 0)
+        
+    }
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         avavarNode.cornerRadius = 4

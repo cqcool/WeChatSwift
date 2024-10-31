@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import WXActionSheet
 
 class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
     
@@ -16,6 +17,9 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
     private let headerNode = RedDetailsHeaderNode()
     private var footerNode: UILabel!
     private var footerView: UIView!
+    private var resp: RedPacketGetModel?
+    private var datas: [RedPacketRecordModel]? = nil
+    var redPacket: RedPacketGetModel!
     
     override init() {
         super.init(node: ASDisplayNode())
@@ -53,10 +57,7 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
         headerView.addSubnode(headerNode)
         headerNode.frame = headerView.bounds
         tableNode.view.tableHeaderView = headerView
-        
-//        let sectionView = UIView(x: 0, y: 0, width: Constants.screenWidth, height: 48)
-//        sectionView.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
-        
+         
         footerView = UIView(frame: CGRect(x: 0, y: 0, width: Constants.screenWidth, height: 50))
         footerNode = DNKCreate.label(text: "未领取的红包，将于24小时后发起退款", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
         footerNode.textAlignment = .center
@@ -64,6 +65,25 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
         footerView.addSubview(footerNode)
         tableNode.view.tableFooterView = footerView
         updateFooterNode()
+        
+        loadDetails()
+    }
+    
+    private func loadDetails() {
+        let request = RedPacketGetRequest(groupNo: redPacket.groupNo ?? "", isGet: "1", orderNumber: redPacket.orderNumber ?? "")
+        request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+            do {
+                let resp = try JSONDecoder().decode(RedPacketGetModel.self, from: request.wxResponseData())
+                self.resp = resp
+                self.headerNode.updateContent(resp: resp)
+                self.datas = resp.detailList
+                self.tableNode.reloadData()
+            }  catch {
+                print("Error decoding JSON: \(error)")
+            }
+        } failure: { request in
+            
+        }
     }
     
     private func updateFooterNode() {
@@ -80,15 +100,15 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
 
 extension RedDetailsViewController: ASTableDelegate, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return datas?.count ?? 0
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
 //        let model = dataSource[indexPath.section].items[indexPath.row]
 //        let isLastCell = indexPath.row == dataSource[indexPath.section].items.count - 1
-        let isLastCell = (indexPath.row == (4 - 1))
+        let isLastCell = (indexPath.row == (datas!.count - 1))
         let block: ASCellNodeBlock = {
-            return RedDetailsCellNode(isLastCell: isLastCell)
+            return RedDetailsCellNode(isLastCell: isLastCell, model: self.datas![indexPath.row])
         }
         return block
     }
@@ -108,7 +128,7 @@ extension RedDetailsViewController: ASTableDelegate, ASTableDataSource {
          "已领取1/5个，共2.26/10.00元"
          5个红包，50秒被抢光
          */
-        let label = DNKCreate.label(text: "已领取1/5个，共2.26/10.00元", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
+        let label = DNKCreate.label(text: "已领取\(resp?.receiveNum ?? 0)/\(resp?.num ?? 0)个，共\(resp?.receiveAmount ?? "0")/\(resp?.amount ?? "0")元", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
         label.frame = CGRect(x: 16, y: 0, width: 300, height: 38)
         contentView.addSubview(label)
         
@@ -141,6 +161,10 @@ extension RedDetailsViewController: ASTableDelegate, ASTableDataSource {
 
 extension RedDetailsViewController {
     @objc func handleMoreButtonClicked() {
-        
+        let actionSheet = WXActionSheet(cancelButtonTitle: LanguageManager.Common.cancel())
+        actionSheet.add(WXActionSheetItem(title: "红包记录", handler: { _ in
+            self.navigationController?.pushViewController(ReceiveRedViewContrroler(), animated: true)
+        }))
+        actionSheet.show()
     }
 }

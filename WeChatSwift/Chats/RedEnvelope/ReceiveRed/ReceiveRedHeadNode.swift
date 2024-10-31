@@ -27,8 +27,6 @@ class ReceiveRedHeadNode: ASDisplayNode {
         
         timeNode.attributedText = "\(currentYear)".addAttributed(font: .systemFont(ofSize: 14), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR, lineSpacing: 0, wordSpacing: 0)
         arrowNode.image = UIImage(named: "LuckyMoney_ChangeArrow")
-        
-        avatarNode.image = UIImage(named: "login_defaultAvatar")
     
         nameNode.attributedText = "\("x x x")共收到".addAttributed(font: .systemFont(ofSize: 15, weight: .medium), textColor: .black, lineSpacing: 0, wordSpacing: 0)
         totalMoneyNode.attributedText = "\(0.00)元".unitTextAttribute(fontSize: 32, unitSize: 16, unit: "元", baseline: 0)
@@ -42,15 +40,18 @@ class ReceiveRedHeadNode: ASDisplayNode {
     
     override func didLoad() {
         super.didLoad()
-        guard let personModel = GlobalManager.manager.personModel else {
-            return
-        }
+        
         backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
-        avatarNode.url = GlobalManager.headImageUrl(name: personModel.head)
-        nameNode.attributedText = "\(personModel.nickname ?? "")共收到".addAttributed(font: .systemFont(ofSize: 15, weight: .medium), textColor: .black, lineSpacing: 0, wordSpacing: 0)
+        
     }
     
     func updateContent(json: JSON) {
+        guard let personModel = GlobalManager.manager.personModel else {
+            return
+        }
+        avatarNode.url = GlobalManager.headImageUrl(name: personModel.head)
+        avatarNode.defaultImage =  UIImage(named: "login_defaultAvatar")
+        nameNode.attributedText = "\(personModel.nickname ?? "")共收到".addAttributed(font: .systemFont(ofSize: 15, weight: .medium), textColor: .black, lineSpacing: 0, wordSpacing: 0)
         var countReceiveAmount = json["countReceiveAmount"].stringValue
         countReceiveAmount = countReceiveAmount.isEmpty ? "0.00" : countReceiveAmount
         totalMoneyNode.attributedText = "\(countReceiveAmount)元".unitTextAttribute(fontSize: 32, unitSize: 16, unit: "元", baseline: 0)

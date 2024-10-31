@@ -21,24 +21,28 @@ class RedDetailsCellNode: ASCellNode {
     
     private let isLastCell: Bool
     
-    init( isLastCell: Bool) {
+    init( isLastCell: Bool, model: RedPacketRecordModel) {
         self.isLastCell = isLastCell
         super.init()
         
         automaticallyManagesSubnodes = true
-        
         iconNode.defaultImage = UIImage(named: "login_defaultAvatar")
         iconNode.style.preferredSize = CGSizeMake(44, 44)
         iconNode.cornerRadius = 6
+        let headUrl = GlobalManager.headImageUrl(name: model.head ?? "")
+        iconNode.url = headUrl
         
-        nameNode.attributedText = "xx".addAttributed(font: .systemFont(ofSize: 17), textColor: .black)
-        timeNode.attributedText = "00:00".addAttributed(font: .systemFont(ofSize: 15), textColor: Colors.DEFAULT_TEXT_GRAY_COLOR)
+        nameNode.attributedText = (model.nickname ?? "").addAttributed(font: .systemFont(ofSize: 17), textColor: .black)
+        let time = NSString.timeText(withTimestamp: model.receiveTime ?? 0, formatter: "HH:mm")
+        timeNode.attributedText = time.addAttributed(font: .systemFont(ofSize: 15), textColor: Colors.DEFAULT_TEXT_GRAY_COLOR)
         
-        moneyNode.attributedText = "0.00元".unitTextAttribute(fontSize: 17, unitSize: 17, unit: "元")
+        moneyNode.attributedText = "\(model.amount ?? "0.00")元".unitTextAttribute(fontSize: 17, unitSize: 17, unit: "元")
         bestLabelNode.attributedText = "手气最佳".addAttributed(font: .systemFont(ofSize: 15), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR)
-        
         besticonNode.image = UIImage(named: "LuckyMoney_WinnerIcon")
         besticonNode.style.preferredSize = CGSize(width: 16, height: 16)
+        let isBest = (model.isBest ?? 0) == 0 ? true : false
+        bestLabelNode.isHidden = isBest
+        besticonNode.isHidden = isBest
         
         lineNode.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
     }
@@ -46,6 +50,7 @@ class RedDetailsCellNode: ASCellNode {
     override func didLoad() {
         super.didLoad()
         backgroundColor = .white
+    
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -54,12 +59,9 @@ class RedDetailsCellNode: ASCellNode {
         
         
         let horizontal1 = ASStackLayoutSpec.horizontal()
-//        horizontal1.style.spacingBefore = 10
-//        horizontal1.style.spacingAfter = 0
         horizontal1.justifyContent = .spaceBetween
-//        horizontal1.alignContent = .spaceBetween
+        nameNode.style.preferredSize = CGSize(width: 150, height: 19)
         horizontal1.children = [nameNode, moneyNode]
-//        horizontal1.style.preferredSize = CGSize
         
         let horizontal3 = ASStackLayoutSpec.horizontal()
         horizontal3.spacing = 0
@@ -68,15 +70,13 @@ class RedDetailsCellNode: ASCellNode {
         
         let horizontal2 = ASStackLayoutSpec.horizontal()
         horizontal2.justifyContent = .spaceBetween
-//        horizontal2.style.spacingBefore = 10
-//        horizontal2.style.spacingAfter = 15
         besticonNode.style.spacingAfter = 4
         bestLabelNode.style.spacingBefore = 4
-        if isLastCell {
-            horizontal2.children = [timeNode, horizontal3]
-        } else {
-            horizontal2.children = [timeNode]
-        }
+        horizontal2.children = [timeNode, horizontal3]
+//        if isLastCell {
+//        } else {
+//            horizontal2.children = [timeNode]
+//        }
         
         
         let vertical = ASStackLayoutSpec.vertical()

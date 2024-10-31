@@ -87,7 +87,7 @@ class RedPacketContentNode: MessageContentNode {
         let spacer = ASDisplayNode()
         spacer.style.flexGrow = 1
         spacer.style.flexShrink = 1
-//        bubbleNode.style.flexGrow = 1
+        bubbleNode.style.flexGrow = 1
 //        spacer.addSubnode(bubbleNode)
         let spec = ASBackgroundLayoutSpec()
             spec.background = bubbleNode

@@ -56,7 +56,7 @@ class ReceiveRedViewContrroler: ASDKViewController<ASDisplayNode> {
         headerView.backgroundColor = .blue
         headNode.frame = headerView.bounds
         tableNode.view.tableHeaderView = headerView
-        
+        loadRecordData()
         let mjFooter = MJRefreshBackNormalFooter {
             self.page += 1
             self.loadRecordData()
