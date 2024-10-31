@@ -29,7 +29,7 @@ target 'WeChatSwift' do
   
   pod 'MJExtension'
   pod 'MJRefresh'
-  pod 'BGFMDB', :git => 'https://github.com/dnakeyun/BGFMDB.git', :branch => 'dev-2.0.15'
+#  pod 'BGFMDB', :git => 'https://github.com/dnakeyun/BGFMDB.git', :branch => 'dev-2.0.15'
   pod 'MBProgressHUD'
   pod 'Masonry'
   

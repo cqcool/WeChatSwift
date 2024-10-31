@@ -557,7 +557,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
             let originView = (cellNode.contentNode as? VideoContentNode)?.imageView ?? cellNode.contentNode.view
             previewVideo(videoMsg: videoMsg, originView: originView)
         case .redPacket(let msg):
-            clickRedPacket(msg: msg)
+            clickRedPacket(cellNode: cellNode, msg: msg)
         default:
             break
         }
@@ -572,53 +572,40 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
     }
     
     func messageCell(_ cellNode: MessageCellNode, showMenus menus: [MessageMenuAction], message: Message, targetRect: CGRect, targetView: UIView) {
-        //        UIView()
-        //        self.becomeFirstResponder()
-        //        self.menuMessage = message
-        //        showMenus(menus, targetRect: targetRect, targetView: targetView)
     }
     
-    func clickRedPacket(msg: RedPacketMessage) {
-        let request = RedPacketGetRequest(groupNo: session.groupNo ?? "", isGet: "1", orderNumber: msg.orderNumber ?? "")
-        request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
-            do {
-                let resp = try JSONDecoder().decode(RedPacketGetModel.self, from: request.wxResponseData())
-                resp.groupNo = self.session.groupNo!
-                resp.orderNumber = msg.orderNumber
-                self.handleRedPacket(model: resp)
-//                let status = Int(resp.status ?? "0")
-//                if (status == 1) {
-//                    
-//                }
-                
-            }  catch {
-                print("Error decoding JSON: \(error)")
-            }
-        } failure: { request in
-            
-        }
-
-    }
-    func handleRedPacket(model: RedPacketGetModel) {
-        let red = RedEnvelopView.init()
-        red.updateRedContent(model: model)
-        red.callBackClosure = {
-            let vc = UIViewController.init()
-            vc.view.backgroundColor = .white
-            self.navigationController?.pushViewController(vc, animated: false)
-        }
-        red.detailsClosure = {
-            let vc = RedDetailsViewController() 
-            vc.redPacket = model
-            self.navigationController?.pushViewController(vc, animated: false)
-        }
-        // 自己领取了
-        if (model.isMyselfReceive ?? 0) == 1 {
+    func clickRedPacket(cellNode: MessageCellNode, msg: RedPacketMessage) {
+        
+        guard let entity = msg.entity else {
+            handleRedPacket(cellNode: cellNode, model: nil, msg: msg)
             return
         }
+        self.handleRedPacket(cellNode: cellNode, model: entity, msg: nil)
     }
-    func redWaitOpen(model: RedPacketGetModel) {
-        
+    func handleRedPacket(cellNode: MessageCellNode, model: RedPacketGetEntity?, msg: RedPacketMessage?) {
+        let red = RedEnvelopView.init()
+        red.callBackClosure = {
+//            let vc = UIViewController.init()
+//            vc.view.backgroundColor = .white
+//            self.navigationController?.pushViewController(vc, animated: false)
+        }
+        red.detailsClosure = { m in
+            let vc = RedDetailsViewController()
+            vc.redPacket = m ?? model
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
+        red.updateDBClosure = {flag in
+            if flag {
+                if let indexPath = cellNode.indexPath {
+                    let message = self.dataSource.messages[indexPath.row]
+                    message.updateRedPacket()
+                    self.tableNode.reloadRows(at: [indexPath], with: .fade)
+                }
+            }
+        }
+        // 自己领取了
+        red.updateRedContent(model: model, msg: msg)
+
     }
 }
 

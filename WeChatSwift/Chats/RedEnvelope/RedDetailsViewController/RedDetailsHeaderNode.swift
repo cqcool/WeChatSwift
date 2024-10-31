@@ -46,7 +46,7 @@ class RedDetailsHeaderNode: ASButtonNode {
         super.didLoad()
     }
     
-    func updateContent(resp:RedPacketGetModel) {
+    func updateContent(resp: FullRedPacketGetEntity) {
         let headUrl = GlobalManager.headImageUrl(name: resp.senderUserHead ?? "")
         avavarNode.url = headUrl
         

@@ -46,6 +46,21 @@ public extension Message {
         ]
         return NSAttributedString(string: timeString, attributes: attributes)
     }
+    func updateRedPacket() {
+        switch content {
+        case .redPacket(var msg):
+            if let orderNumber = msg.orderNumber,
+               let entity = RedPacketGetEntity.queryRedPacket(orderNumber: orderNumber)?.first {
+                msg.status = entity.status ?? 1
+                msg.entity = entity
+            }
+            content = .redPacket(msg)
+            break
+            
+        default: break
+        }
+        
+    }
 }
 
 
@@ -71,13 +86,18 @@ extension MessageEntity {
                 redMsg.name = json["name"].string
                 redMsg.orderNumber = json["orderNumber"].string
                 redMsg.type = json["type"].string
-//                redMsg.status =
+                redMsg.nickName = nickname
+                redMsg.head = head
+                redMsg.groupNo = groupNo
+                
+                if let orderNumber = redMsg.orderNumber,
+                   let entity = RedPacketGetEntity.queryRedPacket(orderNumber: orderNumber)?.first {
+                    redMsg.status = entity.status ?? 1
+                    redMsg.entity = entity
+                }
                 return .redPacket(redMsg)
             }
-            return .none
-//        case 1:
-//            let msg = ImageMessage(url: image.url, size: image.size.value)
-//            return .image(content ?? "")
+            return .none 
         default:
             return .none
         }
@@ -180,6 +200,12 @@ public struct RedPacketMessage: Codable {
     var type: String?
     /// 状态(1进行中,2已完成,3已过期)
     var status: Int = 1
+    
+    var nickName: String?
+    var head: String?
+    var groupNo: String?
+    
+    var entity: RedPacketGetEntity?
     
     enum CodingKeys: String, CodingKey {
         case name

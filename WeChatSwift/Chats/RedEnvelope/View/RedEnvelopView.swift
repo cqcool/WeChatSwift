@@ -15,9 +15,10 @@ class RedEnvelopView: UIViewController {
     lazy var redWidth = UIScreen.main.bounds.width - 32*2
     
     var callBackClosure: (() -> ())? = nil
-    var detailsClosure: (() -> ())? = nil
+    var detailsClosure: ((_ entity: RedPacketGetEntity?) -> ())? = nil
+    var updateDBClosure: ((_ isFlag: Bool) -> ())? = nil
     var openImageView = UIImageView()
-    
+    var redMsg: RedPacketMessage! = nil
     lazy var alertWindow: UIWindow = {
         let alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
         alertWindow.windowLevel = UIWindow.Level.alert
@@ -90,16 +91,12 @@ class RedEnvelopView: UIViewController {
         
         // 假设你有一组图片的数组
         let imageNames = ["coin1", "coin2", "coin3", "coin4", "coin5", "coin6"]
-         
         // 创建图片数组
         let images = imageNames.compactMap { UIImage(named: $0) }
-         
         // 设置动画的持续时间
         let duration = 0.5
-         
         // 创建动画图片
         let animatedImage = UIImage.animatedImage(with: images, duration: duration)
-         
         // 创建一个UIImageView来显示动画
         openImageView.image = animatedImage
         openImageView.frame = btn.frame
@@ -194,41 +191,50 @@ class RedEnvelopView: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     @objc func detailsAction() {
-        detailsClosure?()
+        detailsClosure?(nil)
         closeViewAction()
     }
     @objc func closeViewAction() {
         closeBtn.isHidden = true
         UIView.animate(withDuration: 0.2, animations: {
             self.backgroundImageView.transform = CGAffineTransform.init(scaleX: 0.2, y: 0.2)
+            self.alertWindow.alpha = 0
         }) { (finished) in
-            UIView.animate(withDuration: 0.08, animations: {
-                self.backgroundImageView.transform = CGAffineTransform.init(scaleX: 0.25, y: 0.25)
-            }, completion: { (finished) in
-                self.alertWindow.removeFromSuperview()
-                self.alertWindow.rootViewController = nil
-            })
+            self.alertWindow.removeFromSuperview()
+            self.alertWindow.rootViewController = nil
         }
     }
     
     
     @objc func openRedPacketAction() {
-        openButton.isEnabled = false
         openButton.isHidden = true
         openImageView.isHidden = false
-        openImageView.startAnimating()
-        self.view.isUserInteractionEnabled = false
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-//            print("这条信息将在3秒后打印")
-//            self.closeViewAction()
-            self.animationDidStop()
+//        openImageView.startAnimating()
+        let request = RedPacketGetRequest(groupNo: redMsg.groupNo ?? "", isGet: "1", orderNumber: redMsg.orderNumber ?? "")
+        request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
+            do {
+                let resp = try JSONDecoder().decode(RedPacketGetEntity.self, from: request.wxResponseData())
+                resp.groupNo = self.redMsg.groupNo!
+                resp.orderNumber = self.redMsg.orderNumber!
+                RedPacketGetEntity.insertOrReplace(list: [resp])
+                self.updateDBClosure?(true)
+                self.openImageView.isHidden = true
+                if (resp.status == 3 ||
+                    resp.status == 2) &&
+                    (resp.isMyselfReceive ?? 0) == 0 {
+                    self.updateRedContent(model: resp, msg: nil)
+                    return
+                }
+                self.detailsClosure?(resp)
+                self.closeViewAction()
+            }  catch {
+                print("Error decoding JSON: \(error)")
+            }
+        } failure: { request in
+            self.openImageView.stopAnimating()
+            self.openButton.isHidden = false
             self.openImageView.isHidden = true
-            self.callBackClosure!()
         }
-
-//        openButton.layer.add(confirmViewRotateInfo(), forKey: "transform")
     }
     
     func closeRedPacket() {
@@ -259,15 +265,22 @@ class RedEnvelopView: UIViewController {
 }
 extension RedEnvelopView {
     
-    func updateRedContent(model: RedPacketGetModel) {
-        guard let status = model.status else {
-            return
-        }
-        let headUrl = GlobalManager.headImageUrl(name: model.senderUserHead ?? "")
-        avatarView.pin_setImage(from: headUrl, placeholderImage: UIImage(named: "login_defaultAvatar"))
-        nickLabel.text = (model.senderUserNickname ?? "") + "发出的红包"
+    func updateRedContent(model: RedPacketGetEntity?, msg: RedPacketMessage?) {
         backgroundTop.isHidden = false
         backgroundBottom.isHidden = false
+        
+        let headUrl = GlobalManager.headImageUrl(name:  model?.senderUserHead ?? (msg?.head ?? ""))
+        avatarView.pin_setImage(from: headUrl, placeholderImage: UIImage(named: "login_defaultAvatar"))
+        nickLabel.text = (model?.senderUserNickname ?? (msg?.nickName ?? "")) + "发出的红包"
+        
+        guard let model else {
+            self.redMsg = msg
+            tipsLabel.isHidden = true
+            openButton.isHidden = false
+            detailBtn.isHidden = true
+            return
+        } 
+
         // 自己已经领取了
         if (model.isMyselfReceive ?? 0) == 1 {
             openButton.isHidden = true
@@ -276,13 +289,11 @@ extension RedEnvelopView {
             tipsLabel.attributedText = ((model.myselfReceiveAmount ?? "0.00") + "元").unitTextAttribute(textColor: Colors.DEFAULT_RED_YELLOW_COLOR, fontSize: 33, unitSize: 15, unit: "元", baseline: 0)
             return
         }
+        guard let status = model.status else {
+            return
+        }
         // 状态(1进行中,2已完成,3已过期)
-        if status == 1 {
-            tipsLabel.isHidden = true
-            openButton.isHidden = false
-            openImageView.isHidden = false
-            detailBtn.isHidden = true
-        } else if status == 2 {
+        if status == 2 {
             openButton.isHidden = true
             openImageView.isHidden = true
             tipsLabel.isHidden = false
@@ -294,22 +305,24 @@ extension RedEnvelopView {
             tipsLabel.isHidden = false
             tipsLabel.text = "该红包已超过24小时，如已领取，可在“红包记录”中查看。"
             detailBtn.isHidden = true
+        } else {
+                tipsLabel.isHidden = true
+                openButton.isHidden = false
+                openImageView.isHidden = false
+                detailBtn.isHidden = true
         }
-    }
-    func myselfReceiveRed() {
-//        backgroundImageView
     }
 }
 
-extension RedEnvelopView: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if openButton.point(inside: touch.location(in: openButton), with: nil) {
-            openRedPacketAction()
-            return false
-        }
-        return !backgroundImageView.point(inside: touch.location(in: backgroundImageView), with: nil)
-    }
-}
+//extension RedEnvelopView: UIGestureRecognizerDelegate {
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//        if openButton.point(inside: touch.location(in: openButton), with: nil) {
+//            openRedPacketAction()
+//            return false
+//        }
+//        return !backgroundImageView.point(inside: touch.location(in: backgroundImageView), with: nil)
+//    }
+//}
 //ios 8 适配
 //#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 //// CAAnimationDelegate is not available before iOS 10 SDK
