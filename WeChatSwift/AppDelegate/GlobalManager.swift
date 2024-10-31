@@ -75,9 +75,13 @@ class GlobalManager: NSObject {
         }
        PersonModel.savePerson(person: model!)
     }
-    func login() {
+    func login(isLogin: Bool) {
         isShowLogin = false
         appDelegate.updateAppRoot()
+        
+        if isLogin {
+            Socket.shared.connect()
+        }
     }
     
     func logout() {
@@ -103,6 +107,7 @@ class GlobalManager: NSObject {
                 self.refreshUserInfo()
                 self.getConfigInfo()
                 NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
+                Socket.shared.connect()
             }
         }
 
@@ -113,7 +118,10 @@ extension GlobalManager {
     func setup() {
         refreshTokenValue = getRefreshToken()
         if refreshTokenValue != nil {
-            requestRefreshToken()
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                
+                self.requestRefreshToken()
+            }
         }
         tokenValue = getToken()
         personModelValue = PersonModel.getPerson()

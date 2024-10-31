@@ -473,6 +473,9 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
         case .redPacket:
             let makeRedEnvelopeVC = MakeRedEnvelopeViewController()
             makeRedEnvelopeVC.session = session
+            makeRedEnvelopeVC.sendRedPacketBlock = { msg in
+                self.dataSource.appendMsgList([msg], scrollToLastMessage: true, showMsgTime: false)
+            }
             let nav = UINavigationController(rootViewController: makeRedEnvelopeVC)
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true, completion: nil)

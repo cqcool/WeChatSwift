@@ -111,7 +111,7 @@ class WeChatLoginViewController: UIViewController {
                 if request.apiSuccess() {
                     if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
                         GlobalManager.manager.updatePersonModel(model: resp)
-                        GlobalManager.manager.login()
+                        GlobalManager.manager.login(isLogin: true)
                     }
                     return
                 }

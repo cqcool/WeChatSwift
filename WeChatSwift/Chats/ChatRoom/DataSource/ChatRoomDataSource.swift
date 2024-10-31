@@ -42,7 +42,7 @@ final class ChatRoomDataSource {
     func append(_ message: Message, scrollToLastMessage: Bool = true) {
         let _ = lock.wait(timeout: .distantFuture)
         messages.append(message)
-//        formatTime()
+        formatTime()
         tableNode?.insertRows(at: [IndexPath(row: messages.count - 1, section: 0)], with: .none)
         if scrollToLastMessage {
             let last = messages.count - 1

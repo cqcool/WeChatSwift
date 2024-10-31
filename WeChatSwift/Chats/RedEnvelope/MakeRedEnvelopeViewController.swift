@@ -64,6 +64,8 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     private var keyboardHeight: CGFloat = 216 + .safeAreaBottomHeight
     private var payViewHeight: CGFloat = 360
     
+    var sendRedPacketBlock: ((_ messageEntnity: MessageEntity) ->())?
+    
     override init() {
         
         errorNode = ASDisplayNode()
@@ -754,7 +756,14 @@ extension MakeRedEnvelopeViewController: KeenCodeUnitDelegate {
         if complete {
             let request = RedPacketPayRquest(amount: enterMoneyNode.money!, groupNo: session.groupNo!, num: enterCountNode.count!, payPassword: codeText.md5Encrpt().lowercased())
             request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
-                debugPrint(request)
+                do {
+                    let resp = try JSONDecoder().decode(MessageEntity.self, from: request.wxResponseData())
+                    MessageEntity.insertOrReplace(list: [resp])
+                    self.sendRedPacketBlock?(resp)
+                    self.dismiss(animated: true)
+                }  catch {
+                    print("Error decoding JSON: \(error)")
+                }
             } failure: { _ in
                 codeUnit.cleanContent()
             }
