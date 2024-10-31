@@ -32,7 +32,7 @@ class RedPacketRecordModel: NSObject, Codable {
 ///  昵称
     var nickname: String?
     /// 领取时间
-    var receiveTime: String?
+    var receiveTime: Int?
 
     ///  类型(1拼手气红包)
     var type: Int?

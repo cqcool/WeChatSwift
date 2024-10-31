@@ -108,20 +108,48 @@ class RedEnvelopView: UIViewController {
         return btn
     }()
     
+    let avatarView = UIImageView()
+    let contentView = UIView()
+    let nickLabel = UILabel()
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
         
         self.alertWindow.addSubview(self.view)
         self.alertWindow.addSubview(backgroundImageView)
+        
         backgroundImageView.addSubview(backgroundTop)
         backgroundImageView.insertSubview(backgroundBottom, belowSubview: backgroundTop)
         backgroundImageView.addSubview(openButton)
         backgroundImageView.addSubview(openImageView)
+        backgroundImageView.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(100)
+            make.centerX.equalToSuperview()
+        }
+        contentView.addSubview(avatarView)
+        avatarView.layer.cornerRadius = 4
+        avatarView.layer.masksToBounds = true
+        avatarView.snp.makeConstraints { make in
+            make.size.equalTo(CGSizeMake(25, 25))
+            make.top.left.bottom.equalToSuperview()
+        }
+        
+        nickLabel.textColor = Colors.DEFAULT_TEXT_YELLOW_COLOR
+        nickLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        contentView.addSubview(nickLabel)
+        nickLabel.snp.makeConstraints { make in
+            make.top.right.bottom.equalToSuperview()
+            make.left.equalTo(self.avatarView.snp.right).offset(7)
+        }
         
         let tapGes = UITapGestureRecognizer.init(target: self, action: #selector(closeViewAction))
         tapGes.delegate = self
         self.view.addGestureRecognizer(tapGes)
+
     }
+    
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -186,7 +214,26 @@ class RedEnvelopView: UIViewController {
 //    }
     
 }
-
+extension RedEnvelopView {
+    
+    func updateRedContent(model: RedPacketGetModel) {
+        guard let status = model.status else {
+            return
+        }
+        if status == 1 {
+//            backgroundTop.isHidden = true
+//            backgroundBottom.isHidden = true
+            openButton.isHidden = true
+            openImageView.isHidden = true
+        }
+        let headUrl = GlobalManager.headImageUrl(name: model.senderUserHead ?? "")
+        avatarView.pin_setImage(from: headUrl, placeholderImage: UIImage(named: "login_defaultAvatar"))
+        nickLabel.text = (model.senderUserNickname ?? "") + "发出的红包"
+    }
+    func myselfReceiveRed() {
+//        backgroundImageView
+    }
+}
 
 extension RedEnvelopView: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {

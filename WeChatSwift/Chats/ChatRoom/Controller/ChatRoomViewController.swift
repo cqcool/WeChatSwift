@@ -583,10 +583,11 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
             do {
                 let resp = try JSONDecoder().decode(RedPacketGetModel.self, from: request.wxResponseData())
-                let status = Int(resp.status ?? "0")
-                if (status == 1) {
-                    
-                }
+                self.handleRedPacket(model: resp)
+//                let status = Int(resp.status ?? "0")
+//                if (status == 1) {
+//                    
+//                }
                 
             }  catch {
                 print("Error decoding JSON: \(error)")
@@ -596,7 +597,19 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         }
 
     }
-    
+    func handleRedPacket(model: RedPacketGetModel) {
+        let red = RedEnvelopView.init()
+        red.updateRedContent(model: model)
+        red.callBackClosure = {
+            let vc = UIViewController.init()
+            vc.view.backgroundColor = .white
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
+        // 自己领取了
+        if (model.isMyselfReceive ?? 0) == 1 {
+            return
+        }
+    }
     func redWaitOpen(model: RedPacketGetModel) {
         
     }

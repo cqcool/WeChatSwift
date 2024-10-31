@@ -21,6 +21,19 @@ final class RedPacketGetEntity: NSObject, Codable, TableCodable, Named {
     var amount: String?
     ///  头像
     var head: String?
+//    /// 自己是否领取(1是,0否)
+//    var isMyselfReceive: String?
+//    ///  自己领取金额
+//    var myselfReceiveAmount: String?
+//    
+//    /// 发送者头像
+//    var senderUserHead: String?
+//
+//    // 发送者用户id
+//    var senderUserId: String?
+//
+//    /// 发送者昵称
+//    var senderUserNickname: String?
     
     enum CodingKeys: String, CodingKey, CodingTableKey {
         
@@ -46,7 +59,7 @@ class RedPacketGetModel: NSObject, Codable {
     /// 完成时间(毫秒)
     var completeTime: String?
     /// 自己是否领取(1是,0否)
-    var isMyselfReceive: String?
+    var isMyselfReceive: Int?
     ///  自己领取金额
     var myselfReceiveAmount: String?
 
@@ -59,13 +72,13 @@ class RedPacketGetModel: NSObject, Codable {
     var name: String?
 
     // 总数量
-    var num: String?
+    var num: Int?
 
     // 领取金额
-    var receiveAmount: Int?
+    var receiveAmount: String?
 
     // 领取数量
-    var receiveNum: String?
+    var receiveNum: Int?
 
     /// 发送者头像
     var senderUserHead: String?
@@ -77,10 +90,10 @@ class RedPacketGetModel: NSObject, Codable {
     var senderUserNickname: String?
 
     /// 状态(1进行中,2已完成,3已过期)
-    var status: String?
+    var status: Int?
 
     /// 类型(1拼手气红包)
-    var type: String?
+    var type: Int?
 
     // 用户余额
     var userBalance: String?
