@@ -205,7 +205,7 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
 //            let brandTimelineVC = BrandTimelineViewController()
 //            navigationController?.pushViewController(brandTimelineVC, animated: true)
 //        } else {
-        let userMsgType = session.userMsgType ?? 1 
+        let userMsgType = session.userMsgType ?? 1
         if userMsgType == 3 {
             let vc = NewsViewController()
             vc.session = session
@@ -215,6 +215,10 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
         if userMsgType == 1 {
             let chatVC = ChatRoomViewController(session: session)
             navigationController?.pushViewController(chatVC, animated: true)
+            chatVC.updateGroupBlock = { groupEntity in
+//                self.dataSource[indexPath.row] = groupEntity
+                self.tableNode.reloadRows(at: [indexPath], with: .fade)
+            }
         }
         
 //        }

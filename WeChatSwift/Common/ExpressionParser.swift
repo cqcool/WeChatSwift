@@ -25,15 +25,18 @@ class ExpressionParser {
     static let shared = try? ExpressionParser()
     
     private let emojiRegex: NSRegularExpression
+    private let tagRegex: NSRegularExpression
     
     private init() throws {
         emojiRegex = try NSRegularExpression(pattern: emojiPattern, options: [])
+        tagRegex = try NSRegularExpression(pattern: tagPattern, options: [])
     }
     // \\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]
     private let tagPattern = "</?u>"
     private let emojiPattern = "[\\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]]?[</?u>]?"
     func attributedText(with attributedText: NSAttributedString) -> NSAttributedString {
         let regexes = parse(text: attributedText.string)
+        let tagRegexes = parseTag(text: attributedText.string)
         if regexes.count == 0 {
             return attributedText
         }
@@ -53,6 +56,7 @@ class ExpressionParser {
                 offset += regex.range.length
             }
         }
+        
         return result
     }
     
@@ -61,6 +65,44 @@ class ExpressionParser {
         
         let length = text.count
         let matches = emojiRegex.matches(in: text, options: [], range: NSRange(location: 0, length: length))
+        if matches.count == 0 {
+            return []
+        }
+        let expressions = Expression.all
+        var resultList: [ExpressionRegexResult] = []
+        var offset: Int = 0
+        for (index, match) in matches.enumerated() {
+            // 处理匹配到之前的
+            if match.range.location > offset {
+                let range = NSRange(location: offset, length: match.range.location - offset)
+                let subText = text.subStringInRange(range)
+                resultList.append(ExpressionRegexResult(range: range, text: subText, expression: nil))
+            }
+            // 处理匹配到的结果
+            let innerText = text.subStringInRange(match.range)
+            let emoji = expressions.first(where: { $0.text == innerText })
+            let result = ExpressionRegexResult(range: match.range, text: innerText, expression: emoji?.icon)
+            resultList.append(result)
+            offset = match.range.location + match.range.length
+            
+            // 处理匹配之后的
+            if index == matches.count - 1 {
+                if length - offset > 0 {
+                    let range = NSRange(location: offset, length: length - offset)
+                    let subText = text.subStringInRange(range)
+                    resultList.append(ExpressionRegexResult(range: range, text: subText, expression: nil))
+                }
+            }
+        }
+        return resultList
+    }
+    
+    private func parseTag(text: String) -> [ExpressionRegexResult] {
+        let text = "<u>abc<\\u>"
+        guard text.count > 2 else { return [] }
+        
+        let length = text.count
+        let matches = tagRegex.matches(in: text, options: [], range: NSRange(location: 0, length: length))
         if matches.count == 0 {
             return []
         }

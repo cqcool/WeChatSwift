@@ -53,6 +53,8 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     /// 默认还有历史数据
     private var hasHistory: Bool = true
     
+    var updateGroupBlock:((_: GroupEntity) -> ())?
+    
     init(session: GroupEntity) {
         self.session = session
         self.dataSource = ChatRoomDataSource(sessionID: session.groupNo!)
@@ -370,6 +372,7 @@ extension ChatRoomViewController {
         let request = MsgReadRequest(no: no)
         request.startWithCompletionBlock { _ in
             self.session.unReadNum = "0"
+            self.updateGroupBlock?(self.session)
             GroupEntity.updateUnreadNum(group: self.session)
         }
     }
