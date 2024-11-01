@@ -28,9 +28,10 @@ class NewDetailsViewController: UIViewController {
         navigationItem.rightBarButtonItem = moreItem
         view.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
         view.addSubview(bottomView)
+        bottomView.backgroundColor = UIColor(hexString: "F6F6F6")
         bottomView.snp.makeConstraints { make in
             make.left.bottom.right.equalToSuperview()
-            make.height.equalTo(Constants.bottomInset + 60)
+            make.height.equalTo(Constants.bottomInset)
         }
         
 //        let downBtn = DNKCreate.button(normalTitle: "下载腾讯新闻", normalColor: .white, normalImg: UIImage.SVGImage(named: "icons_outlined_arrow", fillColor: .white))
@@ -75,22 +76,26 @@ class NewDetailsViewController: UIViewController {
             make.top.left.right.bottom.equalToSuperview()
 //            make.bottom.equalTo(bottomView.snp.top)
         }
-        if let linkUrl = link,
+        if let linkUrl = self.link,
            let url = URL(string: linkUrl) {
             let request = URLRequest(url: url)
-            webView.load(request)
+            self.webView.load(request)
         }
     }
-    
+    @objc func cancelAction() {
+        popupView?.dismissPopupView(completion: { _ in
+            
+        })
+    }
     @objc func handleMoreButtonClicked() {
 //        if popupView != nil {
 //            return
 //        }
-        popupView = JFPopupView.popup.custom(with: JFPopupConfig.bottomSheet) { mainContainer in
+        popupView = JFPopupView.popup.custom(with: JFPopupConfig.bottomSheet) { [self] mainContainer in
             let card = UIView()
             card.backgroundColor =  UIColor(hexString: "F6F6F6")
-            card.frame = CGRectMake(0, 0, Constants.screenWidth, Constants.bottomInset + 420)
-            self.roundCorners(card: card, corners: [.topLeft, .topRight], radius: 8)
+            card.frame = CGRectMake(0, 0, Constants.screenWidth, Constants.bottomInset + 320)
+            self.roundCorners(card: card, corners: [.topLeft, .topRight], radius: 12)
             
             let titleLabele = DNKCreate.label(text:"网页由 view.inews.qq.com 提供", textColor: UIColor(white: 0, alpha: 0.6), fontSize: 13)
             card.addSubview(titleLabele)
@@ -117,52 +122,59 @@ class NewDetailsViewController: UIViewController {
                 tempView = btn
                 i += 1
             }
+             
             
-            
-            
-            
-            
-            let title2 = ["投诉", "复制链接", "刷新", "查找页面内容", "全文翻译"]
-            let icon2 = ["icon_download", "icon_lookup", "favorite", "icon_refresh", "icon_font", "icon_fanyi"]
+            let scrollView = UIScrollView()
+            card.addSubview(scrollView)
+            scrollView.snp.makeConstraints { make in
+                make.top.equalTo(tempView!.snp.bottom).offset(25)
+                make.left.right.equalToSuperview()
+            }
+            let contentView = UIView()
+            scrollView.addSubview(contentView)
+            scrollView.showsHorizontalScrollIndicator = false
+            contentView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+                make.height.equalToSuperview()
+            }
+            let title2 = ["保存为图片", "投诉", "复制链接", "刷新", "全文翻译", "查找页面内容", "调整字体"]
+            let icon2 = ["icon_download", "icon_warm", "icon_link", "icon_refresh", "icon_fanyi", "icon_lookup", "icon_font"]
             i = 0
             tempView = nil
-//            let tipsLabele = DNKCreate.label(text:"根据国家监管要求，请确认你曾在微信支付留存的手机号151******52当前是否为你本人使用。请在2024-09-17前处理，以正常使用微信支付。", textColor: UIColor(white: 0, alpha: 0.8), fontSize: 16, weight: .medium)
-//            card.addSubview(tipsLabele)
-//            tipsLabele.numberOfLines = -1
-//            tipsLabele.snp.makeConstraints { make in
-//                make.top.equalTo(titleLabele.snp.bottom).offset(20)
-//                make.centerX.equalToSuperview()
-//                make.left.equalTo(25)
-//                make.right.equalTo(-25)
-//            }
-//            let buttonWidth = 120.0
-//            let buttonHeight = 50.0
-//            let spacing = 15.0
-//            let localtion = (Constants.screenWidth - 2*buttonWidth - spacing) / 2
-//            let lateButton = DNKCreate.button(normalTitle: "稍后处理", normalColor: .black, fontSize: 16)
-//            card.addSubview(lateButton)
-//            lateButton.addTarget(self, action: #selector(self.lateButtonAction), for: UIControl.Event.touchUpInside)
-//            lateButton.layer.cornerRadius = 6
-//            lateButton.layer.masksToBounds = true
-//            lateButton.backgroundColor = UIColor(white: 0, alpha: 0.1)
-//            lateButton.snp.makeConstraints { make in
-//                make.height.equalTo(buttonHeight)
-//                make.width.equalTo(buttonWidth)
-//                make.top.equalTo(tipsLabele.snp.bottom).offset(50)
-//                make.left.equalToSuperview().offset(localtion)
-//            }
-//            let nowButton = DNKCreate.button(normalTitle: "立即处理", normalColor: .white, fontSize: 16)
-//            card.addSubview(nowButton)
-//            nowButton.backgroundColor = Colors.Green_standrad
-//            nowButton.layer.cornerRadius = 6
-//            nowButton.layer.masksToBounds = true
-//            nowButton.snp.makeConstraints { make in
-//                make.height.equalTo(buttonHeight)
-//                make.width.equalTo(buttonWidth)
-//                make.top.equalTo(lateButton.snp.top)
-//                make.left.equalTo(lateButton.snp.right).offset(spacing)
-//            }
-            // 立即处理
+            while i < title2.count {
+                let btn = self.makeNewsButton(icon: icon2[i], title: title2[i])
+                contentView.addSubview(btn)
+                btn.snp.makeConstraints { make in
+                    make.top.bottom.equalToSuperview()
+                    if tempView == nil {
+                        make.left.equalToSuperview().offset(15)
+                    } else {
+                        make.left.equalTo(tempView!.snp.right).offset(15)
+                    }
+                    if i == title2.count - 1 {
+                        make.right.equalToSuperview().offset(-15)
+                    }
+                }
+                tempView = btn
+                i += 1
+            }
+            
+            let lineView = UIView()
+            card.addSubview(lineView)
+            lineView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+            lineView.snp.makeConstraints { make in
+                make.top.equalTo(scrollView.snp.bottom).offset(15)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(0.3)
+            }
+            let cancelBtn = DNKCreate.button(normalTitle: "取消", normalColor: Colors.Blue_TEXT, fontSize: 16)
+            card.addSubview(cancelBtn)
+            cancelBtn.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
+            cancelBtn.snp.makeConstraints { make in
+                make.top.equalTo(lineView.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(50)
+            }
             return card
         }
         popupView?.config.bgColor = UIColor(white: 0, alpha: 0.6)
@@ -181,11 +193,13 @@ class NewDetailsViewController: UIViewController {
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.size.equalTo(CGSizeMake(60, 60))
-            make.left.right.equalToSuperview()
+            make.left.greaterThanOrEqualTo(1)
+            make.right.greaterThanOrEqualTo(-1)
+//            make.left.right.greaterThanOrEqualTo(0)
         }
         let titleLabel = DNKCreate.label(text: title, textColor: UIColor(white: 0, alpha: 0.4), fontSize: 10)
         itemView.addSubview(titleLabel)
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center
         titleLabel.snp.makeConstraints { make in
             make.left.bottom.right.equalToSuperview()

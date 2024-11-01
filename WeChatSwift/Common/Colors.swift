@@ -161,7 +161,7 @@ struct Colors {
     static let Blue_BG_110 = UIColor(hexString: "#5AAFE4")
     static let Blue_BG_100 = UIColor(hexString: "#48A6E2")
     static let Blue_BG_90 = UIColor(hexString: "#4095CB")
-    
+    static let Blue_TEXT = UIColor(hexString: "566B94")
     // Indigo
     static let Indigo = UIColor(hexString: "#1485EE")
     static let Indigo_170 = UIColor(hexString: "#B8DAF9")
