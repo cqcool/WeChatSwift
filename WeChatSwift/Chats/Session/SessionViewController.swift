@@ -205,9 +205,7 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
 //            let brandTimelineVC = BrandTimelineViewController()
 //            navigationController?.pushViewController(brandTimelineVC, animated: true)
 //        } else {
-        guard let userMsgType = session.userMsgType else {
-            return
-        }
+        let userMsgType = session.userMsgType ?? 1 
         if userMsgType == 3 {
             let vc = NewsViewController()
             vc.session = session
