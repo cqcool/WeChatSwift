@@ -137,6 +137,11 @@ extension NewsViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCellNode", for: indexPath)
         (cell as! NewsCellNode).cellForModel(model: message)
+        (cell as! NewsCellNode).clickNewsBlock = { newsLink in
+            let vc = NewDetailsViewController()
+            vc.link = newsLink
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
