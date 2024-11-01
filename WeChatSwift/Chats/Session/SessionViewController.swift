@@ -72,10 +72,6 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     }
     
     @objc func refreshTokenEvent() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            debugPrint("joinGroup")
-            Socket.shared.joinGroup()
-        }
     }
     @objc func configUpdate() {
         tableNode.reloadData()
@@ -216,7 +212,6 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
             let chatVC = ChatRoomViewController(session: session)
             navigationController?.pushViewController(chatVC, animated: true)
             chatVC.updateGroupBlock = { groupEntity in
-//                self.dataSource[indexPath.row] = groupEntity
                 self.tableNode.reloadRows(at: [indexPath], with: .fade)
             }
         }

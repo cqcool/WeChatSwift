@@ -90,6 +90,7 @@ class GlobalManager: NSObject {
         if isShowLogin {
             return
         }
+        Socket.shared.leaveGroup()
         isShowLogin = true
         updateRefreshToken(refreshToken: nil)
         updateToken(token: nil)
@@ -105,7 +106,9 @@ class GlobalManager: NSObject {
             let json = try? JSON(data: responseData)
             if let refreshToken = json?["data"]["refreshToken"].string {
                 GlobalManager.manager.updateRefreshToken(refreshToken: refreshToken)
-                self.refreshUserInfo()
+                self.refreshUserInfo() {_ in 
+                    
+                }
                 self.getConfigInfo()
                 NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
                 Socket.shared.connect()
@@ -138,12 +141,15 @@ extension GlobalManager {
         UserDefaults.standard.object(forKey: "token") as? String
     }
     
-    private func refreshUserInfo() {
+    func refreshUserInfo(completed: @escaping ((_: Error?)->())) {
         let infoRequest = UserInfoRequest()
         infoRequest.startWithCompletionBlock { request in
             if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
                  GlobalManager.manager.updatePersonModel(model: resp)
              }
+            completed(nil)
+        } failure: { request in
+            completed(request.error)
         }
     }
     
@@ -180,19 +186,18 @@ extension GlobalManager {
                                 NotificationCenter.default.post(name: ConstantKey.NSNotificationConfigUpdate, object: nil)
                                 self.headPrefix = headPrefix
                                 WXUserDefault.updateHeadPrefix(str: headPrefix)
-                                result?(nil)
                             }
                             
                             let chatPrefix = valuesDic["chat"] as? String
                             if self.chatPrefix != chatPrefix {
                                 self.chatPrefix = chatPrefix
                                 WXUserDefault.updateChatPrefix(str: chatPrefix)
-                                result?(nil)
                             }
                         }
                         
                     }
                 }
+                result?(nil)
             }
         } failure: { request in
             result?(request.error as NSError?)

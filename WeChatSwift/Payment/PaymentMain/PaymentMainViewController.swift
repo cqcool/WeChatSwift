@@ -65,6 +65,13 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         
         let balance = GlobalManager.manager.personModel?.balance ?? "0.00"
         balanceValueNode.attributedText = attributedStringForBalance(balance: balance)
+        
+        GlobalManager.manager.refreshUserInfo { error in
+            if error == nil {
+                let balance = GlobalManager.manager.personModel?.balance ?? "0.00"
+                self.balanceValueNode.attributedText = self.attributedStringForBalance(balance: balance)
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -124,7 +131,7 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         ])
         balanceButton.addSubnode(titleNode)
         
-       
+        
         balanceValueNode.frame =  CGRect(x: 0, y: 100, width: buttonWidth, height: 22)
         let paragraphStyle1 = NSMutableParagraphStyle()
         paragraphStyle1.alignment = .center
@@ -133,17 +140,6 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
     private func attributedStringForBalance(balance: String) -> NSAttributedString {
         let unit = "¥"
         let value = unit + balance
-//        let paragraphStyle1 = NSMutableParagraphStyle()
-//        paragraphStyle1.alignment = .center
-//        let mutableAttribtue = NSMutableAttributedString(string: value, attributes: [
-//            .font: Fonts.font(.superScriptMedium, fontSize: 13.4)!,
-//            .foregroundColor: UIColor(white: 1, alpha: 0.7),
-//            .paragraphStyle: paragraphStyle1
-//        ])
-//        if let range = value.range(of: unit) {
-//            let nsRange = NSRange(range, in: value)
-//            mutableAttribtue.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.4, weight: .medium), range: nsRange)
-//        }
         
         return value.moneyUnitAttribute(textColor: UIColor(white: 1, alpha: 0.7), fontSize: 13.4)
     }

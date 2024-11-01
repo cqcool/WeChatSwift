@@ -106,15 +106,17 @@ class WeChatLoginViewController: UIViewController {
         
         let infoRequest = UserInfoRequest()
         chainRequest.add(infoRequest) { _, request in
+            if request.apiSuccess() {
             GlobalManager.manager.getConfigInfo { error in
-                DNKProgressHUD.hiddenProgressHUD()
-                if request.apiSuccess() {
+                    DNKProgressHUD.hiddenProgressHUD()
                     if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
                         GlobalManager.manager.updatePersonModel(model: resp)
                         GlobalManager.manager.login(isLogin: true)
                     }
                     return
                 }
+            } else {
+                DNKProgressHUD.hiddenProgressHUD()
                 GlobalManager.manager.updateRefreshToken(refreshToken: nil)
                 GlobalManager.manager.updateToken(token: nil)
                 self.showPopupAlert(msg: request.apiMessage())

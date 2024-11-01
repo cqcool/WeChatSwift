@@ -8,6 +8,7 @@
 
 import Foundation
 import WCDBSwift
+import SocketIO
 
 
 @objcMembers
@@ -48,9 +49,10 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
     var type: Int? = 0//0,
     /// 用户id
     var userId: String? = ""//0
-    /*
-     {"referContent":"","referUserHead":"","nickname":"一二三四五六七八九十十一十二十三","linkContent":"{\"name\":\"恭喜发财，大吉大利\",\"orderNumber\":\"RP202410246829772967533\",\"type\":1}","referContentType":null,"isUp":1,"toUserId":null,"orderNumber":"RP202410246829772967533","isAllDel":0,"type":1,"groupNo":"712557675480748032","groupType":2,"no":"721199312935194624","referUserId":null,"showTime":null,"contentType":7,"head":"fc8976205c794d92b8678dbeb324d930.webp","referLinkContent":"","referMsgNo":null,"referUserNickname":"","createTime":1729772967533,"content":"","userId":"865021641"}
-     */
+    
+    
+    var appId: String? = ""//0
+    var lastNo: String? = ""//0
     enum CodingKeys: String, CodingTableKey {
 
         nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
@@ -97,6 +99,31 @@ extension MessageEntity {
     static func queryMessag(groupNo: String) -> [MessageEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
                                    where: (MessageEntity.Properties.groupNo == groupNo))
+    }
+}
+
+extension MessageEntity: SocketData {
+    func socketRepresentation() throws -> SocketData {
+        guard let dic = mj_JSONObject() as? [String: Any] else {
+            return [:]
+        }
+        return dic
+    }
+    static func buildMessage(content: String, groupNo: String, groupType: Int, lastNo: String?) -> MessageEntity {
+        let message = MessageEntity()
+        message.groupNo = groupNo
+        message.groupType = groupType
+        message.type = 1
+        message.contentType = 0
+        message.content = content
+        message.appId = NSString.random32bit()
+        message.lastNo = lastNo
+        
+        
+//        message.createTime = TimeInterval(NSString.currentTimeStamp())
+        message.head = GlobalManager.manager.personModel?.head
+        message.nickname = GlobalManager.manager.personModel?.nickname
+        return message
     }
 }
 

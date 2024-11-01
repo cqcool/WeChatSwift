@@ -38,6 +38,9 @@ class ChatRoomDateFormatter {
         let curDay = components.day
         for message in messageList {
             let groupTimestamp = message.time
+            if groupTimestamp == 0 {
+                continue
+            }
             let groupDate = Date(timeIntervalSince1970: groupTimestamp/1000)
             let groupComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday, .weekOfYear], from: groupDate)
             
