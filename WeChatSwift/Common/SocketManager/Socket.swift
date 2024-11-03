@@ -10,12 +10,20 @@ import Foundation
 import SocketIO
 import SwiftyJSON
 
+protocol SocketDelegate: NSObject {
+    /// 发送消息，接收到ack回调，更新信息
+    func updateLatestMessageEntity(entity: MessageEntity, latestNo: String, oldNo: String, isReadMoreHisoty: Bool)
+    /// 收到最新消息
+    func receiveLatestMessageEntity(groupNo: String, entity: MessageEntity)
+}
+
 
 class Socket: NSObject {
     static let shared = Socket()
     private var socketManager: SocketManager? = nil
     private var client: SocketIOClient? = nil
     private static let url = "ws://47.237.119.236:6002"
+    var delegate: SocketDelegate? = nil
     override init() {
         // https://gitcode.com/gh_mirrors/so/socket.io-client-swift/overview?utm_source=artical_gitcode&index=bottom&type=card&&isLogin=1
         
@@ -56,6 +64,10 @@ class Socket: NSObject {
                 print("WX Socket did joinGroup: \(message)")
             }
         }
+        
+        client?.on("sendGroupMsg", callback: { data, ack in
+            debugPrint(data)
+        });
     }
     func connect() {
         if socketManager != nil {
@@ -80,7 +92,24 @@ class Socket: NSObject {
     }
     
     func sendData(message: MessageEntity) {
-        client?.emitWithAck("sendGroupMsg", message)
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted // 如果你希望输出的JSON字符串是格式化过的
+            let jsonData = try encoder.encode(message)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                print(jsonString)
+                debugPrint("message JSON: " + jsonString)
+                client?.emitWithAck("sendGroupMsg", with: [jsonString]).timingOut(after: 5, callback: { data in
+                    if let content = data.first as? String {
+                        self.handleAckMessage(message: message, content: content)
+                        debugPrint("WX Socket ack Data: \(content)")
+                        
+                    }
+                })
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     func leaveGroup() {
@@ -99,7 +128,7 @@ class Socket: NSObject {
         }
     }
     
-    
+     
 }
 
 private extension Socket {
@@ -131,5 +160,26 @@ private extension Socket {
             GlobalManager.manager.logout()
             return
         }
+    }
+    
+    func handleAckMessage(message: MessageEntity, content: String) {
+        guard let json =  try? JSON(data: content.data(using: .utf8)!) else {
+            return
+        }
+        
+        if json["code"].intValue != 200 {
+            return
+        }
+        guard let dataString = json["data"].string,
+        let data = try? JSON(data: dataString.data(using: .utf8)!) else {
+            return
+        }
+        // ack 响应的lastNo 和 本地的lastNo不一致时，则需要拉取最新数据，直至与本地的上一条no一样
+        let oldLastNo = message.lastNo
+        let lastNo = data["lastNo"].stringValue
+        message.no = String(data["no"].intValue)
+        message.showTime = TimeInterval(data["showTime"].intValue)
+        
+        delegate?.updateLatestMessageEntity(entity: message, latestNo: lastNo, oldNo: oldLastNo!, isReadMoreHisoty: lastNo == oldLastNo)
     }
 }

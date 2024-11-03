@@ -86,6 +86,29 @@ final class ChatRoomDataSource {
         
     }
     
+    func appendOmissionMsgList(_ msgList: [MessageEntity], latestNo: String, oldNo: String) {
+        debugPrint("===============")
+        for msg in msgList {
+            debugPrint("groupType: \(msg.groupType), text:\(msg.content)")
+        }
+        debugPrint("===============")
+        formatTime()
+        let _ = lock.wait(timeout: .distantFuture)
+        for messageEntity in msgList {
+            if messages.firstIndex(where: { $0.entity?.no == messageEntity.no }) != nil {
+                break
+            }
+            let message = messageEntity.toMessage()
+            dateFormatter.chatSingleFormatTime(message: message)
+            if let oldIndex = messages.firstIndex(where: { $0.entity?.no == oldNo }) {
+                messages.insert(message, at: oldIndex)
+                tableNode?.insertRows(at: [IndexPath(row: oldIndex, section: 0)], with: .none)
+            }
+        }
+        lock.signal()
+        
+    }
+    
     func formatTime() {
         dateFormatter.chatFormatTime(messageList: messages)
     }

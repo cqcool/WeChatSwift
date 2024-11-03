@@ -85,7 +85,6 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         arrowNode.frame = CGRect(x: Constants.screenWidth - 20 - size.width, y: (50.0 - size.height)/2, width: size.width, height: size.height)
         errorNode.addSubnode(arrowNode)
         errorNode.isHidden = true
-        
     }
     
     deinit {
@@ -96,6 +95,10 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func wx_backButtonClicked() {
+        super.wx_backButtonClicked()
+        Socket.shared.delegate = nil
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -107,6 +110,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         } else {
             members = [session.toMember()]
         }
+        Socket.shared.delegate = self
     }
     private func updateChatRoomView(status: ChatRoomStatus) {
         switch status {
@@ -272,10 +276,10 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
 // MARK: - Event Handlers
 
 extension ChatRoomViewController {
-     
-    public func receiveNewMessage() {
-        loadRemoteMessage(msgNo: self.dataSource.messages.first?.entity?.no, hasUnreadMsg: true, lookUpHistory: false, showMsgTime: false)
-    }
+    
+//    public func receiveNewMessage() {
+//        loadRemoteMessage(msgNo: self.dataSource.messages.first?.entity?.no, hasUnreadMsg: true, lookUpHistory: false, showMsgTime: false, untilOldNo:)
+//    }
     
     @objc private func handlePopGesture(_ gesture: UIGestureRecognizer) {
         switch gesture.state {
@@ -306,25 +310,25 @@ extension ChatRoomViewController {
         // 有未读消息，就从服务端请求，否则加载本地数据即可
         let hasUnreadMsg = Int(session.unReadNum ?? "0")! > 0 ? true : false
         guard let mssageList = MessageEntity.queryMessag(groupNo: session.groupNo!),
-        mssageList.count > 0 else {
-//            if hasUnreadMsg {
-                loadRemoteMessage(msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-//            } else {
-//                loadRemoteMessage(sort: "0", msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-//            }
+              mssageList.count > 0 else {
+            //            if hasUnreadMsg {
+            loadRemoteMessage(msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
+            //            } else {
+            //                loadRemoteMessage(sort: "0", msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
+            //            }
             return
         }
         self.dataSource.appendMsgList(mssageList, scrollToLastMessage: true, showMsgTime: true)
         if hasUnreadMsg {
             loadRemoteMessage(msgNo: mssageList.first?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
         }
-     
+        
     }
     /*
      hasUnreadMsg: 有未读消息，需要通知服务器更新消息状态
      */
-    private func loadRemoteMessage(sort: String = "1", msgNo: String?, hasUnreadMsg: Bool = false, lookUpHistory: Bool, showMsgTime: Bool = true) {
-//        let isLoadLatest = sort == "1" ? true : false
+    private func loadRemoteMessage(sort: String = "1", msgNo: String?, hasUnreadMsg: Bool = false, lookUpHistory: Bool, showMsgTime: Bool = true, untilOldNo oldNo: String? = nil) {
+        //        let isLoadLatest = sort == "1" ? true : false
         let request = MessageRequest(groupNo: session.groupNo!)
         request.groupNo = session.groupNo!
         request.sort = sort
@@ -351,9 +355,18 @@ extension ChatRoomViewController {
                 let resp = try JSONDecoder().decode([MessageEntity].self, from: request.wxResponseData())
                 if resp.count > 0 {
                     MessageEntity.insertOrReplace(list: resp)
+                    if oldNo != nil {
+                        self.dataSource.appendMsgList(resp, scrollToLastMessage:false, lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
+                    } else {
+                        self.dataSource.appendMsgList(resp, scrollToLastMessage:sort == "1", lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
+                    }
                     self.dataSource.appendMsgList(resp, scrollToLastMessage:sort == "1", lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
                     if hasUnreadMsg {
                         self.readMessage(no: resp.last?.no ?? "")
+                    }
+                    // 避免重复读数据
+                    if self.dataSource.messages.first(where: { $0.entity?.no == resp.first?.no }) == nil {
+                        self.loadRemoteMessage(sort: "0", msgNo: resp.first?.no, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
                     }
                 } else {
                     if sort == "0" {
@@ -438,41 +451,46 @@ extension ChatRoomViewController: UIScrollViewDelegate {
 extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
     
     func keyboard(_ keyboard: ChatRoomKeyboardNode, didSendText text: String) {
-        let message = Message()
-        message.chatID = session.groupNo!
-        message.content = .text(text)
-        message.senderID = AppContext.current.userID
-        message.localMsgID = UUID().uuidString
-        message.time = TimeInterval(Date().timeIntervalSinceNow)
-        dataSource.append(message)
+        let msg = dataSource.messages.last
+        let messagaEntity = MessageEntity.buildMessage(content: text, groupNo: session.groupNo!, groupType: session.groupType!, lastNo: msg?.entity?.no)
+        Socket.shared.sendData(message: messagaEntity)
+        dataSource.appendMsgList([messagaEntity], scrollToLastMessage: true, showMsgTime: false)
+        
+        //        let message = Message()
+        //        message.chatID = session.groupNo!
+        //        message.content = .text(text)
+        //        message.senderID = AppContext.current.userID
+        //        message.localMsgID = UUID().uuidString
+        //        message.time = TimeInterval(Date().timeIntervalSinceNow)
+        //        dataSource.append(message)
         
         inputNode.clearText()
     }
     
     func keyboard(_ keyboard: ChatRoomKeyboardNode, didSelectToolItem tool: ChatRoomTool) {
         switch tool {
-        case .album:
-            let selectionHandler = { [weak self] (selectedAssets: [MediaAsset]) in
-                self?.sendMediaAssets(selectedAssets)
-                self?.dismiss(animated: true, completion: nil)
-            }
-            let configuration = AssetPickerConfiguration.configurationForChatRoom()
-            let albumPickerVC = AlbumPickerViewController(configuration: configuration)
-            albumPickerVC.selectionHandler = selectionHandler
-            let assetPickerVC = AssetPickerViewController(configuration: configuration)
-            assetPickerVC.selectionHandler = selectionHandler
-            let nav = UINavigationController()
-            nav.setViewControllers([albumPickerVC, assetPickerVC], animated: false)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true, completion: nil)
-        case .camera:
-            let sightCameraVC = SightCameraViewController()
-            sightCameraVC.modalPresentationCapturesStatusBarAppearance = true
-            sightCameraVC.modalTransitionStyle = .coverVertical
-            sightCameraVC.modalPresentationStyle = .overCurrentContext
-            present(sightCameraVC, animated: true, completion: nil)
-        case .location:
-            showSendLocationActionSheet()
+            //        case .album:
+            //            let selectionHandler = { [weak self] (selectedAssets: [MediaAsset]) in
+            //                self?.sendMediaAssets(selectedAssets)
+            //                self?.dismiss(animated: true, completion: nil)
+            //            }
+            //            let configuration = AssetPickerConfiguration.configurationForChatRoom()
+            //            let albumPickerVC = AlbumPickerViewController(configuration: configuration)
+            //            albumPickerVC.selectionHandler = selectionHandler
+            //            let assetPickerVC = AssetPickerViewController(configuration: configuration)
+            //            assetPickerVC.selectionHandler = selectionHandler
+            //            let nav = UINavigationController()
+            //            nav.setViewControllers([albumPickerVC, assetPickerVC], animated: false)
+            //            nav.modalPresentationStyle = .fullScreen
+            //            present(nav, animated: true, completion: nil)
+            //        case .camera:
+            //            let sightCameraVC = SightCameraViewController()
+            //            sightCameraVC.modalPresentationCapturesStatusBarAppearance = true
+            //            sightCameraVC.modalTransitionStyle = .coverVertical
+            //            sightCameraVC.modalPresentationStyle = .overCurrentContext
+            //            present(sightCameraVC, animated: true, completion: nil)
+            //        case .location:
+            //            showSendLocationActionSheet()
         case .redPacket:
             let makeRedEnvelopeVC = MakeRedEnvelopeViewController()
             makeRedEnvelopeVC.session = session
@@ -591,9 +609,9 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
     func handleRedPacket(cellNode: MessageCellNode, model: RedPacketGetEntity?, msg: RedPacketMessage?) {
         let red = RedEnvelopView.init()
         red.callBackClosure = {
-//            let vc = UIViewController.init()
-//            vc.view.backgroundColor = .white
-//            self.navigationController?.pushViewController(vc, animated: false)
+            //            let vc = UIViewController.init()
+            //            vc.view.backgroundColor = .white
+            //            self.navigationController?.pushViewController(vc, animated: false)
         }
         red.detailsClosure = { m in
             let vc = RedDetailsViewController()
@@ -611,7 +629,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         }
         // 自己领取了
         red.updateRedContent(model: model, msg: msg)
-
+        
     }
 }
 
@@ -668,4 +686,21 @@ extension ChatRoomViewController {
         mjHeader.arrowView?.image = nil
         tableNode.view.mj_header = mjHeader
     }
+}
+
+extension ChatRoomViewController: SocketDelegate {
+    
+    func updateLatestMessageEntity(entity: MessageEntity, latestNo: String, oldNo: String, isReadMoreHisoty: Bool) {
+        if !isReadMoreHisoty {
+            MessageEntity.insertOrReplace(list: [entity])
+            
+            return
+        }
+        loadRemoteMessage(sort: "0", msgNo: latestNo, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
+    }
+    
+    func receiveLatestMessageEntity(groupNo: String, entity: MessageEntity) {
+        
+    }
+    
 }
