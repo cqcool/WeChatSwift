@@ -12,7 +12,7 @@ import SwiftyJSON
 
 protocol SocketDelegate: NSObject {
     /// 发送消息，接收到ack回调，更新信息
-    func updateLatestMessageEntity(entity: MessageEntity, latestNo: String, oldNo: String, isReadMoreHisoty: Bool)
+    func updateLatestMessageEntity(entity: MessageEntity, latestNo: String?, oldNo: String?, isReadMoreHisoty: Bool)
     /// 收到最新消息
     func receiveLatestMessageEntity(groupNo: String, entity: MessageEntity)
 }
@@ -176,10 +176,10 @@ private extension Socket {
         }
         // ack 响应的lastNo 和 本地的lastNo不一致时，则需要拉取最新数据，直至与本地的上一条no一样
         let oldLastNo = message.lastNo
-        let lastNo = data["lastNo"].stringValue
+        let lastNo = data["lastNo"].string
         message.no = String(data["no"].intValue)
         message.showTime = TimeInterval(data["showTime"].intValue)
         
-        delegate?.updateLatestMessageEntity(entity: message, latestNo: lastNo, oldNo: oldLastNo!, isReadMoreHisoty: lastNo == oldLastNo)
+        delegate?.updateLatestMessageEntity(entity: message, latestNo: lastNo, oldNo: oldLastNo, isReadMoreHisoty: lastNo == oldLastNo)
     }
 }

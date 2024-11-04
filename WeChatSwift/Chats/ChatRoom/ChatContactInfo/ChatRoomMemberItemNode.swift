@@ -82,11 +82,13 @@ class ChatRoomMemberItemNode: ASDisplayNode {
         
         switch memberItem {
         case .addButton:
+            addButtonNode.imageNode.contentMode = .scaleAspectFit
             addButtonNode.style.preferredSize = CGSize(width: 50, height: 50)
             addButtonNode.style.layoutPosition = CGPoint(x: constrainedSize.max.width - 50, y: (constrainedSize.max.height - 50)/2)
             
             return ASAbsoluteLayoutSpec(children: [addButtonNode])
         case .removeButton:
+            removeButtonNode.imageNode.contentMode = .scaleAspectFit
             removeButtonNode.style.preferredSize = CGSize(width: 50, height: 50)
             removeButtonNode.style.layoutPosition = CGPoint(x: constrainedSize.max.width - 50, y: (constrainedSize.max.height - 50)/2)
             

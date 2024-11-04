@@ -690,9 +690,9 @@ extension ChatRoomViewController {
 
 extension ChatRoomViewController: SocketDelegate {
     
-    func updateLatestMessageEntity(entity: MessageEntity, latestNo: String, oldNo: String, isReadMoreHisoty: Bool) {
+    func updateLatestMessageEntity(entity: MessageEntity, latestNo: String?, oldNo: String?, isReadMoreHisoty: Bool) {
+        MessageEntity.insertOrReplace(list: [entity])
         if !isReadMoreHisoty {
-            MessageEntity.insertOrReplace(list: [entity])
             
             return
         }

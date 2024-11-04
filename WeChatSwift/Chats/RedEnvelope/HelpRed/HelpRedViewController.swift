@@ -79,9 +79,9 @@ extension HelpRedViewController: ASTableDelegate, ASTableDataSource {
  
 extension HelpRedViewController {
     private func setDatasource() {
-        dataSource.append(HelpRedModel(type: 1, image: UIImage(named: "AlbumReflashIcon_30x30_")!, name: "面对面红包", q1: "微信面对面红包使用方法", q2: "如何领取微信面对面红包", q3: "微信面对面红包可以截屏分享吗"))
-        dataSource.append(HelpRedModel(type: 2, image: UIImage(named: "AlbumReflashIcon_30x30_")!, name: "发红包问题", q1: "微信红包不收多久退回", q2: "已发出的红包如何撤回", q3: "怎么设置红包退款方式"))
-        dataSource.append(HelpRedModel(type: 3, image: UIImage(named: "AlbumReflashIcon_30x30_")!, name: "收红包问题", q1: "怎么查看我的红包记录", q2: "为什么微信里领取了红包却未入账", q3: "微信收红包的方法"))
-        dataSource.append(HelpRedModel(type: 4, image: UIImage(named: "AlbumReflashIcon_30x30_")!, name: "提现问题", q1: "领取的微信红包资金怎么提现", q2: "微信红包提现支持哪些银行", q3: "微信零钱提现最高限额是多少"))
+        dataSource.append(HelpRedModel(type: 1, image: UIImage(named: "icon_red_face2face")!, name: "面对面红包", q1: "微信面对面红包使用方法", q2: "如何领取微信面对面红包", q3: "微信面对面红包可以截屏分享吗"))
+        dataSource.append(HelpRedModel(type: 2, image: UIImage(named: "send_red_qua")!, name: "发红包问题", q1: "微信红包不收多久退回", q2: "已发出的红包如何撤回", q3: "怎么设置红包退款方式"))
+        dataSource.append(HelpRedModel(type: 3, image: UIImage(named: "receive_red_qua")!, name: "收红包问题", q1: "怎么查看我的红包记录", q2: "为什么微信里领取了红包却未入账", q3: "微信收红包的方法"))
+        dataSource.append(HelpRedModel(type: 4, image: UIImage(named: "withdraw_qua6")!, name: "提现问题", q1: "领取的微信红包资金怎么提现", q2: "微信红包提现支持哪些银行", q3: "微信零钱提现最高限额是多少"))
     }
 }

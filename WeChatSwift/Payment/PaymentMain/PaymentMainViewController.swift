@@ -147,7 +147,7 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
     private func setupFinanceActivities() {
         let activities = [
             MallFunctionActivity(identifier: 10001, title: "信用卡还款", image: UIImage(named: "mall_credit_card_repayment")),
-            MallFunctionActivity(identifier: 10002, title: "微粒贷借钱", image: UIImage(named: "mall_tencent_public_borrow_money")),
+//            MallFunctionActivity(identifier: 10002, title: "微粒贷借钱", image: UIImage(named: "mall_tencent_public_borrow_money")),
             //            MallFunctionActivity(identifier: 10002, title: "手机充值", image: UIImage(named: "mall_phone_recharge")),
             MallFunctionActivity(identifier: 10003, title: "理财通", image: UIImage(named: "mall_tencent_money")),
             MallFunctionActivity(identifier: 10004, title: "保险服务", image: UIImage(named: "mall_tencent_public_insurance")),
@@ -181,7 +181,7 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
     }
     private func setupTrafficActivities() {
         let activities = [
-            MallFunctionActivity(identifier: 30001, title: "出行服务", image: UIImage(named: "mall_train_airplane_tickets")),
+            MallFunctionActivity(identifier: 30001, title: "出行服务", image: UIImage(named: "travel_service")),
             MallFunctionActivity(identifier: 30001, title: "火车票机票", image: UIImage(named: "mall_train_airplane_tickets")),
             MallFunctionActivity(identifier: 20002, title: "滴滴出行", image: UIImage(named: "mall_didi_service")),
             MallFunctionActivity(identifier: 30003, title: "酒店民宿", image: UIImage(named: "mall_hotel")),
@@ -199,9 +199,9 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         let activities = [
             MallFunctionActivity(identifier: 40001, title: "品牌发现", image: UIImage(named: "mall_tencent_public_brand")),
             MallFunctionActivity(identifier: 40002, title: "京东购物", image: UIImage(named: "mall_jd")),
-            MallFunctionActivity(identifier: 40003, title: "美团外卖", image: UIImage(named: "mall_meituan")),
+            MallFunctionActivity(identifier: 40003, title: "美团外卖", image: UIImage(named: "mall_tencent_public_offer")),
             MallFunctionActivity(identifier: 40004, title: "电影演出 \n玩乐", image: UIImage(named: "mall_maoyan")),
-            MallFunctionActivity(identifier: 40005, title: "美团特价", image: UIImage(named: "mall_tencent_public_offer")),
+            MallFunctionActivity(identifier: 40005, title: "美团特价", image: UIImage(named: "mall_meituan")),
             MallFunctionActivity(identifier: 40006, title: "拼多多", image: UIImage(named: "mall_pdd")),
             MallFunctionActivity(identifier: 40007, title: "唯品会特卖", image: UIImage(named: "mall_vip")),
             MallFunctionActivity(identifier: 40008, title: "转转二手", image: UIImage(named: "mall_zhuanzhuan")),

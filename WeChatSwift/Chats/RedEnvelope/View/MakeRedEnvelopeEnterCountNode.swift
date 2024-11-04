@@ -43,6 +43,7 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
         randomArrowNode.image = UIImage(named: "LuckyMoney_ChangeArrow")
         
         redPacketNode.image = UIImage(named: "live_red_packet_icon")
+        redPacketNode.style.preferredSize = CGSize(width: 20, height: 24)
         leadingTextNode.attributedText = NSAttributedString(string: "红包个数", attributes: [
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: Colors.black

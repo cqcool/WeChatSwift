@@ -71,23 +71,23 @@ class WalletViewController: ASDKViewController<ASDisplayNode> {
     }
     private func setupDataSource() {
         let balance = GlobalManager.manager.personModel?.balance ?? "0.00"
-        var smallChange = WalletModel(type: .smallChange, title: "零钱", icon: "icons_outlined_wechatpay")
+        var smallChange = WalletModel(type: .smallChange, title: "零钱", icon: "icons_outlined_balance")
         smallChange.value = "¥" + balance
-        var  changePass = WalletModel(type: .changePass, title: "零钱通", icon: "icons_outlined_wechatpay")
+        var  changePass = WalletModel(type: .changePass, title: "零钱通", icon: "icons_outlined_o")
 //        changePass.value = "¥0.00"
         let changeRate = GlobalManager.manager.personModel?.changeRate ?? "0.00"
         changePass.additionalContent = "收益率\(changeRate)%"
-        let bankCard = WalletModel(type: .bankCard, title: "银行卡", icon: "icons_outlined_wechatpay")
-        let relativeCard = WalletModel(type: .relativeCard, title: "亲属卡", icon: "icons_outlined_wechatpay")
+        let bankCard = WalletModel(type: .bankCard, title: "银行卡", icon: "icons_outlined_brank")
+        let relativeCard = WalletModel(type: .relativeCard, title: "亲属卡", icon: "icons_outlined_relate")
         dataSource.append(WalletSection(items: [smallChange, changePass, bankCard, relativeCard]))
-        var shareInPayment = WalletModel(type: .shareInPayment, title: "分付", icon: "icons_outlined_wechatpay")
-        shareInPayment.additionalContent = "按日计息，随借随还"
-        dataSource.append(WalletSection(items: [shareInPayment]))
-        let digitalRMB = WalletModel(type: .digitalRMB, title: "数字人民币", icon: "icons_outlined_wechatpay")
-        dataSource.append(WalletSection(items: [digitalRMB]))
-        let pointsOfPayment = WalletModel(type: .pointsOfPayment, title: "支付分", icon: "icons_outlined_wechatpay")
+//        var shareInPayment = WalletModel(type: .shareInPayment, title: "分付", icon: "icons_outlined_minute")
+//        shareInPayment.additionalContent = "按日计息，随借随还"
+//        dataSource.append(WalletSection(items: [shareInPayment]))
+//        let digitalRMB = WalletModel(type: .digitalRMB, title: "数字人民币", icon: "icons_outlined_wechatpay")
+//        dataSource.append(WalletSection(items: [digitalRMB]))
+        let pointsOfPayment = WalletModel(type: .pointsOfPayment, title: "支付分", icon: "icons_outlined_minute")
         dataSource.append(WalletSection(items: [pointsOfPayment]))
-        let consumerProtection = WalletModel(type: .consumerProtection, title: "消费者保护", icon: "icons_outlined_wechatpay")
+        let consumerProtection = WalletModel(type: .consumerProtection, title: "消费者保护", icon: "icons_outlined_protect")
         dataSource.append(WalletSection(items: [consumerProtection]))
     }
 }
