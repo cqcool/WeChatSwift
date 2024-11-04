@@ -58,6 +58,9 @@ final class ChatRoomDataSource {
         let _ = lock.wait(timeout: .distantFuture)
         formatTime()
         for messageEntity in msgList {
+            if messageEntity.type == 6 {
+                continue
+            }
             let message = messageEntity.toMessage()
             if showMsgTime  {
                 dateFormatter.chatSingleFormatTime(message: message)

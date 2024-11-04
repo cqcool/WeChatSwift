@@ -413,28 +413,29 @@ extension ChatRoomViewController {
                     }
                 }
             }
+        } failure: { request in
+//            self.handleGroupError(request: request)
         }
     }
     private func getGroupInfo() {
         let request = GroupInfoRequest(groupNo: session.groupNo)
         request.start(withNetworkingHUD: false, showFailureHUD: false) { request in
-            //            do {
-            //                let resp = try JSONDecoder().decode(GroupEntity.self, from: request.wxResponseData())
-            //                GroupEntity.insertOrReplace(list: [resp])
-            //                self.updateChatRoomView(status: ChatRoomStatus(rawValue: resp.status) ?? .byRemove)
-            //                print(resp)
-            //            }  catch {
-            //                print("Error decoding JSON: \(error)")
-            //            }
         } failure: { request in
-            let code = request.apiCode()
-            if code == -7 ||
-                code == -11 {
-                self.session.status = code == -7 ? 2 : 1
-                GroupEntity.insertOrReplace(list: [self.session])
-                self.updateChatRoomView(status: ChatRoomStatus(rawValue: self.session.status) ?? .normal)
-                return
-            }
+            self.handleGroupError(request: request)
+        }
+    }
+    private func handleGroupError(request: YTKBaseRequest) {
+        let code = request.apiCode()
+        if code == DNKNetworkCode.GROUP_IS_BLOCKED.rawValue ||
+            code == DNKNetworkCode.GROUP_IS_REMOVE.rawValue {
+            self.session.status = code == -7 ? 2 : 1
+            GroupEntity.insertOrReplace(list: [self.session])
+            self.updateChatRoomView(status: ChatRoomStatus(rawValue: self.session.status) ?? .normal)
+            return
+        }
+        if code == DNKNetworkCode.GROUP_USER_IS_REMOVE.rawValue {
+            self.updateChatRoomView(status: .byRemove)
+            return
         }
     }
 }
@@ -733,7 +734,8 @@ extension ChatRoomViewController: SocketDelegate {
             entity.userId == GlobalManager.manager.personModel?.userId {
             return
         }
-        if entity.groupIsChange == 1 {
+        if entity.groupIsChange == 1 ||
+            entity.type == 6 {
             getGroupInfo()
             return
         }

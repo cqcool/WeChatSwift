@@ -109,6 +109,11 @@ class WeChatLoginViewController: UIViewController {
             if request.apiSuccess() {
             GlobalManager.manager.getConfigInfo { error in
                     DNKProgressHUD.hiddenProgressHUD()
+                if let account = GlobalManager.manager.personModel?.account {
+                    if account != phone {
+                        GlobalManager.manager.cleanLocalData()
+                    }
+                }
                     if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
                         GlobalManager.manager.updatePersonModel(model: resp)
                         GlobalManager.manager.login(isLogin: true)

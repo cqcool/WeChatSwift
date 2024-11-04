@@ -172,4 +172,5 @@ extension GroupEntity {
                                    where: (GroupEntity.Properties.userMsgType == 2  ||
                                            GroupEntity.Properties.groupType == 1))
     }
+    
 }
