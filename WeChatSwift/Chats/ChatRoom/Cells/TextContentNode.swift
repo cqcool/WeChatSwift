@@ -49,7 +49,8 @@ class TextContentNode: MessageContentNode {
                 NSAttributedString.Key.underlineColor: UIColor.clear
             ], range: link.range)
         }
-        textNode.attributedText = ExpressionParser.shared?.attributedText(with: attributedText)
+//        textNode.attributedText = ExpressionParser.shared?.attributedText(with: attributedText)
+        textNode.attributedText = ExpressionParser.shared?.attributedTagText(with: attributedText)
 //        textNode.attributedText = ExpressionParser.shared?.attributedText(with: attributedText)
         
         supportedMenus = [.copy, .forward, .addFavorite, .delete, .multiSelect, .remind, .translate]

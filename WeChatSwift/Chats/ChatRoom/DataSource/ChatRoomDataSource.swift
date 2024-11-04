@@ -55,11 +55,6 @@ final class ChatRoomDataSource {
         lock.signal()
     }
     func appendMsgList(_ msgList: [MessageEntity], scrollToLastMessage: Bool = true, lookUpHistory: Bool = false, showMsgTime: Bool) {
-        debugPrint("===============")
-        for msg in msgList {
-            debugPrint("groupType: \(msg.groupType), text:\(msg.content)")
-        }
-        debugPrint("===============")
         let _ = lock.wait(timeout: .distantFuture)
         formatTime()
         for messageEntity in msgList {
@@ -87,11 +82,6 @@ final class ChatRoomDataSource {
     }
     
     func appendOmissionMsgList(_ msgList: [MessageEntity], latestNo: String, oldNo: String) {
-        debugPrint("===============")
-        for msg in msgList {
-            debugPrint("groupType: \(msg.groupType), text:\(msg.content)")
-        }
-        debugPrint("===============")
         formatTime()
         let _ = lock.wait(timeout: .distantFuture)
         for messageEntity in msgList {

@@ -9,12 +9,12 @@
 import AsyncDisplayKit
 
 /*
-| -------------------topTextNode--------------------- |
-| avatarNode? |   contentTopTextNode?   | avatarNode? |
-|             |      contentNode        |             |
-|             |                         |             |
-| -----------------bottomTextNode---------------------|
-*/
+ | -------------------topTextNode--------------------- |
+ | avatarNode? |   contentTopTextNode?   | avatarNode? |
+ |             |      contentNode        |             |
+ |             |                         |             |
+ | -----------------bottomTextNode---------------------|
+ */
 
 /// Base Message Cell Node
 public class MessageCellNode: ASCellNode {
@@ -26,6 +26,7 @@ public class MessageCellNode: ASCellNode {
     private var timeNode: MessageTimeNode?
     
     private var contentTopTextNode: ASTextNode?
+    private var topTextNode: ASTextNode?
     
     let contentNode: MessageContentNode
     
@@ -48,17 +49,23 @@ public class MessageCellNode: ASCellNode {
         }
         self.contentNode = contentNode
         
+        avatarNode.defaultImage = UIImage(named: "login_defaultAvatar")
         avatarNode.style.preferredSize = CGSize(width: 40, height: 40)
         
         super.init()
         
+        selectionStyle = .none
+        
         if let node = timeNode { addSubnode(node) }
+        if message.entity?.type == 0 {
+            addSubnode(contentNode)
+            return
+        }
         addSubnode(avatarNode)
         addSubnode(contentNode)
         if let node = contentTopTextNode { addSubnode(node) }
         if let node = bottomTextNode { addSubnode(node) }
         
-        selectionStyle = .none
         let avatar = GlobalManager.headImageUrl(name: message.entity?.head)
         avatarNode.url = avatar
         avatarNode.cornerRadius = 6.0
@@ -117,27 +124,48 @@ public class MessageCellNode: ASCellNode {
         } else {
             contentVerticalStack.children = [contentNode]
         }
-        
-        let contentHorizontalStack = ASStackLayoutSpec.horizontal()
-        contentHorizontalStack.justifyContent = .start
-        let fakeAvatarNode = ASDisplayNode()
-        fakeAvatarNode.style.preferredSize = CGSize(width: 30, height: 40)
-        if isOutgoing {
-            contentHorizontalStack.children = [fakeAvatarNode, contentVerticalStack, avatarNode]
-        } else {
-            contentHorizontalStack.children = [avatarNode, contentVerticalStack, fakeAvatarNode]
-        }
-        let contentHorizontalSpec = ASInsetLayoutSpec(insets: .zero, child: contentHorizontalStack)
-        
+//        if message.entity?.type == 0 {
+//            let layoutSpec = ASStackLayoutSpec.vertical()
+//            layoutSpec.justifyContent = .center
+//            if let topTextNode = timeNode {
+//                topTextNode.style.preferredSize = CGSize(width: constrainedSize.max.width, height: 44)
+//                layoutSpec.children?.append(topTextNode)
+//                //                layoutElements.append(topTextNode)
+//            }
+//            layoutSpec.children?.append(contentVerticalStack)
+//            //            layoutSpec.alignItems = isOutgoing ? .end: .start
+//            //            var layoutElements: [ASLayoutElement] = []
+//            return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12), child: layoutSpec)
+//        }
         let layoutSpec = ASStackLayoutSpec.vertical()
-        layoutSpec.justifyContent = .start
-        layoutSpec.alignItems = isOutgoing ? .end: .start
         var layoutElements: [ASLayoutElement] = []
         if let topTextNode = timeNode {
             topTextNode.style.preferredSize = CGSize(width: Constants.screenWidth, height: 44)
             layoutElements.append(topTextNode)
         }
-        layoutElements.append(contentHorizontalSpec)
+        
+        if message.entity?.type == 0 {
+            layoutSpec.justifyContent = .start
+            layoutSpec.alignItems = .center
+            layoutElements.append(contentVerticalStack)
+        } else {
+            layoutSpec.justifyContent = .start
+            layoutSpec.alignItems = isOutgoing ? .end: .start
+            let contentHorizontalStack = ASStackLayoutSpec.horizontal()
+            contentHorizontalStack.justifyContent = .start
+            let fakeAvatarNode = ASDisplayNode()
+            fakeAvatarNode.style.preferredSize = CGSize(width: 30, height: 40)
+            if isOutgoing {
+                contentHorizontalStack.children = [fakeAvatarNode, contentVerticalStack, avatarNode]
+            } else {
+                contentHorizontalStack.children = [avatarNode, contentVerticalStack, fakeAvatarNode]
+            }
+            let contentHorizontalSpec = ASInsetLayoutSpec(insets: .zero, child: contentHorizontalStack)
+            layoutElements.append(contentHorizontalSpec)
+            
+        }
+        
+        
         if let bottomTextNode = bottomTextNode {
             layoutElements.append(bottomTextNode)
         }

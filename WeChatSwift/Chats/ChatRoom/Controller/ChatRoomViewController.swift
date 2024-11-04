@@ -85,6 +85,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         arrowNode.frame = CGRect(x: Constants.screenWidth - 20 - size.width, y: (50.0 - size.height)/2, width: size.width, height: size.height)
         errorNode.addSubnode(arrowNode)
         errorNode.isHidden = true
+        getGroupInfo()
     }
     
     deinit {
@@ -119,11 +120,13 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
             inputNode.isHidden = true
             notSendView.isHidden = true
             tableNode.frame = CGRect(x: 0, y: 0, width: Constants.screenWidth, height: Constants.screenHeight)
+            navigationItem.rightBarButtonItem = nil
         case .byRemove, .dissolve:
             errorNode.isHidden = true
             inputNode.isHidden = true
             notSendView.isHidden = false
             layoutNotSendView(status: status)
+            navigationItem.rightBarButtonItem = nil
         case .normal:
             errorNode.isHidden = true
             inputNode.isHidden = false
@@ -277,9 +280,9 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
 
 extension ChatRoomViewController {
     
-//    public func receiveNewMessage() {
-//        loadRemoteMessage(msgNo: self.dataSource.messages.first?.entity?.no, hasUnreadMsg: true, lookUpHistory: false, showMsgTime: false, untilOldNo:)
-//    }
+    //    public func receiveNewMessage() {
+    //        loadRemoteMessage(msgNo: self.dataSource.messages.first?.entity?.no, hasUnreadMsg: true, lookUpHistory: false, showMsgTime: false, untilOldNo:)
+    //    }
     
     @objc private func handlePopGesture(_ gesture: UIGestureRecognizer) {
         switch gesture.state {
@@ -409,6 +412,28 @@ extension ChatRoomViewController {
                         print("Error decoding JSON: \(error)")
                     }
                 }
+            }
+        }
+    }
+    private func getGroupInfo() {
+        let request = GroupInfoRequest(groupNo: session.groupNo)
+        request.start(withNetworkingHUD: false, showFailureHUD: false) { request in
+            //            do {
+            //                let resp = try JSONDecoder().decode(GroupEntity.self, from: request.wxResponseData())
+            //                GroupEntity.insertOrReplace(list: [resp])
+            //                self.updateChatRoomView(status: ChatRoomStatus(rawValue: resp.status) ?? .byRemove)
+            //                print(resp)
+            //            }  catch {
+            //                print("Error decoding JSON: \(error)")
+            //            }
+        } failure: { request in
+            let code = request.apiCode()
+            if code == -7 ||
+                code == -11 {
+                self.session.status = code == -7 ? 2 : 1
+                GroupEntity.insertOrReplace(list: [self.session])
+                self.updateChatRoomView(status: ChatRoomStatus(rawValue: self.session.status) ?? .normal)
+                return
             }
         }
     }
@@ -629,7 +654,6 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         }
         // 自己领取了
         red.updateRedContent(model: model, msg: msg)
-        
     }
 }
 
@@ -686,6 +710,8 @@ extension ChatRoomViewController {
         mjHeader.arrowView?.image = nil
         tableNode.view.mj_header = mjHeader
     }
+    
+    
 }
 
 extension ChatRoomViewController: SocketDelegate {
@@ -700,7 +726,25 @@ extension ChatRoomViewController: SocketDelegate {
     }
     
     func receiveLatestMessageEntity(groupNo: String, entity: MessageEntity) {
-        
+        if groupNo != session.groupNo {
+            return
+        }
+        if entity.userId != nil &&
+            entity.userId == GlobalManager.manager.personModel?.userId {
+            return
+        }
+        if entity.groupIsChange == 1 {
+            getGroupInfo()
+            return
+        }
+        if let lastNo = entity.lastNo {
+            let oldNo = dataSource.messages.last?.entity?.no
+            if oldNo == lastNo {
+                MessageEntity.insertOrReplace(list: [entity])
+                dataSource.appendMsgList([entity], scrollToLastMessage: true, showMsgTime: false) 
+            }
+            loadRemoteMessage(sort: "0", msgNo: lastNo, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
+        }
     }
     
 }

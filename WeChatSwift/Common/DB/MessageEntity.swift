@@ -53,6 +53,8 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
     
     var appId: String? = nil//0
     var lastNo: String? = nil//0
+    /// integer groupIsChange;//群状态是否改变(1是,0否) -> 收到消息查询group/info接口
+    var groupIsChange: Int? = 0//0
     enum CodingKeys: String, CodingTableKey {
 
         nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {

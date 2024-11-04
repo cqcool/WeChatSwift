@@ -32,11 +32,10 @@ class ExpressionParser {
         tagRegex = try NSRegularExpression(pattern: tagPattern, options: [])
     }
     // \\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]
-    private let tagPattern = "</?u>"
+    private let tagPattern = "<u>(.*?)</u>"
     private let emojiPattern = "[\\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]]?[</?u>]?"
     func attributedText(with attributedText: NSAttributedString) -> NSAttributedString {
         let regexes = parse(text: attributedText.string)
-        let tagRegexes = parseTag(text: attributedText.string)
         if regexes.count == 0 {
             return attributedText
         }
@@ -96,9 +95,26 @@ class ExpressionParser {
         }
         return resultList
     }
-    
-    private func parseTag(text: String) -> [ExpressionRegexResult] {
-        let text = "<u>abc<\\u>"
+    func attributedTagText(with attributedText: NSAttributedString) -> NSAttributedString {
+        let regexes = parseTag(text: attributedText.string)
+        if regexes.count == 0 {
+            return attributedText
+        }
+        
+        let result = NSMutableAttributedString(attributedString: attributedText)
+        //        var offset: Int = 0
+        for matchedText in regexes {
+            if let range = result.string.range(of: "<u>\(matchedText)</u>") {
+                let nsRange = NSRange(range, in: result.string)
+                result.replaceCharacters(in: nsRange, with: matchedText)
+                let targetRange = result.string.range(of: "\(matchedText)")
+                let nsTargetRange = NSRange(targetRange!, in: result.string)
+                result.addAttribute(.foregroundColor, value: Colors.Blue_TEXT, range: nsTargetRange)
+            }
+        }
+        return result
+    }
+    private func parseTag(text: String) -> [String] {
         guard text.count > 2 else { return [] }
         
         let length = text.count
@@ -106,36 +122,20 @@ class ExpressionParser {
         if matches.count == 0 {
             return []
         }
-        let expressions = Expression.all
-        var resultList: [ExpressionRegexResult] = []
-        var offset: Int = 0
-        for (index, match) in matches.enumerated() {
-            // 处理匹配到之前的
-            if match.range.location > offset {
-                let range = NSRange(location: offset, length: match.range.location - offset)
-                let subText = text.subStringInRange(range)
-                resultList.append(ExpressionRegexResult(range: range, text: subText, expression: nil))
-            }
-            // 处理匹配到的结果
-            let innerText = text.subStringInRange(match.range)
-            let emoji = expressions.first(where: { $0.text == innerText })
-            let result = ExpressionRegexResult(range: match.range, text: innerText, expression: emoji?.icon)
-            resultList.append(result)
-            offset = match.range.location + match.range.length
-            
-            // 处理匹配之后的
-            if index == matches.count - 1 {
-                if length - offset > 0 {
-                    let range = NSRange(location: offset, length: length - offset)
-                    let subText = text.subStringInRange(range)
-                    resultList.append(ExpressionRegexResult(range: range, text: subText, expression: nil))
-                }
+        var resultList: [String] = []
+        for match in matches {
+            if let range = Range(match.range(at: 1), in: text) { 
+                resultList.append(String(text[range]))
             }
         }
         return resultList
     }
     
 }
+/*
+ 使用NSRegularExpression.  matches(in string: String, options: NSRegularExpression.MatchingOptions = [], range: NSRange) -> [NSTextCheckingResult] 匹配出"\"<u>橙色</u>\"邀请你和\"<u>红色</u>\"加入了群聊" 橙色和红色
+ 
+ */
 
 extension String {
     func subStringInRange(_ range: NSRange) -> String {

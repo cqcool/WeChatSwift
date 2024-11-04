@@ -115,6 +115,7 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         }
 
         tableNode.view.tableHeaderView = searchViewController?.searchBar
+        tableNode.view.tableHeaderView?.isUserInteractionEnabled = false
         tableNode.view.backgroundView = UIView()
         
         mainSearchViewController.searchBar = searchViewController?.searchBar

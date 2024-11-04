@@ -66,7 +66,24 @@ class Socket: NSObject {
         }
         
         client?.on("sendGroupMsg", callback: { data, ack in
-            debugPrint(data)
+            debugPrint("WX Socket sendGroupMsg: \(String(describing: data.first))")
+            if let content = data.first as? String {
+                guard let json =  try? JSON(data: content.data(using: .utf8)!) else {
+                    return
+                }
+                
+                if json["code"].intValue != 200 {
+                    return
+                }
+                guard let dataString = json["data"].string,
+                let contentData = dataString.data(using: .utf8) else {
+                    return
+                }
+                if let resp = try? JSONDecoder().decode(MessageEntity.self, from: contentData) {
+                    self.delegate?.receiveLatestMessageEntity(groupNo: resp.groupNo!, entity: resp)
+                }
+            }
+             
         });
     }
     func connect() {

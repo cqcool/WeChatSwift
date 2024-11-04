@@ -79,3 +79,21 @@ class UpdateGroupRequest: DNKRequest {
         .POST
     }
 }
+
+/// 群信息
+@objcMembers
+class GroupInfoRequest: DNKRequest {
+    var groupNo: String? = nil
+    init(groupNo: String?) {
+        self.groupNo = groupNo
+    }
+    
+    override func requestUrl() -> String {
+        "/group/info"
+    }
+    
+    override func requestMethod() -> YTKRequestMethod {
+        .GET
+    }
+}
+

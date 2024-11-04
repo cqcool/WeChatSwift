@@ -26,6 +26,10 @@
     return [self.wxResponseObject mj_JSONData];
 }
 
+- (NSData *)wxErrorData {
+    return [self.error mj_JSONData];
+}
+
 - (NSString *)apiMessage {
     if ([self.responseObject isKindOfClass:[NSData class]]) {
         NSString *string = [[NSString alloc] initWithData:self.responseObject encoding:NSUTF8StringEncoding];

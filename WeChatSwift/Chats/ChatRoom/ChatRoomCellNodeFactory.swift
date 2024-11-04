@@ -14,7 +14,11 @@ final class ChatRoomCellNodeFactory {
         var contentNode: MessageContentNode
         switch message.content {
         case .text(let txtMsg):
-            contentNode = TextContentNode(message: message, text: txtMsg)
+            if message.entity?.type == 0 {
+                contentNode = NoticeContentNode(message: message, text: txtMsg)
+            } else {
+                contentNode = TextContentNode(message: message, text: txtMsg)
+            }
         case .redPacket(let redMsg):
             contentNode = RedPacketContentNode(message: message, redPacket: redMsg)
         case .image(let imageMsg):
