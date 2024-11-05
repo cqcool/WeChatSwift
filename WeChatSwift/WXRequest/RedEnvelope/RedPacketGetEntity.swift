@@ -22,11 +22,6 @@ final class RedPacketGetEntity: NSObject, Codable, TableCodable, Named {
     var isMyselfReceive: Int?
     ///  自己领取金额
     var myselfReceiveAmount: String?
-    /*
-     {"referContent":"","referUserHead":"墨鱼仔（・∀・）","nickname":"","linkContent":"","referContentType":7,"isUp":null,"toUserId":null,"orderNumber":"RP202410313730347311862","isAllDel":null,"type":0,"groupNo":"712557675480748032","groupType":2,"no":"723648642010976256","referUserId":"526034328","showTime":null,"contentType":0,"head":"","referLinkContent":"","referMsgNo":"723608287655890944","referUserNickname":"墨鱼仔（・∀・）","createTime":1730356933000,"content":"<red-icon>你领取了墨鱼仔（・∀・）的<red>RP202410313730347311862<\/red>","userId":"517105663"}
-     */
-//    var getGroupMsg: [String: Any]?
-
 
     // 备注(恭喜发财,大吉大利)
     var name: String?
@@ -61,6 +56,8 @@ final class RedPacketGetEntity: NSObject, Codable, TableCodable, Named {
     var groupNo: String?
     
     var orderNumber: String?
+    
+    var ownerId: String?
     
     enum CodingKeys: String, CodingKey, CodingTableKey {
         
@@ -108,6 +105,7 @@ final class RedPacketGetEntity: NSObject, Codable, TableCodable, Named {
         case userBalance
         case groupNo
         case orderNumber
+        case ownerId
     }
 }
 
@@ -118,7 +116,8 @@ extension RedPacketGetEntity {
     /// 查找群聊
     static func queryRedPacket(orderNumber: String)-> [RedPacketGetEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
-                                   where: (RedPacketGetEntity.Properties.orderNumber == orderNumber))
+                                   where: (RedPacketGetEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&
+                                           RedPacketGetEntity.Properties.orderNumber == orderNumber))
     }
 }
 
@@ -136,9 +135,7 @@ final class FullRedPacketGetEntity: NSObject, Codable {
     var isMyselfReceive: Int?
     ///  自己领取金额
     var myselfReceiveAmount: String?
-    /*
-     {"referContent":"","referUserHead":"墨鱼仔（・∀・）","nickname":"","linkContent":"","referContentType":7,"isUp":null,"toUserId":null,"orderNumber":"RP202410313730347311862","isAllDel":null,"type":0,"groupNo":"712557675480748032","groupType":2,"no":"723648642010976256","referUserId":"526034328","showTime":null,"contentType":0,"head":"","referLinkContent":"","referMsgNo":"723608287655890944","referUserNickname":"墨鱼仔（・∀・）","createTime":1730356933000,"content":"<red-icon>你领取了墨鱼仔（・∀・）的<red>RP202410313730347311862<\/red>","userId":"517105663"}
-     */
+
     var getGroupMsg: [String: Any]?
 
     var detailList: [RedPacketRecordModel]?
@@ -176,6 +173,8 @@ final class FullRedPacketGetEntity: NSObject, Codable {
     
     var orderNumber: String?
     
+    var ownerId: String?
+    
     enum CodingKeys: String, CodingKey, CodingTableKey {
         
         typealias Root = RedPacketGetEntity
@@ -201,8 +200,7 @@ final class FullRedPacketGetEntity: NSObject, Codable {
         case receiveAmount
         
         case detailList
-        
-//        case getGroupMsg
+         
 
         // 领取数量
         case receiveNum
@@ -221,7 +219,7 @@ final class FullRedPacketGetEntity: NSObject, Codable {
 
         /// 类型(1拼手气红包)
         case type
-
+        case ownerId
         // 用户余额
         case userBalance
         case groupNo

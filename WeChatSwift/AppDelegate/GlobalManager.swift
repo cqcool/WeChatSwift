@@ -96,11 +96,11 @@ class GlobalManager: NSObject {
         updateToken(token: nil)
         appDelegate.updateAppRoot()
     }
-    func cleanLocalData() {
-        DBManager.share.deleteTabble(tableName: GroupEntity.tableName)
-        DBManager.share.deleteTabble(tableName: MessageEntity.tableName)
-        DBManager.share.deleteTabble(tableName: RedPacketGetEntity.tableName)
-    }
+//    func cleanLocalData() {
+//        DBManager.share.deleteTabble(tableName: GroupEntity.tableName)
+//        DBManager.share.deleteTabble(tableName: MessageEntity.tableName)
+//        DBManager.share.deleteTabble(tableName: RedPacketGetEntity.tableName)
+//    }
     // 刷新token
     func requestRefreshToken() {
         let refreshRquest = RefreshTokenRequest()

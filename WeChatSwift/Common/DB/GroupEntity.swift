@@ -42,6 +42,8 @@ final class GroupEntity: NSObject, Codable, TableCodable, Named {
     /// 群状态 0正常 1解散 2封禁
     var status: Int = 0
     
+    var ownerId: String?
+    
     var _formattedTime: String?
     
     /*
@@ -75,6 +77,7 @@ final class GroupEntity: NSObject, Codable, TableCodable, Named {
         case userId
         case userMsgType
         case userNum
+        case ownerId
     }
 }
 
@@ -162,15 +165,17 @@ extension GroupEntity {
     /// 查找群聊
     static func queryGroupChats()-> [GroupEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
-                                   where: ((GroupEntity.Properties.userMsgType == 2 ||
-                                            GroupEntity.Properties.userMsgType == 3) || GroupEntity.Properties.groupType == 2))
+                                   where: (GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&
+                                   ((GroupEntity.Properties.userMsgType == 2 || GroupEntity.Properties.userMsgType == 3) ||
+                                    GroupEntity.Properties.groupType == 2)))
     }
     
     /// 查找群聊
     static func queryFriends()-> [GroupEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
-                                   where: (GroupEntity.Properties.userMsgType == 2  ||
-                                           GroupEntity.Properties.groupType == 1))
+                                   where: (GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&
+                                           (GroupEntity.Properties.userMsgType == 2  ||
+                                           GroupEntity.Properties.groupType == 1)))
     }
     
 }

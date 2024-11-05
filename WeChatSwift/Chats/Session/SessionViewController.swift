@@ -207,6 +207,9 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
             let vc = NewsViewController()
             vc.session = session
             navigationController?.pushViewController(vc, animated: true)
+            vc.updateGroupBlock = { groupEntity in
+                self.tableNode.reloadRows(at: [indexPath], with: .fade)
+            }
             return
         }
         if userMsgType == 1 {
@@ -215,9 +218,20 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
             chatVC.updateGroupBlock = { groupEntity in
                 self.tableNode.reloadRows(at: [indexPath], with: .fade)
             }
+            return
         }
-        
-//        }
+        if userMsgType == 2 {
+            if let groupNo = session.groupNo {
+                let request = MsgReadRequest(no: groupNo)
+                request.startWithCompletionBlock { _ in
+                    session.unReadNum = "0"
+                    GroupEntity.updateUnreadNum(group: session)
+                    self.tableNode.reloadRows(at: [indexPath], with: .fade)
+                    self.requestUnreadMsg()
+                }
+            }
+            return
+        }
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {

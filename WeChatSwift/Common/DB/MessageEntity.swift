@@ -49,14 +49,14 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
     var type: Int? = nil//0,
     /// 用户id
     var userId: String? = nil//0
-    
+    var ownerId: String?
     
     var appId: String? = nil//0
     var lastNo: String? = nil//0
     /// integer groupIsChange;//群状态是否改变(1是,0否) -> 收到消息查询group/info接口
     var groupIsChange: Int? = 0//0
     enum CodingKeys: String, CodingTableKey {
-
+        
         nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
             BindColumnConstraint(no, isPrimary: true, isNotNull: false)
             BindColumnConstraint(createTime, isPrimary: false, orderBy: .ascending)
@@ -86,7 +86,7 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
         case toUserId
         case type
         case userId
-         
+        case ownerId
     }
 }
 
@@ -100,7 +100,8 @@ extension MessageEntity {
     
     static func queryMessag(groupNo: String) -> [MessageEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
-                                   where: (MessageEntity.Properties.groupNo == groupNo))
+                                   where: (MessageEntity.Properties.groupNo == groupNo &&
+                                                                                        MessageEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)!))
     }
 }
 
@@ -120,13 +121,11 @@ extension MessageEntity: SocketData {
         message.content = content
         message.appId = "\(NSString.currentSecondTimestamp())"
         message.lastNo = lastNo
-        
-        
-        
-//        message.createTime = TimeInterval(NSString.currentTimeStamp())
-        message.userId = GlobalManager.manager.personModel?.userId
-        message.head = GlobalManager.manager.personModel?.head
-        message.nickname = GlobalManager.manager.personModel?.nickname
+        let personModel = GlobalManager.manager.personModel
+        message.ownerId = personModel?.userId 
+        message.userId = personModel?.userId
+        message.head = personModel?.head
+        message.nickname = personModel?.nickname
         return message
     }
     

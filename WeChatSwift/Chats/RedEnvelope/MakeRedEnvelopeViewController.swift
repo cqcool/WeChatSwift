@@ -757,7 +757,9 @@ extension MakeRedEnvelopeViewController: KeenCodeUnitDelegate {
             let request = RedPacketPayRquest(amount: enterMoneyNode.money!, groupNo: session.groupNo!, num: enterCountNode.count!, payPassword: codeText.md5Encrpt().lowercased())
             request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
                 do {
+                    let personModel = GlobalManager.manager.personModel
                     let resp = try JSONDecoder().decode(MessageEntity.self, from: request.wxResponseData())
+                    resp.ownerId = personModel?.userId
                     MessageEntity.insertOrReplace(list: [resp])
                     self.sendRedPacketBlock?(resp)
                     self.dismiss(animated: true)

@@ -216,6 +216,7 @@ class RedEnvelopView: UIViewController {
                 let resp = try JSONDecoder().decode(RedPacketGetEntity.self, from: request.wxResponseData())
                 resp.groupNo = self.redMsg.groupNo!
                 resp.orderNumber = self.redMsg.orderNumber!
+                resp.ownerId = GlobalManager.manager.personModel?.userId
                 RedPacketGetEntity.insertOrReplace(list: [resp])
                 self.updateDBClosure?(true)
                 self.openImageView.isHidden = true

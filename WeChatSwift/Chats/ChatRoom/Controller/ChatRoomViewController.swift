@@ -357,6 +357,8 @@ extension ChatRoomViewController {
             do {
                 let resp = try JSONDecoder().decode([MessageEntity].self, from: request.wxResponseData())
                 if resp.count > 0 {
+                    let personModel = GlobalManager.manager.personModel
+                    resp.forEach { $0.ownerId = personModel?.userId }
                     MessageEntity.insertOrReplace(list: resp)
                     if oldNo != nil {
                         self.dataSource.appendMsgList(resp, scrollToLastMessage:false, lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
@@ -587,12 +589,26 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         let contactVC = ContactInfoViewController(contact: user.toContact())
         navigationController?.pushViewController(contactVC, animated: true)
     }
+    func messageCell(_ cellNode: MessageCellNode, didTapRed orderNumber: String) {
+        
+        var message: Message? = nil
+        if let row = dataSource.messages.firstIndex(where: { msg in
+            if  msg.entity?.orderNumber == orderNumber {
+                message = msg
+                return true
+            }
+            return false
+        }) {
+            let indexPath = IndexPath(row: row, section: 0) 
+            messageCell(cellNode, indexPath: indexPath, didTapContent: message!.content)
+        }
+    }
     
     func messageCell(_ cellNode: MessageCellNode, didLongPressedAvatar userID: String) {
         
     }
     
-    func messageCell(_ cellNode: MessageCellNode, didTapContent content: MessageContent) {
+    func messageCell(_ cellNode: MessageCellNode, indexPath: IndexPath, didTapContent content: MessageContent) {
         switch content {
         case .emoticon(let emoticonMsg):
             let controller = ChatRoomEmoticonPreviewViewController(emoticon: emoticonMsg)
@@ -607,7 +623,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
             let originView = (cellNode.contentNode as? VideoContentNode)?.imageView ?? cellNode.contentNode.view
             previewVideo(videoMsg: videoMsg, originView: originView)
         case .redPacket(let msg):
-            clickRedPacket(cellNode: cellNode, msg: msg)
+            clickRedPacket(indexPath: indexPath, msg: msg)
         default:
             break
         }
@@ -622,22 +638,20 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
     }
     
     func messageCell(_ cellNode: MessageCellNode, showMenus menus: [MessageMenuAction], message: Message, targetRect: CGRect, targetView: UIView) {
+       
     }
     
-    func clickRedPacket(cellNode: MessageCellNode, msg: RedPacketMessage) {
+    func clickRedPacket(indexPath: IndexPath, msg: RedPacketMessage) {
         
         guard let entity = msg.entity else {
-            handleRedPacket(cellNode: cellNode, model: nil, msg: msg)
+            handleRedPacket(indexPath: indexPath, model: nil, msg: msg)
             return
         }
-        self.handleRedPacket(cellNode: cellNode, model: entity, msg: nil)
+        handleRedPacket(indexPath: indexPath, model: entity, msg: nil)
     }
-    func handleRedPacket(cellNode: MessageCellNode, model: RedPacketGetEntity?, msg: RedPacketMessage?) {
+    func handleRedPacket(indexPath: IndexPath?, model: RedPacketGetEntity?, msg: RedPacketMessage?) {
         let red = RedEnvelopView.init()
         red.callBackClosure = {
-            //            let vc = UIViewController.init()
-            //            vc.view.backgroundColor = .white
-            //            self.navigationController?.pushViewController(vc, animated: false)
         }
         red.detailsClosure = { m in
             let vc = RedDetailsViewController()
@@ -646,7 +660,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         }
         red.updateDBClosure = {flag in
             if flag {
-                if let indexPath = cellNode.indexPath {
+                if let indexPath {
                     let message = self.dataSource.messages[indexPath.row]
                     message.updateRedPacket()
                     self.tableNode.reloadRows(at: [indexPath], with: .fade)
@@ -718,9 +732,10 @@ extension ChatRoomViewController {
 extension ChatRoomViewController: SocketDelegate {
     
     func updateLatestMessageEntity(entity: MessageEntity, latestNo: String?, oldNo: String?, isReadMoreHisoty: Bool) {
+        let personModel = GlobalManager.manager.personModel
+        entity.ownerId = personModel?.userId
         MessageEntity.insertOrReplace(list: [entity])
         if !isReadMoreHisoty {
-            
             return
         }
         loadRemoteMessage(sort: "0", msgNo: latestNo, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
@@ -742,6 +757,8 @@ extension ChatRoomViewController: SocketDelegate {
         if let lastNo = entity.lastNo {
             let oldNo = dataSource.messages.last?.entity?.no
             if oldNo == lastNo {
+                let personModel = GlobalManager.manager.personModel
+                entity.ownerId = personModel?.userId
                 MessageEntity.insertOrReplace(list: [entity])
                 dataSource.appendMsgList([entity], scrollToLastMessage: true, showMsgTime: false) 
             }

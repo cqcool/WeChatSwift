@@ -18,13 +18,14 @@ class NewsViewController: UIViewController {
     private var dataSource: [MessageEntity] = []
     /// 默认还有历史数据
     private var hasHistory: Bool = true
-     
     
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    var updateGroupBlock:((_: GroupEntity) -> ())?
     
-      
+    //    required init?(coder: NSCoder) {
+    //        fatalError("init(coder:) has not been implemented")
+    //    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
@@ -33,7 +34,7 @@ class NewsViewController: UIViewController {
         navigationItem.rightBarButtonItem = moreItem
         
         let layout = UICollectionViewFlowLayout()
-       
+        
         collectionView = UICollectionView(frame: CGRect(x: 0, y: Constants.navigationHeight, width: Constants.screenWidth, height: Constants.screenHeight - Constants.navigationHeight), collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -56,25 +57,25 @@ class NewsViewController: UIViewController {
         // 有未读消息，就从服务端请求，否则加载本地数据即可
         let hasUnreadMsg = Int(session.unReadNum ?? "0")! > 0 ? true : false
         guard let mssageList = MessageEntity.queryMessag(groupNo: session.groupNo!),
-        mssageList.count > 0 else {
-//            if hasUnreadMsg {
-                loadRemoteMessage(msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-//            } else {
-//                loadRemoteMessage(sort: "0", msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-//            }
+              mssageList.count > 0 else {
+            //            if hasUnreadMsg {
+            loadRemoteMessage(msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
+            //            } else {
+            //                loadRemoteMessage(sort: "0", msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
+            //            }
             return
         }
         self.dataSource += mssageList
         if hasUnreadMsg {
             loadRemoteMessage(msgNo: mssageList.first?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
         }
-     
+        
     }
     /*
      hasUnreadMsg: 有未读消息，需要通知服务器更新消息状态
      */
     private func loadRemoteMessage(sort: String = "1", msgNo: String?, hasUnreadMsg: Bool = false, lookUpHistory: Bool, showMsgTime: Bool = true) {
-//        let isLoadLatest = sort == "1" ? true : false
+        //        let isLoadLatest = sort == "1" ? true : false
         let request = MessageRequest(groupNo: session.groupNo!)
         request.groupNo = session.groupNo!
         request.sort = sort
@@ -98,7 +99,9 @@ class NewsViewController: UIViewController {
         request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
             self.collectionView.mj_header?.endRefreshing()
             do {
+                let personModel = GlobalManager.manager.personModel
                 let resp = try JSONDecoder().decode([MessageEntity].self, from: request.wxResponseData())
+                resp.forEach { $0.ownerId = personModel?.userId }
                 if resp.count > 0 {
                     MessageEntity.insertOrReplace(list: resp)
                     self.dataSource += resp
@@ -122,6 +125,7 @@ class NewsViewController: UIViewController {
         let request = MsgReadRequest(no: no)
         request.startWithCompletionBlock { _ in
             self.session.unReadNum = "0"
+            self.updateGroupBlock?(self.session)
             GroupEntity.updateUnreadNum(group: self.session)
         }
     }

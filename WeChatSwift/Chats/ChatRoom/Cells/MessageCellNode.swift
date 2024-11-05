@@ -98,7 +98,7 @@ public class MessageCellNode: ASCellNode {
         if avatarNode.frame.contains(point) {
             delegate?.messageCell(self, didTapAvatar: message.senderID)
         } else if contentNode.frame.contains(point) {
-            delegate?.messageCell(self, didTapContent: message.content)
+            delegate?.messageCell(self, indexPath: indexPath!, didTapContent: message.content)
         }
     }
     
@@ -192,7 +192,7 @@ extension MessageCellNode: TextContentNodeDelegate {
 }
 extension MessageCellNode: NoticeContentNodeDelegate {
     func textContentNode(_ textNode: NoticeContentNode, tappedLinkAttribute attribute: String!, value: String!, at point: CGPoint, textRange: NSRange) {
-        debugPrint("value: \(String(describing: value)), textRange: \(textRange)")
+        delegate?.messageCell(self, didTapRed: value)
     }
 }
 
@@ -201,9 +201,11 @@ extension MessageCellNode: NoticeContentNodeDelegate {
 protocol MessageCellNodeDelegate: class {
     func messageCell(_ cellNode: MessageCellNode, didTapAvatar userID: String)
     func messageCell(_ cellNode: MessageCellNode, didLongPressedAvatar userID: String)
-    func messageCell(_ cellNode: MessageCellNode, didTapContent content: MessageContent)
+    func messageCell(_ cellNode: MessageCellNode, indexPath:IndexPath, didTapContent content: MessageContent)
     func messageCell(_ cellNode: MessageCellNode, didTapLink url: URL?)
+    func messageCell(_ cellNode: MessageCellNode, didTapRed orderNumber: String)
     func messageCell(_ cellNode: MessageCellNode, showMenus menus: [MessageMenuAction], message: Message, targetRect: CGRect, targetView: UIView)
+    
 }
 
 enum MessageMenuAction: Int {

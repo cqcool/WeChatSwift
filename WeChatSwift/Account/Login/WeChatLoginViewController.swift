@@ -111,7 +111,7 @@ class WeChatLoginViewController: UIViewController {
                     DNKProgressHUD.hiddenProgressHUD()
                 if let account = GlobalManager.manager.personModel?.account {
                     if account != phone {
-                        GlobalManager.manager.cleanLocalData()
+//                        GlobalManager.manager.cleanLocalData()
                     }
                 }
                     if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
