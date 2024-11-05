@@ -211,6 +211,10 @@ class ExpressionParser {
                 let targetRange = result.string.range(of: "红包")
                 let nsTargetRange = NSRange(targetRange!, in: result.string)
                 result.addAttribute(.foregroundColor, value: UIColor(hexString: "EF9836"), range: nsTargetRange)
+                let linkAttributeName = NSAttributedString.Key("Link")
+                result.addAttribute(.link, value: URL(string:matchedText /*"wx://\(matchedText)"*/)!, range: nsTargetRange)
+//                result.addAttribute(.underlineStyle, value: [0], range: nsTargetRange)
+                result.addAttribute(.underlineColor, value: UIColor.clear, range: nsTargetRange)
                 redResult = RedRegexResult(range: nsTargetRange, order: matchedText)
             }
         }

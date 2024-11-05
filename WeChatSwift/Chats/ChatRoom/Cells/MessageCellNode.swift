@@ -59,6 +59,9 @@ public class MessageCellNode: ASCellNode {
         
         if let node = timeNode { addSubnode(node) }
         if message.entity?.type == 0 {
+            if let textContentCell = contentNode as? NoticeContentNode {
+                textContentCell.delegate = self
+            }
             addSubnode(contentNode)
             return
         }
@@ -76,9 +79,7 @@ public class MessageCellNode: ASCellNode {
             textContentCell.delegate = self
         }
         
-        if let textContentCell = contentNode as? NoticeContentNode {
-            textContentCell.delegate = self
-        }
+
     }
     
     public override func didLoad() {
@@ -190,8 +191,8 @@ extension MessageCellNode: TextContentNodeDelegate {
     }
 }
 extension MessageCellNode: NoticeContentNodeDelegate {
-    func textContentNode(_ textNode: NoticeContentNode, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
-        debugPrint("value: \(value), textRange: \(textRange)")
+    func textContentNode(_ textNode: NoticeContentNode, tappedLinkAttribute attribute: String!, value: String!, at point: CGPoint, textRange: NSRange) {
+        debugPrint("value: \(String(describing: value)), textRange: \(textRange)")
     }
 }
 

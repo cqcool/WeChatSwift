@@ -41,10 +41,14 @@ class NoticeContentNode: MessageContentNode {
         super.didLoad()
         if let result = redResult {
             textNode.isUserInteractionEnabled = true
+            textNode.isEnabled = true
             textNode.delegate = self
-            textNode.highlightStyle = .light
-            textNode.layer.as_allowsHighlightDrawing = true
-            textNode.highlightRange = result.range
+//            textNode.highlightStyle = .light
+//            textNode.layer.as_allowsHighlightDrawing = true
+//            textNode.highlightRange = result.range
+            
+             let str = (textNode.attributedText?.string as! NSString).substring(with: result.range)
+            debugPrint("hilight text: \(str)")
         }
     }
     
@@ -64,10 +68,10 @@ extension NoticeContentNode: ASTextNodeDelegate {
     }
     
     func textNode(_ textNode: ASTextNode!, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
-        delegate?.textContentNode(self, tappedLinkAttribute: attribute, value: value, at: point, textRange: textRange)
+        delegate?.textContentNode(self, tappedLinkAttribute: attribute, value: (value as? URL)?.absoluteString, at: point, textRange: textRange)
     }
 }
 
 protocol NoticeContentNodeDelegate: class {
-    func textContentNode(_ textNode: NoticeContentNode, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange)
+    func textContentNode(_ textNode: NoticeContentNode, tappedLinkAttribute attribute: String!, value: String!, at point: CGPoint, textRange: NSRange)
 }
