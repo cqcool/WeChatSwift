@@ -36,7 +36,7 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
     var referContentType: Int? = nil//0,
     /// 链接内容(json格式)
     var referLinkContent: String? = nil //string
-    var referMsgNo: Int? = nil//0,
+    var referMsgNo: String? = nil//0,
     var referUserHead: String? = nil //string
     var referUserId: String? = nil//0,
     /// 被指向的用户昵称

@@ -19,6 +19,7 @@ import AsyncDisplayKit
 /// Base Message Cell Node
 public class MessageCellNode: ASCellNode {
     
+    
     weak var delegate: MessageCellNodeDelegate?
     
     let isOutgoing: Bool
@@ -72,6 +73,10 @@ public class MessageCellNode: ASCellNode {
         avatarNode.cornerRoundingType = .precomposited
         
         if let textContentCell = contentNode as? TextContentNode {
+            textContentCell.delegate = self
+        }
+        
+        if let textContentCell = contentNode as? NoticeContentNode {
             textContentCell.delegate = self
         }
     }
@@ -184,6 +189,13 @@ extension MessageCellNode: TextContentNodeDelegate {
         }
     }
 }
+extension MessageCellNode: NoticeContentNodeDelegate {
+    func textContentNode(_ textNode: NoticeContentNode, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
+        debugPrint("value: \(value), textRange: \(textRange)")
+    }
+}
+
+
 
 protocol MessageCellNodeDelegate: class {
     func messageCell(_ cellNode: MessageCellNode, didTapAvatar userID: String)

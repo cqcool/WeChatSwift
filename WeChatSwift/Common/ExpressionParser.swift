@@ -20,19 +20,32 @@ fileprivate struct ExpressionRegexResult {
     
 }
 
+struct RedRegexResult {
+    
+    /// 1：红包icon，2: 蓝色字体，3: 红包文本（可点击）
+    var range: NSRange
+    var order: String
+}
+
 class ExpressionParser {
     
     static let shared = try? ExpressionParser()
     
     private let emojiRegex: NSRegularExpression
     private let tagRegex: NSRegularExpression
+    private let cancelRegex: NSRegularExpression
+    private let redRegex: NSRegularExpression
     
     private init() throws {
         emojiRegex = try NSRegularExpression(pattern: emojiPattern, options: [])
         tagRegex = try NSRegularExpression(pattern: tagPattern, options: [])
+        cancelRegex = try NSRegularExpression(pattern: cancelPattern, options: [])
+        redRegex = try NSRegularExpression(pattern: redPattern, options: [])
     }
     // \\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]
     private let tagPattern = "<u>(.*?)</u>"
+    private let cancelPattern = "<cancel>(.*?)</cancel>"
+    private let redPattern = "<red>(.*?)</red>"
     private let emojiPattern = "[\\[/?[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]]?[</?u>]?"
     func attributedText(with attributedText: NSAttributedString) -> NSAttributedString {
         let regexes = parse(text: attributedText.string)
@@ -125,6 +138,95 @@ class ExpressionParser {
         var resultList: [String] = []
         for match in matches {
             if let range = Range(match.range(at: 1), in: text) { 
+                resultList.append(String(text[range]))
+            }
+        }
+        return resultList
+    }
+    
+    func attributedCancelTagText(with attributedText: NSAttributedString) -> NSAttributedString {
+        let regexes = parseCancelTag(text: attributedText.string)
+        if regexes.count == 0 {
+            return attributedText
+        }
+        
+        let result = NSMutableAttributedString(attributedString: attributedText)
+        //        var offset: Int = 0
+        for matchedText in regexes {
+            if let range = result.string.range(of: "<cancel>\(matchedText)</cancel>") {
+                let nsRange = NSRange(range, in: result.string)
+                result.replaceCharacters(in: nsRange, with: matchedText)
+                let targetRange = result.string.range(of: "\(matchedText)")
+                let nsTargetRange = NSRange(targetRange!, in: result.string)
+                result.addAttribute(.foregroundColor, value: Colors.Blue_TEXT, range: nsTargetRange)
+            }
+        }
+        return result
+    }
+    private func parseCancelTag(text: String) -> [String] {
+        guard text.count > 2 else { return [] }
+        let length = text.count
+        let matches = cancelRegex.matches(in: text, options: [], range: NSRange(location: 0, length: length))
+        if matches.count == 0 {
+            return []
+        }
+        var resultList: [String] = []
+        for match in matches {
+            if let range = Range(match.range(at: 1), in: text) {
+                resultList.append(String(text[range]))
+            }
+        }
+        return resultList
+    }
+    
+    func attributedRedPacketText(with attributedText: NSAttributedString) -> (NSAttributedString, RedRegexResult?) {
+        
+        debugPrint(attributedText.string)
+        let redText = "<red-icon>"
+        let text = attributedText.string
+        if !text.contains(redText) {
+            return (attributedText, nil)
+        }
+        let result = NSMutableAttributedString(attributedString: attributedText)
+        if let range = text.range(of: redText) {
+            let nsRange = NSRange(range, in: result.string)
+            result.replaceCharacters(in: nsRange, with: redText + "  ")
+            let descender = UIFont.systemFont(ofSize: 15).descender
+            let attachment = NSTextAttachment()
+            attachment.image = UIImage(named: "SystemMessages_HongbaoIcon_14x14_")
+            attachment.bounds = CGRect(x: 0, y: descender, width: 18, height: 18)
+            let attachmentText = NSAttributedString(attachment: attachment)
+            result.replaceCharacters(in: nsRange, with: attachmentText)
+        }
+        
+        let regexes = parseRedTag(text: result.string)
+        if regexes.count == 0 {
+            return (attributedText, nil)
+        }
+        var redResult: RedRegexResult? = nil
+        for matchedText in regexes {
+            if let range = result.string.range(of: "<red>\(matchedText)</red>") {
+                let nsRange = NSRange(range, in: result.string)
+                result.replaceCharacters(in: nsRange, with: "红包")
+                let targetRange = result.string.range(of: "红包")
+                let nsTargetRange = NSRange(targetRange!, in: result.string)
+                result.addAttribute(.foregroundColor, value: UIColor(hexString: "EF9836"), range: nsTargetRange)
+                redResult = RedRegexResult(range: nsTargetRange, order: matchedText)
+            }
+        }
+        return (result, redResult)
+    }
+    
+    private func parseRedTag(text: String) -> [String] {
+        guard text.count > 2 else { return [] }
+        let length = text.count
+        let matches = redRegex.matches(in: text, options: [], range: NSRange(location: 0, length: length))
+        if matches.count == 0 {
+            return []
+        }
+        var resultList: [String] = []
+        for match in matches {
+            if let range = Range(match.range(at: 1), in: text) {
                 resultList.append(String(text[range]))
             }
         }

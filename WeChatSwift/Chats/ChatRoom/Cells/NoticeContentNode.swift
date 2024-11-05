@@ -10,6 +10,8 @@ import AsyncDisplayKit
 
 class NoticeContentNode: MessageContentNode {
     private let textNode = ASTextNode()
+    weak var delegate: NoticeContentNodeDelegate?
+    private var redResult: RedRegexResult? = nil
     
     init(message: Message, text: String) {
         super.init(message: message)
@@ -28,18 +30,22 @@ class NoticeContentNode: MessageContentNode {
             .foregroundColor: UIColor(white: 0, alpha: 0.4),
             .paragraphStyle: paragraphStyle
             ])
-        textNode.attributedText = ExpressionParser.shared?.attributedTagText(with: attributedText)
+        var attributeStr = ExpressionParser.shared?.attributedTagText(with: attributedText)
+        attributeStr = ExpressionParser.shared?.attributedCancelTagText(with: attributeStr ?? NSAttributedString(string: ""))
+        let (attributed, red) = ExpressionParser.shared!.attributedRedPacketText(with: attributeStr ?? NSAttributedString(string: ""))
+        textNode.attributedText = attributed
+        redResult = red
     }
     
     override func didLoad() {
         super.didLoad()
-        textNode.isUserInteractionEnabled = true
-//        textNode.delegate = self
-        textNode.highlightStyle = .light
-        textNode.layer.as_allowsHighlightDrawing = true
-//        for link in links {
-//            textNode.highlightRange = link.range
-//        }
+        if let result = redResult {
+            textNode.isUserInteractionEnabled = true
+            textNode.delegate = self
+            textNode.highlightStyle = .light
+            textNode.layer.as_allowsHighlightDrawing = true
+            textNode.highlightRange = result.range
+        }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -50,4 +56,18 @@ class NoticeContentNode: MessageContentNode {
         return ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: textSpec)
     }
     
+}
+extension NoticeContentNode: ASTextNodeDelegate {
+    
+    func textNode(_ textNode: ASTextNode!, shouldHighlightLinkAttribute attribute: String!, value: Any!, at point: CGPoint) -> Bool {
+        return true
+    }
+    
+    func textNode(_ textNode: ASTextNode!, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
+        delegate?.textContentNode(self, tappedLinkAttribute: attribute, value: value, at: point, textRange: textRange)
+    }
+}
+
+protocol NoticeContentNodeDelegate: class {
+    func textContentNode(_ textNode: NoticeContentNode, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange)
 }
