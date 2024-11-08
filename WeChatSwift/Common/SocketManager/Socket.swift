@@ -35,6 +35,7 @@ class Socket: NSObject {
     func addHandlers() {
         client?.on(clientEvent: .error) { data, ack in
             debugPrint("WX Socket error: \(data)")
+//            DNKProgressHUD.brieflyProgressMsg("WX Socket error: \(data)")
         }
         client?.on(clientEvent: .connect) { data, ack in
             debugPrint("WX Socket connected: \(data) ack: \(ack)")
@@ -44,12 +45,12 @@ class Socket: NSObject {
         client?.on(clientEvent: .disconnect) { data, ack in
             debugPrint("WX Socket disconnect")
         }
-        // 收到会话消息
-        client?.on("sendGroupMsg") { data, ack in
-            if let message = data.first as? String {
-                print("WX Socket 新消息收到: \(message)")
-            }
-        }
+//        // 收到会话消息
+//        client?.on("sendGroupMsg") { data, ack in
+//            if let message = data.first as? String {
+//                print("WX Socket 新消息收到: \(message)")
+//            }
+//        }
         // 发送内部消息
         client?.on("sendInternalMsg") { data, ack in
             if let message = data.first as? String {
@@ -79,8 +80,11 @@ class Socket: NSObject {
                 let contentData = dataString.data(using: .utf8) else {
                     return
                 }
-                if let resp = try? JSONDecoder().decode(MessageEntity.self, from: contentData) {
+                do {
+                    let resp = try JSONDecoder().decode(MessageEntity.self, from: contentData)
                     self.delegate?.receiveLatestMessageEntity(groupNo: resp.groupNo!, entity: resp)
+                } catch {
+                    debugPrint("WX Socket sendGroupMsg Error: \(String(describing: error.localizedDescription))")
                 }
             }
              
@@ -115,7 +119,7 @@ class Socket: NSObject {
             let jsonData = try encoder.encode(message)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
                 print(jsonString)
-                debugPrint("message JSON: " + jsonString)
+                debugPrint("Send Message JSON: " + jsonString)
                 client?.emitWithAck("sendGroupMsg", with: [jsonString]).timingOut(after: 5, callback: { data in
                     if let content = data.first as? String {
                         self.handleAckMessage(message: message, content: content)

@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)integerWithHex;
 /// 字符串 转md5 字符串
 - (NSString *)md5Encrpt;
-- (NSString *)decryptUseDESWithKey:(NSString*)key offset:(NSString *)offset;
+- (NSData *)decryptUseDESWithKey:(NSString*)key offset:(NSString *)offset;
 /// 16进制字符串 转NSData
 - (NSData *)hexStringToData;
 #pragma mark - 类方法

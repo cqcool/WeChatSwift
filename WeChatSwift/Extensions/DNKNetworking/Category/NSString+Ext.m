@@ -161,37 +161,80 @@
 
 
 //解密
-- (NSString *)decryptUseDESWithKey:(NSString*)key offset:(NSString *)offset {
+- (NSData *)decryptUseDESWithKey:(NSString*)key offset:(NSString *)offset {
 
-    NSData *cipherdata = [[NSData alloc] initWithBase64EncodedString:self options:0];
+    NSData *keyData =  [key dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *ivData =  [offset dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *encryptedData = [[NSData alloc] initWithBase64EncodedString:self options:0];
+//    NSData *encryptedData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    // 准备解密后的数据缓冲区
+       size_t decryptedDataLength = encryptedData.length + kCCBlockSize3DES;
+       void *decryptedData = malloc(decryptedDataLength);
+    // 初始化输出数据长度变量
+        size_t actualOutSize = 0;
+
+        // 执行解密
+        CCCryptorStatus cryptStatus = CCCrypt(
+            kCCDecrypt,                      // 解密操作
+            kCCAlgorithm3DES,                // 3DES算法
+            kCCOptionPKCS7Padding,           // 使用PKCS7填充
+            keyData.bytes,                   // 密钥
+            kCCKeySize3DES,                  // 密钥长度
+            ivData.bytes,                    // 初始化向量（IV）
+            encryptedData.bytes,             // 输入数据
+            encryptedData.length,            // 输入数据长度
+            decryptedData,                   // 输出数据缓冲区
+            decryptedDataLength,             // 输出数据缓冲区大小
+            &actualOutSize                   // 解密后数据的实际长度
+        );
+
+        NSData *result = nil;
+        if (cryptStatus == kCCSuccess) {
+            result = [NSData dataWithBytes:decryptedData length:actualOutSize];
+        } else {
+            NSLog(@"解密失败，状态码: %d", cryptStatus);
+        }
+
+        // 释放缓冲区
+        free(decryptedData);
+#if DEBUG
+    NSString *json = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+    NSLog(@"转换后的字符串: %@", json);
+#endif
+        return result;
     
-    unsigned char buffer[1024];
-    memset(buffer, 0, sizeof(char));
-    size_t numBytesDecrypted = 0;
-     
-    CCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt,
-                                          kCCAlgorithmDES,
-                                          kCCOptionPKCS7Padding,
-                                          [key UTF8String],
-                                          kCCKeySizeDES,
-                                          [offset UTF8String],
-                                          [cipherdata bytes],
-                                          [cipherdata length],
-                                          buffer,
-                                          1024,
-                                          &numBytesDecrypted);
-    NSString* plainText = nil;
-    if (cryptStatus == kCCSuccess) {
-        
-        NSData *plaindata = [NSData dataWithBytes:buffer length:(NSUInteger)numBytesDecrypted];
-        plainText = [[NSString alloc]initWithData:plaindata encoding:NSUTF8StringEncoding];
-         
-        // 输出转换后的字符串
-        NSLog(@"转换后的字符串: %@", plainText);
-
-         
-    }
-    return plainText;
+    
+    
+//    unsigned char buffer[1024];
+//    
+//    NSData *cipherdata = [[NSData alloc] initWithBase64EncodedString:self options:0];
+//    
+//    memset(buffer, 0, sizeof(char));
+//    size_t numBytesDecrypted = 0;
+//     
+//    CCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt,
+//                                          kCCAlgorithmDES,
+//                                          kCCOptionPKCS7Padding,
+//                                          [key UTF8String],
+//                                          kCCKeySizeDES,
+//                                          [offset UTF8String],
+//                                          [cipherdata bytes],
+//                                          [cipherdata length],
+//                                          buffer,
+//                                          1024,
+//                                          &numBytesDecrypted);
+//    NSString* plainText = nil;
+//    if (cryptStatus == kCCSuccess) {
+//        
+//        NSData *plaindata = [NSData dataWithBytes:buffer length:(NSUInteger)numBytesDecrypted];
+//        plainText = [[NSString alloc]initWithData:plaindata encoding:NSUTF8StringEncoding];
+//         
+//        // 输出转换后的字符串
+//        NSLog(@"转换后的字符串: %@", plainText);
+//
+//         
+//    }
+//    return plainText;
 }
 
 //将16进制字符串转成NSData wDudU 1Vz3w mOGEL Lni7j xiS5

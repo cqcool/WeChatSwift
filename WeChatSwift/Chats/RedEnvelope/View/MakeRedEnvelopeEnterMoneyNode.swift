@@ -53,6 +53,7 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
         }
         moneyField.textDidChangeBlock = { text in
             self.money = self.moneyField.text
+            
             let tempText = text ?? ""
             if tempText.contains("¥") && tempText.count == 1{
                 self.moneyField.text = ""
@@ -66,7 +67,6 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
             self.moneyChangeBlock?(self.money)
         }
     }
-    
     override func didLoad() {
         super.didLoad()
         
@@ -142,6 +142,11 @@ extension MakeRedEnvelopeEnterMoneyNode: UITextFieldDelegate {
             }
         }
         return true
-        
     }
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if let text = self.money {
+//            let moneyFloat = (text as NSString).floatValue
+//            textField.text = String(format: "%.2f", moneyFloat)
+//        }
+//    }
 }

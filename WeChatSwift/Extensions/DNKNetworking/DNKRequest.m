@@ -10,7 +10,7 @@
 #import "RSAUtil.h"
 #import "DNKApiUtils.h"
 #import "WeChatSwift-Swift.h"
- 
+
 @interface DNKRequest()
 @end
 
@@ -31,18 +31,17 @@
 - (NSTimeInterval)requestTimeoutInterval {
     return 10;
 }
- 
+
 - (nullable id)requestArgument {
     _param = [self dnk_dynamicBuildParameter];
     if (_param == nil) {
         return nil;
     }
     NSLog(@"\n*** request \n*** Url:%@ \n*** params:%@",self.requestUrl, _param.mj_JSONString);
-    if ([GlobalManager manager].isEncry) {
+    if ([GlobalManager manager].isEncry && [self requestMethod] == YTKRequestMethodPOST) {
         YTKRequestMethod method = [self requestMethod];
         if (method == YTKRequestMethodPOST) {
             NSString *json = _param.mj_JSONString;
-            NSLog(@"%@", json);
             NSString *sign = [RSAUtil encryptString:json publicKey:DNKApiUtils.encryptKey];
             if (sign != nil) {
                 return @{@"sign": sign};
@@ -50,36 +49,30 @@
             return _param;
         }
     }
-    
-    
-    // 使用排序选择器进行排序
-//    NSArray *sortedArray = [_param.allKeys sortedArrayUsingComparator:^NSComparisonResult(id string1, id string2) {
-//        return [string1 compare:string2 options:NSCaseInsensitiveSearch];
-//    }];
-    
-    // 输出排序后的数组
-//    NSLog(@"Sorted array: %@", sortedArray);
-//    NSMutableString *mStr = [NSMutableString string];
-//    [_param.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-//        [mStr appendFormat:@"%@%=@"];
-//    }];
-    
-//    NSLog(@"\n*** request \n*** Url:%@ \n*** params:%@",self.requestUrl, _param.mj_JSONString);
-//    _encryptParam = [self dnk_encryptParm:_param.mj_JSONString];
     return _param;
 }
 
 - (NSDictionary<NSString *, NSString *> *)requestHeaderFieldValueDictionary {
-    NSDictionary *headerMap = [self dnk_requestHeader].mutableCopy;
+    NSMutableDictionary *headerMap = [self dnk_requestHeader].mutableCopy;
+    if ([GlobalManager manager].isEncry &&
+        [self requestMethod] == YTKRequestMethodGET) {
+        NSDictionary *params = [self requestArgument];
+        if (params != nil && params.count > 0) {
+            NSArray *sortedArray = [_param.allKeys sortedArrayUsingComparator:^NSComparisonResult(id string1, id string2) {
+                return [string1 compare:string2 options:NSCaseInsensitiveSearch];
+            }];
+            // p1=v1&p2=v2&p3=v3&
+            NSMutableArray *keyValues = NSMutableArray.array;
+            for (NSString *key in sortedArray) {
+                [keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, params[key]]];
+            }
+            [keyValues addObject:[DNKApiUtils getEncryptKey]];
+            NSString *paramsString = [keyValues componentsJoinedByString:@"&"];
+            NSString *sign = [[paramsString md5Encrpt] lowercaseString];
+            headerMap[@"sign"] = sign;
+        }
+    }
     NSLog(@"\n*** request \n*** Url:%@ \n*** header:%@",self.requestUrl, headerMap.mj_JSONString);
-//    YTKRequestMethod method = [self requestMethod];
-//    if (method == YTKRequestMethodGET) {
-//        NSDictionary *params = [self requestArgument];
-//        if (params != nil) {
-//            
-//        }
-//    }
-    
     return headerMap;
 }
 
@@ -96,7 +89,7 @@
 
 - (void)requestFailedFilter {
     [DNKProgressHUD hiddenProgressHUD];
-    NSInteger code = self.apiCode; 
+    NSInteger code = self.apiCode;
     if (code == REFRESH_TOKEN_TIMEOUT ||
         code == TOKEN_ERROR ||
         code == ERROR_USER_STATUS) {

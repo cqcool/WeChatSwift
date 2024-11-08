@@ -1,7 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-WeChatSwift/Pods-WeChatSwift-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
-${BUILT_PRODUCTS_DIR}/BGFMDB/BGFMDB.framework
 ${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework
 ${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework
 ${BUILT_PRODUCTS_DIR}/KeenKeyboard/KeenKeyboard.framework
@@ -14,6 +13,8 @@ ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework
 ${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework
 ${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
+${BUILT_PRODUCTS_DIR}/SDWebImageWebPCoder/SDWebImageWebPCoder.framework
 ${BUILT_PRODUCTS_DIR}/SFVideoPlayer/SFVideoPlayer.framework
 ${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework
 ${BUILT_PRODUCTS_DIR}/SVGKit/SVGKit.framework
@@ -28,3 +29,4 @@ ${BUILT_PRODUCTS_DIR}/WXActionSheet/WXActionSheet.framework
 ${BUILT_PRODUCTS_DIR}/WXGrowingTextView/WXGrowingTextView.framework
 ${BUILT_PRODUCTS_DIR}/YTKNetwork/YTKNetwork.framework
 ${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework
+${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework

@@ -23,6 +23,9 @@
 }
 
 - (NSData *)wxResponseData {
+    if ([GlobalManager manager].isEncry) {
+        return [DNKApiUtils decryptResponseData:self.responseObject];
+    }
     return [self.wxResponseObject mj_JSONData];
 }
 
@@ -72,7 +75,8 @@
  
 - (NSDictionary<NSString *, NSString *> *)dnk_requestHeader {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    dict[@"h"] = @"011001010001";
+    // 0120 0 101 0001
+    dict[@"h"] = [GlobalManager h];
     dict[@"isEnabled"] = ([GlobalManager manager].isEncry) ? @"true": @"false";
     if ([GlobalManager manager].refreshToken != nil) {
         dict[@"t1"] = [GlobalManager manager].refreshToken;

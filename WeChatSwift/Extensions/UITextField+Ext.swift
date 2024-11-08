@@ -124,4 +124,7 @@ extension DNKTextFieldManager : UITextFieldDelegate {
         }
         return true
     }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        dnkDelegate?.textFieldDidEndEditing?(textField)
+    }
 }

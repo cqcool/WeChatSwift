@@ -45,7 +45,7 @@ class NewsViewController: UIViewController {
     }
     
     @objc func handleMoreButtonClicked() {
-        navigationController?.pushViewController(NewDetailsViewController(), animated: true)
+//        navigationController?.pushViewController(NewDetailsViewController(), animated: true)
         
     }
     private func loadGroupMessage() {
@@ -57,15 +57,12 @@ class NewsViewController: UIViewController {
         // 有未读消息，就从服务端请求，否则加载本地数据即可
         let hasUnreadMsg = Int(session.unReadNum ?? "0")! > 0 ? true : false
         guard let mssageList = MessageEntity.queryMessag(groupNo: session.groupNo!),
-              mssageList.count > 0 else {
-            //            if hasUnreadMsg {
+              mssageList.count > 0 else { 
             loadRemoteMessage(msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-            //            } else {
-            //                loadRemoteMessage(sort: "0", msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-            //            }
             return
         }
         self.dataSource += mssageList
+        self.readMessage(no: self.dataSource.last?.no ?? "")
         if hasUnreadMsg {
             loadRemoteMessage(msgNo: mssageList.first?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
         }

@@ -33,6 +33,10 @@ static NSString * identifierForVendorTag = @"identifierForVendor";
 //    return uniqueIdentifier;
 //}
  
++ (NSString *)getEncryptKey {
+    return @"e1xbbhzzh6jrfy2i36sq0afv5qn8ouro";
+}
+
 + (NSString *)encryptKey {
     return @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/VLbMOwpDVeQ9eHVhLM1UIkXlJbR22A4Z8myKvHLj80lfJrAJ7aP4lHwUNoiFe+tauhyJ5Zho1XwqO/iMxMU0RxVyTDkrKjxhxWhRnUJOYLQErSZme9FRlzgUxouRG0Yx4bXMHqIx3QPukCBGtTd3EpatBoUN30OqHj4LDHpk4QIDAQAB";
 }
@@ -47,13 +51,11 @@ static NSString * identifierForVendorTag = @"identifierForVendor";
     return @"Rf#6XaC#";
 }
 
-+ (NSDictionary *)decryptResponseData:(NSDictionary *)responseData {
++ (NSData *)decryptResponseData:(NSDictionary *)responseData {
     NSString *data = responseData[@"data"];
     NSString *sign = responseData[@"sign"];
     NSString *secretKey = [sign aci_decryptWithAESWithKey:[self decryptAESKey] iv:[self decryptAESOffset]];
-    NSString *json = [data decryptUseDESWithKey:secretKey offset:[self decryptDESOffset]];
-    NSLog(@"json: %@", json);
-    return @{};
+    return [data decryptUseDESWithKey:secretKey offset:[self decryptDESOffset]];
 }
 
 #define DomainOfAppleToCheckNetwork @"http://captive.apple.com"

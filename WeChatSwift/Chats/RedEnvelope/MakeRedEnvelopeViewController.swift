@@ -54,7 +54,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     
     var numberOfPerson: Int = 0
     var redPackeyMoney: String? = ""
-    var moneyLabel: UILabel?
+    var moneyLabel: UILabel!
     var payTFHeight: CGFloat = 44
     var payTFWidth: CGFloat = 40
     var session: GroupEntity! = nil
@@ -464,9 +464,9 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             make.top.equalToSuperview().offset(65)
             make.centerX.equalToSuperview()
         }
-        let moneyLabel = UILabel()
+        moneyLabel = UILabel()
         payView?.addSubview(moneyLabel)
-        moneyLabel.attributedText = ("¥" + "10.00").moneyUnitAttribute(textColor: .black, fontSize: 32, unitSize: 25)
+        moneyLabel.attributedText = ("¥" + (redPackeyMoney ?? "0.00")).moneyUnitAttribute(textColor: .black, fontSize: 32, unitSize: 25)
         moneyLabel.snp.makeConstraints { make in
             make.top.equalTo(payTitleLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
@@ -772,3 +772,12 @@ extension MakeRedEnvelopeViewController: KeenCodeUnitDelegate {
         }
     }
 }
+
+/*
+ 
+ success *** Url:/group/redPacket/pay
+ *** reponseData:{"code":200,"data":{"referContent":"","referUserHead":"","nickname":"联动式","linkContent":"{\"name\":\"恭喜发财,大吉大利\",\"orderNumber\":\"RP202411063230868452751\",\"type\":1}","referContentType":null,"isUp":null,"toUserId":null,"orderNumber":"RP202411063230868452751","isAllDel":null,"type":1,"groupNo":"725092936441794560","groupType":2,"no":"725794110966992896","referUserId":null,"showTime":1730868452751,"contentType":7,"head":"14f3d28a1195489bb23cfa1cd6690901","referLinkContent":"","referMsgNo":null,"referUserNickname":"","createTime":1730868452751,"content":"","userId":"517105663"},"sign":"gi9p2N7W1wOqIW2ueH8QH1b+pOxWzezR6Nu5yRRubIM=","msg":"成功"}
+ "[]"
+ 
+ "WX Socket sendGroupMsg: Optional({\"code\":200,\"data\":\"{\\\"type\\\":1,\\\"no\\\":\\\"725794110966992896\\\",\\\"groupNo\\\":\\\"725092936441794560\\\",\\\"groupType\\\":2,\\\"nickname\\\":\\\"联动式\\\",\\\"head\\\":\\\"14f3d28a1195489bb23cfa1cd6690901\\\",\\\"userId\\\":\\\"517105663\\\",\\\"contentType\\\":7,\\\"linkContent\\\":\\\"{\\\\\\\"name\\\\\\\":\\\\\\\"恭喜发财,大吉大利\\\\\\\",\\\\\\\"orderNumber\\\\\\\":\\\\\\\"RP202411063230868452751\\\\\\\",\\\\\\\"type\\\\\\\":1}\\\",\\\"content\\\":\\\"\\\",\\\"referMsgNo\\\":null,\\\"referContentType\\\":null,\\\"referLinkContent\\\":\\\"\\\",\\\"referContent\\\":\\\"\\\",\\\"referUserId\\\":null,\\\"referUserNickname\\\":\\\"\\\",\\\"referUserHead\\\":\\\"\\\",\\\"createTime\\\":1730868452751,\\\"isUp\\\":1,\\\"lastNo\\\":\\\"725765024819322880\\\",\\\"toUserId\\\":null,\\\"isAllDel\\\":null,\\\"showTime\\\":1730868453000,\\\"groupIsChange\\\":0}\",\"msg\":\"system.success.200\",\"sign\":\"2IVJ3ZAsk425NPlj5w1gmAO0\"})"
+ */

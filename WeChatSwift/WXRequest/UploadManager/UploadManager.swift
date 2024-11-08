@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import AliyunOSSSwiftSDK
+import SDWebImageWebPCoder
 import AliyunOSSiOS
 
 typealias UploadResult = ((_ obj: Any?, _ error: NSError?)->Void)
@@ -40,18 +40,14 @@ class UploadManager: NSObject {
     }
     func uploadAvatar(image: UIImage, imageName: String, prefixType: PrefixType) {
         
-        let request = OSSPutObjectRequest()
-        request.uploadingData = image.pngData()!
-        request.bucketName = self.yunModel?.bucketName ?? ""
-        request.objectKey = imageName// + ".jpeg"
-//        request.uploadProgress = { (bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) -> Void in
-//            print("bytesSent:\(bytesSent),totalBytesSent:\(totalBytesSent),totalBytesExpectedToSend:\(totalBytesExpectedToSend)");
-//        };
+        let webpData = image.sd_imageData(as: .webP, compressionQuality: 0.75)
         
+        let request = OSSPutObjectRequest()
+        request.uploadingData = webpData!
+        request.bucketName = self.yunModel?.bucketName ?? ""
+        request.objectKey = imageName
         let provider = OSSFederationTokenCredentialProvider {
             let tcs = TaskCompletionSource()
-//            DispatchQueue(label: "test").async {
-//                Thread.sleep(forTimeInterval: 10)
                 let token = OSSFederationToken()
                 token.tAccessKey = self.yunModel?.accessKeyId ?? ""//"STS.tAccessKey"
                 token.tSecretKey = self.yunModel?.accessKeySecret ?? ""//"tSecretKey"
@@ -111,7 +107,8 @@ class UploadManager: NSObject {
     func setup() {
         OSSDDLog.removeAllLoggers();
         OSSLog.enable();
-        
+        let webPCoder = SDImageWebPCoder.shared
+        SDImageCodersManager.shared.addCoder(webPCoder)
         
     }
 }
@@ -141,3 +138,6 @@ class ALiYunModel: NSObject, Codable {
         case expiration
     }
 }
+/*
+ {"accessKeyId":"STS.NUQKENXBPi8HH8W4EiCYYXbPr","accessKeySecret":"4iefzeU5zKGZBCuuPPzPBhqr1nETS7AnaB64vNS6pR1A","securityToken":"CAIS1wJ1q6Ft5B2yfSjIr5bkAP/6tZ1x3vqjSh7m0EU8T9Z1t6f7kDz2IHpPfnZoBOgcs/kwlG9T7Pgdlq90UIR+WVec1VmeUkwNo22beIPkl5Gf595t0e+QewW6Dxr8w7WdAYHQR8/cffGAck3NkjQJr5LxaTSlWS7CU/iOkoU1VskLeQO6YDFafpQ0QDFvs8gHL3DcGO+wOxrx+ArqAVFvpxB3hBEYi8G2ydbO7QHF3h+oiL1XhfyoesL7P5I3Zs4gCY/shbIqTMebjn4MsSot3bxtkalJ9Q3AutygGFRL632ESbGOqYcwdFIhPPVnRP4b96KiyucaoOXWkJ/s0RFJMPGx0/453TEhqSGtPZRKVr5RHd6TUxxGYmibvwOb+EryzRiuvpfwgT6dhvUKPDdtK1eUY+bsgxupaRyIcKOu24pdsvFW9F6Fk5f0YTbGLdqXudY7b6FtBytAGoABEGX+jCGcaD3afGH2G5IitA1WqyU+lMuNzcjBDzt02w7gI+E9dlCJGIBc61NNvwC22SCnZPC3pF3lxCodtRihAibXANCRun9d9bimZu3U35GavOs+2XymL7wAJKNKQ0Ml/s0lVFqMGxi6ryV8J+v7YhkSwZUwr5SZ8aRLQK6C2TAgAA==","expiration":"2024-11-08T06:41:35Z","endpoint":"oss-ap-southeast-1.aliyuncs.com","bucketName":"boxgroup","stsServer":"http://boxgroup.oss-ap-southeast-1.aliyuncs.com","nameList":["head/8e8abee740b94c6ba9a6b9b0835d82bd"]}
+ */

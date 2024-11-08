@@ -96,6 +96,7 @@ extension DBManager {
             try self.db.create(table: GroupEntity.tableName, of: GroupEntity.self)
             try self.db.create(table: MessageEntity.tableName, of: MessageEntity.self)
             try self.db.create(table: RedPacketGetEntity.tableName, of: RedPacketGetEntity.self)
+            try self.db.create(table: GroupSyncEntity.tableName, of: GroupSyncEntity.self)
             
         } catch let error {
             debugPrint("初始化数据库及ORM对应关系建立失败\(error.localizedDescription)")

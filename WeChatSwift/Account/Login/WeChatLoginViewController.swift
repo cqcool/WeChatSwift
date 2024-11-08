@@ -107,18 +107,21 @@ class WeChatLoginViewController: UIViewController {
         let infoRequest = UserInfoRequest()
         chainRequest.add(infoRequest) { _, request in
             if request.apiSuccess() {
-            GlobalManager.manager.getConfigInfo { error in
+                GlobalManager.manager.getConfigInfo { error in
                     DNKProgressHUD.hiddenProgressHUD()
-                if let account = GlobalManager.manager.personModel?.account {
-                    if account != phone {
-//                        GlobalManager.manager.cleanLocalData()
+                    if let account = GlobalManager.manager.personModel?.account {
+                        if account != phone {
+                            //                        GlobalManager.manager.cleanLocalData()
+                        }
                     }
-                }
-                    if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
+                    do {
+                        let resp = try JSONDecoder().decode(PersonModel.self, from: request.wxResponseData())
                         GlobalManager.manager.updatePersonModel(model: resp)
                         GlobalManager.manager.login(isLogin: true)
-                    }
-                    return
+                        
+                    } catch {
+                        debugPrint(error)
+                    } 
                 }
             } else {
                 DNKProgressHUD.hiddenProgressHUD()

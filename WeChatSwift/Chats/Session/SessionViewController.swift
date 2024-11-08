@@ -31,7 +31,8 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     
     private var searchViewController: UISearchController?
     private let dateFormatter = ChatRoomDateFormatter()
-    
+     
+    private var onceTime: Bool = false
     
     override init() {
         super.init(node: ASDisplayNode())
@@ -53,7 +54,6 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         tableNode.dataSource = self
         tableNode.delegate = self
          
-        tableNode.reloadData()
         
         let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_outlined_addoutline"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
         navigationItem.rightBarButtonItem = rightButtonItem
@@ -63,27 +63,30 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(configUpdate), name: ConstantKey.NSNotificationConfigUpdate, object: nil)
         GlobalManager.manager.timingManager.addDelegate(delegate: self)
-        GlobalManager.manager.timingManager.startLoadData()
+        GlobalManager.manager.timingManager.loadLocalData()
+        tableNode.reloadData()
+        if GlobalManager.manager.finishRefreshToken {
+            refreshTokenEvent()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        requestUnreadMsg()
+        if GlobalManager.manager.finishRefreshToken {
+            requestUnreadMsg()
+        }
     }
     
     @objc func refreshTokenEvent() {
+        if onceTime {
+            return
+        }
+        onceTime = true
+        GlobalManager.manager.timingManager.startLoadData()
     }
     @objc func configUpdate() {
         tableNode.reloadData()
     }
-    
-    private func loadSessions() {
-        dataSource = MockFactory.shared.sessions()
-//        let first = dataSource.removeFirst()
-//        first.stickTop = true
-//        topSessions.append(first)
-    }
-    
     private func showMoreMenu() {
         if menuFloatView == nil {
             let y = Constants.statusBarHeight + 44

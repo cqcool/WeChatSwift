@@ -112,7 +112,19 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
             members = [session.toMember()]
         }
         Socket.shared.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+                // 监听屏幕熄灭
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterScreenOff), name: UIApplication.willResignActiveNotification, object: nil)
     }
+    
+    @objc func appDidEnterBackground() {
+        inputNode.dismissKeyboard()
+    }
+    @objc func appDidEnterScreenOff() {
+        inputNode.dismissKeyboard()
+    }
+    
     private func updateChatRoomView(status: ChatRoomStatus) {
         switch status {
         case .ban:
@@ -279,11 +291,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
 // MARK: - Event Handlers
 
 extension ChatRoomViewController {
-    
-    //    public func receiveNewMessage() {
-    //        loadRemoteMessage(msgNo: self.dataSource.messages.first?.entity?.no, hasUnreadMsg: true, lookUpHistory: false, showMsgTime: false, untilOldNo:)
-    //    }
-    
+     
     @objc private func handlePopGesture(_ gesture: UIGestureRecognizer) {
         switch gesture.state {
         case .began:
@@ -314,26 +322,22 @@ extension ChatRoomViewController {
         let hasUnreadMsg = Int(session.unReadNum ?? "0")! > 0 ? true : false
         guard let mssageList = MessageEntity.queryMessag(groupNo: session.groupNo!),
               mssageList.count > 0 else {
-            //            if hasUnreadMsg {
             loadRemoteMessage(msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-            //            } else {
-            //                loadRemoteMessage(sort: "0", msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-            //            }
             return
         }
         self.dataSource.appendMsgList(mssageList, scrollToLastMessage: true, showMsgTime: true)
-        if hasUnreadMsg {
-            loadRemoteMessage(msgNo: mssageList.first?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-        }
-        
+//        if hasUnreadMsg {
+            loadRemoteMessage(msgNo: hasUnreadMsg ? mssageList.last?.no : nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
+//        }
     }
     /*
+     sort=1, 获取新数据，sort=0，获取历史数据，
      hasUnreadMsg: 有未读消息，需要通知服务器更新消息状态
+     oldNo：本地最新消息no，socket收到消息是，latestNo与本地最新消息no对比，不一致时，表示遗漏了数据
      */
     private func loadRemoteMessage(sort: String = "1", msgNo: String?, hasUnreadMsg: Bool = false, lookUpHistory: Bool, showMsgTime: Bool = true, untilOldNo oldNo: String? = nil) {
         //        let isLoadLatest = sort == "1" ? true : false
         let request = MessageRequest(groupNo: session.groupNo!)
-        request.groupNo = session.groupNo!
         request.sort = sort
         /*
          sort=1, 获取新数据，分3种情况
@@ -344,7 +348,7 @@ extension ChatRoomViewController {
          no = 最早的历史数据no
          */
         if hasUnreadMsg {
-            // 无本地数据
+            // 有本地数据
             if msgNo != nil {
                 request.lastAckMsgNo = msgNo
             }
@@ -355,27 +359,30 @@ extension ChatRoomViewController {
         request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
             self.tableNode.view.mj_header?.endRefreshing()
             do {
+                
                 let resp = try JSONDecoder().decode([MessageEntity].self, from: request.wxResponseData())
                 if resp.count > 0 {
                     let personModel = GlobalManager.manager.personModel
                     resp.forEach { $0.ownerId = personModel?.userId }
                     MessageEntity.insertOrReplace(list: resp)
+                    // 本地没有最新获取的消息，仍需要进一步获取消息
+                    if self.dataSource.messages.first(where: { $0.entity?.no == resp.first?.no }) == nil {
+                        self.loadRemoteMessage(sort: "0", msgNo: resp.first?.no, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
+                    }
                     if oldNo != nil {
-                        self.dataSource.appendMsgList(resp, scrollToLastMessage:false, lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
+                        self.dataSource.appendMsgList(resp, scrollToLastMessage:true, lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
                     } else {
                         self.dataSource.appendMsgList(resp, scrollToLastMessage:sort == "1", lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
                     }
-                    self.dataSource.appendMsgList(resp, scrollToLastMessage:sort == "1", lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
                     if hasUnreadMsg {
                         self.readMessage(no: resp.last?.no ?? "")
-                    }
-                    // 避免重复读数据
-                    if self.dataSource.messages.first(where: { $0.entity?.no == resp.first?.no }) == nil {
-                        self.loadRemoteMessage(sort: "0", msgNo: resp.first?.no, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
                     }
                 } else {
                     if sort == "0" {
                         self.hasHistory = false
+                    }
+                    if hasUnreadMsg {
+                        self.readMessage(no: self.dataSource.messages.last?.entity?.no ?? "")
                     }
                 }
             }  catch {
@@ -730,7 +737,7 @@ extension ChatRoomViewController {
 }
 
 extension ChatRoomViewController: SocketDelegate {
-    
+    /// 发送消息，接收到ack回调，更新信息
     func updateLatestMessageEntity(entity: MessageEntity, latestNo: String?, oldNo: String?, isReadMoreHisoty: Bool) {
         let personModel = GlobalManager.manager.personModel
         entity.ownerId = personModel?.userId
@@ -740,7 +747,7 @@ extension ChatRoomViewController: SocketDelegate {
         }
         loadRemoteMessage(sort: "0", msgNo: latestNo, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
     }
-    
+    /// 收到最新消息
     func receiveLatestMessageEntity(groupNo: String, entity: MessageEntity) {
         if groupNo != session.groupNo {
             return
@@ -754,6 +761,7 @@ extension ChatRoomViewController: SocketDelegate {
             getGroupInfo()
             return
         }
+        self.readMessage(no: entity.no!)
         if let lastNo = entity.lastNo {
             let oldNo = dataSource.messages.last?.entity?.no
             if oldNo == lastNo {
@@ -763,6 +771,11 @@ extension ChatRoomViewController: SocketDelegate {
                 dataSource.appendMsgList([entity], scrollToLastMessage: true, showMsgTime: false) 
             }
             loadRemoteMessage(sort: "0", msgNo: lastNo, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
+        } else {
+            let personModel = GlobalManager.manager.personModel
+            entity.ownerId = personModel?.userId
+            MessageEntity.insertOrReplace(list: [entity])
+            dataSource.appendMsgList([entity], scrollToLastMessage: true, showMsgTime: false)
         }
     }
     

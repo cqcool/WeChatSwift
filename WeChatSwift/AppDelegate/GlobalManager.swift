@@ -22,7 +22,7 @@ class GlobalManager: NSObject {
         }
     }
     
-    @objc var isEncry: Bool = false
+    @objc var isEncry: Bool = true
     private var refreshTokenValue: String? = nil
     @objc var refreshToken: String? {
         get {
@@ -42,7 +42,7 @@ class GlobalManager: NSObject {
             personModelValue
         }
     }
-
+    
     private var isShowLogin: Bool = false
     
     private override init() {
@@ -74,7 +74,7 @@ class GlobalManager: NSObject {
             PersonModel.clearPerson()
             return
         }
-       PersonModel.savePerson(person: model!)
+        PersonModel.savePerson(person: model!)
     }
     func login(isLogin: Bool) {
         isShowLogin = false
@@ -82,11 +82,13 @@ class GlobalManager: NSObject {
         
         if isLogin {
             Socket.shared.connect()
+            finishRefreshToken = true
+            NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
         }
     }
     
     func logout() {
-        self.timingManagerPrivate.stopLoad() 
+        self.timingManagerPrivate.stopLoad()
         if isShowLogin {
             return
         }
@@ -96,47 +98,61 @@ class GlobalManager: NSObject {
         updateToken(token: nil)
         appDelegate.updateAppRoot()
     }
-//    func cleanLocalData() {
-//        DBManager.share.deleteTabble(tableName: GroupEntity.tableName)
-//        DBManager.share.deleteTabble(tableName: MessageEntity.tableName)
-//        DBManager.share.deleteTabble(tableName: RedPacketGetEntity.tableName)
-//    }
+    //    func cleanLocalData() {
+    //        DBManager.share.deleteTabble(tableName: GroupEntity.tableName)
+    //        DBManager.share.deleteTabble(tableName: MessageEntity.tableName)
+    //        DBManager.share.deleteTabble(tableName: RedPacketGetEntity.tableName)
+    //    }
     // 刷新token
+    var finishRefreshToken: Bool = false
     func requestRefreshToken() {
         let refreshRquest = RefreshTokenRequest()
         refreshRquest.startWithCompletionBlock { request in
-            guard let responseData = request.responseData else {
-                return
-            }
-            let json = try? JSON(data: responseData)
-            if let refreshToken = json?["data"]["refreshToken"].string {
-                GlobalManager.manager.updateRefreshToken(refreshToken: refreshToken)
-                self.refreshUserInfo() {_ in 
-                    
+            do {
+                let json = try JSON(data:  request.wxResponseData())
+                if let refreshToken = json["refreshToken"].string {
+                    GlobalManager.manager.updateRefreshToken(refreshToken: refreshToken)
+                    self.refreshUserInfo() {_ in
+                        
+                    }
+                    self.getConfigInfo()
+                    Socket.shared.connect()
+                    self.finishRefreshToken = true
+                    NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
                 }
-                self.getConfigInfo()
-                NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
-                Socket.shared.connect()
+            } catch {
+                debugPrint(error)
             }
         }
-
+    }
+    private var hString: String? = nil
+    static func h() -> String {
+        guard let h = self.manager.hString else {
+            if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                let v = appVersion.replacingOccurrences(of: ".", with: "")
+                self.manager.hString = "01100" + v + "0001"
+                return self.manager.hString!
+            }
+            return ""
+        }
+        return h
     }
 }
 
 extension GlobalManager {
     func setup() {
         refreshTokenValue = getRefreshToken()
+        tokenValue = getToken()
+        personModelValue = PersonModel.getPerson()
+        isShowLogin = (refreshToken != nil) ? false : true
+        self.headPrefix = WXUserDefault.headPrefix()
+        self.chatPrefix = WXUserDefault.chatPrefix()
         if refreshTokenValue != nil {
             DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
                 
                 self.requestRefreshToken()
             }
         }
-        tokenValue = getToken()
-        personModelValue = PersonModel.getPerson()
-        isShowLogin = (refreshToken != nil) ? false : true
-        self.headPrefix = WXUserDefault.headPrefix()
-        self.chatPrefix = WXUserDefault.chatPrefix()
     }
     
     private func getRefreshToken() -> String? {
@@ -150,8 +166,8 @@ extension GlobalManager {
         let infoRequest = UserInfoRequest()
         infoRequest.startWithCompletionBlock { request in
             if let resp = try? JSONDecoder().decode(PersonModel.self, from: request.wxResponseData()) {
-                 GlobalManager.manager.updatePersonModel(model: resp)
-             }
+                GlobalManager.manager.updatePersonModel(model: resp)
+            }
             completed(nil)
         } failure: { request in
             completed(request.error)

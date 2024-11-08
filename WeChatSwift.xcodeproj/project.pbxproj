@@ -49,6 +49,7 @@
 		1E5E37952CC5F5FF007F8944 /* NSObject+DNKKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37892CC5F5FF007F8944 /* NSObject+DNKKeyValue.m */; };
 		1E5E379A2CC600E8007F8944 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37982CC600E8007F8944 /* GTMBase64.m */; };
 		1E5E379D2CC600F1007F8944 /* NSString+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E379C2CC600F1007F8944 /* NSString+AES.m */; };
+		1E5E97342CDDE9760040BD6C /* GroupSyncEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E97332CDDE9760040BD6C /* GroupSyncEntity.swift */; };
 		1E6C17AE2CD0F6AD00000785 /* RedPacketRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C17AD2CD0F6AD00000785 /* RedPacketRecordModel.swift */; };
 		1E6C17B12CD22EC100000785 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C17B02CD22EC100000785 /* Socket.swift */; };
 		1E6C17B32CD35BD400000785 /* YTKBaseRequest+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C17B22CD35BD400000785 /* YTKBaseRequest+JSON.swift */; };
@@ -595,6 +596,7 @@
 		1E5E37982CC600E8007F8944 /* GTMBase64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		1E5E379B2CC600F1007F8944 /* NSString+AES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+AES.h"; sourceTree = "<group>"; };
 		1E5E379C2CC600F1007F8944 /* NSString+AES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES.m"; sourceTree = "<group>"; };
+		1E5E97332CDDE9760040BD6C /* GroupSyncEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSyncEntity.swift; sourceTree = "<group>"; };
 		1E6C17AD2CD0F6AD00000785 /* RedPacketRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketRecordModel.swift; sourceTree = "<group>"; };
 		1E6C17B02CD22EC100000785 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		1E6C17B22CD35BD400000785 /* YTKBaseRequest+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YTKBaseRequest+JSON.swift"; sourceTree = "<group>"; };
@@ -1107,6 +1109,7 @@
 				1EFACD122CC8F87F00D6ABC8 /* MessageEntity.swift */,
 				1E33691F2CCB2BB5005AF4A4 /* DBManager.swift */,
 				1E3369242CCB4735005AF4A4 /* Convenience.swift */,
+				1E5E97332CDDE9760040BD6C /* GroupSyncEntity.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -2952,6 +2955,7 @@
 				A341CF0222E5554800F18106 /* SettingsViewController.swift in Sources */,
 				A3618A9422F97B50000ACF4D /* ContactSettingViewController.swift in Sources */,
 				1EF4E63C2CB7D85E000F39E9 /* WeChatRegisterViewController.swift in Sources */,
+				1E5E97342CDDE9760040BD6C /* GroupSyncEntity.swift in Sources */,
 				A34760AD22E6E8BB0043AE1D /* AssetPickerViewController.swift in Sources */,
 				1EF4E6442CB8FAA7000F39E9 /* DNKCreate.swift in Sources */,
 				A3CCE02722DDED1F0003DC25 /* VOIPContentNode.swift in Sources */,
@@ -3424,6 +3428,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
@@ -3453,6 +3458,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
@@ -3537,6 +3543,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",

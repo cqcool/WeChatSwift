@@ -14,12 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(NSString *)deviceId;
 
++ (NSString *)getEncryptKey;
 + (NSString *)encryptKey;
 + (NSString *)decryptAESKey;
 + (NSString *)decryptAESOffset;
 
 
 + (NSString *)decryptDESOffset;
+
+
  
  
 /// 检测网络是否真正可用 (比如连上未插入网线的路由器WiFi时,网络并不真正可用)
@@ -27,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)checkNetworkActuallyAvailable:(void(^)(BOOL available))completion;
 
 
-+ (NSDictionary *)decryptResponseData:(NSDictionary *)data;
++ (NSData *)decryptResponseData:(NSDictionary *)data;
 
 @end
 

@@ -9,6 +9,7 @@
 import AsyncDisplayKit
 import ZLPhotoBrowser
 
+
 class SettingMyProfileViewController: ASDKViewController<ASDisplayNode> {
     
     private let tableNode = ASTableNode(style: .grouped)
@@ -29,7 +30,7 @@ class SettingMyProfileViewController: ASDKViewController<ASDisplayNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         
+        
         node.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
         tableNode.frame = node.bounds
         tableNode.backgroundColor = .clear

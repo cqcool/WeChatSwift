@@ -8,8 +8,7 @@
 
 import Foundation
 import SwiftyJSON
-import MJExtension
-import BGFMDB
+import MJExtension 
 
 protocol ChatDataDelegate {
     
@@ -30,17 +29,21 @@ class ChatDataManager {
     
     private var giveUpOne: Bool = false
     
+    func loadLocalData() {
+        if let list = GroupEntity.queryGroupChats() {
+            notify_updateGroupList(list: list)
+        }
+    }
     func startLoadData() {
-        nextId = getNextId()
-        nextTime = getNextTime()
+        if let syncEntity = GroupSyncEntity.query() {
+            nextId = syncEntity.nextId
+            nextTime = syncEntity.nextTime
+        }
         if nextId == nil ||
             nextTime == nil {
             notify_willLoadAllChat()
             loadChatData(isLoop: true)
             return
-        }
-        if let list = GroupEntity.queryGroupChats() {
-            notify_updateGroupList(list: list)
         }
         startTimer()
     }
@@ -90,19 +93,16 @@ class ChatDataManager {
 }
 
 extension ChatDataManager {
-    private func getNextId() -> String? {
-        UserDefaults.standard.object(forKey: "NextId") as? String
-    }
-    private func getNextTime() -> String? {
-        UserDefaults.standard.object(forKey: "NextTime") as? String
-    }
     private func saveNext(id: String?, time: String?) {
         guard let id,
               let time else {
             return
         }
-        UserDefaults.standard.setValue(id, forKey: "NextId")
-        UserDefaults.standard.setValue(time, forKey: "NextTime")
+        let syncEntity = GroupSyncEntity()
+        syncEntity.nextId = id
+        syncEntity.nextTime = time
+        syncEntity.userId = GlobalManager.manager.personModel?.userId
+        GroupSyncEntity.insertOrReplace(entity: syncEntity)
     }
     private func stopTimer() {
         // 停止计时器
