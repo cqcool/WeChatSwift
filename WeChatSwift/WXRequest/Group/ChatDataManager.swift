@@ -29,6 +29,8 @@ class ChatDataManager {
     
     private var giveUpOne: Bool = false
     
+    private var tokenTimeout: Int = -1
+    
     func loadLocalData() {
         if let list = GroupEntity.queryGroupChats() {
             notify_updateGroupList(list: list)
@@ -90,6 +92,13 @@ class ChatDataManager {
             d.updateGroupList(list: list)
         }
     }
+    
+    func updateTokenTimeout(timeout: Int) {
+        if timeout > 0 {
+            // 提前30s刷新
+            tokenTimeout = timeout / 1000 - 30
+        }
+    }
 }
 
 extension ChatDataManager {
@@ -111,6 +120,7 @@ extension ChatDataManager {
         timer?.cancel()
         timer = nil
         delegates = []
+        tokenTimeout = -1
     }
     private func loadChatData(isLoop: Bool) {
         let request = GroupListRequest()

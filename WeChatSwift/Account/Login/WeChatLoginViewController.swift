@@ -243,7 +243,7 @@ class WeChatLoginViewController: UIViewController {
             }
             
 #if DEBUG
-            accountTextField.text = "18259890000"
+            accountTextField.text = "182598900000"
             phoneTextField.text = "Wx123456"
             pswText = "Wx123456"
 #endif

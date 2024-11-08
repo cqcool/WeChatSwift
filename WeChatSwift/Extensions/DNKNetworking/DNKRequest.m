@@ -90,15 +90,20 @@
 - (void)requestFailedFilter {
     [DNKProgressHUD hiddenProgressHUD];
     NSInteger code = self.apiCode;
-    if (code == REFRESH_TOKEN_TIMEOUT ||
-        code == TOKEN_ERROR ||
+    if (code == TOKEN_ERROR ||
         code == ERROR_USER_STATUS) {
         [[GlobalManager manager] logout];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSString *apiMsg = self.apiMessage;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"showAlertViewOnLoginUI" object:nil userInfo:@{@"msg": apiMsg}];
         });
-    }// 66c0f77e6469464d8280d53e9e8f8206
+        return;
+    }
+    // 重新刷新token
+    if (code == REFRESH_TOKEN_TIMEOUT) {
+        [self start];
+        return;
+    }
 }
 
 - (void)requestFailedPreprocessor {     // 服务器校验失败
