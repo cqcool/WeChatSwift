@@ -120,7 +120,6 @@ extension ChatDataManager {
             if let json = try? JSON(data: request.wxResponseData()){
                 self.nextId = json["nextId"].string
                 self.nextTime = json["nextTime"].string
-                self.saveNext(id: self.nextId, time: self.nextTime)
                 guard let groupList = json["groupList"].arrayObject,
                       groupList.count > 0 else {
                     // 首次安装加载所有会话
@@ -131,6 +130,7 @@ extension ChatDataManager {
                     }
                     return
                 }
+                self.saveNext(id: self.nextId, time: self.nextTime)
                 
                 if let jsonData = (groupList as NSArray).mj_JSONData() {
                     do {

@@ -21,6 +21,7 @@ class AccountLoginUsersViewController: UIViewController {
     var smsBtn: UIButton!
     var continueBtn: UIButton!
     var btmVerticalStack = UIStackView()
+    var isAlert: Bool = false
      
     
     override func viewDidLoad() {
@@ -74,6 +75,10 @@ class AccountLoginUsersViewController: UIViewController {
     }
      
     @objc func popupAlertView(_ notification: Notification) {
+        if isAlert {
+            return
+        }
+        isAlert = true
         if let msg = notification.userInfo?["msg"] as? String {
             let popupView = JFPopupView.popup.alert {[
                 .subTitle(msg),
@@ -84,6 +89,7 @@ class AccountLoginUsersViewController: UIViewController {
                     .text("确定"),
                     .textColor(UIColor(hexString: "576B95")),
                     .tapActionCallback({
+                        self.isAlert = false
                     })
                 ])
             ]}

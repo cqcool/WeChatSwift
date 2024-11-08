@@ -98,7 +98,7 @@
             NSString *apiMsg = self.apiMessage;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"showAlertViewOnLoginUI" object:nil userInfo:@{@"msg": apiMsg}];
         });
-    }
+    }// 66c0f77e6469464d8280d53e9e8f8206
 }
 
 - (void)requestFailedPreprocessor {     // 服务器校验失败

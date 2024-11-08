@@ -35,11 +35,9 @@ class ReceiveRedViewContrroler: ASDKViewController<ASDisplayNode> {
         
         wx_navigationBar.backgroundColor = Colors.RED_NAVIGATION_BAR_COLOR
         navigationItem.title = "收到的红包"
-        
-        let cancelButton = UIBarButtonItem(image: UIImage(named: "close_trusted_friend_tips_hl"), style: .plain, target: self, action: #selector(handleCancelButtonClicked))
+        let cancelButton = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_outlined_back", fillColor: .white), style: .plain, target: self, action: #selector(handleCancelButtonClicked))
         navigationItem.leftBarButtonItem = cancelButton
-        
-        let moreItem = UIBarButtonItem(image: Constants.moreImage, style: .plain, target: self, action: #selector(handleMoreButtonClicked))
+        let moreItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_filled_more", fillColor: .white), style: .plain, target: self, action: #selector(handleMoreButtonClicked))
         navigationItem.rightBarButtonItem = moreItem
         
         node.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
