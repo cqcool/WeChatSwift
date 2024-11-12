@@ -9,7 +9,7 @@
 import Foundation
 
 // 发现页红点
-class UnreadMsgRequest: DNKRequest {
+class UnreadMsgRequest: WXRequest {
     override func requestUrl() -> String {
         "/group/foundPageIsRead"
     }
@@ -22,7 +22,7 @@ class UnreadMsgRequest: DNKRequest {
 
 /// 会话-列表同步
 @objcMembers
-class GroupListRequest: DNKRequest {
+class GroupListRequest: WXRequest {
     var groupNo: String? = nil
     var limit: String = "100"
     /// 下个id(根据上次返回请求)
@@ -44,7 +44,7 @@ class GroupListRequest: DNKRequest {
 
 /// 群成员列表
 @objcMembers
-class GroupMembersRequest: DNKRequest {
+class GroupMembersRequest: WXRequest {
     var groupNo: String? = nil
     
     init(groupNo: String?) {
@@ -62,7 +62,7 @@ class GroupMembersRequest: DNKRequest {
 
 /// 群信息修改
 @objcMembers
-class UpdateGroupRequest: DNKRequest {
+class UpdateGroupRequest: WXRequest {
     var groupNo: String? = nil
     var head: String? = nil
     var intro: String? = nil
@@ -82,7 +82,7 @@ class UpdateGroupRequest: DNKRequest {
 
 /// 群信息
 @objcMembers
-class GroupInfoRequest: DNKRequest {
+class GroupInfoRequest: WXRequest {
     var groupNo: String? = nil
     init(groupNo: String?) {
         self.groupNo = groupNo

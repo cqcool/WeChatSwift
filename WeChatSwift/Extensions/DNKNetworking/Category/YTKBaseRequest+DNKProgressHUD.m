@@ -9,6 +9,9 @@
 #import "YTKBaseRequest+DNKProgressHUD.h"
 #import "YTKBaseRequest+DNKApi.h"
 #import <objc/runtime.h>
+#import "WXRequest.h"
+#import "WeChatSwift-Swift.h"
+
 @interface DNKHudControlManager : NSObject<YTKRequestAccessory>
 @property (readonly, nonatomic, weak) YTKBaseRequest *baseRequest;
 @property (assign, nonatomic) BOOL networkingHUDFlag;
@@ -50,6 +53,28 @@
         [DNKProgressHUD brieflyProgressMsg:msg];
     }
 }
+
++ (void)swizzleInstanceMethod:(Class)target original:(SEL)originalSelector swizzled:(SEL)swizzledSelector {
+    Method originMethod = class_getInstanceMethod(target, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(target, swizzledSelector);
+    method_exchangeImplementations(originMethod, swizzledMethod);
+}
+
++ (void)load {
+    [self swizzleInstanceMethod:[YTKRequest class] original:@selector(start) swizzled:@selector(swizzle_start)];
+}
+/// hook
+- (void)swizzle_start {
+    if ([GlobalManager manager].isRefreshTokenNow &&
+        [self isKindOfClass:[WXRequest class]] &&
+        ![(WXRequest *)self greenLight]) {
+        [[GlobalManager manager] appendWaitRequest:self];
+        return;
+    }
+    NSLog(@"swizzle swizzle_start");
+    [self swizzle_start];
+}
+
 @end
 
 @implementation DNKHudControlManager

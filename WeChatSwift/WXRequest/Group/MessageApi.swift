@@ -10,7 +10,7 @@ import Foundation
 
 @objcMembers
 ///消息已读
-class MsgReadRequest: DNKRequest {
+class MsgReadRequest: WXRequest {
     let no: String
     init(no: String) {
         self.no = no
@@ -27,7 +27,7 @@ class MsgReadRequest: DNKRequest {
 
 /// 消息列表
 @objcMembers
-class MessageRequest: DNKRequest {
+class MessageRequest: WXRequest {
     /*
      如果我要拿最新的数据，我要传lastAckMsgNo(最新的消息no)，sort，groupNo，go。
      如果我要拿旧数据，传no(最旧的消息no)，sort，groupNo，go。

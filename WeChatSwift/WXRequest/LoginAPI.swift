@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LoginRequest: DNKRequest {
+class LoginRequest: WXRequest {
     
     @objc let account: String
     @objc let device: String = DNKDevice.phoneModel()
@@ -21,6 +21,7 @@ class LoginRequest: DNKRequest {
         if let uuid = UIDevice.current.identifierForVendor?.uuidString {
             deviceId = uuid
         }
+        super.init()
     }
     
     override func requestUrl() -> String {
@@ -32,7 +33,7 @@ class LoginRequest: DNKRequest {
     } 
 }
 /// 退出登录
-class LogoutRequest: DNKRequest {
+class LogoutRequest: WXRequest {
 
     override func requestUrl() -> String {
         "/user/logout"
@@ -44,7 +45,7 @@ class LogoutRequest: DNKRequest {
 }
 
 /// 获取临时token
-class RefreshTokenRequest: DNKRequest { 
+class RefreshTokenRequest: WXRequest { 
     
     override func requestUrl() -> String {
         "/user/refresh/token"
@@ -53,10 +54,14 @@ class RefreshTokenRequest: DNKRequest {
     override func requestMethod() -> YTKRequestMethod {
         .GET
     }
+    
+    override func greenLight() -> Bool {
+        true
+    }
 }
 
 /// 用户信息
-class UserInfoRequest: DNKRequest {
+class UserInfoRequest: WXRequest {
     
     override func requestUrl() -> String {
         "/user/userInfo"
@@ -68,7 +73,7 @@ class UserInfoRequest: DNKRequest {
 }
 
 /// 修改用户信息
-class updateInfoRequest: DNKRequest {
+class updateInfoRequest: WXRequest {
     @objc var nickname: String? = nil
     @objc var head: String? = nil
     convenience init(nickname: String) {
@@ -89,7 +94,7 @@ class updateInfoRequest: DNKRequest {
 }
 
 /// 配置信息
-class ConfigRequest: DNKRequest {
+class ConfigRequest: WXRequest {
     
     override func requestUrl() -> String {
         "/config/info"

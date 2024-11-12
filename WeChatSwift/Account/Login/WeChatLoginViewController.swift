@@ -96,6 +96,8 @@ class WeChatLoginViewController: UIViewController {
                     }
                     if let refreshToken = json["refreshToken"]["refreshToken"].string {
                         GlobalManager.manager.updateRefreshToken(refreshToken: refreshToken)
+                        let timeout = json["refreshToken"]["timeOut"].int ?? -1
+                        GlobalManager.manager.timingManager.updateTokenTimeout(timeout: timeout)
                     }
                 }
                 return
@@ -109,11 +111,6 @@ class WeChatLoginViewController: UIViewController {
             if request.apiSuccess() {
                 GlobalManager.manager.getConfigInfo { error in
                     DNKProgressHUD.hiddenProgressHUD()
-                    if let account = GlobalManager.manager.personModel?.account {
-                        if account != phone {
-                            //                        GlobalManager.manager.cleanLocalData()
-                        }
-                    }
                     do {
                         let resp = try JSONDecoder().decode(PersonModel.self, from: request.wxResponseData())
                         GlobalManager.manager.updatePersonModel(model: resp)
@@ -243,7 +240,7 @@ class WeChatLoginViewController: UIViewController {
             }
             
 #if DEBUG
-            accountTextField.text = "182598900000"
+            accountTextField.text = "18259890000"
             phoneTextField.text = "Wx123456"
             pswText = "Wx123456"
 #endif

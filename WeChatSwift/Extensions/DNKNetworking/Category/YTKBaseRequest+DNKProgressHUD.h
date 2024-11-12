@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 显示错误消息 Toast
 - (void)showApiMsgHUD:(NSString *)msg;
 - (void)showApiMsgHUD;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

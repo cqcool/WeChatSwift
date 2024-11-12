@@ -35,8 +35,8 @@
 		1E5E37512CC4A241007F8944 /* NewsCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37502CC4A241007F8944 /* NewsCellNode.swift */; };
 		1E5E37532CC4CF82007F8944 /* NewDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37522CC4CF82007F8944 /* NewDetailsViewController.swift */; };
 		1E5E37562CC4D1C8007F8944 /* UIButton+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37552CC4D1C8007F8944 /* UIButton+Ext.m */; };
-		1E5E376A2CC4F3B8007F8944 /* DNKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375F2CC4F3B8007F8944 /* DNKRequest.m */; };
-		1E5E376D2CC4F3B8007F8944 /* DNKApiUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375C2CC4F3B8007F8944 /* DNKApiUtils.m */; };
+		1E5E376A2CC4F3B8007F8944 /* WXRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375F2CC4F3B8007F8944 /* WXRequest.m */; };
+		1E5E376D2CC4F3B8007F8944 /* WXApiUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375C2CC4F3B8007F8944 /* WXApiUtils.m */; };
 		1E5E37752CC4FCBB007F8944 /* DNKProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */; };
 		1E5E37792CC4FD24007F8944 /* DNKCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37772CC4FD24007F8944 /* DNKCircleProgress.m */; };
 		1E5E377B2CC502E9007F8944 /* DNKAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E377A2CC502E9007F8944 /* DNKAnimation.swift */; };
@@ -110,7 +110,6 @@
 		1EFACD002CC7941100D6ABC8 /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACCFF2CC7941100D6ABC8 /* UploadManager.swift */; };
 		1EFACD022CC7947300D6ABC8 /* UploadApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD012CC7947300D6ABC8 /* UploadApi.swift */; };
 		1EFACD052CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD042CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift */; };
-		1EFACD092CC8DC3F00D6ABC8 /* DiscoverApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD082CC8DC3F00D6ABC8 /* DiscoverApi.swift */; };
 		1EFACD0C2CC8DE0B00D6ABC8 /* GroupApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */; };
 		1EFACD0F2CC8E1C300D6ABC8 /* FriendsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD0E2CC8E1C300D6ABC8 /* FriendsApi.swift */; };
 		1EFACD112CC8EAC700D6ABC8 /* GroupEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */; };
@@ -567,11 +566,11 @@
 		1E5E37542CC4D1C8007F8944 /* UIButton+Ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+Ext.h"; sourceTree = "<group>"; };
 		1E5E37552CC4D1C8007F8944 /* UIButton+Ext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Ext.m"; sourceTree = "<group>"; };
 		1E5E37572CC4D27F007F8944 /* WeChatSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeChatSwift-Bridging-Header.h"; sourceTree = "<group>"; };
-		1E5E375B2CC4F3B8007F8944 /* DNKApiUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKApiUtils.h; sourceTree = "<group>"; };
-		1E5E375C2CC4F3B8007F8944 /* DNKApiUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKApiUtils.m; sourceTree = "<group>"; };
-		1E5E375D2CC4F3B8007F8944 /* DNKNetworkConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKNetworkConst.h; sourceTree = "<group>"; };
-		1E5E375E2CC4F3B8007F8944 /* DNKRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKRequest.h; sourceTree = "<group>"; };
-		1E5E375F2CC4F3B8007F8944 /* DNKRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKRequest.m; sourceTree = "<group>"; };
+		1E5E375B2CC4F3B8007F8944 /* WXApiUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApiUtils.h; sourceTree = "<group>"; };
+		1E5E375C2CC4F3B8007F8944 /* WXApiUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXApiUtils.m; sourceTree = "<group>"; };
+		1E5E375D2CC4F3B8007F8944 /* WXNetworkConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXNetworkConst.h; sourceTree = "<group>"; };
+		1E5E375E2CC4F3B8007F8944 /* WXRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXRequest.h; sourceTree = "<group>"; };
+		1E5E375F2CC4F3B8007F8944 /* WXRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXRequest.m; sourceTree = "<group>"; };
 		1E5E37722CC4FCBB007F8944 /* DNKProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKProgressHUD.h; sourceTree = "<group>"; };
 		1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKProgressHUD.m; sourceTree = "<group>"; };
 		1E5E37762CC4FD24007F8944 /* DNKCircleProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKCircleProgress.h; sourceTree = "<group>"; };
@@ -658,7 +657,6 @@
 		1EFACCFF2CC7941100D6ABC8 /* UploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
 		1EFACD012CC7947300D6ABC8 /* UploadApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadApi.swift; sourceTree = "<group>"; };
 		1EFACD042CC7AFB900D6ABC8 /* OSSFederationTokenCredentialProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSSFederationTokenCredentialProvider.swift; sourceTree = "<group>"; };
-		1EFACD082CC8DC3F00D6ABC8 /* DiscoverApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverApi.swift; sourceTree = "<group>"; };
 		1EFACD0B2CC8DE0B00D6ABC8 /* GroupApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupApi.swift; sourceTree = "<group>"; };
 		1EFACD0E2CC8E1C300D6ABC8 /* FriendsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsApi.swift; sourceTree = "<group>"; };
 		1EFACD102CC8EAC700D6ABC8 /* GroupEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEntity.swift; sourceTree = "<group>"; };
@@ -1208,11 +1206,11 @@
 			isa = PBXGroup;
 			children = (
 				8180972A2CC560CE003C6299 /* Encryption */,
-				1E5E375B2CC4F3B8007F8944 /* DNKApiUtils.h */,
-				1E5E375C2CC4F3B8007F8944 /* DNKApiUtils.m */,
-				1E5E375D2CC4F3B8007F8944 /* DNKNetworkConst.h */,
-				1E5E375E2CC4F3B8007F8944 /* DNKRequest.h */,
-				1E5E375F2CC4F3B8007F8944 /* DNKRequest.m */,
+				1E5E375B2CC4F3B8007F8944 /* WXApiUtils.h */,
+				1E5E375C2CC4F3B8007F8944 /* WXApiUtils.m */,
+				1E5E375D2CC4F3B8007F8944 /* WXNetworkConst.h */,
+				1E5E375E2CC4F3B8007F8944 /* WXRequest.h */,
+				1E5E375F2CC4F3B8007F8944 /* WXRequest.m */,
 				1E5E37902CC5F5FF007F8944 /* Category */,
 			);
 			path = DNKNetworking;
@@ -1446,7 +1444,6 @@
 		1EFACD072CC8DC1500D6ABC8 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
-				1EFACD082CC8DC3F00D6ABC8 /* DiscoverApi.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -3086,8 +3083,8 @@
 				1EF4E68B2CBA86EA000F39E9 /* UIView+JFRect.swift in Sources */,
 				1EF4E68C2CBA86EA000F39E9 /* JF.swift in Sources */,
 				1EF4E68D2CBA86EA000F39E9 /* UIImage+JFColor.swift in Sources */,
-				1E5E376A2CC4F3B8007F8944 /* DNKRequest.m in Sources */,
-				1E5E376D2CC4F3B8007F8944 /* DNKApiUtils.m in Sources */,
+				1E5E376A2CC4F3B8007F8944 /* WXRequest.m in Sources */,
+				1E5E376D2CC4F3B8007F8944 /* WXApiUtils.m in Sources */,
 				1EF4E68E2CBA86EA000F39E9 /* Size+Extenison.swift in Sources */,
 				1EF4E6AB2CBA86FE000F39E9 /* JFToastView.swift in Sources */,
 				1EF4E6AC2CBA86FE000F39E9 /* UIViewContoller+JFPopup.swift in Sources */,
@@ -3117,7 +3114,6 @@
 				A3DE7CCA2301142200E73944 /* StoryTakePhotoTeachViewController.swift in Sources */,
 				A3D67FBD230FC8B900507B5F /* GrowingTextView.swift in Sources */,
 				A3C9145423056FFA00B6E077 /* MomentCommentListCellNode.swift in Sources */,
-				1EFACD092CC8DC3F00D6ABC8 /* DiscoverApi.swift in Sources */,
 				A374864222D44C48002EEC4F /* LocationContentNode.swift in Sources */,
 				A3993A702323A90B000C86D9 /* RadarSearchViewController.swift in Sources */,
 				A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */,

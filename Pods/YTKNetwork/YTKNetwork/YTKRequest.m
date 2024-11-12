@@ -103,6 +103,7 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
 @implementation YTKRequest
 
 - (void)start {
+    NSLog(@"swizzle start");
     if (self.ignoreCache) {
         [self startWithoutCache];
         return;

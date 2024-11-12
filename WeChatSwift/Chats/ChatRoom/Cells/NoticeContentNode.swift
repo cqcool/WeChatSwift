@@ -43,12 +43,8 @@ class NoticeContentNode: MessageContentNode {
             textNode.isUserInteractionEnabled = true
             textNode.isEnabled = true
             textNode.delegate = self
-//            textNode.highlightStyle = .light
-//            textNode.layer.as_allowsHighlightDrawing = true
-//            textNode.highlightRange = result.range
-            
-             let str = (textNode.attributedText?.string as! NSString).substring(with: result.range)
-            debugPrint("hilight text: \(str)")
+//             let str = (textNode.attributedText?.string as! NSString).substring(with: result.range)
+//            debugPrint("hilight text: \(str)")
         }
     }
     

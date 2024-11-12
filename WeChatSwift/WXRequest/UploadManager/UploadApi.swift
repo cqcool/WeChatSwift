@@ -22,7 +22,7 @@ enum UploadType: Int {
     case gif
 }
 @objcMembers
-class UploadRequest: DNKRequest {
+class UploadRequest: WXRequest {
     
     var prefixType: String = ""
     var number: String? = ""

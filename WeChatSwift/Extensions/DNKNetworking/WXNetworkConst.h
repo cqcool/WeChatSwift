@@ -1,12 +1,12 @@
 //
-//  DNKNetworkConst.h
+//  WXNetworkConst.h
 //  NewSmart
 //
 //  Created by 陈群 on 2022/7/1.
 //
 
-#ifndef DNKNetworkConst_h
-#define DNKNetworkConst_h
+#ifndef WXNetworkConst_h
+#define WXNetworkConst_h
 
 typedef NS_ENUM (NSInteger, DNKNetworkCode) {
     // 临时token不匹配
@@ -44,4 +44,4 @@ typedef NS_ENUM (NSInteger, DNKNetworkCode) {
     // 您的账号涉及违规，已被管理员禁止发言.
     ERR_USER_NOT_CHAT = -22,
 };
-#endif /* DNKNetworkConst_h */
+#endif /* WXNetworkConst_h */

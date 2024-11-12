@@ -8,7 +8,7 @@
 
 #import "YTKBaseRequest+DNKApi.h"
 #import <CommonCrypto/CommonCryptor.h>
-#import "DNKApiUtils.h"
+#import "WXApiUtils.h"
 #import "NSObject+DNKKeyValue.h"
 #import "WeChatSwift-Swift.h"
 #import <MJExtension.h>
@@ -24,7 +24,7 @@
 
 - (NSData *)wxResponseData {
     if ([GlobalManager manager].isEncry) {
-        return [DNKApiUtils decryptResponseData:self.responseObject];
+        return [WXApiUtils decryptResponseData:self.responseObject];
     }
     return [self.wxResponseObject mj_JSONData];
 }

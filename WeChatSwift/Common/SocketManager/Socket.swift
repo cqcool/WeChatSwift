@@ -29,13 +29,12 @@ class Socket: NSObject {
         
         super.init()
         // https://github.com/socketio/socket.io-client-swift/blob/master/Usage%20Docs/Compatibility.md
-
     }
-   
+    
     func addHandlers() {
         client?.on(clientEvent: .error) { data, ack in
             debugPrint("WX Socket error: \(data)")
-//            DNKProgressHUD.brieflyProgressMsg("WX Socket error: \(data)")
+            //            DNKProgressHUD.brieflyProgressMsg("WX Socket error: \(data)")
         }
         client?.on(clientEvent: .connect) { data, ack in
             debugPrint("WX Socket connected: \(data) ack: \(ack)")
@@ -45,12 +44,12 @@ class Socket: NSObject {
         client?.on(clientEvent: .disconnect) { data, ack in
             debugPrint("WX Socket disconnect")
         }
-//        // 收到会话消息
-//        client?.on("sendGroupMsg") { data, ack in
-//            if let message = data.first as? String {
-//                print("WX Socket 新消息收到: \(message)")
-//            }
-//        }
+        //        // 收到会话消息
+        //        client?.on("sendGroupMsg") { data, ack in
+        //            if let message = data.first as? String {
+        //                print("WX Socket 新消息收到: \(message)")
+        //            }
+        //        }
         // 发送内部消息
         client?.on("sendInternalMsg") { data, ack in
             if let message = data.first as? String {
@@ -77,7 +76,7 @@ class Socket: NSObject {
                     return
                 }
                 guard let dataString = json["data"].string,
-                let contentData = dataString.data(using: .utf8) else {
+                      let contentData = dataString.data(using: .utf8) else {
                     return
                 }
                 do {
@@ -87,29 +86,44 @@ class Socket: NSObject {
                     debugPrint("WX Socket sendGroupMsg Error: \(String(describing: error.localizedDescription))")
                 }
             }
-             
+            
         });
     }
     func connect() {
-        if socketManager != nil {
+        if client?.status == .connected {
             return
         }
         var extraHeaders:[String: String] = [:]
         extraHeaders["t"] = GlobalManager.manager.token!
-        extraHeaders["h"] = "011001010001"
+        extraHeaders["h"] = GlobalManager.h()
         extraHeaders["isEnabled"] = GlobalManager.manager.isEncry ? "true": "false"
         extraHeaders["t1"] = GlobalManager.manager.refreshToken!
         socketManager = SocketManager(socketURL: URL(string: Socket.url)!,
-                                      config:  [.version(.two),
-                                                .extraHeaders(extraHeaders),
-                                                .reconnects(true)/*, .log(true)*/])
+                                      config:  socketConfig())
         client = socketManager?.defaultSocket
         addHandlers()
         client?.connect()
     }
+    private func socketConfig() -> SocketIOClientConfiguration {
+        var extraHeaders:[String: String] = [:]
+        extraHeaders["t"] = GlobalManager.manager.token!
+        extraHeaders["h"] = GlobalManager.h()
+        extraHeaders["isEnabled"] = GlobalManager.manager.isEncry ? "true": "false"
+        extraHeaders["t1"] = GlobalManager.manager.refreshToken!
+        return [.version(.two),
+                .extraHeaders(extraHeaders),
+                .reconnects(true)]
+    }
+    func updateSocketConfig() {
+        if client?.status == .connected {
+            socketManager?.config = socketConfig()
+        }
+    }
     
     func disconnect() {
-        
+        client?.disconnect()
+        socketManager?.disconnect()
+        socketManager = nil
     }
     
     func sendData(message: MessageEntity) {
@@ -149,13 +163,13 @@ class Socket: NSObject {
         }
     }
     
-     
+    
 }
 
 private extension Socket {
     /*
      {"code":200,"data":"{\"balance\":null,\"type\":2,\"userId\":517105663}","msg":"system.success.200","sign":"UUmz6gF9X9Ev6522OgKR8180"}
-    
+     
      */
     func handleInternalMsg(content: String) {
         guard let json =  try? JSON(data: content.data(using: .utf8)!) else {
@@ -165,7 +179,7 @@ private extension Socket {
             return
         }
         guard let dataString = json["data"].string,
-        let data = try? JSON(data: dataString.data(using: .utf8)!) else {
+              let data = try? JSON(data: dataString.data(using: .utf8)!) else {
             return
         }
         // type 1余额变动,2账号封号
@@ -192,7 +206,7 @@ private extension Socket {
             return
         }
         guard let dataString = json["data"].string,
-        let data = try? JSON(data: dataString.data(using: .utf8)!) else {
+              let data = try? JSON(data: dataString.data(using: .utf8)!) else {
             return
         }
         // ack 响应的lastNo 和 本地的lastNo不一致时，则需要拉取最新数据，直至与本地的上一条no一样

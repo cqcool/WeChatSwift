@@ -27,6 +27,7 @@ final class GroupEntity: NSObject, Codable, TableCodable, Named {
     var name: String?
     var newAckMsgDate: TimeInterval?
     var newAckMsgInfo: String?
+    /// 类型：0通知消息 1聊天消息,2回复消息,3删除个人消息,4删除所有消息,5系统(私聊群聊)通知消息,6群变更消息
     var newAckMsgType: Int?
     var newAckMsgUserId: String?
     var newAckMsgUserNickname: String?
@@ -102,10 +103,29 @@ extension GroupEntity {
                 .font: UIFont.systemFont(ofSize: 14),
                 .foregroundColor: UIColor(hexString: "9B9B9B")
             ]
-            if let unRead = Int(unReadNum ?? "0"), unRead > 0 {
-                return NSAttributedString(string: "[\(String(describing: unRead))条] \(String(describing: newAckMsgUserNickname ?? "")): \(newAckMsgInfo ?? "")", attributes: attributes)
+            var content: String = ""
+            if msgType != 0,
+                let unRead = Int(unReadNum ?? "0"), unRead > 0 {
+                content = "[\(String(describing: unRead))条]"
             }
-            return NSAttributedString(string: "\(newAckMsgUserNickname ?? ""): \(newAckMsgInfo ?? "")", attributes: attributes)
+            if msgType == 1 || msgType == 2 {
+                content.append("\(newAckMsgUserNickname ?? ""): ")
+            }
+            content.append("\(newAckMsgInfo ?? "")")
+            let font = UIFont.systemFont(ofSize: 14)
+            let textColor = UIColor(hexString: "9B9B9B")
+            let attributedText = NSMutableAttributedString(string: content, attributes: [
+                .font: font,
+                .foregroundColor: textColor
+                ])
+            var attributeStr = ExpressionParser.shared!.attributedTagText(with: attributedText)
+            attributeStr = ExpressionParser.shared!.attributedCancelTagText(with: attributeStr)
+            let (attributed, _) = ExpressionParser.shared!.attributedRedPacketText(with: attributeStr)
+            if let attr = attributed.mutableCopy() as? NSMutableAttributedString {
+                attr.addAttributes([.font: font, .foregroundColor: textColor], range: NSMakeRange(0, attr.length))
+                return attr
+            }
+            return NSAttributedString(string: "")
         }
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 14),

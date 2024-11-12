@@ -60,14 +60,14 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         navigationItem.title = "微信"
         
         setupSearchController()
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(configUpdate), name: ConstantKey.NSNotificationConfigUpdate, object: nil)
         GlobalManager.manager.timingManager.addDelegate(delegate: self)
         GlobalManager.manager.timingManager.loadLocalData()
         tableNode.reloadData()
-        if GlobalManager.manager.finishRefreshToken {
-            refreshTokenEvent()
-        }
+//        if GlobalManager.manager.finishRefreshToken {
+//            refreshTokenEvent()
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,14 +76,14 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
             requestUnreadMsg()
         }
     }
-    
-    @objc func refreshTokenEvent() {
-        if onceTime {
-            return
-        }
-        onceTime = true
-        GlobalManager.manager.timingManager.startLoadData()
-    }
+//    
+//    @objc func refreshTokenEvent() {
+//        if onceTime {
+//            return
+//        }
+//        onceTime = true
+//        GlobalManager.manager.timingManager.startLoadData()
+//    }
     @objc func configUpdate() {
         tableNode.reloadData()
     }
@@ -322,6 +322,8 @@ extension SessionViewController: ChatDataDelegate {
         if list.count == 0 {
             return
         }
+        var row = 0
+//        var indexPaths: [IndexPath] = []
         for group in list.reversed() {
             if dataSource.contains(where: {$0.groupNo == group.groupNo}) {
                 dataSource.removeAll {$0.groupNo == group.groupNo}
@@ -329,9 +331,12 @@ extension SessionViewController: ChatDataDelegate {
             } else {
                 dataSource.insert(group, at: 0)
             }
+//            indexPaths.append(IndexPath(row: row, section: 0))
+//            row += 1
         }
         dataSource = dataSource.sorted(by: { $0.newAckMsgDate ?? 0 > $1.newAckMsgDate ?? 0})
         ChatRoomDateFormatter.groupFormatTime(groupList: dataSource)
+//        tableNode.reloadRows(at: indexPaths, with: .none)
         tableNode.reloadData()
     }
 }

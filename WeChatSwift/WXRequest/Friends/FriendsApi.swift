@@ -8,7 +8,7 @@
 
 import Foundation
 /// 好友列表
-class FriendListRequest: DNKRequest {
+class FriendListRequest: WXRequest {
     override func requestUrl() -> String {
         "/group/friend/list"
     } 

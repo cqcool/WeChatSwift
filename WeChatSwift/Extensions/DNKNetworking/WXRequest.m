@@ -1,25 +1,34 @@
 //
-//  DNKRequest.m
+//  WXRequest.m
 //  smarthome
 //
 //  Created by 陈群 on 2021/6/28.
 //  Copyright © 2021 dnake. All rights reserved.
 //
 
-#import "DNKRequest.h"
+#import "WXRequest.h"
 #import "RSAUtil.h"
-#import "DNKApiUtils.h"
+#import "WXApiUtils.h"
 #import "WeChatSwift-Swift.h"
 
-@interface DNKRequest()
+@interface WXRequest()
 @end
 
-@implementation DNKRequest {
+@implementation WXRequest {
     NSDictionary *_param;
     NSDictionary *_encryptParam;
 }
 
 #pragma mark - Override
+
+//- (instancetype)init
+//{
+//    self = [super init];
+//    if (self) {
+//        NSLog(@"request class: %@", self.class);
+//    }
+//    return self;
+//}
 
 - (NSString *)baseUrl {
     return @"http://47.237.119.236:6001";
@@ -42,7 +51,7 @@
         YTKRequestMethod method = [self requestMethod];
         if (method == YTKRequestMethodPOST) {
             NSString *json = _param.mj_JSONString;
-            NSString *sign = [RSAUtil encryptString:json publicKey:DNKApiUtils.encryptKey];
+            NSString *sign = [RSAUtil encryptString:json publicKey:WXApiUtils.encryptKey];
             if (sign != nil) {
                 return @{@"sign": sign};
             }
@@ -66,7 +75,7 @@
             for (NSString *key in sortedArray) {
                 [keyValues addObject:[NSString stringWithFormat:@"%@=%@", key, params[key]]];
             }
-            [keyValues addObject:[DNKApiUtils getEncryptKey]];
+            [keyValues addObject:[WXApiUtils getEncryptKey]];
             NSString *paramsString = [keyValues componentsJoinedByString:@"&"];
             NSString *sign = [[paramsString md5Encrpt] lowercaseString];
             headerMap[@"sign"] = sign;
@@ -131,4 +140,8 @@
     return YTKResponseSerializerTypeJSON;
 }
 
+
+- (BOOL)greenLight {
+    return false;
+}
 @end

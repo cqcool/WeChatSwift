@@ -98,7 +98,7 @@ class ChatRoomDateFormatter {
                 }
                 // 同一星期
                 
-                if date.isSameWeek(date: groupDate) {
+                if date.isInSameWeek(as: groupDate) {
                     group._formattedTime = "星期" + numberToChinese(number: groupComponents.weekday ?? 1)
                     return
                 }
@@ -123,41 +123,26 @@ class ChatRoomDateFormatter {
     }
 }
 
-// MARK: - 分类.  时间间隔判断
 extension Date {
-    // MARK: - private method
-    // MARK: 两个日期的间隔
-    private func daysBetweenDate(toDate: Date) -> Int {
-        let components = Calendar.current.dateComponents([.day], from: self, to: toDate)
-        return abs(components.day!)
+
+    func isEqual(to date: Date, toGranularity component: Calendar.Component, in calendar: Calendar = .current) -> Bool {
+        calendar.isDate(self, equalTo: date, toGranularity: component)
     }
-    
-    // MARK: 日期对应当周的周几. 周一为开始, 周天为结束
-    private func dayForWeekAtIndex() -> Int {
-        let components = Calendar.current.dateComponents([.weekday], from: self)
-        
-        return (components.weekday! - 1) == 0 ? 7 : (components.weekday! - 1)
-    }
-    
-    // MARK: - public method
-    // MARK: 判断是否为同一周
-    func isSameWeek(date: Date) -> Bool {
-        let differ = self.daysBetweenDate(toDate: date)
-        // 判断哪一个日期更早
-        let compareResult = Calendar.current.compare(self, to: date, toGranularity: Calendar.Component.day)
-        
-        // 获取更早的日期
-        var earlyDate: Date
-        if compareResult == ComparisonResult.orderedAscending {
-            earlyDate = self
-        }else {
-            earlyDate = date
-        }
-        print(earlyDate)
-        
-        let indexOfWeek = earlyDate.dayForWeekAtIndex()
-        let result = differ + indexOfWeek
-        
-        return result > 7 ? false : true
-    }
+
+    func isInSameYear(as date: Date) -> Bool { isEqual(to: date, toGranularity: .year) }
+    func isInSameMonth(as date: Date) -> Bool { isEqual(to: date, toGranularity: .month) }
+    func isInSameWeek(as date: Date) -> Bool { isEqual(to: date, toGranularity: .weekOfYear) }
+
+    func isInSameDay(as date: Date) -> Bool { Calendar.current.isDate(self, inSameDayAs: date) }
+
+    var isInThisYear:  Bool { isInSameYear(as: Date()) }
+    var isInThisMonth: Bool { isInSameMonth(as: Date()) }
+    var isInThisWeek:  Bool { isInSameWeek(as: Date()) }
+
+    var isInYesterday: Bool { Calendar.current.isDateInYesterday(self) }
+    var isInToday:     Bool { Calendar.current.isDateInToday(self) }
+    var isInTomorrow:  Bool { Calendar.current.isDateInTomorrow(self) }
+
+    var isInTheFuture: Bool { self > Date() }
+    var isInThePast:   Bool { self < Date() }
 }

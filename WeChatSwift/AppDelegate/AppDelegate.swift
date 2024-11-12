@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func updateAppRoot() {
         if GlobalManager.manager.refreshToken != nil {
+            GlobalManager.manager.timingManager.startLoadData()
             window?.rootViewController = RootViewController()
             window?.makeKeyAndVisible()
             return

@@ -10,7 +10,7 @@ import Foundation
 
 /// 红包校验
 @objcMembers
-class RedPacketVerifyRequest: DNKRequest {
+class RedPacketVerifyRequest: WXRequest {
     /// 金额
     let amount: String
     /// 会话no
@@ -40,7 +40,7 @@ class RedPacketVerifyRequest: DNKRequest {
 
 @objcMembers
 /// 红包支付
-class RedPacketPayRquest: DNKRequest {
+class RedPacketPayRquest: WXRequest {
     /*
      "amount": 0,
       "groupNo": 0,
@@ -83,7 +83,7 @@ class RedPacketPayRquest: DNKRequest {
 
 @objcMembers
 /// 红包收到记录
-class RedPacketRecordRquest: DNKRequest {
+class RedPacketRecordRquest: WXRequest {
     
     let page: String
     let year: String
@@ -91,6 +91,7 @@ class RedPacketRecordRquest: DNKRequest {
     init(page: String, year: String) {
         self.page = page
         self.year = year
+        super.init()
     }
     override func requestUrl() -> String {
         "/group/redPacket/receiveRecord"
@@ -102,7 +103,7 @@ class RedPacketRecordRquest: DNKRequest {
  
 /// 红包领取
 @objcMembers
-class RedPacketGetRequest: DNKRequest {
+class RedPacketGetRequest: WXRequest {
     
     /// 会话no
     var groupNo: String

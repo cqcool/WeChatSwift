@@ -1,19 +1,19 @@
 //
-//  DNKApiUtils.m
+//  WXApiUtils.m
 //  smarthome
 //
 //  Created by 陈群 on 2021/6/24.
 //  Copyright © 2021 dnake. All rights reserved.
 //
 
-#import "DNKApiUtils.h"
+#import "WXApiUtils.h"
 #import <MJExtension.h>
 #import "NSString+AES.h"
 #import "NSString+Ext.h"
 #import <CommonCrypto/CommonCryptor.h>
 static NSString * identifierForVendorTag = @"identifierForVendor";
 
-@implementation DNKApiUtils
+@implementation WXApiUtils
 
 //+(NSString *)deviceId
 //{

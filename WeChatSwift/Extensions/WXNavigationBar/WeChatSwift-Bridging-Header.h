@@ -7,10 +7,10 @@
 #import "YTKBaseRequest+DNKApi.h"
 #import "UIButton+Ext.h"
 
-#import "DNKRequest.h"
+#import "WXRequest.h"
 
 
-#import "DNKApiUtils.h"
+#import "WXApiUtils.h"
 #import "NSString+Ext.h"
 
 #import "DNKDevice.h"

@@ -51,8 +51,7 @@ class SessionCellNode: ASCellNode {
         draftNode.attributedText = NSAttributedString(string: "草稿", attributes: [
             .font: UIFont.systemFont(ofSize: 14),
             .foregroundColor: UIColor(hexString: "#B71414")
-        ])
-        
+        ]) 
         subTitleNode.attributedText = session.attributedStringForSubTitle()
         subTitleNode.maximumNumberOfLines = 1
         
