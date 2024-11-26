@@ -22,7 +22,7 @@ class Socket: NSObject {
     static let shared = Socket()
     private var socketManager: SocketManager? = nil
     private var client: SocketIOClient? = nil
-    private static let url = "ws://47.237.119.236:6002"
+    private static let url = AppConfig.socketUrl()
     var delegate: SocketDelegate? = nil
     override init() {
         // https://gitcode.com/gh_mirrors/so/socket.io-client-swift/overview?utm_source=artical_gitcode&index=bottom&type=card&&isLogin=1

@@ -12,6 +12,7 @@ enum AppConfiguration: String {
     case debug
     case inhouse
     case release
+    case dev
     
     static func current() -> AppConfiguration {
         #if DEBUG
@@ -22,5 +23,29 @@ enum AppConfiguration: String {
         return .release
         #endif
     }
+    
+}
 
+@objcMembers
+class AppConfig: NSObject {
+    static var type: AppConfiguration = .inhouse
+    
+    class func baseUrl() -> String {
+        if (type == .debug) {
+            return "http://47.237.119.236:6001"
+        }
+        if (type == .inhouse) {
+            return "https://ap.x3yd.com"
+        }
+        return ""
+    }
+    class func socketUrl() -> String {
+        if (type == .debug) {
+            return "ws://47.237.119.236:6002"
+        }
+        if (type == .inhouse) {
+            return "https://we.x3yd.com"
+        }
+        return ""
+    }
 }

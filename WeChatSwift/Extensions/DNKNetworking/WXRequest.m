@@ -31,7 +31,7 @@
 //}
 
 - (NSString *)baseUrl {
-    return @"http://47.237.119.236:6001";
+    return [AppConfig baseUrl]; 
 }
 
 - (YTKRequestMethod)requestMethod {
