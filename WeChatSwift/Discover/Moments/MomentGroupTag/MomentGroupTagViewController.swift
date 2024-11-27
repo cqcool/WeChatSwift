@@ -37,7 +37,7 @@ class MomentGroupTagViewController: ASDKViewController<ASDisplayNode> {
         navigationItem.title = "谁可以看"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(handleCancelButtonClicked))
         
-        let doneButton = wc_doneBarButton(title: "完成")
+        let doneButton = wx_doneBarButton(title: "完成")
         doneButton.addTarget(self, action: #selector(handleDoneButtonClicked), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: doneButton)
     }

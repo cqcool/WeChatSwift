@@ -46,13 +46,13 @@ struct SettingsTableModel {
     }
 }
 
-extension SettingsTableModel: WCTableCellModel {
+extension SettingsTableModel: WXTableCellModel {
     
-    var wc_title: String { return title }
+    var wx_title: String { return title }
     
-    var wc_image: UIImage? { return nil }
+    var wx_image: UIImage? { return nil }
     
-    var wc_accessoryNode: ASDisplayNode? {
+    var wx_accessoryNode: ASDisplayNode? {
         guard let value = value else { return nil }
         let attributes = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17),
@@ -63,7 +63,7 @@ extension SettingsTableModel: WCTableCellModel {
         return textNode
     }
     
-    var wc_cellStyle: WCTableCellStyle {
+    var wx_cellStyle: WCTableCellStyle {
         switch type {
         case .switchAccount, .logout:
             return .centerButton
@@ -146,21 +146,21 @@ enum SettingGeneral {
     }
 }
 
-extension SettingGeneral: WCTableCellModel {
+extension SettingGeneral: WXTableCellModel {
     
-    var wc_image: UIImage? { return nil }
+    var wx_image: UIImage? { return nil }
     
-    var wc_title: String { return title }
+    var wx_title: String { return title }
     
-    var wc_showSwitch: Bool {
+    var wx_showSwitch: Bool {
         return self == .earmode
     }
     
-    var wc_switchValue: Bool {
+    var wx_switchValue: Bool {
         return true
     }
     
-    var wc_cellStyle: WCTableCellStyle {
+    var wx_cellStyle: WCTableCellStyle {
         if self == .clearChatHistory {
             return .centerButton
         }
@@ -174,13 +174,13 @@ struct SettingPluginSection {
     var items: [SettingPluginItem]
 }
 
-enum SettingPluginItem: WCTableCellModel {
+enum SettingPluginItem: WXTableCellModel {
     case groupMessageAssistant
     case news
     case weSport
     case qqMail
     
-    var wc_title: String {
+    var wx_title: String {
         switch self {
         case .groupMessageAssistant:
             return "群发助手"
@@ -193,7 +193,7 @@ enum SettingPluginItem: WCTableCellModel {
         }
     }
     
-    var wc_image: UIImage? {
+    var wx_image: UIImage? {
         switch self {
         case .groupMessageAssistant:
             return UIImage(named: "Plugins_groupsms_29x29_")
@@ -213,13 +213,13 @@ struct SettingAutoDownloadSection {
     var items: [SettingAutoDownloadModel]
 }
 
-enum SettingAutoDownloadModel: WCTableCellModel {
+enum SettingAutoDownloadModel: WXTableCellModel {
     case automaticallyDownload(Bool)
     case photoSaveToPhone(Bool)
     case videoSaveToPhone(Bool)
     case automaticallyPlayWWAN(Bool)
     
-    var wc_title: String {
+    var wx_title: String {
         switch self {
         case .automaticallyDownload(_):
             return "自动下载"
@@ -232,11 +232,11 @@ enum SettingAutoDownloadModel: WCTableCellModel {
         }
     }
     
-    var wc_showSwitch: Bool {
+    var wx_showSwitch: Bool {
         return true
     }
     
-    var wc_switchValue: Bool {
+    var wx_switchValue: Bool {
         switch self {
         case .automaticallyDownload(let isOn):
             return isOn

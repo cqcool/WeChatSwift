@@ -298,7 +298,7 @@ extension SessionViewController: ChatDataDelegate {
             make.top.left.bottom.equalToSuperview()
             make.size.equalTo(CGSize(width: 18, height: 18))
         }
-        let label = DNKCreate.label(text: "加载中", textColor: Colors.DEFAULT_TEXT_COLOR, fontSize: 15)
+        let label = WXCreate.label(text: "加载中", textColor: Colors.DEFAULT_TEXT_COLOR, fontSize: 15)
         loadingContentView.addSubview(label)
         label.snp.makeConstraints { make in
             make.top.right.bottom.equalToSuperview()

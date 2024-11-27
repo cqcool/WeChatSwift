@@ -2,7 +2,7 @@
 //  DNKCircleProgress.h
 //  NewSmart
 //
-//  Created by 陈群 on 2022/6/24.
+//  Created by Aliens on 2022/6/24.
 //
 
 #import <UIKit/UIKit.h>

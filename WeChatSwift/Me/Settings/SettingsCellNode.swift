@@ -38,30 +38,30 @@ class SettingsCellNode: ASCellNode {
         self.isLastCell = isLastCell
         super.init()
         automaticallyManagesSubnodes = true
-        if model.wc_imageURL != nil {
-            iconNode.url = model.wc_imageURL
+        if model.wx_imageURL != nil {
+            iconNode.url = model.wx_imageURL
         } else {
-            iconNode.image = model.wc_image
+            iconNode.image = model.wx_image
         }
-        titleNode.attributedText = model.wc_attributedStringForTitle()
+        titleNode.attributedText = model.wx_attributedStringForTitle()
         if model.leftImage != nil{
             leftImageNode.image = model.leftImage!
         }
         lineNode.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
         arrowNode.image = UIImage.SVGImage(named: "icons_outlined_arrow")
-        badgeNode.update(count: model.wc_badgeCount, showDot: false)
+        badgeNode.update(count: model.wx_badgeCount, showDot: false)
         
-        if model.wc_showSwitch {
+        if model.wx_showSwitch {
             isUserInteractionEnabled = true
-            let isOn = model.wc_switchValue
+            let isOn = model.wx_switchValue
             switchNode = ASDisplayNode(viewBlock: { [weak self] () -> UIView in
                 let button = self?.switchButton ?? UISwitch()
                 button.isOn = isOn
                 return button
             })
         }
-        if model.wc_imageCornerRadius > 0 {
-            iconNode.cornerRadius = model.wc_imageCornerRadius
+        if model.wx_imageCornerRadius > 0 {
+            iconNode.cornerRadius = model.wx_imageCornerRadius
             iconNode.cornerRoundingType = .precomposited
         }
     }
@@ -71,7 +71,7 @@ class SettingsCellNode: ASCellNode {
         
         backgroundColor = .white
         
-        if model.wc_showSwitch {
+        if model.wx_showSwitch {
             switchButton.addTarget(self, action: #selector(switchButtonValueChanged(_:)), for: .valueChanged)
         }
     }
@@ -82,7 +82,7 @@ class SettingsCellNode: ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        if model.wc_cellStyle == .centerButton || model.wc_cellStyle == .destructiveButton {
+        if model.wx_cellStyle == .centerButton || model.wx_cellStyle == .destructiveButton {
             let stack = ASStackLayoutSpec.horizontal()
             stack.horizontalAlignment = .middle
             stack.verticalAlignment = .center
@@ -95,12 +95,12 @@ class SettingsCellNode: ASCellNode {
         var leading: CGFloat = 0.0
         
         // Append Image
-        if model.wc_image != nil || model.wc_imageURL != nil  {
+        if model.wx_image != nil || model.wx_imageURL != nil  {
             iconNode.style.spacingBefore = 16
-            iconNode.style.preferredSize = model.wc_imageLayoutSize
+            iconNode.style.preferredSize = model.wx_imageLayoutSize
             elements.append(iconNode)
             if !isLastCell {
-                leading += 16.0 + model.wc_imageLayoutSize.width
+                leading += 16.0 + model.wx_imageLayoutSize.width
             }
         }
         
@@ -115,7 +115,7 @@ class SettingsCellNode: ASCellNode {
         }
     
         // Append Badge
-        if model.wc_badgeCount > 0 {
+        if model.wx_badgeCount > 0 {
             badgeNode.style.preferredSize = CGSize(width: 30, height: 30)
             elements.append(badgeNode)
         }
@@ -126,7 +126,7 @@ class SettingsCellNode: ASCellNode {
         spacer.style.flexShrink = 1.0
         elements.append(spacer)
         
-        if let accessory = model.wc_accessoryNode {
+        if let accessory = model.wx_accessoryNode {
             elements.append(accessory)
         }
         
@@ -140,7 +140,7 @@ class SettingsCellNode: ASCellNode {
             arrowNode.style.preferredSize = CGSize(width: 12, height: 24)
             arrowNode.style.spacingBefore = 10
             arrowNode.style.spacingAfter = 16
-            arrowNode.isHidden = !model.wc_showArrow
+            arrowNode.isHidden = !model.wx_showArrow
             elements.append(arrowNode)
         }
         

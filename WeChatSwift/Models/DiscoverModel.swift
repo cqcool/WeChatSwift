@@ -52,11 +52,11 @@ struct DiscoverModel {
     }
 }
 
-extension DiscoverModel: WCTableCellModel {
+extension DiscoverModel: WXTableCellModel {
     
-    var wc_title: String { return title }
+    var wx_title: String { return title }
     
-    var wc_image: UIImage? { return image }
+    var wx_image: UIImage? { return image }
     
-    var wc_badgeCount: Int { return unreadCount }
+    var wx_badgeCount: Int { return unreadCount }
 }

@@ -2,7 +2,7 @@
 //  LoadingCircle.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/24.
+//  Created by Aliens on 2024/10/24.
 //  Copyright © 2024 alexiscn. All rights reserved.
 // https://www.jianshu.com/p/f3754aa9dbcd
 

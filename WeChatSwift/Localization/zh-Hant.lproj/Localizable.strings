@@ -432,11 +432,11 @@
 
 "Backup_EnterBackground_RecoverTips" = "正在還原對話記錄，請勿關閉WeChat頁面。";
 
-"Backup_Entry_Tip" = "<_wc_custom_link_ href=\"https =//support.weixin.qq.com/cgi-bin/readtemplate?t=weixin_conversation_backup_tips&lang=%@\"><![CDATA[透過電腦備份/還原聊天記錄]]></_wc_custom_link_>";
+"Backup_Entry_Tip" = "<_wx_custom_link_ href=\"https =//support.weixin.qq.com/cgi-bin/readtemplate?t=weixin_conversation_backup_tips&lang=%@\"><![CDATA[透過電腦備份/還原聊天記錄]]></_wx_custom_link_>";
 
 "Backup_EntryView_Minimize" = "折疊";
 
-"Backup_Help_Show_LookForReason_HowToDo" = "<_wc_custom_link_ href=\"https =//support.weixin.qq.com/cgi-bin/readtemplate?t=weixin_conversation_backup_tips&type=error&lang=%@\"><![CDATA[查看連接失敗原因及解決方法]]></_wc_custom_link_>";
+"Backup_Help_Show_LookForReason_HowToDo" = "<_wx_custom_link_ href=\"https =//support.weixin.qq.com/cgi-bin/readtemplate?t=weixin_conversation_backup_tips&type=error&lang=%@\"><![CDATA[查看連接失敗原因及解決方法]]></_wx_custom_link_>";
 
 "Backup_Network_Error" = "連線失敗，請在電腦上重試。";
 
@@ -1094,7 +1094,7 @@
 
 "ChatLog_All_Time_Title" = "全部時間";
 
-"ChatLog_HowtoSetHotSpot" = "<_wc_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/readtemplate?t=weixin_chat_migration_faq&lang=%@\" color=\"album_username_color\">建立個人熱點</_wc_custom_link_>";
+"ChatLog_HowtoSetHotSpot" = "<_wx_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/readtemplate?t=weixin_chat_migration_faq&lang=%@\" color=\"album_username_color\">建立個人熱點</_wx_custom_link_>";
 
 "ChatLog_Select_All_Content" = "全部訊息";
 
@@ -2960,7 +2960,7 @@
 
 "Emotion_Store_V2_Reward_DonorsNum" = "%u 人已讚賞";
 
-"Emotion_Store_V2_Reward_DonorsNum_WithLink" = "<_wc_custom_link_ href=\"%@\">%u</_wc_custom_link_> 人已讚賞";
+"Emotion_Store_V2_Reward_DonorsNum_WithLink" = "<_wx_custom_link_ href=\"%@\">%u</_wx_custom_link_> 人已讚賞";
 
 "Emotion_Store_V2_Reward_Error_Default_Tips" = "系統忙碌中，請稍後再試。";
 
@@ -4362,7 +4362,7 @@
 
 "GroupPay_Launch_AA_Fail_Tips" = "提出失敗，請稍後再試。";
 
-"GroupPay_Launch_AAChangeToActivityMode_Tips" = "目前為人均模式，<_wc_custom_link_ href=\"%@\">改為填入自訂金額</_wc_custom_link_>";
+"GroupPay_Launch_AAChangeToActivityMode_Tips" = "目前為人均模式，<_wx_custom_link_ href=\"%@\">改為填入自訂金額</_wx_custom_link_>";
 
 "GroupPay_Launch_Activity_Cannot_SelectAllMemberAsPayer_Tips" = "付款人不可被設為所有人";
 
@@ -4378,7 +4378,7 @@
 
 "GroupPay_Launch_ActivityAA_TotalAmount_Tips_Format" = "共向%lu人收";
 
-"GroupPay_Launch_ActivityModeChangeToAAMode_Tips" = "目前為填入自訂金額，<_wc_custom_link_ href=\"%@\">改為人均模式</_wc_custom_link_>";
+"GroupPay_Launch_ActivityModeChangeToAAMode_Tips" = "目前為填入自訂金額，<_wx_custom_link_ href=\"%@\">改為人均模式</_wx_custom_link_>";
 
 "GroupPay_Launch_AddMember_Tips_Label_Text" = "選擇群組成員";
 
@@ -4434,7 +4434,7 @@
 
 "GroupPay_OrderHistory_H5AARecord_EnteranceTitle" = "查看原來群組收款記錄";
 
-"GroupPay_OrderHistory_Link_Format" = "<_wc_custom_link_ href=\"%@\">查看我的收款記錄</_wc_custom_link_>";
+"GroupPay_OrderHistory_Link_Format" = "<_wx_custom_link_ href=\"%@\">查看我的收款記錄</_wx_custom_link_>";
 
 "GroupPay_OrderHistory_NoRecord_Tips" = "暫時沒有收款記錄";
 
@@ -4468,7 +4468,7 @@
 
 "GroupPay_OrderStatusVC_ActivityAA_Receiver_NotReceipt_Launcher_DefaultTips" = "收到的錢將存入餘額";
 
-"GroupPay_OrderStatusVC_ActivityAA_Receiver_NotReceipt_Launcher_TipsLink" = "<_wc_custom_link_ href=\"%1$@\">%2$@</_wc_custom_link_>";
+"GroupPay_OrderStatusVC_ActivityAA_Receiver_NotReceipt_Launcher_TipsLink" = "<_wx_custom_link_ href=\"%1$@\">%2$@</_wx_custom_link_>";
 
 "GroupPay_OrderStatusVC_CloseOrder_Alert_BtnTitle" = "停止收款";
 
@@ -4498,7 +4498,7 @@
 
 "GroupPay_OrderStatusVC_PaySuccess_Tips" = "付款成功";
 
-"GroupPay_OrderStatusVC_SendPayNotify_Link_Format" = "<_wc_custom_link_ href=\"%@\">傳送提醒</_wc_custom_link_>";
+"GroupPay_OrderStatusVC_SendPayNotify_Link_Format" = "<_wx_custom_link_ href=\"%@\">傳送提醒</_wx_custom_link_>";
 
 "GroupPay_OrderStatusVC_TableView_AA_HeaderTitle_HasPay_Format" = "%lu人已付款";
 
@@ -4516,7 +4516,7 @@
 
 "GroupPay_Payment_Self_Wording" = "自己";
 
-"GroupPay_Payment_SystemMsgContent_Format" = "你向%1$@提出的<_wc_custom_link_ color=\"#037AFF\" href=\"%2$@\">群組收款</_wc_custom_link_>進行付款。";
+"GroupPay_Payment_SystemMsgContent_Format" = "你向%1$@提出的<_wx_custom_link_ color=\"#037AFF\" href=\"%2$@\">群組收款</_wx_custom_link_>進行付款。";
 
 "GroupPay_PayNotify_ConfirmView_Tips" = "你將在對話裡傳送一則公開訊息; 所有未付款的朋友將收到一次@提醒 (不可回收)。";
 
@@ -5034,7 +5034,7 @@
 
 "Login_PwdTip" = "密碼必須為8-16位數字+字母/符號的組合。";
 
-"Login_PwdTip_Forget" = "<_wc_custom_link_ href = \"\">忘記舊密碼？</_wc_custom_link_>";
+"Login_PwdTip_Forget" = "<_wx_custom_link_ href = \"\">忘記舊密碼？</_wx_custom_link_>";
 
 "Login_PwdTitle" = "設定密碼";
 
@@ -5066,7 +5066,7 @@
 
 "Login_Reg_LoginToReg_Title" = "你尚未註冊 WeChat";
 
-"Login_Reg_ReadAndAcceptAgreement" = "我已閱讀並同意<_wc_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@\">《WeChat 軟體許可及服務協議》</_wc_custom_link_>";
+"Login_Reg_ReadAndAcceptAgreement" = "我已閱讀並同意<_wx_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@\">《WeChat 軟體許可及服務協議》</_wx_custom_link_>";
 
 "Login_Reg_Set_Pwd" = "請設定密碼";
 
@@ -5612,7 +5612,7 @@
 
 "MassSend_WriteMessage_Title" = "廣播";
 
-"Me_Privacy_Law_Link" = "<_wc_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@&s=privacy&scene=setting\" color=\"album_username_color\">《WeChat隱私保護指南》</_wc_custom_link_>";
+"Me_Privacy_Law_Link" = "<_wx_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@&s=privacy&scene=setting\" color=\"album_username_color\">《WeChat隱私保護指南》</_wx_custom_link_>";
 
 "MemoryStat_NextStepTipsForReport" = "不上傳報告，進入下一步";
 
@@ -6016,7 +6016,7 @@
 
 "MessageRoomContent_Err" = "操作失敗，請稍後再試。";
 
-"MessageRoomContent_GDPR_OpenIM_Comment" = "目前群組包含 WeChat Work 用戶，<_wc_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/newreadtemplate?t=work_wechat/about_group&isGdpr=true&lang=%@\" color=\"#576B95\">了解更多</_wc_custom_link_>";
+"MessageRoomContent_GDPR_OpenIM_Comment" = "目前群組包含 WeChat Work 用戶，<_wx_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/newreadtemplate?t=work_wechat/about_group&isGdpr=true&lang=%@\" color=\"#576B95\">了解更多</_wx_custom_link_>";
 
 "MessageRoomContent_GroupSetting" = "設定";
 
@@ -6054,7 +6054,7 @@
 
 "MessageRoomContent_NotInChatRoom" = "已不在群組中";
 
-"MessageRoomContent_OpenIM_Comment" = "目前群組包含 WeChat Work 用戶，<_wc_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/newreadtemplate?t=work_wechat/about_group&lang=%@\" color=\"#576B95\">了解更多</_wc_custom_link_>";
+"MessageRoomContent_OpenIM_Comment" = "目前群組包含 WeChat Work 用戶，<_wx_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/newreadtemplate?t=work_wechat/about_group&lang=%@\" color=\"#576B95\">了解更多</_wx_custom_link_>";
 
 "MessageRoomContent_Owner" = "群組建立者";
 
@@ -6572,9 +6572,9 @@
 
 "Music_Repeat_None" = "單曲播放";
 
-"MyDevice_BindListView_BLELinkInfo" = "如無法搜尋到要新增的裝置，請檢查是否完成<_wc_custom_link_ href=\"%@\" color=\"#2689f4\">設定準備</_wc_custom_link_>";
+"MyDevice_BindListView_BLELinkInfo" = "如無法搜尋到要新增的裝置，請檢查是否完成<_wx_custom_link_ href=\"%@\" color=\"#2689f4\">設定準備</_wx_custom_link_>";
 
-"MyDevice_BindListView_LinkInfo" = "若搜尋不到要新增的裝置，請再次嘗試<_wc_custom_link_ href=\"%@\" color=\"#2689f4\">裝置連線設定</_wc_custom_link_>";
+"MyDevice_BindListView_LinkInfo" = "若搜尋不到要新增的裝置，請再次嘗試<_wx_custom_link_ href=\"%@\" color=\"#2689f4\">裝置連線設定</_wx_custom_link_>";
 
 "MyDevice_BindListView_NoBLEMainTips" = "未搜尋到裝置";
 
@@ -7244,7 +7244,7 @@
 
 "PublicWifi_ErrMsg_SSIDError" = "網路名稱不符合，請連接%@後重試或向提供者反映。";
 
-"PublicWifi_FrontInfo_Agreement" = "使用則表示你同意<_wc_custom_link_ href=\"%@\">《用戶條款和隱私權政策》</_wc_custom_link_>";
+"PublicWifi_FrontInfo_Agreement" = "使用則表示你同意<_wx_custom_link_ href=\"%@\">《用戶條款和隱私權政策》</_wx_custom_link_>";
 
 "PublicWifi_FrontInfo_Connect" = "立即連線";
 
@@ -7252,7 +7252,7 @@
 
 "PublicWifi_FrontInfo_DefaultIntro" = "歡迎使用WeChat連接Wi-Fi";
 
-"PublicWifi_FrontInfo_FailWithDetail" = "網路連線失敗，<_wc_custom_link_ href=\"%@\">查看詳情</_wc_custom_link_>";
+"PublicWifi_FrontInfo_FailWithDetail" = "網路連線失敗，<_wx_custom_link_ href=\"%@\">查看詳情</_wx_custom_link_>";
 
 "PublicWifi_FrontInfo_FailWithDetailText" = "網路連線失敗，查看詳情。";
 
@@ -8012,7 +8012,7 @@
 
 "Setting_Account_TrustedFriends_GetFailed" = "獲得緊急聯絡人失敗，請重試。";
 
-"Setting_Account_TrustedFriends_GuidePage" = "<_wc_custom_link_ href = \"https =//weixin110.qq.com/security/readtemplate?t=w_security_center_website/trusted_friend_guide&wechat_real_lang=zh_TW\">瞭解如何透過緊急聯絡人找回帳號密碼</_wc_custom_link_>";
+"Setting_Account_TrustedFriends_GuidePage" = "<_wx_custom_link_ href = \"https =//weixin110.qq.com/security/readtemplate?t=w_security_center_website/trusted_friend_guide&wechat_real_lang=zh_TW\">瞭解如何透過緊急聯絡人找回帳號密碼</_wx_custom_link_>";
 
 "Setting_Account_TrustedFriends_LessThanMinium" = "需要至少3位緊急聯絡人";
 
@@ -8386,7 +8386,7 @@
 
 "Setting_Privacy_FromBanner_BigTip" = "自動新增手機聯絡人";
 
-"Setting_Privacy_FromBanner_BottomTip" = "更多隱私設定，請打開[我]>[設定]><_wc_custom_link_ href = \"weixin =//setting/privacy\">[隱私]</_wc_custom_link_>";
+"Setting_Privacy_FromBanner_BottomTip" = "更多隱私設定，請打開[我]>[設定]><_wx_custom_link_ href = \"weixin =//setting/privacy\">[隱私]</_wx_custom_link_>";
 
 "Setting_Privacy_FromBanner_SmallTip" = "我們已為你開啟自動新增手機聯絡人功能。開啟後，WeChat將自動新增手機通訊錄中已經使用WeChat的聯絡人為好友。請仔細閱讀並了解以下兩項設定。";
 
@@ -10124,7 +10124,7 @@
 
 "WC_COMMENT_LIST_LOAD_MORE" = "查看更早的訊息...";
 
-"WC_Comment_Reply_What" = "回復<_wc_custom_link_ href=\"\" color=\"album_username_color\" dynamic_font=\"1\" backgroundenabled=\"0\" font=\"#wc_stranger_username font\"><![CDATA[%@]]></_wc_custom_link_> = %@";
+"WC_Comment_Reply_What" = "回復<_wx_custom_link_ href=\"\" color=\"album_username_color\" dynamic_font=\"1\" backgroundenabled=\"0\" font=\"#wx_stranger_username font\"><![CDATA[%@]]></_wx_custom_link_> = %@";
 
 "WC_Comment_ReplyTo" = "回覆%@：";
 
@@ -10184,7 +10184,7 @@
 
 "WC_DetectSystemError_Warning_Reboot_iPhone" = "系統可能異常，為確保能正常使用 WeChat，建議重啟手機後再試。";
 
-"wc_drag_tip" = "按住照片可進行拖拽，調整順序";
+"wx_drag_tip" = "按住照片可進行拖拽，調整順序";
 
 "WC_Forbid_Select_Empty_Groups" = "不能只選擇空標籤";
 
@@ -10960,7 +10960,7 @@
 
 "WCPay_Address_Title" = "地址";
 
-"WCPay_Agreement" = "同意<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">《用戶條款》</_wc_custom_link_>";
+"WCPay_Agreement" = "同意<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">《用戶條款》</_wx_custom_link_>";
 
 "WCPay_Agreement_Alert" = "請先閱讀並同意《用戶條款》。";
 
@@ -10980,7 +10980,7 @@
 
 "WCPay_AutoDeduct_PayAndOpen" = "付款並啟用";
 
-"WCPay_AutoDeduct_Protocol" = "你已閱讀並同意<_wc_custom_link_ href=\"%@\">《扣款授權說明書》</_wc_custom_link_>";
+"WCPay_AutoDeduct_Protocol" = "你已閱讀並同意<_wx_custom_link_ href=\"%@\">《扣款授權說明書》</_wx_custom_link_>";
 
 "WCPay_Balance_FetchMoney_Add_Card_Btn" = "新增簽帳金融卡";
 
@@ -11026,9 +11026,9 @@
 
 "WCPay_Balance_Title" = "餘額";
 
-"WCPay_Balance_TransferMoney_CreateRemark_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">新增轉帳說明</_wc_custom_link_>";
+"WCPay_Balance_TransferMoney_CreateRemark_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">新增轉帳說明</_wx_custom_link_>";
 
-"WCPay_Balance_TransferMoney_ModifyRemark_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">修改</_wc_custom_link_>";
+"WCPay_Balance_TransferMoney_ModifyRemark_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">修改</_wx_custom_link_>";
 
 "WCPay_Balance_TransferMoneyRemark_LabelTitle" = "轉帳說明";
 
@@ -11048,9 +11048,9 @@
 
 "WCPay_BalanceDetailView_TitleLabel" = "我的餘額";
 
-"WCPay_BalanceQuestion" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">常見問題</_wc_custom_link_>";
+"WCPay_BalanceQuestion" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">常見問題</_wx_custom_link_>";
 
-"WCPay_Bank_Phone" = "%@預設手機號碼，<_wc_custom_link_ href=\"%@\" color=\"LINK_COLOR\">更新</_wc_custom_link_>";
+"WCPay_Bank_Phone" = "%@預設手機號碼，<_wx_custom_link_ href=\"%@\" color=\"LINK_COLOR\">更新</_wx_custom_link_>";
 
 "WCPay_Bank_Phone_Digital_Cert_Version" = "%@預設手機號碼";
 
@@ -11088,7 +11088,7 @@
 
 "WCPay_BizF2F_TransferMoneyViewController_AomuntTitle" = "金額";
 
-"WCPay_BizF2F_TransferMoneyViewController_CreateComment_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">新增留言</_wc_custom_link_>";
+"WCPay_BizF2F_TransferMoneyViewController_CreateComment_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">新增留言</_wx_custom_link_>";
 
 "WCPay_BizF2F_TransferMoneyViewController_FavorCalculating" = "計算中";
 
@@ -11096,7 +11096,7 @@
 
 "WCPay_BizF2F_TransferMoneyViewController_FavorTitle" = "選擇優惠";
 
-"WCPay_BizF2F_TransferMoneyViewController_ModifyComment_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">修改</_wc_custom_link_>";
+"WCPay_BizF2F_TransferMoneyViewController_ModifyComment_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">修改</_wx_custom_link_>";
 
 "WCPay_BizF2F_TransferMoneyViewController_Title" = "付款";
 
@@ -11388,7 +11388,7 @@
 
 "WCPay_Digital_Verify_Code" = "驗證碼";
 
-"WCPay_ECardUploadIDCard_Tips" = "%@<_wc_custom_link_ href=\"%@\" color=\"#3399FF\">%@</_wc_custom_link_>";
+"WCPay_ECardUploadIDCard_Tips" = "%@<_wx_custom_link_ href=\"%@\" color=\"#3399FF\">%@</_wx_custom_link_>";
 
 "WCPay_Email_Error" = "郵件地址不能留空";
 
@@ -11452,7 +11452,7 @@
 
 "WCPay_F2F_SettingFixAmount_Title" = "收款金額";
 
-"WCPay_F2F_TransferMoney_CreateRemark_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">新增留言</_wc_custom_link_>";
+"WCPay_F2F_TransferMoney_CreateRemark_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">新增留言</_wx_custom_link_>";
 
 "WCPay_FaceHB_DeleteHB" = "回收剩餘紅包";
 
@@ -11518,11 +11518,11 @@
 
 "WCPay_FacingChangeToUnFixedAmountReceiveMoney_Btn" = "清除金額";
 
-"WCPay_FacingFixedAmountReceiveMoney_ChangeToDesc_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">新增收款說明</_wc_custom_link_>";
+"WCPay_FacingFixedAmountReceiveMoney_ChangeToDesc_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">新增收款說明</_wx_custom_link_>";
 
 "WCPay_FacingFixedAmountReceiveMoney_DescTitle" = "新增收款說明";
 
-"WCPay_FacingFixedAmountReceiveMoney_ModifyRemark_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">修改</_wc_custom_link_>";
+"WCPay_FacingFixedAmountReceiveMoney_ModifyRemark_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">修改</_wx_custom_link_>";
 
 "WCPay_FacingFixedAmountReceiveMoneyPaidSuccess_DescTitle" = "收款備註";
 
@@ -11614,7 +11614,7 @@
 
 "WCPay_FillCardInfo_FavorInfo_Favor" = "使用此類型的卡可再享受優惠%@元";
 
-"WCPay_FillCardNumber_MoreFavor" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">使用指定卡片可享受優惠</_wc_custom_link_>";
+"WCPay_FillCardNumber_MoreFavor" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">使用指定卡片可享受優惠</_wx_custom_link_>";
 
 "WCPay_FillCardVerify_FavorInfo_Favor" = "將要付款%@%.2lf（共優惠%@%.2lf）";
 
@@ -11626,7 +11626,7 @@
 
 "WCPay_FirstName_Title" = "名";
 
-"WCPay_GDPR_Agreement" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">《WeChat Pay服務協定》</_wc_custom_link_>";
+"WCPay_GDPR_Agreement" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">《WeChat Pay服務協定》</_wx_custom_link_>";
 
 "WCPay_GetA8Key_Error" = "QR Code或付款不合法";
 
@@ -11714,7 +11714,7 @@
 
 "WCPay_Honey_Pay_Home_Welcome_Add" = "贈送親屬卡";
 
-"WCPay_Honey_Pay_Inuse_Modify_Link" = "每月消費上限  <_wc_custom_link_ href=\"%@\">修改</_wc_custom_link_>";
+"WCPay_Honey_Pay_Inuse_Modify_Link" = "每月消費上限  <_wx_custom_link_ href=\"%@\">修改</_wx_custom_link_>";
 
 "WCPay_Honey_Pay_Max_Alert" = "金額不能超過 ¥%.2f";
 
@@ -11742,7 +11742,7 @@
 
 "WCPay_Honey_Unbind_Pwd_VC_Title" = "親屬卡解除綁定";
 
-"WCPay_Honey_Wishing_Format" = "%@ <_wc_custom_link_ href=\"%@\">修改留言</_wc_custom_link_>";
+"WCPay_Honey_Wishing_Format" = "%@ <_wx_custom_link_ href=\"%@\">修改留言</_wx_custom_link_>";
 
 "WCPay_IDCard_Scan_View_Title" = "掃描身分證";
 
@@ -11794,7 +11794,7 @@
 
 "WCPay_LQT_Balance_Title" = "帳戶餘額";
 
-"WCPay_LQT_BalanceNeedUpgrade_Link_Format" = "%1$@ <_wc_custom_link_ href=\"%2$@\">%3$@</_wc_custom_link_>";
+"WCPay_LQT_BalanceNeedUpgrade_Link_Format" = "%1$@ <_wx_custom_link_ href=\"%2$@\">%3$@</_wx_custom_link_>";
 
 "WCPay_LQT_CloseFundAccount_Fail_Network_Error" = "關閉失敗，請稍後再試";
 
@@ -11850,7 +11850,7 @@
 
 "WCPay_LQT_Deposit_Plan_List_Title" = "定期轉入計畫";
 
-"WCPay_LQT_Deposit_Protocol_Link_Format" = "同意<_wc_custom_link_ href=\"%@\">%@</_wc_custom_link_>";
+"WCPay_LQT_Deposit_Protocol_Link_Format" = "同意<_wx_custom_link_ href=\"%@\">%@</_wx_custom_link_>";
 
 "WCPay_LQT_Deposit_Pwd_Title" = "新增計畫";
 
@@ -11874,7 +11874,7 @@
 
 "WCPay_LQT_Fetch_Btn_Title" = "轉出";
 
-"WCPay_LQT_Money_Save_Protocol_Link_Format" = "同意<_wc_custom_link_ href=\"%@\">服務協定及風險提醒</_wc_custom_link_>";
+"WCPay_LQT_Money_Save_Protocol_Link_Format" = "同意<_wx_custom_link_ href=\"%@\">服務協定及風險提醒</_wx_custom_link_>";
 
 "WCPay_LQT_MoneyVC_CardInfo_Format" = "%@ (%@)";
 
@@ -11882,9 +11882,9 @@
 
 "WCPay_LQT_MoneyVC_Fetch_BankCard_FindWhy" = "查看原因";
 
-"WCPay_LQT_MoneyVC_Fetch_BankCard_RichTextFormat" = "零錢通餘額 ¥%3$.2f，其中 ¥%1$.2f 可轉出至簽帳金融卡，<_wc_custom_link_ href=\"%2$@\">%4$@</_wc_custom_link_>";
+"WCPay_LQT_MoneyVC_Fetch_BankCard_RichTextFormat" = "零錢通餘額 ¥%3$.2f，其中 ¥%1$.2f 可轉出至簽帳金融卡，<_wx_custom_link_ href=\"%2$@\">%4$@</_wx_custom_link_>";
 
-"WCPay_LQT_MoneyVC_Fetch_RichTextFormat" = "零錢通餘額¥%1$.2f，<_wc_custom_link_ href=\"%2$@\">全部轉出</_wc_custom_link_>";
+"WCPay_LQT_MoneyVC_Fetch_RichTextFormat" = "零錢通餘額¥%1$.2f，<_wx_custom_link_ href=\"%2$@\">全部轉出</_wx_custom_link_>";
 
 "WCPay_LQT_MoneyVC_Fetch_TextFieldTips" = "轉出金額";
 
@@ -11910,7 +11910,7 @@
 
 "WCPay_LQT_MoneyVC_PanelView_Save_Title" = "請選擇轉入方式";
 
-"WCPay_LQT_MoneyVC_Save_RichTextFormat" = "%1$@; <_wc_custom_link_ href=\"%2$@\">%3$@</_wc_custom_link_>";
+"WCPay_LQT_MoneyVC_Save_RichTextFormat" = "%1$@; <_wx_custom_link_ href=\"%2$@\">%3$@</_wx_custom_link_>";
 
 "WCPay_LQT_MoneyVC_Save_SaveAll" = "全部轉入";
 
@@ -12156,9 +12156,9 @@
 
 "WCPay_NewPwdViewController_TouchId_Desc" = "請驗證指紋以確認為本人操作";
 
-"WCPay_NewUser_CardNumberInputSafety_LearnMoreTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">瞭解安全保障</_wc_custom_link_>";
+"WCPay_NewUser_CardNumberInputSafety_LearnMoreTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">瞭解安全保障</_wx_custom_link_>";
 
-"WCPay_NewUser_CardNumberInputSafety_Title" = "請綁定 WeChat 帳號本人的卡，<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">瞭解安全保障</_wc_custom_link_>";
+"WCPay_NewUser_CardNumberInputSafety_Title" = "請綁定 WeChat 帳號本人的卡，<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">瞭解安全保障</_wx_custom_link_>";
 
 "WCPay_NewUser_CardNumberInputTip_Title" = "無需網銀/免手續費";
 
@@ -12250,7 +12250,7 @@
 
 "WCPay_OfflinePay_UnfreezeTips" = "請輸入付款密碼，即可解除凍結帳號";
 
-"WCPay_OfflinePay_ViewDetail_CustonLink_Content_Format" = "<_wc_custom_link_ href=\"%@\">查看詳情</_wc_custom_link_>";
+"WCPay_OfflinePay_ViewDetail_CustonLink_Content_Format" = "<_wx_custom_link_ href=\"%@\">查看詳情</_wx_custom_link_>";
 
 "WCPay_OnArriveMoney_AlertView_Confirm" = "刪除聊天";
 
@@ -12298,13 +12298,13 @@
 
 "WCPay_OrderDetail_DiscountFormat" = "%@優惠¥%.2f";
 
-"WCPay_OrderDetail_LinkedActivityInfo" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">%@</_wc_custom_link_>";
+"WCPay_OrderDetail_LinkedActivityInfo" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">%@</_wx_custom_link_>";
 
 "WCPay_OrderDetail_OrderCreateSimpleTime" = "MM月dd日 HH =mm";
 
 "WCPay_OrderDetail_OrderCreateTime" = "yy年MM月dd日 HH =mm";
 
-"WCPay_OrderDetail_ReceiverName" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">%@</_wc_custom_link_>";
+"WCPay_OrderDetail_ReceiverName" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">%@</_wx_custom_link_>";
 
 "WCPay_OrderHistoryDetail_View_Title" = "交易詳情";
 
@@ -12428,9 +12428,9 @@
 
 "WCPay_PayCardList_ResetPwdNewCard_Footer" = "為確保安全，完成後已綁定的卡將自動解綁。";
 
-"WCPay_PayCardList_ResetPwdNewCard_NewErrorPath" = "如上述卡已失效，或其他原因導致無法透過重新綁卡找回密碼，你可以<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">申請綁定新卡以找回密碼</_wc_custom_link_>";
+"WCPay_PayCardList_ResetPwdNewCard_NewErrorPath" = "如上述卡已失效，或其他原因導致無法透過重新綁卡找回密碼，你可以<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">申請綁定新卡以找回密碼</_wx_custom_link_>";
 
-"WCPay_PayCardList_ResetPwdNewCard_NewErrorPath_Oversea" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">無法綁卡找回？</_wc_custom_link_>";
+"WCPay_PayCardList_ResetPwdNewCard_NewErrorPath_Oversea" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">無法綁卡找回？</_wx_custom_link_>";
 
 "WCPay_PayCardList_Title_DoThings" = "付款";
 
@@ -12488,9 +12488,9 @@
 
 "WCPay_PayDetail_MerchantGuarantee" = "商家承諾";
 
-"WCPay_PayDetail_OrderView_TradeFavDesc" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">%@</_wc_custom_link_>";
+"WCPay_PayDetail_OrderView_TradeFavDesc" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">%@</_wx_custom_link_>";
 
-"WCPay_PayDetail_OrderView_TradeMultiFavDesc" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">%@，%@</_wc_custom_link_>";
+"WCPay_PayDetail_OrderView_TradeMultiFavDesc" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">%@，%@</_wx_custom_link_>";
 
 "WCPay_PayDetail_OriginalInfo" = "當地價值";
 
@@ -12624,7 +12624,7 @@
 
 "WCPay_PhoneNumberExplain_Title" = "手機號碼說明";
 
-"WCPay_PhoneNumberNotSMS_Title" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">未收到驗證碼？</_wc_custom_link_>";
+"WCPay_PhoneNumberNotSMS_Title" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">未收到驗證碼？</_wx_custom_link_>";
 
 "WCPay_Physical" = "實物類商品";
 
@@ -12776,11 +12776,11 @@
 
 "WCPay_RealnameV2_TW_Title" = "台胞證號碼";
 
-"WCPay_RebackMoney_Sender_BalanceDetail" = "已退款到餘額，<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">查看餘額</_wc_custom_link_>";
+"WCPay_RebackMoney_Sender_BalanceDetail" = "已退款到餘額，<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">查看餘額</_wx_custom_link_>";
 
 "WCPay_RebackMoney_Sender_CardDetail" = "已提出退款，1-3個工作日退還到儲蓄卡。";
 
-"WCPay_RebackMoney_Sender_LQTDetail" = "已退款到零錢通，<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">查看零錢通</_wc_custom_link_>";
+"WCPay_RebackMoney_Sender_LQTDetail" = "已退款到零錢通，<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">查看零錢通</_wx_custom_link_>";
 
 "WCPay_RedEnvelopes_Skin_Make_RedEnvelope_Title" = "紅包封面";
 
@@ -13198,9 +13198,9 @@
 
 "WCPay_Transfer_Delay_Receive_Time" = "收款時間：%@";
 
-"WCPay_Transfer_Delay_Revert_CustomLink" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">查看餘額</_wc_custom_link_>";
+"WCPay_Transfer_Delay_Revert_CustomLink" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">查看餘額</_wx_custom_link_>";
 
-"WCPay_Transfer_Delay_Revert_LQT_CustomLink" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">查看零錢通</_wc_custom_link_>";
+"WCPay_Transfer_Delay_Revert_LQT_CustomLink" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">查看零錢通</_wx_custom_link_>";
 
 "WCPay_Transfer_Delay_Revert_Node_title" = "已被付款方取消";
 
@@ -13218,7 +13218,7 @@
 
 "WCPay_Transfer_Delay_UsualyQuestion" = "常見問題";
 
-"WCPay_Transfer_Delay_Waiting_CustomLink" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">立即退還</_wc_custom_link_>";
+"WCPay_Transfer_Delay_Waiting_CustomLink" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">立即退還</_wx_custom_link_>";
 
 "WCPay_Transfer_DoubleCheck_Alert_AmountFormat" = "￥%.2f";
 
@@ -13290,7 +13290,7 @@
 
 "WCPay_TransferMoney_ReceiveTime_Detail" = "收款時間：%@";
 
-"WCPay_TransferMoney_ReceiveTime_Detail_Receiver" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">查看餘額</_wc_custom_link_>";
+"WCPay_TransferMoney_ReceiveTime_Detail_Receiver" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">查看餘額</_wx_custom_link_>";
 
 "WCPay_TransferMoney_Refused_RightBtn" = "退款";
 
@@ -13328,9 +13328,9 @@
 
 "WCPay_TransferMoney_TranferTime_Detail" = "轉帳時間：%@";
 
-"WCPay_TransferMoney_WaitingReceiver_Receiver_Detail" = "%lu天内未確認，將退款給對方。<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">立即退款</_wc_custom_link_>";
+"WCPay_TransferMoney_WaitingReceiver_Receiver_Detail" = "%lu天内未確認，將退款給對方。<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">立即退款</_wx_custom_link_>";
 
-"WCPay_TransferMoney_WaitingReceiver_Sender_Detail" = "%lu天内朋友未確認，將退款給你。<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">重發轉帳訊息</_wc_custom_link_>";
+"WCPay_TransferMoney_WaitingReceiver_Sender_Detail" = "%lu天内朋友未確認，將退款給你。<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">重發轉帳訊息</_wx_custom_link_>";
 
 "WCPay_UnBind_Big_Title" = "解除綁定卡片";
 
@@ -13342,7 +13342,7 @@
 
 "WCPay_UnKnown_Error" = "網路訊號出現問題，請稍後再試。";
 
-"WCPay_UploadIDCard_Tips" = "%@<_wc_custom_link_ href=\"%@\">%@</_wc_custom_link_>";
+"WCPay_UploadIDCard_Tips" = "%@<_wx_custom_link_ href=\"%@\">%@</_wx_custom_link_>";
 
 "WCPay_UserID_China_Tip" = "請輸入身分證號碼";
 
@@ -13734,11 +13734,11 @@
 
 "WCRedEnvelopes_Cannot_Make_RedEnvelopes_To_Not_Friend" = "你尚未新增對方為朋友，暫時不能給對方發紅包。";
 
-"WCRedEnvelopes_CanShareButton" = "<_wc_custom_link_ href=\"%@\">查看未發出的紅包</_wc_custom_link_>";
+"WCRedEnvelopes_CanShareButton" = "<_wx_custom_link_ href=\"%@\">查看未發出的紅包</_wx_custom_link_>";
 
-"WCRedEnvelopes_ChangeNomalToRandom" = "目前為普通紅包，<_wc_custom_link_ color=\"#C5984C\" href=\"%@\">改為拼手氣紅包</_wc_custom_link_>";
+"WCRedEnvelopes_ChangeNomalToRandom" = "目前為普通紅包，<_wx_custom_link_ color=\"#C5984C\" href=\"%@\">改為拼手氣紅包</_wx_custom_link_>";
 
-"WCRedEnvelopes_ChangeRandomToNormal" = "目前為拼手氣紅包，<_wc_custom_link_ color=\"#C5984C\" href=\"%@\">改為普通紅包</_wc_custom_link_>";
+"WCRedEnvelopes_ChangeRandomToNormal" = "目前為拼手氣紅包，<_wx_custom_link_ color=\"#C5984C\" href=\"%@\">改為普通紅包</_wx_custom_link_>";
 
 "WCRedEnvelopes_chooseEmoticon" = "從我的貼圖中選擇";
 
@@ -15226,7 +15226,7 @@
 
 "Wechat_Labs_No_Func_Tip" = "暫無功能可使用";
 
-"Wechat_Labs_Protocal_Law" = "<_wc_custom_link_ href = \"https =//weixin.qq.com/cgi-bin/readtemplate?t=weixin_agreement&s=lab&lang=zh_TW&cliVersion=%u\">《WeChat插件使用須知》</_wc_custom_link_>";
+"Wechat_Labs_Protocal_Law" = "<_wx_custom_link_ href = \"https =//weixin.qq.com/cgi-bin/readtemplate?t=weixin_agreement&s=lab&lang=zh_TW&cliVersion=%u\">《WeChat插件使用須知》</_wx_custom_link_>";
 
 "Wechat_Labs_Title" = "插件";
 
@@ -15284,7 +15284,7 @@
 
 "WeChatOut_CheckFee" = "查看費率";
 
-"WeChatOut_close_Function_Tips" = "儲值、方案、邀請有禮功能已停用，可繼續使用餘額撥打電話。<_wc_custom_link_ href=\"%@\">查看詳情</_wc_custom_link_>";
+"WeChatOut_close_Function_Tips" = "儲值、方案、邀請有禮功能已停用，可繼續使用餘額撥打電話。<_wx_custom_link_ href=\"%@\">查看詳情</_wx_custom_link_>";
 
 "WeChatOut_ConfirmBuy" = "購買";
 
@@ -15556,7 +15556,7 @@
 
 "Whatsnew_text_Btn" = "歡迎首頁";
 
-"Whatsnew_text_Law" = "<_wc_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@\">Terms</_wc_custom_link_> 和 <_wc_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@&s=privacy&scene=setting\" color=\"album_username_color\">Privacy</_wc_custom_link_>";
+"Whatsnew_text_Law" = "<_wx_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@\">Terms</_wx_custom_link_> 和 <_wx_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@&s=privacy&scene=setting\" color=\"album_username_color\">Privacy</_wx_custom_link_>";
 
 "WP_Input_Limit_Tip_Format" = "輸入字數應在%lu字以內";
 

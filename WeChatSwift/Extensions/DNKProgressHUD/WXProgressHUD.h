@@ -1,8 +1,8 @@
 //
-//  DNKProgressHUD.h
+//  WXProgressHUD.h
 //  NewSmart
 //
-//  Created by 陈群 on 2022/1/14.
+//  Created by Aliens on 2022/1/14.
 //
 
 #import <UIKit/UIKit.h>
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DNKProgressHUD : NSObject
+@interface WXProgressHUD : NSObject
 + (void)showProgress;
 + (void)showProgressMsg:(nullable NSString *)message;
 + (void)showProgressMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView;

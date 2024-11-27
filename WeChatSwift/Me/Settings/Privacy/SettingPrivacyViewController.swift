@@ -107,7 +107,7 @@ extension SettingPrivacyViewController: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         let model = dataSource[indexPath.section].items[indexPath.row]
-        return !model.wc_showSwitch
+        return !model.wx_showSwitch
     }
 }
 

@@ -35,7 +35,7 @@ class ContactTagCreateDetailViewController: ASDKViewController<ASDisplayNode> {
         let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(handleCancelButtonClicked))
         navigationItem.leftBarButtonItem = cancelButton
         
-        let rightButton = wc_doneBarButton(title: "完成")
+        let rightButton = wx_doneBarButton(title: "完成")
         rightButton.addTarget(self, action: #selector(handleDoneButtonClicked), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
     }

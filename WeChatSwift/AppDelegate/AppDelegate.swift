@@ -8,7 +8,7 @@
 
 import UIKit
 import AsyncDisplayKit
-import FLEX
+//import FLEX
 
 typealias RelayCommand = () -> Void
 
@@ -66,9 +66,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc private func handleLongPressStatusBar(_ gesture: UILongPressGestureRecognizer) {
-        if AppConfiguration.current() == .debug && gesture.state == .began {
-            FLEXManager.shared.showExplorer()
-        }
+//        if AppConfiguration.current() == .debug && gesture.state == .began {
+//            FLEXManager.shared.showExplorer()
+//        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

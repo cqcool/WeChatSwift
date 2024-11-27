@@ -14,7 +14,7 @@ extension UIView {
         guard #available(iOS 12.1, *) else { return }
         guard let cls = NSClassFromString("UITabBarButton") else { return }
         let originalSelector = #selector(setter: UIView.frame)
-        let swizzledSelector = #selector(UIView.wc_setFrame)
+        let swizzledSelector = #selector(UIView.wx_setFrame)
         guard let originalMethod = class_getInstanceMethod(cls, originalSelector),
             let swizzledMethod = class_getInstanceMethod(cls, swizzledSelector) else {
             return
@@ -33,7 +33,7 @@ extension UIView {
         }
     }()
     
-    @objc func wc_setFrame(frame: CGRect) {
+    @objc func wx_setFrame(frame: CGRect) {
         var newFrame: CGRect = frame
         if !self.frame.isEmpty {
             guard !newFrame.isEmpty else {
@@ -41,7 +41,7 @@ extension UIView {
             }
             newFrame.size.height = newFrame.size.height > 48.0 ? newFrame.size.height : 48.0
         }
-        self.wc_setFrame(frame: newFrame)
+        self.wx_setFrame(frame: newFrame)
     }
     
     class func fixTabBarButtonFrame() {

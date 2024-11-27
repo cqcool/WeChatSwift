@@ -37,7 +37,7 @@ struct SettingPrivacySection {
     }
 }
 
-enum SettingPrivacyModel: WCTableCellModel {
+enum SettingPrivacyModel: WXTableCellModel {
     case enableVerifyWhenAddMe(Bool)
     case wayToAddMe
     case enableAdressbookContacts(Bool)
@@ -49,7 +49,7 @@ enum SettingPrivacyModel: WCTableCellModel {
     case momentUpdateNotify(Bool)
     case authorization
     
-    var wc_title: String {
+    var wx_title: String {
         switch self {
         case .enableVerifyWhenAddMe(_):
             return "加我为朋友时需要验证"
@@ -74,7 +74,7 @@ enum SettingPrivacyModel: WCTableCellModel {
         }
     }
     
-    var wc_showSwitch: Bool {
+    var wx_showSwitch: Bool {
         switch self {
         case .enableVerifyWhenAddMe(_):
             return true
@@ -89,7 +89,7 @@ enum SettingPrivacyModel: WCTableCellModel {
         }
     }
     
-    var wc_switchValue: Bool {
+    var wx_switchValue: Bool {
         switch self {
         case .enableVerifyWhenAddMe(let isOn):
             return isOn

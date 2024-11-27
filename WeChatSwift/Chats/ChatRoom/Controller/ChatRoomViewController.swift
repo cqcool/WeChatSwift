@@ -435,14 +435,14 @@ extension ChatRoomViewController {
     }
     private func handleGroupError(request: YTKBaseRequest) {
         let code = request.apiCode()
-        if code == DNKNetworkCode.GROUP_IS_BLOCKED.rawValue ||
-            code == DNKNetworkCode.GROUP_IS_REMOVE.rawValue {
+        if code == NetworkCode.GROUP_IS_BLOCKED.rawValue ||
+            code == NetworkCode.GROUP_IS_REMOVE.rawValue {
             self.session.status = code == -7 ? 2 : 1
             GroupEntity.insertOrReplace(list: [self.session])
             self.updateChatRoomView(status: ChatRoomStatus(rawValue: self.session.status) ?? .normal)
             return
         }
-        if code == DNKNetworkCode.GROUP_USER_IS_REMOVE.rawValue {
+        if code == NetworkCode.GROUP_USER_IS_REMOVE.rawValue {
             self.updateChatRoomView(status: .byRemove)
             return
         }

@@ -2,7 +2,7 @@
 //  UICreate.m
 //  NewSmart
 //
-//  Created by 陈群 on 2022/1/21.
+//  Created by Aliens on 2022/1/21.
 //
 
 #import "UICreate.h"
@@ -219,7 +219,7 @@
 }
 #pragma mark - UIView
 + (UIView *)separatorView {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, DNKDevice.navigationHeight, DNKDevice.screenWidth, 10)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, WXDevice.navigationHeight, WXDevice.screenWidth, 10)];
 //    view.backgroundColor = UIColor.lightGrayBackgroundColor;
     return view;
 }

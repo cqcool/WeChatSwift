@@ -27,7 +27,7 @@ class ContactTagViewController: ASDKViewController<ASDisplayNode> {
         let cancelButton = UIBarButtonItem(title: LanguageManager.Common.cancel(), style: .plain, target: self, action: #selector(cancelButtonClicked))
         navigationItem.leftBarButtonItem = cancelButton
         
-        let okButton = wc_doneBarButton(title: "确定")
+        let okButton = wx_doneBarButton(title: "确定")
         okButton.addTarget(self, action: #selector(okButtonClicked), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: okButton)
     }

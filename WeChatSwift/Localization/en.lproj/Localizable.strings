@@ -439,11 +439,11 @@
 
 "Backup_EnterBackground_RecoverTips" = "Keep WeChat running while restoring chat history";
 
-"Backup_Entry_Tip" = "<_wc_custom_link_ href=\"https =//support.weixin.qq.com/cgi-bin/readtemplate?t=weixin_conversation_backup_tips&lang=%@\"><![CDATA[Back Up/Restore Chat History via Computer]]></_wc_custom_link_>";
+"Backup_Entry_Tip" = "<_wx_custom_link_ href=\"https =//support.weixin.qq.com/cgi-bin/readtemplate?t=weixin_conversation_backup_tips&lang=%@\"><![CDATA[Back Up/Restore Chat History via Computer]]></_wx_custom_link_>";
 
 "Backup_EntryView_Minimize" = "Collapse";
 
-"Backup_Help_Show_LookForReason_HowToDo" = "<_wc_custom_link_ href=\"https =//support.weixin.qq.com/cgi-bin/readtemplate?t=weixin_conversation_backup_tips&type=error&lang=%@\"><![CDATA[View Connection Failure Details and Troubleshooting]]></_wc_custom_link_>";
+"Backup_Help_Show_LookForReason_HowToDo" = "<_wx_custom_link_ href=\"https =//support.weixin.qq.com/cgi-bin/readtemplate?t=weixin_conversation_backup_tips&type=error&lang=%@\"><![CDATA[View Connection Failure Details and Troubleshooting]]></_wx_custom_link_>";
 
 "Backup_Network_Error" = "Connection error. Try again on computer.";
 
@@ -1101,7 +1101,7 @@
 
 "ChatLog_All_Time_Title" = "All Dates";
 
-"ChatLog_HowtoSetHotSpot" = "<_wc_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/readtemplate?t=weixin_chat_migration_faq&lang=%@\" color=\"album_username_color\">Establish Personal Hotspot</_wc_custom_link_>";
+"ChatLog_HowtoSetHotSpot" = "<_wx_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/readtemplate?t=weixin_chat_migration_faq&lang=%@\" color=\"album_username_color\">Establish Personal Hotspot</_wx_custom_link_>";
 
 "ChatLog_Select_All_Content" = "All Messages";
 
@@ -2965,7 +2965,7 @@
 
 "Emotion_Store_V2_Reward_DonorsNum" = "Rewarded by %u people";
 
-"Emotion_Store_V2_Reward_DonorsNum_WithLink" = "<_wc_custom_link_ href=\"%@\">%u</_wc_custom_link_> people rewarded";
+"Emotion_Store_V2_Reward_DonorsNum_WithLink" = "<_wx_custom_link_ href=\"%@\">%u</_wx_custom_link_> people rewarded";
 
 "Emotion_Store_V2_Reward_Error_Default_Tips" = "System busy. Try again later.";
 
@@ -4365,7 +4365,7 @@
 
 "GroupPay_Launch_AA_Fail_Tips" = "Unable to create a split bill payment request. Try again later.";
 
-"GroupPay_Launch_AAChangeToActivityMode_Tips" = "Identical Amount; change to <_wc_custom_link_ href=\"%@\">Specified Amount</_wc_custom_link_>";
+"GroupPay_Launch_AAChangeToActivityMode_Tips" = "Identical Amount; change to <_wx_custom_link_ href=\"%@\">Specified Amount</_wx_custom_link_>";
 
 "GroupPay_Launch_Activity_Cannot_SelectAllMemberAsPayer_Tips" = "You can't select all people as payers.";
 
@@ -4381,7 +4381,7 @@
 
 "GroupPay_Launch_ActivityAA_TotalAmount_Tips_Format" = "Split Bill with %lu people";
 
-"GroupPay_Launch_ActivityModeChangeToAAMode_Tips" = "Specified Amount; change to <_wc_custom_link_ href=\"%@\">Identical Amount</_wc_custom_link_>";
+"GroupPay_Launch_ActivityModeChangeToAAMode_Tips" = "Specified Amount; change to <_wx_custom_link_ href=\"%@\">Identical Amount</_wx_custom_link_>";
 
 "GroupPay_Launch_AddMember_Tips_Label_Text" = "Select Members";
 
@@ -4437,7 +4437,7 @@
 
 "GroupPay_OrderHistory_H5AARecord_EnteranceTitle" = "View Split Bill History";
 
-"GroupPay_OrderHistory_Link_Format" = "<_wc_custom_link_ href=\"%@\">View Split Bill History</_wc_custom_link_>";
+"GroupPay_OrderHistory_Link_Format" = "<_wx_custom_link_ href=\"%@\">View Split Bill History</_wx_custom_link_>";
 
 "GroupPay_OrderHistory_NoRecord_Tips" = "No history yet";
 
@@ -4471,7 +4471,7 @@
 
 "GroupPay_OrderStatusVC_ActivityAA_Receiver_NotReceipt_Launcher_DefaultTips" = "Money received will deposited in Balance.";
 
-"GroupPay_OrderStatusVC_ActivityAA_Receiver_NotReceipt_Launcher_TipsLink" = "<_wc_custom_link_ href=\"%1$@\">%2$@</_wc_custom_link_>";
+"GroupPay_OrderStatusVC_ActivityAA_Receiver_NotReceipt_Launcher_TipsLink" = "<_wx_custom_link_ href=\"%1$@\">%2$@</_wx_custom_link_>";
 
 "GroupPay_OrderStatusVC_CloseOrder_Alert_BtnTitle" = "Close Payment";
 
@@ -4501,7 +4501,7 @@
 
 "GroupPay_OrderStatusVC_PaySuccess_Tips" = "Payment successful";
 
-"GroupPay_OrderStatusVC_SendPayNotify_Link_Format" = "<_wc_custom_link_ href=\"%@\">Send Alert</_wc_custom_link_>";
+"GroupPay_OrderStatusVC_SendPayNotify_Link_Format" = "<_wx_custom_link_ href=\"%@\">Send Alert</_wx_custom_link_>";
 
 "GroupPay_OrderStatusVC_TableView_AA_HeaderTitle_HasPay_Format" = "%lu people paid";
 
@@ -4519,7 +4519,7 @@
 
 "GroupPay_Payment_Self_Wording" = "Myself";
 
-"GroupPay_Payment_SystemMsgContent_Format" = "You've paid the <_wc_custom_link_ color=\"#037AFF\" href=\"%2$@\">Split Bill</_wc_custom_link_> request from %1$@.";
+"GroupPay_Payment_SystemMsgContent_Format" = "You've paid the <_wx_custom_link_ color=\"#037AFF\" href=\"%2$@\">Split Bill</_wx_custom_link_> request from %1$@.";
 
 "GroupPay_PayNotify_ConfirmView_Tips" = "You will send a message in the group; and any members who haven't paid yet will receive an @ reminder. (Message cannot be recalled)";
 
@@ -5037,7 +5037,7 @@
 
 "Login_PwdTip" = "Password must be 8-16 characters and contain both numbers and letters/special characters.";
 
-"Login_PwdTip_Forget" = "<_wc_custom_link_ href = \"\">Forgot Password？</_wc_custom_link_>";
+"Login_PwdTip_Forget" = "<_wx_custom_link_ href = \"\">Forgot Password？</_wx_custom_link_>";
 
 "Login_PwdTitle" = "Set password";
 
@@ -5069,7 +5069,7 @@
 
 "Login_Reg_LoginToReg_Title" = "Not Registered for WeChat";
 
-"Login_Reg_ReadAndAcceptAgreement" = "I have read and accept the <_wc_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@\">\"WeChat Software License and Service Agreement\"</_wc_custom_link_>";
+"Login_Reg_ReadAndAcceptAgreement" = "I have read and accept the <_wx_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@\">\"WeChat Software License and Service Agreement\"</_wx_custom_link_>";
 
 "Login_Reg_Set_Pwd" = "Set a password";
 
@@ -5615,7 +5615,7 @@
 
 "MassSend_WriteMessage_Title" = "Broadcast";
 
-"Me_Privacy_Law_Link" = "<_wc_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@&s=privacy&scene=setting\" color=\"album_username_color\">WeChat Privacy Policy</_wc_custom_link_>";
+"Me_Privacy_Law_Link" = "<_wx_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@&s=privacy&scene=setting\" color=\"album_username_color\">WeChat Privacy Policy</_wx_custom_link_>";
 
 "MemoryStat_NextStepTipsForReport" = "Don't upload report. Skip to next step.";
 
@@ -6019,7 +6019,7 @@
 
 "MessageRoomContent_Err" = "Invalid operation. Try again later.";
 
-"MessageRoomContent_GDPR_OpenIM_Comment" = "This group chat contains WeChat Work users. <_wc_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/newreadtemplate?t=work_wechat/about_group&isGdpr=true&lang=%@\" color=\"#576B95\">Learn more</_wc_custom_link_>.";
+"MessageRoomContent_GDPR_OpenIM_Comment" = "This group chat contains WeChat Work users. <_wx_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/newreadtemplate?t=work_wechat/about_group&isGdpr=true&lang=%@\" color=\"#576B95\">Learn more</_wx_custom_link_>.";
 
 "MessageRoomContent_GroupSetting" = "Settings";
 
@@ -6057,7 +6057,7 @@
 
 "MessageRoomContent_NotInChatRoom" = "Not in group chat";
 
-"MessageRoomContent_OpenIM_Comment" = "This group chat contains WeChat Work users. <_wc_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/newreadtemplate?t=work_wechat/about_group&lang=%@\" color=\"#576B95\">Learn more</_wc_custom_link_>.";
+"MessageRoomContent_OpenIM_Comment" = "This group chat contains WeChat Work users. <_wx_custom_link_ href=\"https =//weixin.qq.com/cgi-bin/newreadtemplate?t=work_wechat/about_group&lang=%@\" color=\"#576B95\">Learn more</_wx_custom_link_>.";
 
 "MessageRoomContent_Owner" = "Group owner";
 
@@ -6575,9 +6575,9 @@
 
 "Music_Repeat_None" = "Play Once";
 
-"MyDevice_BindListView_BLELinkInfo" = "If no devices are found; check whether you've completed <_wc_custom_link_ href=\"%@\" color=\"#2689f4\">required settings</_wc_custom_link_>";
+"MyDevice_BindListView_BLELinkInfo" = "If no devices are found; check whether you've completed <_wx_custom_link_ href=\"%@\" color=\"#2689f4\">required settings</_wx_custom_link_>";
 
-"MyDevice_BindListView_LinkInfo" = "If no device found; retry <_wc_custom_link_ href=\"%@\" color=\"#2689f4\">Network Connection</_wc_custom_link_>";
+"MyDevice_BindListView_LinkInfo" = "If no device found; retry <_wx_custom_link_ href=\"%@\" color=\"#2689f4\">Network Connection</_wx_custom_link_>";
 
 "MyDevice_BindListView_NoBLEMainTips" = "No device found";
 
@@ -7247,7 +7247,7 @@
 
 "PublicWifi_ErrMsg_SSIDError" = "Network name error. Connect %@ and retry or contact provider.";
 
-"PublicWifi_FrontInfo_Agreement" = "Using our service means you agree to <_wc_custom_link_ href=\"%@\">User Agreement and Privacy Policy</_wc_custom_link_>";
+"PublicWifi_FrontInfo_Agreement" = "Using our service means you agree to <_wx_custom_link_ href=\"%@\">User Agreement and Privacy Policy</_wx_custom_link_>";
 
 "PublicWifi_FrontInfo_Connect" = "Connect";
 
@@ -7255,7 +7255,7 @@
 
 "PublicWifi_FrontInfo_DefaultIntro" = "Wi-Fi via WeChat";
 
-"PublicWifi_FrontInfo_FailWithDetail" = "Unable to connect network; <_wc_custom_link_ href=\"%@\">View details</_wc_custom_link_>";
+"PublicWifi_FrontInfo_FailWithDetail" = "Unable to connect network; <_wx_custom_link_ href=\"%@\">View details</_wx_custom_link_>";
 
 "PublicWifi_FrontInfo_FailWithDetailText" = "Unable to connect network. View details.";
 
@@ -8015,7 +8015,7 @@
 
 "Setting_Account_TrustedFriends_GetFailed" = "Unable to access emergency contacts. Try again.";
 
-"Setting_Account_TrustedFriends_GuidePage" = "<_wc_custom_link_ href = \"https =//weixin110.qq.com/security/readtemplate?t=w_security_center_website/trusted_friend_guide&wechat_real_lang=en_US\">How to Recover Account via Emergency Contacts</_wc_custom_link_>";
+"Setting_Account_TrustedFriends_GuidePage" = "<_wx_custom_link_ href = \"https =//weixin110.qq.com/security/readtemplate?t=w_security_center_website/trusted_friend_guide&wechat_real_lang=en_US\">How to Recover Account via Emergency Contacts</_wx_custom_link_>";
 
 "Setting_Account_TrustedFriends_LessThanMinium" = "At least 3 emergency contacts";
 
@@ -8389,7 +8389,7 @@
 
 "Setting_Privacy_FromBanner_BigTip" = "Add Mobile Contacts";
 
-"Setting_Privacy_FromBanner_BottomTip" = "Access more privacy settings in \"Me\" > \"Settings\" > <_wc_custom_link_ href = \"weixin =//setting/privacy\">\"Privacy\"</_wc_custom_link_>";
+"Setting_Privacy_FromBanner_BottomTip" = "Access more privacy settings in \"Me\" > \"Settings\" > <_wx_custom_link_ href = \"weixin =//setting/privacy\">\"Privacy\"</_wx_custom_link_>";
 
 "Setting_Privacy_FromBanner_SmallTip" = "Enabling the Add Contact function adds other WeChatters who are also contacts as friends. ";
 
@@ -10127,7 +10127,7 @@
 
 "WC_COMMENT_LIST_LOAD_MORE" = "View more...";
 
-"WC_Comment_Reply_What" = "@<_wc_custom_link_ href=\"\" color=\"album_username_color\" dynamic_font=\"1\" backgroundenabled=\"0\" font=\"#wc_stranger_username font\"><![CDATA[%@]]></_wc_custom_link_> = %@";
+"WC_Comment_Reply_What" = "@<_wx_custom_link_ href=\"\" color=\"album_username_color\" dynamic_font=\"1\" backgroundenabled=\"0\" font=\"#wx_stranger_username font\"><![CDATA[%@]]></_wx_custom_link_> = %@";
 
 "WC_Comment_ReplyTo" = "@ %@ =";
 
@@ -10187,7 +10187,7 @@
 
 "WC_DetectSystemError_Warning_Reboot_iPhone" = "Possible error detected in your system environment. To ensure an optimal WeChat experience; restart your iPhone and try again.";
 
-"wc_drag_tip" = "Long-press photo and drag-and-drop to adjust order";
+"wx_drag_tip" = "Long-press photo and drag-and-drop to adjust order";
 
 "WC_Forbid_Select_Empty_Groups" = "You cannot select only empty tags";
 
@@ -10963,7 +10963,7 @@
 
 "WCPay_Address_Title" = "Address";
 
-"WCPay_Agreement" = "Accept <_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">\"User Agreement\"</_wc_custom_link_>";
+"WCPay_Agreement" = "Accept <_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">\"User Agreement\"</_wx_custom_link_>";
 
 "WCPay_Agreement_Alert" = "Please read and accept \"User Agreement\"";
 
@@ -10983,7 +10983,7 @@
 
 "WCPay_AutoDeduct_PayAndOpen" = "Pay and Enable";
 
-"WCPay_AutoDeduct_Protocol" = "Read and accept <_wc_custom_link_ href=\"%@\">Fees Agreement</_wc_custom_link_>";
+"WCPay_AutoDeduct_Protocol" = "Read and accept <_wx_custom_link_ href=\"%@\">Fees Agreement</_wx_custom_link_>";
 
 "WCPay_Balance_FetchMoney_Add_Card_Btn" = "Add Debit Card";
 
@@ -11029,9 +11029,9 @@
 
 "WCPay_Balance_Title" = "Balance";
 
-"WCPay_Balance_TransferMoney_CreateRemark_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Add Note</_wc_custom_link_>";
+"WCPay_Balance_TransferMoney_CreateRemark_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Add Note</_wx_custom_link_>";
 
-"WCPay_Balance_TransferMoney_ModifyRemark_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Change</_wc_custom_link_>";
+"WCPay_Balance_TransferMoney_ModifyRemark_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Change</_wx_custom_link_>";
 
 "WCPay_Balance_TransferMoneyRemark_LabelTitle" = "Notes";
 
@@ -11051,9 +11051,9 @@
 
 "WCPay_BalanceDetailView_TitleLabel" = "My Balance";
 
-"WCPay_BalanceQuestion" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">FAQ</_wc_custom_link_>";
+"WCPay_BalanceQuestion" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">FAQ</_wx_custom_link_>";
 
-"WCPay_Bank_Phone" = "%@ registered mobile; <_wc_custom_link_ href=\"%@\" color=\"LINK_COLOR\">Update</_wc_custom_link_>";
+"WCPay_Bank_Phone" = "%@ registered mobile; <_wx_custom_link_ href=\"%@\" color=\"LINK_COLOR\">Update</_wx_custom_link_>";
 
 "WCPay_Bank_Phone_Digital_Cert_Version" = "%@ registered mobile";
 
@@ -11091,7 +11091,7 @@
 
 "WCPay_BizF2F_TransferMoneyViewController_AomuntTitle" = "Amount";
 
-"WCPay_BizF2F_TransferMoneyViewController_CreateComment_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Add Note</_wc_custom_link_>";
+"WCPay_BizF2F_TransferMoneyViewController_CreateComment_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Add Note</_wx_custom_link_>";
 
 "WCPay_BizF2F_TransferMoneyViewController_FavorCalculating" = "Calculating";
 
@@ -11099,7 +11099,7 @@
 
 "WCPay_BizF2F_TransferMoneyViewController_FavorTitle" = "Choose vouchers";
 
-"WCPay_BizF2F_TransferMoneyViewController_ModifyComment_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Change</_wc_custom_link_>";
+"WCPay_BizF2F_TransferMoneyViewController_ModifyComment_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Change</_wx_custom_link_>";
 
 "WCPay_BizF2F_TransferMoneyViewController_Title" = "Payment";
 
@@ -11393,7 +11393,7 @@
 
 "WCPay_Digital_Verify_Code" = "Code";
 
-"WCPay_ECardUploadIDCard_Tips" = "%@ <_wc_custom_link_ href=\"%@\" color=\"#3399FF\">%@</_wc_custom_link_>";
+"WCPay_ECardUploadIDCard_Tips" = "%@ <_wx_custom_link_ href=\"%@\" color=\"#3399FF\">%@</_wx_custom_link_>";
 
 "WCPay_Email_Error" = "Email must not be blank";
 
@@ -11457,7 +11457,7 @@
 
 "WCPay_F2F_SettingFixAmount_Title" = "Amount";
 
-"WCPay_F2F_TransferMoney_CreateRemark_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Add Note</_wc_custom_link_>";
+"WCPay_F2F_TransferMoney_CreateRemark_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Add Note</_wx_custom_link_>";
 
 "WCPay_FaceHB_DeleteHB" = "Reclaim Packets";
 
@@ -11523,11 +11523,11 @@
 
 "WCPay_FacingChangeToUnFixedAmountReceiveMoney_Btn" = "Clear Amount";
 
-"WCPay_FacingFixedAmountReceiveMoney_ChangeToDesc_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Add Note</_wc_custom_link_>";
+"WCPay_FacingFixedAmountReceiveMoney_ChangeToDesc_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Add Note</_wx_custom_link_>";
 
 "WCPay_FacingFixedAmountReceiveMoney_DescTitle" = "Add Note";
 
-"WCPay_FacingFixedAmountReceiveMoney_ModifyRemark_BtnTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Change</_wc_custom_link_>";
+"WCPay_FacingFixedAmountReceiveMoney_ModifyRemark_BtnTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Change</_wx_custom_link_>";
 
 "WCPay_FacingFixedAmountReceiveMoneyPaidSuccess_DescTitle" = "Receipt Note";
 
@@ -11619,7 +11619,7 @@
 
 "WCPay_FillCardInfo_FavorInfo_Favor" = "Enjoy discount of ￥%@ by using this type of cards";
 
-"WCPay_FillCardNumber_MoreFavor" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Enjoy deduction offers by using specific bank card</_wc_custom_link_>";
+"WCPay_FillCardNumber_MoreFavor" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Enjoy deduction offers by using specific bank card</_wx_custom_link_>";
 
 "WCPay_FillCardVerify_FavorInfo_Favor" = "Pay %@%.2lf (deduct %@%.2lf)";
 
@@ -11631,7 +11631,7 @@
 
 "WCPay_FirstName_Title" = "First Name";
 
-"WCPay_GDPR_Agreement" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">WeChat Pay Terms of Service</_wc_custom_link_>";
+"WCPay_GDPR_Agreement" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">WeChat Pay Terms of Service</_wx_custom_link_>";
 
 "WCPay_GetA8Key_Error" = "Invalid QR code or payment";
 
@@ -11719,7 +11719,7 @@
 
 "WCPay_Honey_Pay_Home_Welcome_Add" = "Gift a Relative Card";
 
-"WCPay_Honey_Pay_Inuse_Modify_Link" = "Monthly limit <_wc_custom_link_ href=\"%@\"> changed to </_wc_custom_link_>";
+"WCPay_Honey_Pay_Inuse_Modify_Link" = "Monthly limit <_wx_custom_link_ href=\"%@\"> changed to </_wx_custom_link_>";
 
 "WCPay_Honey_Pay_Max_Alert" = "Amount cannot exceed ¥%.2f";
 
@@ -11747,7 +11747,7 @@
 
 "WCPay_Honey_Unbind_Pwd_VC_Title" = "Unlink Relative Card";
 
-"WCPay_Honey_Wishing_Format" = "%@ <_wc_custom_link_ href=\"%@\">Edit Message</_wc_custom_link_>";
+"WCPay_Honey_Wishing_Format" = "%@ <_wx_custom_link_ href=\"%@\">Edit Message</_wx_custom_link_>";
 
 "WCPay_IDCard_Scan_View_Title" = "Scan ID Card";
 
@@ -11799,7 +11799,7 @@
 
 "WCPay_LQT_Balance_Title" = "Balance";
 
-"WCPay_LQT_BalanceNeedUpgrade_Link_Format" = "%1$@ <_wc_custom_link_ href=\"%2$@\">%3$@</_wc_custom_link_>";
+"WCPay_LQT_BalanceNeedUpgrade_Link_Format" = "%1$@ <_wx_custom_link_ href=\"%2$@\">%3$@</_wx_custom_link_>";
 
 "WCPay_LQT_CloseFundAccount_Fail_Network_Error" = "Failed to close. Try again later";
 
@@ -11855,7 +11855,7 @@
 
 "WCPay_LQT_Deposit_Plan_List_Title" = "Scheduled Transfers";
 
-"WCPay_LQT_Deposit_Protocol_Link_Format" = "Accept the <_wc_custom_link_ href=\"%@\">%@</_wc_custom_link_>";
+"WCPay_LQT_Deposit_Protocol_Link_Format" = "Accept the <_wx_custom_link_ href=\"%@\">%@</_wx_custom_link_>";
 
 "WCPay_LQT_Deposit_Pwd_Title" = "New Schedule";
 
@@ -11879,7 +11879,7 @@
 
 "WCPay_LQT_Fetch_Btn_Title" = "Withdraw";
 
-"WCPay_LQT_Money_Save_Protocol_Link_Format" = "Agree to <_wc_custom_link_ href=\"%@\">Service Agreement & Risk Notices</_wc_custom_link_>";
+"WCPay_LQT_Money_Save_Protocol_Link_Format" = "Agree to <_wx_custom_link_ href=\"%@\">Service Agreement & Risk Notices</_wx_custom_link_>";
 
 "WCPay_LQT_MoneyVC_CardInfo_Format" = "%@ (%@)";
 
@@ -11887,9 +11887,9 @@
 
 "WCPay_LQT_MoneyVC_Fetch_BankCard_FindWhy" = "View Reason";
 
-"WCPay_LQT_MoneyVC_Fetch_BankCard_RichTextFormat" = "Mini Fund Balance is ¥%3$.2f. Amount available for transfer to bank card = ¥%1$.2f <_wc_custom_link_ href=\"%2$@\">%4$@</_wc_custom_link_>";
+"WCPay_LQT_MoneyVC_Fetch_BankCard_RichTextFormat" = "Mini Fund Balance is ¥%3$.2f. Amount available for transfer to bank card = ¥%1$.2f <_wx_custom_link_ href=\"%2$@\">%4$@</_wx_custom_link_>";
 
-"WCPay_LQT_MoneyVC_Fetch_RichTextFormat" = "Balance is ¥%1$.2f; <_wc_custom_link_ href=\"%2$@\"> transferred to </_wc_custom_link_>";
+"WCPay_LQT_MoneyVC_Fetch_RichTextFormat" = "Balance is ¥%1$.2f; <_wx_custom_link_ href=\"%2$@\"> transferred to </_wx_custom_link_>";
 
 "WCPay_LQT_MoneyVC_Fetch_TextFieldTips" = "Amount";
 
@@ -11915,7 +11915,7 @@
 
 "WCPay_LQT_MoneyVC_PanelView_Save_Title" = "Choose Transfer Method";
 
-"WCPay_LQT_MoneyVC_Save_RichTextFormat" = "%1$@; <_wc_custom_link_ href=\"%2$@\">%3$@</_wc_custom_link_>";
+"WCPay_LQT_MoneyVC_Save_RichTextFormat" = "%1$@; <_wx_custom_link_ href=\"%2$@\">%3$@</_wx_custom_link_>";
 
 "WCPay_LQT_MoneyVC_Save_SaveAll" = "Transfer All";
 
@@ -12161,9 +12161,9 @@
 
 "WCPay_NewPwdViewController_TouchId_Desc" = "Verify Identity using Touch ID  ";
 
-"WCPay_NewUser_CardNumberInputSafety_LearnMoreTitle" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Learn more</_wc_custom_link_>";
+"WCPay_NewUser_CardNumberInputSafety_LearnMoreTitle" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Learn more</_wx_custom_link_>";
 
-"WCPay_NewUser_CardNumberInputSafety_Title" = "Link your card. <_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Learn more</_wc_custom_link_>";
+"WCPay_NewUser_CardNumberInputSafety_Title" = "Link your card. <_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Learn more</_wx_custom_link_>";
 
 "WCPay_NewUser_CardNumberInputTip_Title" = "Enter your card number";
 
@@ -12255,7 +12255,7 @@
 
 "WCPay_OfflinePay_UnfreezeTips" = "Enter payment password to unblock account";
 
-"WCPay_OfflinePay_ViewDetail_CustonLink_Content_Format" = "<_wc_custom_link_ href=\"%@\">View Details</_wc_custom_link_>";
+"WCPay_OfflinePay_ViewDetail_CustonLink_Content_Format" = "<_wx_custom_link_ href=\"%@\">View Details</_wx_custom_link_>";
 
 "WCPay_OnArriveMoney_AlertView_Confirm" = "Delete Chat";
 
@@ -12303,13 +12303,13 @@
 
 "WCPay_OrderDetail_DiscountFormat" = "%@ saves ¥%.2f";
 
-"WCPay_OrderDetail_LinkedActivityInfo" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">%@</_wc_custom_link_>";
+"WCPay_OrderDetail_LinkedActivityInfo" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">%@</_wx_custom_link_>";
 
 "WCPay_OrderDetail_OrderCreateSimpleTime" = "MM-dd HH =mm";
 
 "WCPay_OrderDetail_OrderCreateTime" = "HH =mm MM-dd-yy";
 
-"WCPay_OrderDetail_ReceiverName" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">%@</_wc_custom_link_>";
+"WCPay_OrderDetail_ReceiverName" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">%@</_wx_custom_link_>";
 
 "WCPay_OrderHistoryDetail_View_Title" = "Details";
 
@@ -12433,9 +12433,9 @@
 
 "WCPay_PayCardList_ResetPwdNewCard_Footer" = "Linked card will be unlinked after password is reset";
 
-"WCPay_PayCardList_ResetPwdNewCard_NewErrorPath" = "If above cards are invalid or you can't retrieve password due to other reasons; you can<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">apply for password retrieval using a new card.</_wc_custom_link_>";
+"WCPay_PayCardList_ResetPwdNewCard_NewErrorPath" = "If above cards are invalid or you can't retrieve password due to other reasons; you can<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">apply for password retrieval using a new card.</_wx_custom_link_>";
 
-"WCPay_PayCardList_ResetPwdNewCard_NewErrorPath_Oversea" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Unable to bind card?</_wc_custom_link_>";
+"WCPay_PayCardList_ResetPwdNewCard_NewErrorPath_Oversea" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Unable to bind card?</_wx_custom_link_>";
 
 "WCPay_PayCardList_Title_DoThings" = "Payment";
 
@@ -12493,9 +12493,9 @@
 
 "WCPay_PayDetail_MerchantGuarantee" = "Commitments";
 
-"WCPay_PayDetail_OrderView_TradeFavDesc" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">%@</_wc_custom_link_>";
+"WCPay_PayDetail_OrderView_TradeFavDesc" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">%@</_wx_custom_link_>";
 
-"WCPay_PayDetail_OrderView_TradeMultiFavDesc" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">%@; %@</_wc_custom_link_>";
+"WCPay_PayDetail_OrderView_TradeMultiFavDesc" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">%@; %@</_wx_custom_link_>";
 
 "WCPay_PayDetail_OriginalInfo" = "Local price";
 
@@ -12629,7 +12629,7 @@
 
 "WCPay_PhoneNumberExplain_Title" = "Phone Number";
 
-"WCPay_PhoneNumberNotSMS_Title" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">No verification code received?</_wc_custom_link_>";
+"WCPay_PhoneNumberNotSMS_Title" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">No verification code received?</_wx_custom_link_>";
 
 "WCPay_Physical" = "Utility Items";
 
@@ -12781,11 +12781,11 @@
 
 "WCPay_RealnameV2_TW_Title" = "MTP (TW) No.";
 
-"WCPay_RebackMoney_Sender_BalanceDetail" = "This money has been returned to Balance; <_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">view Balance </_wc_custom_link_>";
+"WCPay_RebackMoney_Sender_BalanceDetail" = "This money has been returned to Balance; <_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">view Balance </_wx_custom_link_>";
 
 "WCPay_RebackMoney_Sender_CardDetail" = "Amount will be refunded to payment account within 1 to 3 work days.";
 
-"WCPay_RebackMoney_Sender_LQTDetail" = "Refunded to Mini Fund. <_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Go to Mini Fund</_wc_custom_link_>";
+"WCPay_RebackMoney_Sender_LQTDetail" = "Refunded to Mini Fund. <_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Go to Mini Fund</_wx_custom_link_>";
 
 "WCPay_RedEnvelopes_Skin_Make_RedEnvelope_Title" = "Cover";
 
@@ -13203,9 +13203,9 @@
 
 "WCPay_Transfer_Delay_Receive_Time" = "Receipt Time = %@";
 
-"WCPay_Transfer_Delay_Revert_CustomLink" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">View Balance</_wc_custom_link_>";
+"WCPay_Transfer_Delay_Revert_CustomLink" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">View Balance</_wx_custom_link_>";
 
-"WCPay_Transfer_Delay_Revert_LQT_CustomLink" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Go to Mini Fund</_wc_custom_link_>";
+"WCPay_Transfer_Delay_Revert_LQT_CustomLink" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Go to Mini Fund</_wx_custom_link_>";
 
 "WCPay_Transfer_Delay_Revert_Node_title" = "Cancelled by payer";
 
@@ -13223,7 +13223,7 @@
 
 "WCPay_Transfer_Delay_UsualyQuestion" = "FAQ";
 
-"WCPay_Transfer_Delay_Waiting_CustomLink" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Reject Now</_wc_custom_link_>";
+"WCPay_Transfer_Delay_Waiting_CustomLink" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Reject Now</_wx_custom_link_>";
 
 "WCPay_Transfer_DoubleCheck_Alert_AmountFormat" = "￥%.2f";
 
@@ -13295,7 +13295,7 @@
 
 "WCPay_TransferMoney_ReceiveTime_Detail" = "Receipt Time = %@";
 
-"WCPay_TransferMoney_ReceiveTime_Detail_Receiver" = "<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">View Balance </_wc_custom_link_>";
+"WCPay_TransferMoney_ReceiveTime_Detail_Receiver" = "<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">View Balance </_wx_custom_link_>";
 
 "WCPay_TransferMoney_Refused_RightBtn" = "Reject";
 
@@ -13333,9 +13333,9 @@
 
 "WCPay_TransferMoney_TranferTime_Detail" = "Transfer time = %@";
 
-"WCPay_TransferMoney_WaitingReceiver_Receiver_Detail" = "Refunded to payer if it's not accepted in %lu day(s).<_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Reject Now</_wc_custom_link_>";
+"WCPay_TransferMoney_WaitingReceiver_Receiver_Detail" = "Refunded to payer if it's not accepted in %lu day(s).<_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Reject Now</_wx_custom_link_>";
 
-"WCPay_TransferMoney_WaitingReceiver_Sender_Detail" = "Refunded to you if it's not accepted in %lu day(s). <_wc_custom_link_ href=\"%@\" font=\"wc_pay_agreement font\">Resend Transfer Message</_wc_custom_link_>";
+"WCPay_TransferMoney_WaitingReceiver_Sender_Detail" = "Refunded to you if it's not accepted in %lu day(s). <_wx_custom_link_ href=\"%@\" font=\"wx_pay_agreement font\">Resend Transfer Message</_wx_custom_link_>";
 
 "WCPay_UnBind_Big_Title" = "Unlink Bank Card";
 
@@ -13347,7 +13347,7 @@
 
 "WCPay_UnKnown_Error" = "Communication problem with server. Try again later.";
 
-"WCPay_UploadIDCard_Tips" = "%@<_wc_custom_link_ href=\"%@\">%@</_wc_custom_link_>";
+"WCPay_UploadIDCard_Tips" = "%@<_wx_custom_link_ href=\"%@\">%@</_wx_custom_link_>";
 
 "WCPay_UserID_China_Tip" = "Enter ID number";
 
@@ -13739,11 +13739,11 @@
 
 "WCRedEnvelopes_Cannot_Make_RedEnvelopes_To_Not_Friend" = "Unable to send Red Packet as you're not friends yet";
 
-"WCRedEnvelopes_CanShareButton" = "<_wc_custom_link_ href=\"%@\">View Unsent Red Packets</_wc_custom_link_>";
+"WCRedEnvelopes_CanShareButton" = "<_wx_custom_link_ href=\"%@\">View Unsent Red Packets</_wx_custom_link_>";
 
-"WCRedEnvelopes_ChangeNomalToRandom" = "Identical Amount. <_wc_custom_link_ color=\"#C5984C\" href=\"%@\">Change to Random Amount</_wc_custom_link_>";
+"WCRedEnvelopes_ChangeNomalToRandom" = "Identical Amount. <_wx_custom_link_ color=\"#C5984C\" href=\"%@\">Change to Random Amount</_wx_custom_link_>";
 
-"WCRedEnvelopes_ChangeRandomToNormal" = "Random Amount. <_wc_custom_link_ color=\"#C5984C\" href=\"%@\">Change to Identical Amount</_wc_custom_link_>";
+"WCRedEnvelopes_ChangeRandomToNormal" = "Random Amount. <_wx_custom_link_ color=\"#C5984C\" href=\"%@\">Change to Identical Amount</_wx_custom_link_>";
 
 "WCRedEnvelopes_chooseEmoticon" = "Choose from Existing Stickers";
 
@@ -15229,7 +15229,7 @@
 
 "Wechat_Labs_No_Func_Tip" = "No services available";
 
-"Wechat_Labs_Protocal_Law" = "<_wc_custom_link_ href = \"https =//weixin.qq.com/cgi-bin/readtemplate?t=weixin_agreement&s=lab&lang=en&cliVersion=%u\">Terms of Use for WeChat Services</_wc_custom_link_>";
+"Wechat_Labs_Protocal_Law" = "<_wx_custom_link_ href = \"https =//weixin.qq.com/cgi-bin/readtemplate?t=weixin_agreement&s=lab&lang=en&cliVersion=%u\">Terms of Use for WeChat Services</_wx_custom_link_>";
 
 "Wechat_Labs_Title" = "WeChat Services";
 
@@ -15287,7 +15287,7 @@
 
 "WeChatOut_CheckFee" = "Rates";
 
-"WeChatOut_close_Function_Tips" = "Top-up; prepaid plans; and invitation bonus features have been disabled. You can still use your balance to make calls. <_wc_custom_link_ href=\"%@\">View Details</_wc_custom_link_>";
+"WeChatOut_close_Function_Tips" = "Top-up; prepaid plans; and invitation bonus features have been disabled. You can still use your balance to make calls. <_wx_custom_link_ href=\"%@\">View Details</_wx_custom_link_>";
 
 "WeChatOut_ConfirmBuy" = "Purchase";
 
@@ -15559,7 +15559,7 @@
 
 "Whatsnew_text_Btn" = "About WeChat";
 
-"Whatsnew_text_Law" = "<_wc_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@\">Terms</_wc_custom_link_> and <_wc_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@&s=privacy&scene=setting\" color=\"album_username_color\">Privacy</_wc_custom_link_>";
+"Whatsnew_text_Law" = "<_wx_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@\">Terms</_wx_custom_link_> and <_wx_custom_link_ href = \"https =//weixin.qq.com/agreement?lang=%1$@&cc=%2$@&s=privacy&scene=setting\" color=\"album_username_color\">Privacy</_wx_custom_link_>";
 
 "WP_Input_Limit_Tip_Format" = "Up to %lu chars";
 

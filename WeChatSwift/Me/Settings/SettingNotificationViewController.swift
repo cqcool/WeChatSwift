@@ -98,14 +98,14 @@ struct SettingNotificationSection {
     var items: [SettingNotificationModel]
 }
 
-enum SettingNotificationModel: WCTableCellModel {
+enum SettingNotificationModel: WXTableCellModel {
     case enableNewMessagePushNotification(Bool)
     case enableVOIPPushNotification(Bool)
     case showPushNotificationContent(Bool)
     case enableSound(Bool)
     case enableVibrate(Bool)
     
-    var wc_title: String {
+    var wx_title: String {
         switch self {
         case .enableNewMessagePushNotification(_):
             return "新消息通知"
@@ -120,11 +120,11 @@ enum SettingNotificationModel: WCTableCellModel {
         }
     }
     
-    var wc_showSwitch: Bool {
+    var wx_showSwitch: Bool {
         return true
     }
     
-    var wc_switchValue: Bool {
+    var wx_switchValue: Bool {
         switch self {
         case .enableNewMessagePushNotification(let isOn):
             return isOn

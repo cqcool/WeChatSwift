@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIViewController {
-    func wc_doneBarButton(title: String = "完成") -> UIButton {
+    func wx_doneBarButton(title: String = "完成") -> UIButton {
         let doneButton = UIButton(type: .system)
         doneButton.layer.cornerRadius = 5
         doneButton.layer.masksToBounds = true

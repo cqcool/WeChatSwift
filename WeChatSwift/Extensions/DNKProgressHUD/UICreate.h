@@ -2,12 +2,12 @@
 //  UICreate.h
 //  NewSmart
 //
-//  Created by 陈群 on 2022/1/21.
+//  Created by Aliens on 2022/1/21.
 //
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "DNKDevice.h"
+#import "WXDevice.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

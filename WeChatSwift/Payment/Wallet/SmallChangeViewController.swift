@@ -2,7 +2,7 @@
 //  SmallChangeViewController.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/9.
+//  Created by Aliens on 2024/10/9.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 

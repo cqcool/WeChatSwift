@@ -11,7 +11,7 @@ import Foundation
 class LoginRequest: WXRequest {
     
     @objc let account: String
-    @objc let device: String = DNKDevice.phoneModel()
+    @objc let device: String = WXDevice.phoneModel()
     @objc var deviceId: String = ""
     @objc let password: String
     

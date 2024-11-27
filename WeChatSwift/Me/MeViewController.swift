@@ -7,7 +7,7 @@
 //
 
 import AsyncDisplayKit
-import FLEX
+
 
 class MeViewController: ASDKViewController<ASDisplayNode> {
 
@@ -155,8 +155,8 @@ extension MeViewController: ASTableDelegate, ASTableDataSource {
         case .sticker:
             let emoticonStoreViewController = EmoticonStoreViewController()
 //            navigationController?.pushViewController(emoticonStoreViewController, animated: true)
-        case .debug:
-            FLEXManager.shared.showExplorer()
+//        case .debug:
+//            FLEXManager.shared.showExplorer()
         default:
             break
         }

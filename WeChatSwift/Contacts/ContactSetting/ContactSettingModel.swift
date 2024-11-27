@@ -13,7 +13,7 @@ struct ContactSettingSection {
     var items: [ContactSettingModel]
 }
 
-struct ContactSettingModel: WCTableCellModel {
+struct ContactSettingModel: WXTableCellModel {
     
     enum ContactSettingType {
         case remakAndTag
@@ -28,9 +28,9 @@ struct ContactSettingModel: WCTableCellModel {
     
     var type: ContactSettingType
     
-    var wc_title: String = ""
+    var wx_title: String = ""
     
-    var wc_showSwitch: Bool {
+    var wx_showSwitch: Bool {
         switch type {
         case .markAsStarFriend(_), .momentForbidden(_), .momentIgnore(_), .addToBlackList(_):
             return true
@@ -39,7 +39,7 @@ struct ContactSettingModel: WCTableCellModel {
         }
     }
     
-    var wc_switchValue: Bool {
+    var wx_switchValue: Bool {
         switch type {
         case .markAsStarFriend(let isOn):
             return isOn
@@ -54,7 +54,7 @@ struct ContactSettingModel: WCTableCellModel {
         }
     }
     
-    var wc_cellStyle: WCTableCellStyle {
+    var wx_cellStyle: WCTableCellStyle {
         switch type {
         case .delete:
             return .destructiveButton

@@ -2,7 +2,7 @@
 //  NewsCellNode.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/20.
+//  Created by Aliens on 2024/10/20.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 
@@ -33,9 +33,9 @@ class NewsCellNode: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        timeNode = DNKCreate.label(textColor: Colors.DEFAULT_TEXT_DARK_COLOR, fontSize: 15)
+        timeNode = WXCreate.label(textColor: Colors.DEFAULT_TEXT_DARK_COLOR, fontSize: 15)
         
-        topTipsNode = DNKCreate.label(textColor: .white, fontSize: 19, weight: .bold)
+        topTipsNode = WXCreate.label(textColor: .white, fontSize: 19, weight: .bold)
         topTipsNode.numberOfLines = 2
         //        news1Node = DNKCreate.label(textColor: .black, fontSize: 17)
         //        news1Node.numberOfLines = 2
@@ -143,7 +143,7 @@ class NewsCellNode: UICollectionViewCell {
                 make.right.equalToSuperview()
             }
             let text = news["title"].stringValue
-            let newLabel = DNKCreate.label(text: text, textColor: .black, fontSize: 17)
+            let newLabel = WXCreate.label(text: text, textColor: .black, fontSize: 17)
             newView.addSubview(newLabel)
             newLabel.numberOfLines = 2
             newLabel.textAlignment = .left

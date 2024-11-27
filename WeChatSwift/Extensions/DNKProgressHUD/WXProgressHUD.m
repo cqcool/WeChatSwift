@@ -1,37 +1,37 @@
 //
-//  DNKProgressHUD.m
+//  WXProgressHUD.m
 //  NewSmart
 //
-//  Created by 陈群 on 2022/1/14.
+//  Created by Aliens on 2022/1/14.
 //
 
-#import "DNKProgressHUD.h"
+#import "WXProgressHUD.h"
 #import <MBProgressHUD.h>
 #import "UICreate.h"
 #import "DNKCircleProgress.h"
 #import <Masonry.h>
-@interface DNKProgressHUD ()
+@interface WXProgressHUD ()
 
 @property(strong, nonatomic) MBProgressHUD *hud;
 @property (weak, nonatomic) DNKCircleProgress *circleProgress;
 
 @end
 
-@implementation DNKProgressHUD
+@implementation WXProgressHUD
 
-+ (DNKProgressHUD *)sharedInstance {
-    static DNKProgressHUD *instance = nil;
++ (WXProgressHUD *)sharedInstance {
+    static WXProgressHUD *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[DNKProgressHUD alloc] init];
+        instance = [[WXProgressHUD alloc] init];
     });
     return instance;
 }
 + (void)showProgress {
-    [DNKProgressHUD showProgressMsg:nil];
+    [WXProgressHUD showProgressMsg:nil];
 }
 + (void)showProgressMsg:(nullable NSString *)message {
-    return [DNKProgressHUD showProgressMsg:message maskView:nil];
+    return [WXProgressHUD showProgressMsg:message maskView:nil];
 }
 + (void)showProgressMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView {
     [self hiddenProgressHUD];
@@ -41,7 +41,7 @@
         return ;
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:maskView animated:YES];
-    [DNKProgressHUD sharedInstance].hud = hud;
+    [WXProgressHUD sharedInstance].hud = hud;
     hud.label.text = message;
     hud.label.numberOfLines = 2;
     hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
@@ -51,13 +51,13 @@
 //    [hud addBounceAnimationWithInitialScale:0 peakScale:0.5];
 }
 + (void)setProgressMessage:(NSString *)message {
-    [DNKProgressHUD sharedInstance].hud.label.text = message;
+    [WXProgressHUD sharedInstance].hud.label.text = message;
 }
 + (void)hiddenProgressHUD {
     [self hiddenProgressHUDWithDelay:-1];
 }
 + (void)hiddenProgressHUDWithDelay:(NSInteger)delay {
-    DNKProgressHUD *sharedHUD = [DNKProgressHUD sharedInstance];
+    WXProgressHUD *sharedHUD = [WXProgressHUD sharedInstance];
     if (delay) {
         [sharedHUD.hud hideAnimated:YES afterDelay:delay];
         return;
@@ -66,27 +66,27 @@
 }
 /// toast提示
 + (void)brieflyProgressMsg:(nullable NSString *)message {
-    [DNKProgressHUD brieflyProgressMsg:message duration:0];
+    [WXProgressHUD brieflyProgressMsg:message duration:0];
 }
 + (void)brieflyProgressMsg:(nullable NSString *)message duration:(NSTimeInterval)duration {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [DNKProgressHUD brieflyProgressMsg:message maskView:nil duration:duration];
+        [WXProgressHUD brieflyProgressMsg:message maskView:nil duration:duration];
     });
 }
 + (void)brieflyProgressMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView duration:(NSTimeInterval)duration {
     if (message == nil || message.length == 0) {
         return;
     }
-    [DNKProgressHUD hiddenProgressHUD];
+    [WXProgressHUD hiddenProgressHUD];
     if (duration == 0) {
         NSInteger length = (message.length - 6);
         duration = (length > 0) ? (1.5+length*0.1) : 1;
         duration = duration < 10 ? duration : 10;
     }
-    [[DNKProgressHUD sharedInstance] progressMsg:message maskView:maskView duration:duration];
+    [[WXProgressHUD sharedInstance] progressMsg:message maskView:maskView duration:duration];
 }
 - (void)progressMsg:(NSString *)message maskView:(nullable UIView *)maskView duration:(NSTimeInterval)duration {
-    maskView = [DNKProgressHUD maskViewWithMaskView:maskView];
+    maskView = [WXProgressHUD maskViewWithMaskView:maskView];
     // bugly 上报 有的时候keywindow 为nil 导致崩溃
     if (!maskView) {
         return;
@@ -115,7 +115,7 @@
      if (maskView == nil) {
         return;
     }
-    [[DNKProgressHUD sharedInstance] loadingViewMsg:message maskView:maskView];
+    [[WXProgressHUD sharedInstance] loadingViewMsg:message maskView:maskView];
     return;
 }
 - (void)loadingViewMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView  {
@@ -162,11 +162,11 @@
     return customView;
 }
 + (void)setProgress:(CGFloat)progress {
-    if ([DNKProgressHUD sharedInstance].hud.mode == MBProgressHUDModeCustomView) {
-        [DNKProgressHUD sharedInstance].circleProgress.progress = progress;
+    if ([WXProgressHUD sharedInstance].hud.mode == MBProgressHUDModeCustomView) {
+        [WXProgressHUD sharedInstance].circleProgress.progress = progress;
         return;
     }
-    [DNKProgressHUD sharedInstance].hud.progress = progress;
+    [WXProgressHUD sharedInstance].hud.progress = progress;
 }
 +(UIView *)maskViewWithMaskView:(UIView *)maskView {
     return maskView ?: [UIApplication sharedApplication].keyWindow;

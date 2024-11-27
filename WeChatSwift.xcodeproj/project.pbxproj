@@ -37,11 +37,11 @@
 		1E5E37562CC4D1C8007F8944 /* UIButton+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37552CC4D1C8007F8944 /* UIButton+Ext.m */; };
 		1E5E376A2CC4F3B8007F8944 /* WXRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375F2CC4F3B8007F8944 /* WXRequest.m */; };
 		1E5E376D2CC4F3B8007F8944 /* WXApiUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E375C2CC4F3B8007F8944 /* WXApiUtils.m */; };
-		1E5E37752CC4FCBB007F8944 /* DNKProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */; };
+		1E5E37752CC4FCBB007F8944 /* WXProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37732CC4FCBB007F8944 /* WXProgressHUD.m */; };
 		1E5E37792CC4FD24007F8944 /* DNKCircleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37772CC4FD24007F8944 /* DNKCircleProgress.m */; };
 		1E5E377B2CC502E9007F8944 /* DNKAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E377A2CC502E9007F8944 /* DNKAnimation.swift */; };
 		1E5E377E2CC503EC007F8944 /* UICreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E377D2CC503EC007F8944 /* UICreate.m */; };
-		1E5E37812CC5045E007F8944 /* DNKDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37802CC5045E007F8944 /* DNKDevice.m */; };
+		1E5E37812CC5045E007F8944 /* WXDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37802CC5045E007F8944 /* WXDevice.m */; };
 		1E5E37912CC5F5FF007F8944 /* YTKBaseRequest+DNKProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E378F2CC5F5FF007F8944 /* YTKBaseRequest+DNKProgressHUD.m */; };
 		1E5E37922CC5F5FF007F8944 /* YTKBaseRequest+DNKApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E378D2CC5F5FF007F8944 /* YTKBaseRequest+DNKApi.m */; };
 		1E5E37932CC5F5FF007F8944 /* NSData+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E5E37872CC5F5FF007F8944 /* NSData+Ext.m */; };
@@ -75,7 +75,7 @@
 		1EF4E63E2CB7DA30000F39E9 /* WeChatNormalLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E63D2CB7DA30000F39E9 /* WeChatNormalLoadingView.swift */; };
 		1EF4E6402CB7DB0A000F39E9 /* WeChatDrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E63F2CB7DB0A000F39E9 /* WeChatDrawView.swift */; };
 		1EF4E6422CB7DBCF000F39E9 /* WeChatCustomNavigationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6412CB7DBCF000F39E9 /* WeChatCustomNavigationHeaderView.swift */; };
-		1EF4E6442CB8FAA7000F39E9 /* DNKCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6432CB8FAA7000F39E9 /* DNKCreate.swift */; };
+		1EF4E6442CB8FAA7000F39E9 /* WXCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6432CB8FAA7000F39E9 /* WXCreate.swift */; };
 		1EF4E6462CBA085F000F39E9 /* UIView+Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6452CBA085F000F39E9 /* UIView+Constraint.swift */; };
 		1EF4E6482CBA493D000F39E9 /* AccountLoginUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6472CBA493D000F39E9 /* AccountLoginUsersViewController.swift */; };
 		1EF4E64A2CBA4DD5000F39E9 /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF4E6492CBA4DD5000F39E9 /* UITextField+Ext.swift */; };
@@ -125,7 +125,7 @@
 		8196E3462CD198BE008767AD /* RedEnvelopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8196E3452CD198BE008767AD /* RedEnvelopView.swift */; };
 		8196E3482CD19B6F008767AD /* RedPacketGetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8196E3472CD19B6F008767AD /* RedPacketGetEntity.swift */; };
 		A30347F222FCE868003ECF82 /* SettingAutoDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */; };
-		A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */; };
+		A30347F622FE57B1003ECF82 /* WXTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F522FE57B1003ECF82 /* WXTableCellModel.swift */; };
 		A30347F922FF9983003ECF82 /* BrandContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */; };
 		A30807F92314DAE100964126 /* ScrollActionSheetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30807F82314DAE100964126 /* ScrollActionSheetItem.swift */; };
 		A30807FB2314DB1500964126 /* ScrollActionSheetItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30807FA2314DB1500964126 /* ScrollActionSheetItemView.swift */; };
@@ -571,15 +571,15 @@
 		1E5E375D2CC4F3B8007F8944 /* WXNetworkConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXNetworkConst.h; sourceTree = "<group>"; };
 		1E5E375E2CC4F3B8007F8944 /* WXRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXRequest.h; sourceTree = "<group>"; };
 		1E5E375F2CC4F3B8007F8944 /* WXRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXRequest.m; sourceTree = "<group>"; };
-		1E5E37722CC4FCBB007F8944 /* DNKProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKProgressHUD.h; sourceTree = "<group>"; };
-		1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKProgressHUD.m; sourceTree = "<group>"; };
+		1E5E37722CC4FCBB007F8944 /* WXProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXProgressHUD.h; sourceTree = "<group>"; };
+		1E5E37732CC4FCBB007F8944 /* WXProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXProgressHUD.m; sourceTree = "<group>"; };
 		1E5E37762CC4FD24007F8944 /* DNKCircleProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKCircleProgress.h; sourceTree = "<group>"; };
 		1E5E37772CC4FD24007F8944 /* DNKCircleProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKCircleProgress.m; sourceTree = "<group>"; };
 		1E5E377A2CC502E9007F8944 /* DNKAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNKAnimation.swift; sourceTree = "<group>"; };
 		1E5E377C2CC503EC007F8944 /* UICreate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICreate.h; sourceTree = "<group>"; };
 		1E5E377D2CC503EC007F8944 /* UICreate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UICreate.m; sourceTree = "<group>"; };
-		1E5E377F2CC5045E007F8944 /* DNKDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNKDevice.h; sourceTree = "<group>"; };
-		1E5E37802CC5045E007F8944 /* DNKDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNKDevice.m; sourceTree = "<group>"; };
+		1E5E377F2CC5045E007F8944 /* WXDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXDevice.h; sourceTree = "<group>"; };
+		1E5E37802CC5045E007F8944 /* WXDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXDevice.m; sourceTree = "<group>"; };
 		1E5E37862CC5F5FF007F8944 /* NSData+Ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Ext.h"; sourceTree = "<group>"; };
 		1E5E37872CC5F5FF007F8944 /* NSData+Ext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Ext.m"; sourceTree = "<group>"; };
 		1E5E37882CC5F5FF007F8944 /* NSObject+DNKKeyValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DNKKeyValue.h"; sourceTree = "<group>"; };
@@ -622,7 +622,7 @@
 		1EF4E63D2CB7DA30000F39E9 /* WeChatNormalLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeChatNormalLoadingView.swift; sourceTree = "<group>"; };
 		1EF4E63F2CB7DB0A000F39E9 /* WeChatDrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeChatDrawView.swift; sourceTree = "<group>"; };
 		1EF4E6412CB7DBCF000F39E9 /* WeChatCustomNavigationHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeChatCustomNavigationHeaderView.swift; sourceTree = "<group>"; };
-		1EF4E6432CB8FAA7000F39E9 /* DNKCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNKCreate.swift; sourceTree = "<group>"; };
+		1EF4E6432CB8FAA7000F39E9 /* WXCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXCreate.swift; sourceTree = "<group>"; };
 		1EF4E6452CBA085F000F39E9 /* UIView+Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraint.swift"; sourceTree = "<group>"; };
 		1EF4E6472CBA493D000F39E9 /* AccountLoginUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoginUsersViewController.swift; sourceTree = "<group>"; };
 		1EF4E6492CBA4DD5000F39E9 /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
@@ -673,7 +673,7 @@
 		8196E3452CD198BE008767AD /* RedEnvelopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedEnvelopView.swift; sourceTree = "<group>"; };
 		8196E3472CD19B6F008767AD /* RedPacketGetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketGetEntity.swift; sourceTree = "<group>"; };
 		A30347F122FCE868003ECF82 /* SettingAutoDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAutoDownloadViewController.swift; sourceTree = "<group>"; };
-		A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCTableCellModel.swift; sourceTree = "<group>"; };
+		A30347F522FE57B1003ECF82 /* WXTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXTableCellModel.swift; sourceTree = "<group>"; };
 		A30347F822FF9983003ECF82 /* BrandContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandContactsViewController.swift; sourceTree = "<group>"; };
 		A30807F82314DAE100964126 /* ScrollActionSheetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollActionSheetItem.swift; sourceTree = "<group>"; };
 		A30807FA2314DB1500964126 /* ScrollActionSheetItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollActionSheetItemView.swift; sourceTree = "<group>"; };
@@ -1219,13 +1219,13 @@
 		1E5E37742CC4FCBB007F8944 /* DNKProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				1E5E377F2CC5045E007F8944 /* DNKDevice.h */,
-				1E5E37802CC5045E007F8944 /* DNKDevice.m */,
+				1E5E377F2CC5045E007F8944 /* WXDevice.h */,
+				1E5E37802CC5045E007F8944 /* WXDevice.m */,
 				1E5E377C2CC503EC007F8944 /* UICreate.h */,
 				1E5E377D2CC503EC007F8944 /* UICreate.m */,
 				1E5E377A2CC502E9007F8944 /* DNKAnimation.swift */,
-				1E5E37722CC4FCBB007F8944 /* DNKProgressHUD.h */,
-				1E5E37732CC4FCBB007F8944 /* DNKProgressHUD.m */,
+				1E5E37722CC4FCBB007F8944 /* WXProgressHUD.h */,
+				1E5E37732CC4FCBB007F8944 /* WXProgressHUD.m */,
 			);
 			path = DNKProgressHUD;
 			sourceTree = "<group>";
@@ -1573,7 +1573,7 @@
 				A3485FAF22F021B1002A804B /* QRCodeCardNode.swift */,
 				A3FB0AA222F3D54500116329 /* VisualEffectView.swift */,
 				A34C7B0122F829FB00652B4F /* WCTableCellNode.swift */,
-				A30347F522FE57B1003ECF82 /* WCTableCellModel.swift */,
+				A30347F522FE57B1003ECF82 /* WXTableCellModel.swift */,
 				A3E58D9E23025CE500F73763 /* RefreshTableHeaderView.swift */,
 				A3C914252305092400B6E077 /* RichTextNode.swift */,
 				A3E20008230A4B81005B2B70 /* LoadingProgressView.swift */,
@@ -1723,7 +1723,7 @@
 				1E6C17AF2CD22EAD00000785 /* SocketManager */,
 				1E3369232CCB470F005AF4A4 /* DB */,
 				1EFACD1D2CCA33E800D6ABC8 /* LoadingCircle */,
-				1EF4E6432CB8FAA7000F39E9 /* DNKCreate.swift */,
+				1EF4E6432CB8FAA7000F39E9 /* WXCreate.swift */,
 				A3CA520A22CDD58800C67D92 /* Constants.swift */,
 				A33DB2F422CCD92E00A11776 /* Colors.swift */,
 				A341CF0822E55A6E00F18106 /* ExpressionParser.swift */,
@@ -2904,7 +2904,7 @@
 				A3105D43232E035E0038D775 /* Notification+Extensions.swift in Sources */,
 				A3F9F002230E6F330032299C /* SightCameraPreviewView.swift in Sources */,
 				A33DB30222CCDDE200A11776 /* DiscoverModel.swift in Sources */,
-				1E5E37812CC5045E007F8944 /* DNKDevice.m in Sources */,
+				1E5E37812CC5045E007F8944 /* WXDevice.m in Sources */,
 				A33D2B2122F2FC3B0099927A /* MMPopAnimator.swift in Sources */,
 				A3CA51AC22CD99FD00C67D92 /* AddContactViewController.swift in Sources */,
 				A3F9F180230E983D0032299C /* SightCameraRecordView.swift in Sources */,
@@ -2954,7 +2954,7 @@
 				1EF4E63C2CB7D85E000F39E9 /* WeChatRegisterViewController.swift in Sources */,
 				1E5E97342CDDE9760040BD6C /* GroupSyncEntity.swift in Sources */,
 				A34760AD22E6E8BB0043AE1D /* AssetPickerViewController.swift in Sources */,
-				1EF4E6442CB8FAA7000F39E9 /* DNKCreate.swift in Sources */,
+				1EF4E6442CB8FAA7000F39E9 /* WXCreate.swift in Sources */,
 				A3CCE02722DDED1F0003DC25 /* VOIPContentNode.swift in Sources */,
 				A37221A522D568AB003403D4 /* MomentCellNode.swift in Sources */,
 				A374865522D49500002EEC4F /* ChatRoomToolBarNode.swift in Sources */,
@@ -3013,7 +3013,7 @@
 				A369A4A822D36772004722C4 /* UIImage+Extensions.swift in Sources */,
 				A352AD152306523400332B21 /* MomentCoverCustomizeCellNode.swift in Sources */,
 				A34139362307EC5F008E0EBF /* PhotoBrowserTransitioningDelegate.swift in Sources */,
-				1E5E37752CC4FCBB007F8944 /* DNKProgressHUD.m in Sources */,
+				1E5E37752CC4FCBB007F8944 /* WXProgressHUD.m in Sources */,
 				A352AD0F23064DA500332B21 /* MomentSetBackgroundViewController.swift in Sources */,
 				A3DE7CC72301095200E73944 /* MessageDatabase.swift in Sources */,
 				A3FB0AA722F3DA9C00116329 /* MallFunctionActivityNode.swift in Sources */,
@@ -3116,7 +3116,7 @@
 				A3C9145423056FFA00B6E077 /* MomentCommentListCellNode.swift in Sources */,
 				A374864222D44C48002EEC4F /* LocationContentNode.swift in Sources */,
 				A3993A702323A90B000C86D9 /* RadarSearchViewController.swift in Sources */,
-				A30347F622FE57B1003ECF82 /* WCTableCellModel.swift in Sources */,
+				A30347F622FE57B1003ECF82 /* WXTableCellModel.swift in Sources */,
 				A32333D122DF507600B79555 /* MomentContentNode.swift in Sources */,
 				A3476FFF22FAD681001B94EC /* MultiSelectContactsViewController.swift in Sources */,
 				A341393F23081E4A008E0EBF /* PhotoBrowserDataSource.swift in Sources */,
@@ -3413,11 +3413,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C9198CB93151EC26B862EEF0 /* Pods-WeChatSwift.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 1";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 8C962LK342;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = RCG2AV2K53;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3429,8 +3432,10 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DistributeProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
@@ -3443,11 +3448,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04841C8B18BE984EE8C1B6BB /* Pods-WeChatSwift.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 1";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 8C962LK342;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = RCG2AV2K53;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3459,8 +3467,10 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DistributeProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
@@ -3528,11 +3538,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F81ADFC305AF9470EC8BF966 /* Pods-WeChatSwift.inhouse.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 1";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 8C962LK342;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = RCG2AV2K53;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3544,8 +3557,10 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.WeChatSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DistributeProfile;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = INHOUSE;
 				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;

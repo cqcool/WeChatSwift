@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChatRoomListItemModel: WCTableCellModel {
+class ChatRoomListItemModel: WXTableCellModel {
     
     var roomId: String
     
@@ -21,7 +21,7 @@ class ChatRoomListItemModel: WCTableCellModel {
         self.roomName = roomName
     }
     
-    var wc_title: String {
+    var wx_title: String {
         return roomName
     }
 }

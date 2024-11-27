@@ -121,7 +121,7 @@ struct ChatRoomBackgroundActionGroup {
     var items: [ChatRoomBackgroundAction]
 }
 
-enum ChatRoomBackgroundAction: WCTableCellModel {
+enum ChatRoomBackgroundAction: WXTableCellModel {
     case pick
     case pickFromAlbum
     case takeFromCamera
@@ -148,11 +148,11 @@ enum ChatRoomBackgroundAction: WCTableCellModel {
         return NSAttributedString(string: title, attributes: attributes)
     }
     
-    var wc_title: String {
+    var wx_title: String {
         return title
     }
     
-    var wc_cellStyle: WCTableCellStyle {
+    var wx_cellStyle: WCTableCellStyle {
         if self == .applyToAllChats {
             return .centerButton
         }

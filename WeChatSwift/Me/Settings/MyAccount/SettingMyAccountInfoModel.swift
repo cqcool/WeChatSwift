@@ -20,7 +20,7 @@ struct SettingMyAccountInfoSection {
     }
 }
 
-enum SettingMyAccountInfoModel: WCTableCellModel {
+enum SettingMyAccountInfoModel: WXTableCellModel {
     case wechatId
     case phoneNumber
     case wechatPassword
@@ -31,7 +31,7 @@ enum SettingMyAccountInfoModel: WCTableCellModel {
     case freezeAccount
     case securityCenter
     
-    var wc_title: String {
+    var wx_title: String {
         switch self {
         case .wechatId:
             return "微信号"
@@ -54,7 +54,7 @@ enum SettingMyAccountInfoModel: WCTableCellModel {
         }
     }
     
-    var wc_accessoryNode: ASDisplayNode? {
+    var wx_accessoryNode: ASDisplayNode? {
         switch self {
         case .wechatId:
             return valueTextNode("wxid_dhsfg912nds")

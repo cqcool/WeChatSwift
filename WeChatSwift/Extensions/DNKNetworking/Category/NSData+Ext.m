@@ -2,7 +2,7 @@
 //  NSData+Ext.m
 //  NewSmart
 //
-//  Created by 陈群 on 2022/1/14.
+//  Created by Aliens on 2022/1/14.
 //
 
 #import "NSData+Ext.h"

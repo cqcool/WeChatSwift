@@ -2,7 +2,7 @@
 //  NSString+Ext.h
 //  NewSmart
 //
-//  Created by 陈群 on 2022/1/14.
+//  Created by Aliens on 2022/1/14.
 //
 
 #import <Foundation/Foundation.h>

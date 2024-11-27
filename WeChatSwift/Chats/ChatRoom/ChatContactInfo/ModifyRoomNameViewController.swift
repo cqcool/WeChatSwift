@@ -2,7 +2,7 @@
 //  ModifyRoomNameViewController.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/18.
+//  Created by Aliens on 2024/10/18.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 
@@ -110,13 +110,13 @@ class ModifyRoomNameViewController: UIViewController {
             make.width.equalToSuperview()
             make.height.equalTo(view.bounds.height - Constants.statusBarHeight - 44 - Constants.bottomInset)
         }
-        titleLabel = DNKCreate.label(text: "修改群聊名称", textColor: .black, fontSize: 22, weight: .medium)
+        titleLabel = WXCreate.label(text: "修改群聊名称", textColor: .black, fontSize: 22, weight: .medium)
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(35)
         }
-        tipsLabel = DNKCreate.label(text: "修改群聊名称后，将在群内通知其他成员。", textColor: .black, fontSize: 17)
+        tipsLabel = WXCreate.label(text: "修改群聊名称后，将在群内通知其他成员。", textColor: .black, fontSize: 17)
         contentView.addSubview(tipsLabel)
         tipsLabel.snp.makeConstraints { make in
             
@@ -134,7 +134,7 @@ class ModifyRoomNameViewController: UIViewController {
             make.height.equalTo(0.5)
         }
         
-        iconView = DNKCreate.imageView(normalName: "login_defaultAvatar")
+        iconView = WXCreate.imageView(normalName: "login_defaultAvatar")
         contentView.addSubview(iconView)
         iconView.snp.makeConstraints { make in
             make.top.equalTo(line1.snp.bottom).offset(6)
@@ -162,7 +162,7 @@ class ModifyRoomNameViewController: UIViewController {
             make.right.equalTo(-spacing - 10)
         }
         
-        confirmButton = DNKCreate.button(normalTitle: "确定", normalColor: .white)
+        confirmButton = WXCreate.button(normalTitle: "确定", normalColor: .white)
         contentView.addSubview(confirmButton)
         confirmButton.titleLabel?.font = .systemFont(ofSize: 17)
         confirmButton.setTitleColor(UIColor(white: 0, alpha: 0.5), for: .disabled)

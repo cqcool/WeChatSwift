@@ -222,7 +222,7 @@ enum AddChatRoomMemberItem {
     case removeButton
 }
 
-struct ChatRoomContactInfoModel: WCTableCellModel {
+struct ChatRoomContactInfoModel: WXTableCellModel {
     
     var type: ChatCellType
     var value: String?
@@ -231,7 +231,7 @@ struct ChatRoomContactInfoModel: WCTableCellModel {
         self.type = type
         self.value = value
     }
-    var wc_title: String {
+    var wx_title: String {
         switch type {
         case .addContactToChatRoom:
             return ""
@@ -273,7 +273,7 @@ struct ChatRoomContactInfoModel: WCTableCellModel {
         
     }
     
-    var wc_accessoryNode: ASDisplayNode? {
+    var wx_accessoryNode: ASDisplayNode? {
         if let value {
             let valueNode = ASTextNode()
             valueNode.attributedText = value.addAttributed(font: .systemFont(ofSize: 17), textColor: UIColor(white: 0, alpha: 0.7), lineSpacing: 0, wordSpacing: 0)
@@ -287,11 +287,11 @@ struct ChatRoomContactInfoModel: WCTableCellModel {
         return nil
     }
     
-    var wc_image: UIImage? {
+    var wx_image: UIImage? {
         return nil
     }
     
-    var wc_showSwitch: Bool {
+    var wx_showSwitch: Bool {
         switch type {
         case .mute, .stickToTop, .forceNotify, .addressBook, .showOtherName:
             return true
@@ -300,7 +300,7 @@ struct ChatRoomContactInfoModel: WCTableCellModel {
         }
     }
     
-    var wc_switchValue: Bool {
+    var wx_switchValue: Bool {
         switch type {
         case .mute:
             return false
@@ -314,7 +314,7 @@ struct ChatRoomContactInfoModel: WCTableCellModel {
             return false
         }
     }
-    var wc_cellStyle: WCTableCellStyle {
+    var wx_cellStyle: WCTableCellStyle {
         if type == .logout {
             return .destructiveButton
         }

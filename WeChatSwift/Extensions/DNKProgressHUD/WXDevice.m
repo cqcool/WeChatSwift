@@ -1,23 +1,23 @@
 //
-//  DNKDevice.m
+//  WXDevice.m
 //  NewSmart
 //
-//  Created by 陈群 on 2022/1/19.
+//  Created by Aliens on 2022/1/19.
 //
 
-#import "DNKDevice.h"
+#import "WXDevice.h"
 #import <sys/utsname.h>
 
 
-@implementation DNKDevice
+@implementation WXDevice
 + (CGRect)bounds {
     return UIScreen.mainScreen.bounds;
 }
 + (CGFloat)screenWidth {
-    return CGRectGetWidth(DNKDevice.bounds);
+    return CGRectGetWidth(WXDevice.bounds);
 }
 + (CGFloat)screenHeight {
-    return CGRectGetHeight(DNKDevice.bounds);
+    return CGRectGetHeight(WXDevice.bounds);
 }
 /// 屏幕中心点
 + (CGPoint)center {

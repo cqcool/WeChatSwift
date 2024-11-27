@@ -2,7 +2,7 @@
 //  RedDetailsViewController.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/19.
+//  Created by Aliens on 2024/10/19.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 
@@ -59,7 +59,7 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
         tableNode.view.tableHeaderView = headerView
          
         footerView = UIView(frame: CGRect(x: 0, y: 0, width: Constants.screenWidth, height: 50))
-        footerNode = DNKCreate.label(text: "未领取的红包，将于24小时后发起退款", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
+        footerNode = WXCreate.label(text: "未领取的红包，将于24小时后发起退款", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
         footerNode.textAlignment = .center
         footerNode.frame = CGRect(x: 0, y: 30, width: Constants.screenWidth, height: 20)
         footerView.addSubview(footerNode)
@@ -128,7 +128,7 @@ extension RedDetailsViewController: ASTableDelegate, ASTableDataSource {
          "已领取1/5个，共2.26/10.00元"
          5个红包，50秒被抢光
          */
-        let label = DNKCreate.label(text: "已领取\(resp?.receiveNum ?? 0)/\(resp?.num ?? 0)个，共\(resp?.receiveAmount ?? "0")/\(resp?.amount ?? "0")元", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
+        let label = WXCreate.label(text: "已领取\(resp?.receiveNum ?? 0)/\(resp?.num ?? 0)个，共\(resp?.receiveAmount ?? "0")/\(resp?.amount ?? "0")元", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
         label.frame = CGRect(x: 16, y: 0, width: 300, height: 38)
         contentView.addSubview(label)
         
@@ -141,7 +141,7 @@ extension RedDetailsViewController: ASTableDelegate, ASTableDataSource {
 //        let sectionView = UIView(x: 0, y: 0, width: Constants.screenWidth, height: 48)
 //        sectionView.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
 //
-//        let label = DNKCreate.label(text: "未领取的红包，将于24小时后发起退款", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
+//        let label = WXCreate.label(text: "未领取的红包，将于24小时后发起退款", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
 //        label.frame = CGRect(x: 0, y: 0, width: Constants.screenWidth, height: 38)
 //        contentView.addSubview(label)
         

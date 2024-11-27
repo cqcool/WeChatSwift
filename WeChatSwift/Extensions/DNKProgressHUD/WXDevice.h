@@ -1,8 +1,8 @@
 //
-//  DNKDevice.h
+//  WXDevice.h
 //  NewSmart
 //
-//  Created by 陈群 on 2022/1/19.
+//  Created by Aliens on 2022/1/19.
 //
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -18,7 +18,7 @@ static inline CGFloat wScale(void) {
 static inline CGFloat hScale(void) {
     return [UIScreen mainScreen].bounds.size.height/667.0;
 }
-@interface DNKDevice : NSObject
+@interface WXDevice : NSObject
 + (CGRect)bounds;
 /// 屏幕宽度
 + (CGFloat)screenWidth;

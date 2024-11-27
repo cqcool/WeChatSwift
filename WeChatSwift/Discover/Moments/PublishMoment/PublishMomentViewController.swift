@@ -67,7 +67,7 @@ class PublishMomentViewController: ASDKViewController<ASDisplayNode> {
         let cancelButton = UIBarButtonItem(title: LanguageManager.Common.cancel(), style: .plain, target: self, action: #selector(handleCancelButtonClicked))
         navigationItem.leftBarButtonItem = cancelButton
         
-        let publishButton = wc_doneBarButton(title: "发表")
+        let publishButton = wx_doneBarButton(title: "发表")
         publishButton.isEnabled = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: publishButton)
     }

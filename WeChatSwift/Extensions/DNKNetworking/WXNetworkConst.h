@@ -2,13 +2,13 @@
 //  WXNetworkConst.h
 //  NewSmart
 //
-//  Created by 陈群 on 2022/7/1.
+//  Created by Aliens on 2022/7/1.
 //
 
 #ifndef WXNetworkConst_h
 #define WXNetworkConst_h
 
-typedef NS_ENUM (NSInteger, DNKNetworkCode) {
+typedef NS_ENUM (NSInteger, NetworkCode) {
     // 临时token不匹配
     REFRESH_TOKEN_TIMEOUT = -5,
     // 您的账号已退出，请重新登录

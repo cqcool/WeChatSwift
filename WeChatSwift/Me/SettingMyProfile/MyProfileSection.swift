@@ -2,7 +2,7 @@
 //  MyProfileSection.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/14.
+//  Created by Aliens on 2024/10/14.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 
@@ -40,15 +40,15 @@ struct MyProfileModel {
     }
 }
 
-extension MyProfileModel: WCTableCellModel {
+extension MyProfileModel: WXTableCellModel {
     
-    var wc_image: UIImage? { return image }
-    var wc_imageURL: URL? {
+    var wx_image: UIImage? { return image }
+    var wx_imageURL: URL? {
         GlobalManager.headImageUrl(name: GlobalManager.manager.personModel?.head)
     }
-    var wc_title: String { return title }
+    var wx_title: String { return title }
     
-    var wc_accessoryNode: ASDisplayNode? {
+    var wx_accessoryNode: ASDisplayNode? {
         if type == .qrCode {
             let imageNode = ASImageNode()
             imageNode.image = UIImage.SVGImage(named: "icons_outlined_qr-code")
@@ -64,7 +64,7 @@ extension MyProfileModel: WCTableCellModel {
             if image != nil {
                 imageNode.image = image
             } else {
-                guard let url = wc_imageURL else { return imageNode }
+                guard let url = wx_imageURL else { return imageNode }
                 imageNode.url = url
             }
             return imageNode

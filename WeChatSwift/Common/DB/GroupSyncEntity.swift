@@ -2,7 +2,7 @@
 //  GroupSyncEntity.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/11/8.
+//  Created by Aliens on 2024/11/8.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 

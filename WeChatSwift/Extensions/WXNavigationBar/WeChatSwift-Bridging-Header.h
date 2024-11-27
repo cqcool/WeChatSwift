@@ -13,5 +13,5 @@
 #import "WXApiUtils.h"
 #import "NSString+Ext.h"
 
-#import "DNKDevice.h"
+#import "WXDevice.h"
 

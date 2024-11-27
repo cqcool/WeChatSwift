@@ -2,7 +2,7 @@
 //  SmallChangeCellNode.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/9.
+//  Created by Aliens on 2024/10/9.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 
@@ -22,8 +22,8 @@ class SmallChangeCellNode: ASCellNode {
     init(model: String) {
         super.init()
         automaticallyManagesSubnodes = true
-//        if model.wc_imageURL != nil {
-//            iconNode.url = model.wc_imageURL
+//        if model.wx_imageURL != nil {
+//            iconNode.url = model.wx_imageURL
 //        } else {
         iconNode.image = UIImage(named: "kinda_balance_entry_logo")
 //        }

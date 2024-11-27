@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SelectSessionModel: WCTableCellModel {
+class SelectSessionModel: WXTableCellModel {
     
     private let session: GroupEntity
     
@@ -16,7 +16,7 @@ class SelectSessionModel: WCTableCellModel {
         self.session = session
     }
     
-    var wc_title: String {
+    var wx_title: String {
         return session.name ?? "未命名"
     }
     

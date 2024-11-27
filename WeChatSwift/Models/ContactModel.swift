@@ -60,13 +60,13 @@ enum ContactModel {
     }
 }
 
-extension ContactModel: WCTableCellModel {
+extension ContactModel: WXTableCellModel {
     
-    var wc_title: String { return name }
+    var wx_title: String { return name }
     
-    var wc_image: UIImage? { return image }
+    var wx_image: UIImage? { return image }
     
-    var wc_imageURL: URL? {
+    var wx_imageURL: URL? {
         switch self {
         case .contact(let contact):
             return contact.avatarURL
@@ -75,11 +75,11 @@ extension ContactModel: WCTableCellModel {
         }
     }
     
-    var wc_imageLayoutSize: CGSize { return CGSize(width: 40, height: 40) }
+    var wx_imageLayoutSize: CGSize { return CGSize(width: 40, height: 40) }
     
-    var wc_imageCornerRadius: CGFloat { return 4.0 }
+    var wx_imageCornerRadius: CGFloat { return 4.0 }
     
-    var wc_showArrow: Bool { return false }
+    var wx_showArrow: Bool { return false }
 }
 
 class Contact {

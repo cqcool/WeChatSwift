@@ -2,7 +2,7 @@
 //  YTKBaseRequest+DNKApi.h
 //  smarthome
 //
-//  Created by 陈群 on 2021/6/24.
+//  Created by Aliens on 2021/6/24.
 //  Copyright © 2021 dnake. All rights reserved.
 //
 

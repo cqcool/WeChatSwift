@@ -2,7 +2,7 @@
 //  WalletCellNode.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/9.
+//  Created by Aliens on 2024/10/9.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 
@@ -23,15 +23,15 @@ class WalletCellNode: ASCellNode {
         self.isLastCell = isLastCell
         super.init()
         automaticallyManagesSubnodes = true
-//        if model.wc_imageURL != nil {
-//            iconNode.url = model.wc_imageURL
+//        if model.wx_imageURL != nil {
+//            iconNode.url = model.wx_imageURL
 //        } else {
         iconNode.image = model.image
 //        }
-        titleNode.attributedText = model.wc_attributedStringForTitle()
+        titleNode.attributedText = model.wx_attributedStringForTitle()
         lineNode.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
         arrowNode.image = UIImage.SVGImage(named: "icons_outlined_arrow")
-        if let additional = model.wc_attributedStringForAdditional() {
+        if let additional = model.wx_attributedStringForAdditional() {
             additionalNode.attributedText = additional
         }
         if let value = model.attributedStringForValue() {
@@ -41,7 +41,7 @@ class WalletCellNode: ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        if model.wc_cellStyle == .centerButton || model.wc_cellStyle == .destructiveButton {
+        if model.wx_cellStyle == .centerButton || model.wx_cellStyle == .destructiveButton {
             let stack = ASStackLayoutSpec.horizontal()
             stack.horizontalAlignment = .middle
             stack.verticalAlignment = .center
@@ -54,12 +54,12 @@ class WalletCellNode: ASCellNode {
         var leading: CGFloat = 0.0
         
         // Append Image
-        if model.wc_image != nil || model.wc_imageURL != nil  {
+        if model.wx_image != nil || model.wx_imageURL != nil  {
             iconNode.style.spacingBefore = 16
-            iconNode.style.preferredSize = model.wc_imageLayoutSize
+            iconNode.style.preferredSize = model.wx_imageLayoutSize
             elements.append(iconNode)
             if !isLastCell {
-                leading += 16.0 + model.wc_imageLayoutSize.width
+                leading += 16.0 + model.wx_imageLayoutSize.width
             }
         }
         
@@ -67,7 +67,7 @@ class WalletCellNode: ASCellNode {
         titleNode.style.spacingBefore = 16.0
         elements.append(titleNode)
         leading += 16.0
-        if model.wc_attributedStringForAdditional() != nil {
+        if model.wx_attributedStringForAdditional() != nil {
             additionalNode.style.spacingBefore = 10.0
 //            additionalNode.attributedText = additional
             elements.append(additionalNode)

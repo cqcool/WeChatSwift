@@ -76,15 +76,15 @@ class WeChatLoginViewController: UIViewController {
             return
         }
         guard let phone = accountTextField.text else {
-            DNKProgressHUD.brieflyProgressMsg("请填写微信号/QQ号/邮箱")
+            WXProgressHUD.brieflyProgressMsg("请填写微信号/QQ号/邮箱")
             return
         }
         
         guard let pswText = self.pswText else {
-            DNKProgressHUD.brieflyProgressMsg("请填写密码")
+            WXProgressHUD.brieflyProgressMsg("请填写密码")
             return
         }
-        DNKProgressHUD.showProgress()
+        WXProgressHUD.showProgress()
         let psw = pswText.md5Encrpt().lowercased()
         let loginRequest = LoginRequest(account: phone, password: psw)
         let chainRequest = YTKChainRequest()
@@ -102,7 +102,7 @@ class WeChatLoginViewController: UIViewController {
                 }
                 return
             }
-            DNKProgressHUD.hiddenProgressHUD()
+            WXProgressHUD.hiddenProgressHUD()
             self.showPopupAlert(msg: request.apiMessage())
         }
         
@@ -110,7 +110,7 @@ class WeChatLoginViewController: UIViewController {
         chainRequest.add(infoRequest) { _, request in
             if request.apiSuccess() {
                 GlobalManager.manager.getConfigInfo { error in
-                    DNKProgressHUD.hiddenProgressHUD()
+                    WXProgressHUD.hiddenProgressHUD()
                     do {
                         let resp = try JSONDecoder().decode(PersonModel.self, from: request.wxResponseData())
                         GlobalManager.manager.updatePersonModel(model: resp)
@@ -121,7 +121,7 @@ class WeChatLoginViewController: UIViewController {
                     } 
                 }
             } else {
-                DNKProgressHUD.hiddenProgressHUD()
+                WXProgressHUD.hiddenProgressHUD()
                 GlobalManager.manager.updateRefreshToken(refreshToken: nil)
                 GlobalManager.manager.updateToken(token: nil)
                 self.showPopupAlert(msg: request.apiMessage())
@@ -261,7 +261,7 @@ class WeChatLoginViewController: UIViewController {
         phoneLabel.attributedText = mutableAttribtue
     }
     private func layoutContentView() {
-        titleLabel = DNKCreate.label(text: "手机号登录", textColor: .black, fontSize: 22, weight: .medium)
+        titleLabel = WXCreate.label(text: "手机号登录", textColor: .black, fontSize: 22, weight: .medium)
         contentView.addSubview(titleLabel)
         titleLabel.textAlignment = .center
         titleLabel.snp.makeConstraints { make in
@@ -283,10 +283,10 @@ class WeChatLoginViewController: UIViewController {
             make.bottom.equalTo( -20)
             make.left.right.equalToSuperview()
         }
-        phoneTipLabel = DNKCreate.label(text: "上述手机号仅用于登录验证", textColor: UIColor(white: 0, alpha: 0.3), fontSize: 14)
+        phoneTipLabel = WXCreate.label(text: "上述手机号仅用于登录验证", textColor: UIColor(white: 0, alpha: 0.3), fontSize: 14)
         btmVerticalStack.addArrangedSubview(phoneTipLabel)
         
-        continueBtn = DNKCreate.button(normalTitle: "同意并继续", normalColor: .white)
+        continueBtn = WXCreate.button(normalTitle: "同意并继续", normalColor: .white)
         continueBtn.titleLabel?.font = .systemFont(ofSize: 16)
         continueBtn.backgroundColor = UIColor(hexString: "07C160")
         continueBtn.layer.cornerRadius = 8
@@ -307,14 +307,14 @@ class WeChatLoginViewController: UIViewController {
             make.bottom.equalToSuperview()
             make.height.equalTo(30)
         }
-        let findBtn = DNKCreate.button(normalTitle: "找回密码", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
+        let findBtn = WXCreate.button(normalTitle: "找回密码", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
         
-        let btmLine = DNKCreate.lineView(nil)
+        let btmLine = WXCreate.lineView(nil)
         btmLine.constant(width: 0.5)
         btmLine.constant(height: 10)
         btmLine.backgroundColor = UIColor(hexString: "ADADAD")
         btmLine.setContentHuggingPriority(.required, for: .horizontal)
-        let moreBtn = DNKCreate.button(normalTitle: "更多选项", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
+        let moreBtn = WXCreate.button(normalTitle: "更多选项", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
         horizontalStack.addArrangedSubview(findBtn)
         horizontalStack.addArrangedSubview(btmLine)
         horizontalStack.addArrangedSubview(moreBtn)
@@ -335,7 +335,7 @@ class WeChatLoginViewController: UIViewController {
             make.top.equalTo(oneLineView.snp.bottom)
             make.height.equalTo(58)
         }
-        countryLabel = DNKCreate.label(text: "国家/地区    中国大陆", textColor: .black, fontSize: 17)
+        countryLabel = WXCreate.label(text: "国家/地区    中国大陆", textColor: .black, fontSize: 17)
         oneView.addSubview(countryLabel)
         countryLabel.snp.makeConstraints { make in
             make.top.left.bottom.equalToSuperview()
@@ -360,7 +360,7 @@ class WeChatLoginViewController: UIViewController {
         //            make.left.equalTo(contryLabel.snp.right).offset(20)
         //            make.width.equalTo(80)
         //        }
-        arrowImgView = DNKCreate.imageView(normalName: "AlbumTimeLineTipArrowHL_15x15_")
+        arrowImgView = WXCreate.imageView(normalName: "AlbumTimeLineTipArrowHL_15x15_")
         oneView.addSubview(arrowImgView)
         arrowImgView.snp.makeConstraints { make in
             make.right.equalTo(oneView.snp.right)
@@ -383,7 +383,7 @@ class WeChatLoginViewController: UIViewController {
             make.top.equalTo(twoLineView.snp.bottom)
             make.height.equalTo(56)
         }
-        phoneLabel = DNKCreate.label(text: "手机号    +86", textColor: .black, fontSize: 17)
+        phoneLabel = WXCreate.label(text: "手机号    +86", textColor: .black, fontSize: 17)
         twoView.addSubview(phoneLabel)
         phoneLabel.snp.makeConstraints { make in
             make.top.left.bottom.equalToSuperview()
@@ -418,7 +418,7 @@ class WeChatLoginViewController: UIViewController {
             make.height.equalTo(0.5)
         }
         
-        loginWayBtn = DNKCreate.button(normalTitle: "用微信号/QQ号/邮箱登录", normalColor: UIColor(hexString: "576B95"))
+        loginWayBtn = WXCreate.button(normalTitle: "用微信号/QQ号/邮箱登录", normalColor: UIColor(hexString: "576B95"))
         loginWayBtn.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         loginWayBtn.addTarget(self, action: #selector(changeLoginType), for: .touchUpInside)
         phoneView.addSubview(loginWayBtn)

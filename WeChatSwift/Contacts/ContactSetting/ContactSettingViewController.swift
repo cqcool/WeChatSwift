@@ -40,29 +40,29 @@ class ContactSettingViewController: ASDKViewController<ASDisplayNode> {
     }
     
     private func setupDataSource() {
-        dataSource.append(ContactSettingSection(title: nil, items: [ContactSettingModel(type: .remakAndTag, wc_title: LocalizedString("Contacts_Remark_Set"))]))
+        dataSource.append(ContactSettingSection(title: nil, items: [ContactSettingModel(type: .remakAndTag, wx_title: LocalizedString("Contacts_Remark_Set"))]))
         
         let gender = contact.gender
         let recommentToFriendTitle = gender == .male ? LocalizedString("Contacts_Setting_Share_Male"): LocalizedString("Contacts_Setting_Share_Female")
-        let recommendToFriend = ContactSettingModel(type: .recommendToFriend, wc_title: recommentToFriendTitle)
+        let recommendToFriend = ContactSettingModel(type: .recommendToFriend, wx_title: recommentToFriendTitle)
         dataSource.append(ContactSettingSection(title: nil, items: [recommendToFriend]))
         
         dataSource.append(ContactSettingSection(title: nil, items: [
-            ContactSettingModel(type: .markAsStarFriend(false), wc_title: LocalizedString("Contacts_Setting_Favour"))]))
+            ContactSettingModel(type: .markAsStarFriend(false), wx_title: LocalizedString("Contacts_Setting_Favour"))]))
         
         let momentForbiddenTitle = gender == .male ? LocalizedString("Contacts_Setting_WC_Outsider_Male"): LocalizedString("Contacts_Setting_WC_Outsider_Female")
         let momentIgnoreTitle = gender == .male ? LocalizedString("Contacts_WCAddBlacklist_Male"): LocalizedString("Contacts_WCAddBlacklist_Female")
         
         dataSource.append(ContactSettingSection(title: LocalizedString("Contacts_Setting_WC_Title"), items: [
-            ContactSettingModel(type: .momentForbidden(false), wc_title: momentForbiddenTitle),
-            ContactSettingModel(type: .momentIgnore(false), wc_title: momentIgnoreTitle)]))
+            ContactSettingModel(type: .momentForbidden(false), wx_title: momentForbiddenTitle),
+            ContactSettingModel(type: .momentIgnore(false), wx_title: momentIgnoreTitle)]))
         
         dataSource.append(ContactSettingSection(title: nil, items: [
-            ContactSettingModel(type: .addToBlackList(false), wc_title: LocalizedString("Contacts_Setting_AddToBlack")),
-            ContactSettingModel(type: .report, wc_title: LocalizedString("Expose"))]))
+            ContactSettingModel(type: .addToBlackList(false), wx_title: LocalizedString("Contacts_Setting_AddToBlack")),
+            ContactSettingModel(type: .report, wx_title: LocalizedString("Expose"))]))
         
         dataSource.append(ContactSettingSection(title: nil, items: [
-            ContactSettingModel(type: .delete, wc_title: LocalizedString("Contacts_Delete"))]))
+            ContactSettingModel(type: .delete, wx_title: LocalizedString("Contacts_Delete"))]))
     }
 }
 
@@ -108,7 +108,7 @@ extension ContactSettingViewController: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         let model = dataSource[indexPath.section].items[indexPath.row]
-        return !model.wc_showSwitch
+        return !model.wx_showSwitch
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

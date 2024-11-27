@@ -43,7 +43,7 @@ class MultiSelectContactsViewController: ASDKViewController<ASDisplayNode> {
         cancelButton.tintColor = .black
         navigationItem.leftBarButtonItem = cancelButton
         
-        let doneButton = wc_doneBarButton(title: "完成")
+        let doneButton = wx_doneBarButton(title: "完成")
         doneButton.isEnabled = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: doneButton)
         doneButton.addTarget(self, action: #selector(doneButtonClicked), for: .touchUpInside)

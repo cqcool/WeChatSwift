@@ -187,7 +187,7 @@ class AccountLoginUsersViewController: UIViewController {
             make.top.equalToSuperview().offset(Constants.statusBarHeight + 44 + 10)
             make.centerX.equalToSuperview()
         }
-        phoneLabel = DNKCreate.label(text: "+86 xxx xxxx xxxx", textColor: .black, fontSize: 21, weight: .medium)
+        phoneLabel = WXCreate.label(text: "+86 xxx xxxx xxxx", textColor: .black, fontSize: 21, weight: .medium)
         contentView.addSubview(phoneLabel)
         phoneLabel.snp.makeConstraints { make in
             make.top.equalTo(avatarView.snp.bottom).offset(30)
@@ -210,7 +210,7 @@ class AccountLoginUsersViewController: UIViewController {
             make.left.right.equalToSuperview()
         }
         
-        continueBtn = DNKCreate.button(normalTitle: "登录", normalColor: .white)
+        continueBtn = WXCreate.button(normalTitle: "登录", normalColor: .white)
         continueBtn.titleLabel?.font = .systemFont(ofSize: 16)
         continueBtn.backgroundColor = UIColor(hexString: "07C160")
         continueBtn.layer.cornerRadius = 8
@@ -230,21 +230,21 @@ class AccountLoginUsersViewController: UIViewController {
             make.bottom.equalToSuperview()
             make.height.equalTo(30)
         }
-        let findBtn = DNKCreate.button(normalTitle: "找回密码", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
+        let findBtn = WXCreate.button(normalTitle: "找回密码", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
         
-        let btmLine1 = DNKCreate.lineView(nil)
+        let btmLine1 = WXCreate.lineView(nil)
         btmLine1.constant(width: 0.5)
         btmLine1.constant(height: 10)
         btmLine1.backgroundColor = UIColor(hexString: "ADADAD")
         btmLine1.setContentHuggingPriority(.required, for: .horizontal)
-        let freezeBtn = DNKCreate.button(normalTitle: "紧急冻结", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
+        let freezeBtn = WXCreate.button(normalTitle: "紧急冻结", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
         
-        let btmLine = DNKCreate.lineView(nil)
+        let btmLine = WXCreate.lineView(nil)
         btmLine.constant(width: 0.5)
         btmLine.constant(height: 10)
         btmLine.backgroundColor = UIColor(hexString: "ADADAD")
         btmLine.setContentHuggingPriority(.required, for: .horizontal)
-        let moreBtn = DNKCreate.button(normalTitle: "更多选项", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
+        let moreBtn = WXCreate.button(normalTitle: "更多选项", normalColor: UIColor(hexString: "566B94"), fontSize: 14, weight: .medium)
         moreBtn.addTarget(self, action: #selector(moreAction), for: .touchUpInside)
         horizontalStack.addArrangedSubview(findBtn)
         horizontalStack.addArrangedSubview(btmLine1)
@@ -268,7 +268,7 @@ class AccountLoginUsersViewController: UIViewController {
             make.top.equalTo(oneLineView.snp.bottom)
             make.height.equalTo(56)
         }
-        let pswTitleLabel = DNKCreate.label(text: "密码", textColor: .black, fontSize: 17)
+        let pswTitleLabel = WXCreate.label(text: "密码", textColor: .black, fontSize: 17)
         oneView.addSubview(pswTitleLabel)
         pswTitleLabel.snp.makeConstraints { make in
             make.top.left.bottom.equalToSuperview()
@@ -293,7 +293,7 @@ class AccountLoginUsersViewController: UIViewController {
             make.height.equalTo(0.5)
         }
         
-        smsBtn = DNKCreate.button(normalTitle: "用短信验证码登录", normalColor: UIColor(hexString: "576B95"))
+        smsBtn = WXCreate.button(normalTitle: "用短信验证码登录", normalColor: UIColor(hexString: "576B95"))
         smsBtn.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         smsBtn.addTarget(self, action: #selector(smsLoginAction), for: .touchUpInside)
         phoneView.addSubview(smsBtn)

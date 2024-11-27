@@ -2,7 +2,7 @@
 //  TimingGroupManager.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/23.
+//  Created by Aliens on 2024/10/23.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 
@@ -244,8 +244,8 @@ extension ChatDataManager {
                 return
             }
             let errorCode = request.apiCode()
-            if errorCode == DNKNetworkCode.TOKEN_ERROR.rawValue ||
-                errorCode == DNKNetworkCode.ERROR_USER_STATUS.rawValue {
+            if errorCode == NetworkCode.TOKEN_ERROR.rawValue ||
+                errorCode == NetworkCode.ERROR_USER_STATUS.rawValue {
                 return
             }
             self.updateTokenTimeout(timeout: -1)

@@ -1,8 +1,8 @@
 //
-//  YTKBaseRequest+DNKProgressHUD.m
+//  YTKBaseRequest+WXProgressHUD.m
 //  smarthome
 //
-//  Created by 陈群 on 2021/7/1.
+//  Created by Aliens on 2021/7/1.
 //  Copyright © 2021 dnake. All rights reserved.
 //
 
@@ -44,13 +44,13 @@
 
 - (void)showApiMsgHUD:(NSString *)msg {
     if (msg) {
-        [DNKProgressHUD brieflyProgressMsg:msg];
+        [WXProgressHUD brieflyProgressMsg:msg];
     }
 }
 - (void)showApiMsgHUD {
     NSString *msg = [self apiMessage];
     if (msg) {
-        [DNKProgressHUD brieflyProgressMsg:msg];
+        [WXProgressHUD brieflyProgressMsg:msg];
     }
 }
 
@@ -93,7 +93,7 @@
 ///  @param request The corresponding request.
 - (void)requestWillStart:(id)request {
     if (self.networkingHUDFlag) {
-        [DNKProgressHUD showProgress];
+        [WXProgressHUD showProgress];
     }
 }
 
@@ -103,7 +103,7 @@
 ///  @param request The corresponding request.
 - (void)requestWillStop:(id)request {
     if (self.networkingHUDFlag) {
-        [DNKProgressHUD hiddenProgressHUD];
+        [WXProgressHUD hiddenProgressHUD];
     }
 }
 
@@ -123,10 +123,10 @@
 //        NSString *url = request.error.userInfo[NSURLErrorFailingURLStringErrorKey];
 //        NSString *description = request.error.localizedDescription;
 //        description = [NSString stringWithFormat:@"路径：%@ \n\n 错误描述：%@(%zd)", url, description, request.error.code];
-        [DNKProgressHUD brieflyProgressMsg:self.baseRequest.apiMessage];
+        [WXProgressHUD brieflyProgressMsg:self.baseRequest.apiMessage];
     } else if (self.showFailureHUD && request.responseObject) {
         if (!request.apiSuccess) {
-            [DNKProgressHUD brieflyProgressMsg:request.apiMessage];
+            [WXProgressHUD brieflyProgressMsg:request.apiMessage];
         }
     }
 }

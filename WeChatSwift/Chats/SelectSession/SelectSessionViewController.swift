@@ -50,7 +50,7 @@ class SelectSessionViewController: ASDKViewController<ASDisplayNode> {
         navigationItem.rightBarButtonItem = multiSelectButton
         self.multiSelectButtonItem = multiSelectButton
         
-        let doneButton = wc_doneBarButton()
+        let doneButton = wx_doneBarButton()
         doneButton.addTarget(self, action: #selector(handleDoneButtonClicked), for: .touchUpInside)
         self.doneButtonItem = UIBarButtonItem(customView: doneButton)
     }

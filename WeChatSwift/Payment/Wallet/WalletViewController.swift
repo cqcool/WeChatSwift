@@ -2,7 +2,7 @@
 //  WalletViewController.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/8.
+//  Created by Aliens on 2024/10/8.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 
@@ -166,7 +166,7 @@ struct WalletModel {
     mutating func setAdditionalContent(value: String?) {
         self.additionalContent = value
     }
-    func wc_attributedStringForAdditional() -> NSAttributedString? {
+    func wx_attributedStringForAdditional() -> NSAttributedString? {
         guard let value = additionalContent else { return nil }
         return NSAttributedString(string: value, attributes: [
             .font: UIFont.systemFont(ofSize: 12, weight: .medium),
@@ -187,11 +187,11 @@ struct WalletModel {
         return mutableAttribtue
     }
 }
-extension WalletModel: WCTableCellModel {
+extension WalletModel: WXTableCellModel {
     
-    var wc_image: UIImage? { return image }
+    var wx_image: UIImage? { return image }
     
-    var wc_title: String { return title }
+    var wx_title: String { return title }
 }
 
 enum WalletType {

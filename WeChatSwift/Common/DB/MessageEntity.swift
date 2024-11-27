@@ -2,7 +2,7 @@
 //  MessageEntity.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/23.
+//  Created by Aliens on 2024/10/23.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 

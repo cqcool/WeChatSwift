@@ -1,13 +1,13 @@
 //
-//  YTKBaseRequest+DNKProgressHUD.h
+//  YTKBaseRequest+WXProgressHUD.h
 //  smarthome
 //
-//  Created by 陈群 on 2021/7/1.
+//  Created by Aliens on 2021/7/1.
 //  Copyright © 2021 dnake. All rights reserved.
 //
 
 #import "YTKBaseRequest.h"
-#import "DNKProgressHUD.h"
+#import "WXProgressHUD.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YTKBaseRequest (DNKProgressHUD)

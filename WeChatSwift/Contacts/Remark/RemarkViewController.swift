@@ -43,7 +43,7 @@ class RemarkViewController: ASDKViewController<ASDisplayNode> {
         cancelButton.tintColor = .black
         navigationItem.leftBarButtonItem = cancelButton
         
-        let doneButton = wc_doneBarButton()
+        let doneButton = wx_doneBarButton()
         doneButton.addTarget(self, action: #selector(doneButtonClicked), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: doneButton)
     }

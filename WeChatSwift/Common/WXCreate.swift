@@ -1,13 +1,13 @@
 //
-//  DNKCreate.swift
+//  WXCreate.swift
 //  NewSmart
 //
-//  Created by 陈群 on 2022/11/25.
+//  Created by Aliens on 2022/11/25.
 //
 
 import UIKit
 
-class DNKCreate: NSObject {
+class WXCreate: NSObject {
     public static func label(text: String? = nil, textColor: UIColor, fontSize: CGFloat, weight: UIFont.Weight = .regular) -> UILabel {
         let label = UILabel()
         label.text = text

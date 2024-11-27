@@ -43,7 +43,7 @@ class SettingLanguageViewController: ASDKViewController<ASDisplayNode> {
         let cancelButton = UIBarButtonItem(title: LanguageManager.Common.cancel(), style: .plain, target: self, action: #selector(cancelButtonClicked))
         navigationItem.leftBarButtonItem = cancelButton
         
-        let rightButton = wc_doneBarButton(title: "完成")
+        let rightButton = wx_doneBarButton(title: "完成")
         rightButton.addTarget(self, action: #selector(doneButtonClicked), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
     }

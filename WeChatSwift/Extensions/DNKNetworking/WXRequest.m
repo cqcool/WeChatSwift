@@ -2,7 +2,7 @@
 //  WXRequest.m
 //  smarthome
 //
-//  Created by 陈群 on 2021/6/28.
+//  Created by Aliens on 2021/6/28.
 //  Copyright © 2021 dnake. All rights reserved.
 //
 
@@ -97,7 +97,7 @@
 }
 
 - (void)requestFailedFilter {
-    [DNKProgressHUD hiddenProgressHUD];
+    [WXProgressHUD hiddenProgressHUD];
     NSInteger code = self.apiCode;
     if (code == TOKEN_ERROR ||
         code == ERROR_USER_STATUS) {

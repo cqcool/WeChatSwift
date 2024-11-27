@@ -2,7 +2,7 @@
 //  Dictionary+Util.swift
 //  NewSmart
 //
-//  Created by 陈群 on 2023/10/19.
+//  Created by Aliens on 2023/10/19.
 //
 
 import Foundation

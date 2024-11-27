@@ -164,12 +164,12 @@ extension SettingMyProfileViewController: ASTableDelegate, ASTableDataSource {
         ac.selectImageBlock = { [weak self] results, isOriginal in
             guard let `self` = self else { return }
             guard let image = results.map({ $0.image }).first else { return }
-            DNKProgressHUD.showProgressMsg("正在加载")
+            WXProgressHUD.showProgressMsg("正在加载")
             UploadManager.manager.upload(prefixType: .avatar, number: "1", type: .image, image: image) {obj, error in
                 DispatchQueue.main.async {
                     self.wx_navigationBar.isHidden = false
                     if error != nil {
-                        DNKProgressHUD.brieflyProgressMsg("上传头像失败")
+                        WXProgressHUD.brieflyProgressMsg("上传头像失败")
                         return
                     }
                     let head = obj as! String
@@ -178,7 +178,7 @@ extension SettingMyProfileViewController: ASTableDelegate, ASTableDataSource {
                     model.image = image
                     self.dataSource[indexPath.section].items[indexPath.row] = model
                     self.tableNode.reloadRows(at: [indexPath], with: .fade)
-                    DNKProgressHUD.brieflyProgressMsg("上传头像完成")
+                    WXProgressHUD.brieflyProgressMsg("上传头像完成")
                 }
             }
             

@@ -2,7 +2,7 @@
 //  NewDetailsViewController.swift
 //  WeChatSwift
 //
-//  Created by 陈群 on 2024/10/20.
+//  Created by Aliens on 2024/10/20.
 //  Copyright © 2024 alexiscn. All rights reserved.
 //
 
@@ -97,7 +97,7 @@ class NewDetailsViewController: UIViewController {
             card.frame = CGRectMake(0, 0, Constants.screenWidth, Constants.bottomInset + 320)
             self.roundCorners(card: card, corners: [.topLeft, .topRight], radius: 12)
             
-            let titleLabele = DNKCreate.label(text:"网页由 view.inews.qq.com 提供", textColor: UIColor(white: 0, alpha: 0.6), fontSize: 13)
+            let titleLabele = WXCreate.label(text:"网页由 view.inews.qq.com 提供", textColor: UIColor(white: 0, alpha: 0.6), fontSize: 13)
             card.addSubview(titleLabele)
             titleLabele.snp.makeConstraints { make in
                 make.top.equalToSuperview().offset(20)
@@ -167,7 +167,7 @@ class NewDetailsViewController: UIViewController {
                 make.left.right.equalToSuperview()
                 make.height.equalTo(0.3)
             }
-            let cancelBtn = DNKCreate.button(normalTitle: "取消", normalColor: Colors.Blue_TEXT, fontSize: 16)
+            let cancelBtn = WXCreate.button(normalTitle: "取消", normalColor: Colors.Blue_TEXT, fontSize: 16)
             card.addSubview(cancelBtn)
             cancelBtn.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
             cancelBtn.snp.makeConstraints { make in
@@ -187,7 +187,7 @@ class NewDetailsViewController: UIViewController {
     }
     private func makeNewsButton(icon: String, title: String) -> UIView {
         let itemView = UIView()
-        let imageView = DNKCreate.imageView(normalName: icon)
+        let imageView = WXCreate.imageView(normalName: icon)
         itemView.addSubview(imageView)
         imageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -197,7 +197,7 @@ class NewDetailsViewController: UIViewController {
             make.right.greaterThanOrEqualTo(-1)
 //            make.left.right.greaterThanOrEqualTo(0)
         }
-        let titleLabel = DNKCreate.label(text: title, textColor: UIColor(white: 0, alpha: 0.4), fontSize: 10)
+        let titleLabel = WXCreate.label(text: title, textColor: UIColor(white: 0, alpha: 0.4), fontSize: 10)
         itemView.addSubview(titleLabel)
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center

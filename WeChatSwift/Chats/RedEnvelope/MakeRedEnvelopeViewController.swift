@@ -372,13 +372,13 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
                 make.top.equalTo(55)
                 make.centerX.equalToSuperview()
             }
-            let titleLabele = DNKCreate.label(text:"手机号信息确认", textColor: .black, fontSize: 20, weight: .medium)
+            let titleLabele = WXCreate.label(text:"手机号信息确认", textColor: .black, fontSize: 20, weight: .medium)
             card.addSubview(titleLabele)
             titleLabele.snp.makeConstraints { make in
                 make.top.equalTo(iconView.snp.bottom).offset(35)
                 make.centerX.equalToSuperview()
             }
-            let tipsLabele = DNKCreate.label(text:"根据国家监管要求，请确认你曾在微信支付留存的手机号151******52当前是否为你本人使用。请在2024-09-17前处理，以正常使用微信支付。", textColor: UIColor(white: 0, alpha: 0.8), fontSize: 16, weight: .medium)
+            let tipsLabele = WXCreate.label(text:"根据国家监管要求，请确认你曾在微信支付留存的手机号151******52当前是否为你本人使用。请在2024-09-17前处理，以正常使用微信支付。", textColor: UIColor(white: 0, alpha: 0.8), fontSize: 16, weight: .medium)
             card.addSubview(tipsLabele)
             tipsLabele.numberOfLines = -1
             tipsLabele.snp.makeConstraints { make in
@@ -391,7 +391,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             let buttonHeight = 50.0
             let spacing = 15.0
             let localtion = (Constants.screenWidth - 2*buttonWidth - spacing) / 2
-            let lateButton = DNKCreate.button(normalTitle: "稍后处理", normalColor: .black, fontSize: 16)
+            let lateButton = WXCreate.button(normalTitle: "稍后处理", normalColor: .black, fontSize: 16)
             card.addSubview(lateButton)
             lateButton.addTarget(self, action: #selector(self.lateButtonAction), for: UIControl.Event.touchUpInside)
             lateButton.layer.cornerRadius = 6
@@ -403,7 +403,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
                 make.top.equalTo(tipsLabele.snp.bottom).offset(50)
                 make.left.equalToSuperview().offset(localtion)
             }
-            let nowButton = DNKCreate.button(normalTitle: "立即处理", normalColor: .white, fontSize: 16)
+            let nowButton = WXCreate.button(normalTitle: "立即处理", normalColor: .white, fontSize: 16)
             card.addSubview(nowButton)
             nowButton.backgroundColor = Colors.Green_standrad
             nowButton.layer.cornerRadius = 6
@@ -458,7 +458,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             make.edges.equalTo(closeImgView).offset(8)
         }
         
-        let payTitleLabel = DNKCreate.label(text: "微信红包", textColor: .black, fontSize: 20)
+        let payTitleLabel = WXCreate.label(text: "微信红包", textColor: .black, fontSize: 20)
         payView?.addSubview(payTitleLabel)
         payTitleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(65)
@@ -496,7 +496,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             make.top.equalToSuperview()
         }
         
-        let payWayLabel = DNKCreate.label(text: "付款方式", textColor: UIColor(white: 0, alpha: 0.6), fontSize: 15)
+        let payWayLabel = WXCreate.label(text: "付款方式", textColor: UIColor(white: 0, alpha: 0.6), fontSize: 15)
         btmContentView.addSubview(payWayLabel)
         payWayLabel.snp.makeConstraints { make in
             make.top.equalTo(lineView.snp.bottom).offset(25)
@@ -510,7 +510,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             make.size.equalTo(CGSize(width: 18, height: 9))
             make.centerY.equalTo(payWayLabel.snp.centerY)
         }
-        let changeLabel = DNKCreate.label(text: "更改", textColor: UIColor(white: 0, alpha: 0.6), fontSize: 15)
+        let changeLabel = WXCreate.label(text: "更改", textColor: UIColor(white: 0, alpha: 0.6), fontSize: 15)
         btmContentView.addSubview(changeLabel)
         changeLabel.snp.makeConstraints { make in
             make.top.equalTo(payWayLabel.snp.top)
@@ -534,7 +534,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             make.left.equalTo(20)
             make.centerY.equalToSuperview()
         }
-        let balanceLabel = DNKCreate.label(text: "零钱", textColor: UIColor(white: 0, alpha: 0.8), fontSize: 17)
+        let balanceLabel = WXCreate.label(text: "零钱", textColor: UIColor(white: 0, alpha: 0.8), fontSize: 17)
         wayView.addSubview(balanceLabel)
         balanceLabel.snp.makeConstraints { make in
             make.left.equalTo(balanceView.snp.right).offset(12)
