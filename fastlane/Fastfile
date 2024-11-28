@@ -1,0 +1,131 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+# 定义两个方便使用和修改的常量
+xcodeproj = "WeChatSwift.xcodeproj"
+workspace = "WeChatSwift.xcworkspace"
+
+target1   = "WeChatSwift" 
+scheme1   = "WeChatSwift" 
+provisionProfiles1 = "DistributeProfile"  
+bundelId = "com.global.chat"
+
+# bugly 及 蒲公英
+# buglyFile_path1 = File.expand_path("~/Desktop/fastlane/beta/build/Engineering_qy.app.dSYM.zip") 
+# buglyFilePath = buglyFile_path2
+
+# bg_app_key1 = "b3f28af9-4f5f-4876-a8c1-7d2f933fdf53"
+# bg_app_id1  = "576245dcdd" 
+# bg_app_key = bg_app_key2
+# bg_app_id  = bg_app_id2
+
+ pgyer_api_key = "43a54f86b34fca0c7eb3761cb329fbf1"   
+
+updateVersionDes = "AD Hot"
+ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
+
+# 使用 `sh` 操作运行 Git 命令获取当前分支名
+git_branch_command = "git rev-parse --abbrev-ref HEAD"
+target_branch_name = sh(git_branch_command, log: false).strip
+# 截取分支名前第一个部分
+first_parts = target_branch_name.split('-').first + "_"
+# 如果分支名不存在，给一个默认值
+first_parts ||= "main" + "_"
+
+platform :ios do 
+ 
+############################# 一键打包用户版APP APPStore包（有待验证） ################################
+ 
+ #1.一键打包至桌面：是 2.上传蒲公英:否 3.符号表上传bugly:是  (APPStore包)
+  lane :release do
+  target = target1
+  scheme = scheme1
+  provisionProfiles = provisionProfiles1
+  # bg_app_key = bg_app_key2
+  # bg_app_id = bg_app_id2
+  # buglyFilePath = buglyFile_path_appstore
+  temp = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+  if temp then bundelId = temp end
+  updateVersionDes = "提测"
+  first_parts = "" 
+  # build_number_lane #自动计算build
+  #一键打包用户版APPStore包
+  ArchiveAppStore()
+  UpPgyer()
+  #上传符号表 到 bugly
+  # bugly_qy()
+  
+  end
+  
+
+
+########################## Archive AppStore (构建应用市场包) ##################################
+  lane :ArchiveAppStore do
+    build_app(
+    workspace: workspace,
+    scheme: scheme1,
+    clean: true,
+    xcargs: "-allowProvisioningUpdates",
+    output_directory:File.expand_path("~/Desktop/fastlane/beta/build"),
+    # archive_path:File.expand_path("~/Desktop/fastlane/beta/Archive"),
+    output_name: "WeChatSwift.ipa",
+    export_method: "ad-hoc",
+    export_options: {
+    provisioningProfiles: {
+       bundelId => "DistributeProfile",
+    }
+  }
+  
+)
+end
+
+########################## 上传蒲公英 #################################
+  lane :UpPgyer do 
+    #上传到蒲公英的版本更新内容 具体内容需修改 工程目录下 .en.default 文件
+    updateVersionDes = updateVersionDes.gsub(/\s+/, "\n")
+    updateVersionDes = "\t\n" + updateVersionDes
+	pgyer(api_key: "43a54f86b34fca0c7eb3761cb329fbf1", ipa: "/Users/chenqun/Desktop/fastlane/beta/build/WeChatSwift.ipa", password: "112233", install_type: "2")
+  end
+  
+########################## 符号表上传bugly #################################
+#  lane :bugly_qy do 
+#      buglyFile_path = buglyFilePath
+#      upload_dsym_to_bugly(
+#      file_path: buglyFile_path,
+#      app_key: bg_app_key,
+#      app_id:bg_app_id,ad-hoc
+#      bundle_id: bundelId,
+#      version:get_version_number( xcodeproj: xcodeproj, target: target ) ,
+#      raise_if_error: false
+#    )
+#  end
+  
+########################## 修改version number #################################
+  #修改version number
+#  lane :version_number_lane do |lane, options|
+#    version_number = options[:version_number]
+#    if version_number
+#      increment_version_number(
+#        version_number: version_number # Set a specific version number
+#      )
+#    end
+    
+#  end  
+
+
+
+  
+end

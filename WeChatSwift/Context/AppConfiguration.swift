@@ -32,7 +32,7 @@ class AppConfig: NSObject {
     
     class func baseUrl() -> String {
         if (type == .debug) {
-            return "http://47.237.119.236:6001"
+            return "http://47.237.154.200:6001"
         }
         if (type == .inhouse) {
             return "https://ap.x3yd.com"
@@ -41,7 +41,7 @@ class AppConfig: NSObject {
     }
     class func socketUrl() -> String {
         if (type == .debug) {
-            return "ws://47.237.119.236:6002"
+            return "ws://47.237.154.200:6002"
         }
         if (type == .inhouse) {
             return "https://we.x3yd.com"
