@@ -23,31 +23,7 @@ class RootViewController: ASTabBarController {
         super.viewDidLoad()
         
         ASDisableLogging()
-        
-        // Do any additional setup after loading the view.
-        chatsVC = SessionViewController()
-        chatsVC.tabBarItem.selectedImage = HomeTab.chats.selectedImage
-        chatsVC.tabBarItem.image = HomeTab.chats.image
-        chatsVC.tabBarItem.title = LocalizedString("TabBar_MainFrameTitle")
-        chatsVC.tabBarItem.tag = 0
-        
-        contactsVC = ContactsViewController()
-        contactsVC.tabBarItem.selectedImage = HomeTab.contacts.selectedImage
-        contactsVC.tabBarItem.image = HomeTab.contacts.image
-        contactsVC.tabBarItem.title = LocalizedString("TabBar_ContactsTitle")
-        contactsVC.tabBarItem.tag = 1
-        
-        discoverVC = DiscoverViewController()
-        discoverVC.tabBarItem.selectedImage = HomeTab.discover.selectedImage
-        discoverVC.tabBarItem.image = HomeTab.discover.image
-        discoverVC.tabBarItem.title = LocalizedString("TabBar_FindFriendTitle")
-        discoverVC.tabBarItem.tag = 2
-        
-        meVC = MeViewController()
-        meVC.tabBarItem.selectedImage = HomeTab.me.selectedImage
-        meVC.tabBarItem.image = HomeTab.me.image
-        meVC.tabBarItem.title = LocalizedString("TabBar_MoreTitle")
-        meVC.tabBarItem.tag = 3
+        buildTabbarContents()
         
         tabBar.unselectedItemTintColor = UIColor(hexString: "#181818")
         let controllers = [chatsVC, contactsVC, discoverVC, meVC]
@@ -81,7 +57,33 @@ class RootViewController: ASTabBarController {
         let settingsVC = SettingsViewController()
         navigationController?.pushViewController(settingsVC, animated: true)
     }
-    
+    func buildTabbarContents() {
+        // Do any additional setup after loading the view.
+        chatsVC = SessionViewController()
+        chatsVC.tabBarItem.selectedImage = HomeTab.chats.selectedImage
+        chatsVC.tabBarItem.image = HomeTab.chats.image
+        chatsVC.tabBarItem.title = LocalizedString("TabBar_MainFrameTitle")
+        chatsVC.tabBarItem.tag = 0
+        
+        contactsVC = ContactsViewController()
+        contactsVC.tabBarItem.selectedImage = HomeTab.contacts.selectedImage
+        contactsVC.tabBarItem.image = HomeTab.contacts.image
+        contactsVC.tabBarItem.title = LocalizedString("TabBar_ContactsTitle")
+        contactsVC.tabBarItem.tag = 1
+        
+        discoverVC = DiscoverViewController()
+        discoverVC.tabBarItem.selectedImage = HomeTab.discover.selectedImage
+        discoverVC.tabBarItem.image = HomeTab.discover.image
+        discoverVC.tabBarItem.title = LocalizedString("TabBar_FindFriendTitle")
+        discoverVC.tabBarItem.tag = 2
+        
+        meVC = MeViewController()
+        meVC.tabBarItem.selectedImage = HomeTab.me.selectedImage
+        meVC.tabBarItem.image = HomeTab.me.image
+        meVC.tabBarItem.title = LocalizedString("TabBar_MoreTitle")
+        meVC.tabBarItem.tag = 3
+        
+    }
 }
 
 enum HomeTab: String {

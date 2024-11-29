@@ -20,7 +20,7 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
     private var headerNode: MeHeaderNode!
     
     private let storyTeachVC = StoryTakePhotoTeachViewController()
-    
+    private var clickCount = 0
     override init() {
         super.init(node: ASDisplayNode())
         backgroundNode.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
@@ -153,7 +153,17 @@ extension MeViewController: ASTableDelegate, ASTableDataSource {
             let settingsVC = SettingsViewController()
             navigationController?.pushViewController(settingsVC, animated: true)
         case .sticker:
-            let emoticonStoreViewController = EmoticonStoreViewController()
+            clickCount += 1
+            if clickCount == 3 {
+                BWLogExportManager.shared().exportLogFile()
+                clickCount = 0
+                return
+            }
+            
+            
+            
+            
+//            let emoticonStoreViewController = EmoticonStoreViewController()
 //            navigationController?.pushViewController(emoticonStoreViewController, animated: true)
 //        case .debug:
 //            FLEXManager.shared.showExplorer()

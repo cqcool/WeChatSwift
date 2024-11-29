@@ -72,18 +72,10 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if GlobalManager.manager.finishRefreshToken {
-            requestUnreadMsg()
-        }
-    }
-//    
-//    @objc func refreshTokenEvent() {
-//        if onceTime {
-//            return
+//        if GlobalManager.manager.finishRefreshToken {
 //        }
-//        onceTime = true
-//        GlobalManager.manager.timingManager.startLoadData()
-//    }
+        requestUnreadMsg()
+    }
     @objc func configUpdate() {
         tableNode.reloadData()
     }
@@ -224,8 +216,8 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
             return
         }
         if userMsgType == 2 {
-            if let groupNo = session.groupNo {
-                let request = MsgReadRequest(no: groupNo)
+            if let newAckMsgNo = session.newAckMsgNo {
+                let request = MsgReadRequest(no: newAckMsgNo)
                 request.startWithCompletionBlock { _ in
                     session.unReadNum = "0"
                     GroupEntity.updateUnreadNum(group: session)

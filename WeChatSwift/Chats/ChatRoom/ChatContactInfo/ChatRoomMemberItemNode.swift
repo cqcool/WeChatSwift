@@ -39,6 +39,7 @@ class ChatRoomMemberItemNode: ASDisplayNode {
             removeButtonNode.setImage(UIImage(named: "DelGroupMemberBtn"), for: .normal)
             removeButtonNode.setImage(UIImage(named: "DelGroupMemberBtn"), for: .highlighted)
         case .contact(let contact):
+            avatarNode.defaultImage = UIImage(named: "login_defaultAvatar")
             avatarNode.url = contact.avatarURL
             avatarNode.cornerRoundingType = .precomposited
             avatarNode.cornerRadius = 4

@@ -107,7 +107,7 @@ extension SettingMyProfileViewController: ASTableDelegate, ASTableDataSource {
                 self.tableNode.reloadRows(at: [indexPath], with: .fade)
             }
             return
-        }
+        } 
     }
     
     private func modifyAvatar(indexPath: IndexPath) {

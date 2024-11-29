@@ -9,13 +9,15 @@
 import Foundation
 import WCDBSwift
 
-class DBManager {
+
+@objcMembers
+class DBManager: NSObject {
     
     static let share = DBManager()
     let db = Database(at:DBManager.dbPath)
     
-    private static let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! + "/DB/wechat.db"
-    init() {
+    static let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! + "/DB/wechat.db"
+    override init() {
 //        db = createDB()
 //        createTable()
     }
@@ -97,6 +99,7 @@ extension DBManager {
             try self.db.create(table: MessageEntity.tableName, of: MessageEntity.self)
             try self.db.create(table: RedPacketGetEntity.tableName, of: RedPacketGetEntity.self)
             try self.db.create(table: GroupSyncEntity.tableName, of: GroupSyncEntity.self)
+            
             
         } catch let error {
             debugPrint("初始化数据库及ORM对应关系建立失败\(error.localizedDescription)")

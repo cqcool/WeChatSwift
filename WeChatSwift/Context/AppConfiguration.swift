@@ -28,8 +28,11 @@ enum AppConfiguration: String {
 
 @objcMembers
 class AppConfig: NSObject {
+#if DEBUG
+    static var type: AppConfiguration = .debug
+#else
     static var type: AppConfiguration = .inhouse
-    
+#endif
     class func baseUrl() -> String {
         if (type == .debug) {
             return "http://47.237.154.200:6001"

@@ -33,14 +33,14 @@ class ChatDataManager {
     
     private var tokenTimeout: Int = 10
     
-    @objc var isRefreshToken: Bool = false
+    @objc var isRefreshToken: Bool = true
     
     private let lock = NSLock()
     
     private var requestList: [YTKBaseRequest] = []
     private var onceUpdateUserInfo: Bool = false
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
     }
     
     func loadLocalData() {
@@ -89,6 +89,10 @@ class ChatDataManager {
     }
     
     func appendRequest(_ request: YTKBaseRequest) {
+        if let index = requestList.firstIndex(where: { $0.requestUrl() == request.requestUrl()}) {
+            requestList[index] = request
+            return
+        }
         requestList.append(request)
     }
     private func startTimer() {
@@ -149,7 +153,7 @@ class ChatDataManager {
         }
         if timeout > 0 {
             // 提前30s刷新
-            tokenTimeout = 10//timeout / 1000 - 30
+            tokenTimeout = timeout / 1000 - 30
         }
     }
 }
@@ -236,7 +240,8 @@ extension ChatDataManager {
                             Socket.shared.updateSocketConfig()
                         }
 //                        self.finishRefreshToken = true
-                        NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
+//                        NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
+                        self.refreshTokenEvent()
                     }
                 } catch {
                     debugPrint(error)

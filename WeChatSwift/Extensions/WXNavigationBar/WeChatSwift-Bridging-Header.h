@@ -14,4 +14,5 @@
 #import "NSString+Ext.h"
 
 #import "WXDevice.h"
+#import "BWLogExportManager.h"
 
