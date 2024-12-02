@@ -76,12 +76,13 @@ class Socket: NSObject {
                 if json["code"].intValue != 200 {
                     return
                 }
-                guard let dataString = json["data"].string,
-                      let contentData = dataString.data(using: .utf8) else {
+                guard let dataJSON = self.handleReceiveData(json: json),
+                      let dictionaryObject = dataJSON.dictionaryObject else {
                     return
                 }
+                let dic = (dictionaryObject as NSDictionary)
                 do {
-                    let resp = try JSONDecoder().decode(MessageEntity.self, from: contentData)
+                    let resp = try JSONDecoder().decode(MessageEntity.self, from: dic.mj_JSONData())
                     self.delegate?.receiveLatestMessageEntity(groupNo: resp.groupNo!, entity: resp)
                 } catch {
                     debugPrint("WX Socket sendGroupMsg Error: \(String(describing: error.localizedDescription))")
@@ -233,9 +234,10 @@ private extension Socket {
             }
         } else {
             guard let str = json["data"].string,
-                  let json = try? JSON(data: str.data(using: .utf8)!) else {
-                return json
+                  let json1 = try? JSON(data: str.data(using: .utf8)!) else {
+                return nil
             }
+            return json1
         }
         return nil
     }
