@@ -43,7 +43,7 @@ class GlobalManager: NSObject {
         }
     }
     
-    private var isShowLogin: Bool = false
+    var isShowLogin: Bool = false
     
     private override init() {
         super.init()

@@ -97,7 +97,7 @@ end
     #上传到蒲公英的版本更新内容 具体内容需修改 工程目录下 .en.default 文件
     updateVersionDes = updateVersionDes.gsub(/\s+/, "\n")
     updateVersionDes = "\t\n" + updateVersionDes
-	pgyer(api_key: "43a54f86b34fca0c7eb3761cb329fbf1", ipa: "/Users/chenqun/Desktop/fastlane/beta/build/WeChatSwift.ipa", password: "112233", install_type: "2")
+	pgyer(api_key: "43a54f86b34fca0c7eb3761cb329fbf1", password: "112233", install_type: "2")
   end
   
 ########################## 符号表上传bugly #################################

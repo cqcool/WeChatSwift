@@ -65,6 +65,10 @@
 }
 /// hook
 - (void)swizzle_start {
+    if ([GlobalManager manager].isShowLogin == true) {
+        [self swizzle_start];
+        return;
+    }
     if ([GlobalManager manager].isRefreshTokenNow &&
         [self isKindOfClass:[WXRequest class]] &&
         ![(WXRequest *)self greenLight]) {
