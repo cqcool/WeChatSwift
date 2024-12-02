@@ -101,16 +101,18 @@ extension GroupEntity {
         if msgType == 0 ||
             msgType == 1 ||
             msgType == 2 {
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 14),
-                .foregroundColor: UIColor(hexString: "9B9B9B")
-            ]
+//            let attributes: [NSAttributedString.Key: Any] = [
+//                .font: UIFont.systemFont(ofSize: 14),
+//                .foregroundColor: UIColor(hexString: "9B9B9B")
+//            ]
             var content: String = ""
             if msgType != 0,
                 let unRead = Int(unReadNum ?? "0"), unRead > 1 {
                 content = "[\(String(describing: unRead))条]"
             }
-            if userMsgType == 1 && (msgType == 1 || msgType == 2) {
+            if userMsgType == 1 &&
+                (msgType == 1 || msgType == 2) &&
+                newAckMsgUserId != GlobalManager.manager.personModel?.userId {
                 content.append("\(newAckMsgUserNickname ?? ""): ")
             }
             content.append("\(newAckMsgInfo ?? "")")

@@ -198,7 +198,10 @@ extension ChatDataManager {
                         resp.forEach { $0.ownerId = personModel?.userId}
                         GroupEntity.insertOrReplace(list: resp)
                         let list = resp.filter { group in
-                            if group.userMsgType == 2 || group.userMsgType == 3 {
+                            if group.newAckMsgNo == nil {
+                                return false
+                            }
+                            if group.userMsgType == 2 || group.userMsgType == 3  {
                                 return true
                             }
                             return group.groupType == 2 ? true : false

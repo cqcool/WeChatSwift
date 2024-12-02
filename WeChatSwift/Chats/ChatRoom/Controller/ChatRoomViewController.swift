@@ -393,13 +393,29 @@ extension ChatRoomViewController {
         }
     }
     
-    private func readMessage(no: String) {
+    private func readMessage(no: String, entity: MessageEntity? = nil) {
         let request = MsgReadRequest(no: no)
         request.startWithCompletionBlock { _ in
-            self.session.unReadNum = "0"
-            self.updateGroupBlock?(self.session)
-            GroupEntity.updateUnreadNum(group: self.session)
+            // entity不为nil，更新会话最新消息
+            self.updateNewAckMessage(entity: entity)
         }
+    }
+    
+    private func updateNewAckMessage(entity: MessageEntity? = nil) {
+        if let msgEntity = entity {
+            if (self.session.newAckMsgDate ?? 0) < (msgEntity.createTime ?? 0) {
+                self.session.userMsgType = 1
+                self.session.newAckMsgDate = msgEntity.createTime
+                self.session.newAckMsgInfo = msgEntity.content
+                self.session.newAckMsgNo = msgEntity.no
+                self.session.newAckMsgType = msgEntity.type
+                self.session.newAckMsgUserId = msgEntity.userId
+                self.session.newAckMsgUserNickname = msgEntity.nickname
+            }
+        }
+        self.session.unReadNum = "0"
+        self.updateGroupBlock?(self.session)
+        GroupEntity.updateUnreadNum(group: self.session)
     }
     
     private func requestMembers(showHUD: Bool) {
@@ -754,6 +770,7 @@ extension ChatRoomViewController: SocketDelegate {
         }
         if entity.userId != nil &&
             entity.userId == GlobalManager.manager.personModel?.userId {
+            self.updateNewAckMessage(entity: entity)
             return
         }
         if entity.groupIsChange == 1 ||
@@ -761,7 +778,7 @@ extension ChatRoomViewController: SocketDelegate {
             getGroupInfo()
             return
         }
-        self.readMessage(no: entity.no!)
+        self.readMessage(no: entity.no!, entity: entity)
         if let lastNo = entity.lastNo {
             let oldNo = dataSource.messages.last?.entity?.no
             if oldNo == lastNo {
