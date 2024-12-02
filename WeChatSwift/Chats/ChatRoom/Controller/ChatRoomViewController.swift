@@ -327,7 +327,7 @@ extension ChatRoomViewController {
         }
         self.dataSource.appendMsgList(mssageList, scrollToLastMessage: true, showMsgTime: true)
 //        if hasUnreadMsg {
-            loadRemoteMessage(msgNo: hasUnreadMsg ? mssageList.last?.no : nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
+            loadRemoteMessage(msgNo: mssageList.last?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
 //        }
     }
     /*
@@ -674,11 +674,14 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
     }
     func handleRedPacket(indexPath: IndexPath?, model: RedPacketGetEntity?, msg: RedPacketMessage?) {
         let red = RedEnvelopView.init()
+        red.redMsg = msg
         red.callBackClosure = {
         }
         red.detailsClosure = { m in
             let vc = RedDetailsViewController()
             vc.redPacket = m ?? model
+            vc.groupNo = msg?.groupNo
+            vc.orderNumber = msg?.orderNumber
             self.navigationController?.pushViewController(vc, animated: false)
         }
         red.updateDBClosure = {flag in

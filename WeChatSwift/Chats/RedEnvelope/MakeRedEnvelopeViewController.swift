@@ -11,7 +11,7 @@ import WXActionSheet
 import KeenKeyboard
 
 enum RedPacketError: String {
-    case beyond200 = "单个红包金额不可超过200元"
+    case beyondMoney = "单个红包金额不可超过%.0f元"
     case greaterThan0 = "未填写「总金额」"
     case beyondPersons = "红包个数不可超过当前群聊人数"
     case normal = "success"
@@ -235,15 +235,18 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             return .normal
         }
         let moneyFloat = (money as NSString).floatValue
-        if moneyFloat > 200.0 {
-            return .beyond200
+        if moneyFloat > maxMoney() {
+            return .beyondMoney
         }
         if moneyFloat == 0.0 && checkZero {
             return .greaterThan0
         }
         return .normal
     }
-    
+    private func maxMoney() -> Float {
+        let maxRedMoney = Float(numberOfPerson * 200)
+        return maxRedMoney > 1000.0 ? 1000.0 : maxRedMoney
+    }
     private func validateNumberOfPerson() -> RedPacketError {
         guard let count = enterCountNode.count else {
             return .normal
@@ -258,7 +261,8 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     private func showError(type: RedPacketError) {
         let alignmentStyle = NSMutableParagraphStyle()
         alignmentStyle.alignment = .center
-        let attributedText = NSAttributedString(string: type.rawValue, attributes: [
+        let string = type == .beyondMoney ? String(format: type.rawValue, maxMoney()) : type.rawValue
+        let attributedText = NSAttributedString(string: string, attributes: [
             .font: UIFont.systemFont(ofSize: 14),
             .foregroundColor: UIColor(hexString: "#EA5F39"),
             .paragraphStyle: alignmentStyle
@@ -772,12 +776,3 @@ extension MakeRedEnvelopeViewController: KeenCodeUnitDelegate {
         }
     }
 }
-
-/*
- 
- success *** Url:/group/redPacket/pay
- *** reponseData:{"code":200,"data":{"referContent":"","referUserHead":"","nickname":"联动式","linkContent":"{\"name\":\"恭喜发财,大吉大利\",\"orderNumber\":\"RP202411063230868452751\",\"type\":1}","referContentType":null,"isUp":null,"toUserId":null,"orderNumber":"RP202411063230868452751","isAllDel":null,"type":1,"groupNo":"725092936441794560","groupType":2,"no":"725794110966992896","referUserId":null,"showTime":1730868452751,"contentType":7,"head":"14f3d28a1195489bb23cfa1cd6690901","referLinkContent":"","referMsgNo":null,"referUserNickname":"","createTime":1730868452751,"content":"","userId":"517105663"},"sign":"gi9p2N7W1wOqIW2ueH8QH1b+pOxWzezR6Nu5yRRubIM=","msg":"成功"}
- "[]"
- 
- "WX Socket sendGroupMsg: Optional({\"code\":200,\"data\":\"{\\\"type\\\":1,\\\"no\\\":\\\"725794110966992896\\\",\\\"groupNo\\\":\\\"725092936441794560\\\",\\\"groupType\\\":2,\\\"nickname\\\":\\\"联动式\\\",\\\"head\\\":\\\"14f3d28a1195489bb23cfa1cd6690901\\\",\\\"userId\\\":\\\"517105663\\\",\\\"contentType\\\":7,\\\"linkContent\\\":\\\"{\\\\\\\"name\\\\\\\":\\\\\\\"恭喜发财,大吉大利\\\\\\\",\\\\\\\"orderNumber\\\\\\\":\\\\\\\"RP202411063230868452751\\\\\\\",\\\\\\\"type\\\\\\\":1}\\\",\\\"content\\\":\\\"\\\",\\\"referMsgNo\\\":null,\\\"referContentType\\\":null,\\\"referLinkContent\\\":\\\"\\\",\\\"referContent\\\":\\\"\\\",\\\"referUserId\\\":null,\\\"referUserNickname\\\":\\\"\\\",\\\"referUserHead\\\":\\\"\\\",\\\"createTime\\\":1730868452751,\\\"isUp\\\":1,\\\"lastNo\\\":\\\"725765024819322880\\\",\\\"toUserId\\\":null,\\\"isAllDel\\\":null,\\\"showTime\\\":1730868453000,\\\"groupIsChange\\\":0}\",\"msg\":\"system.success.200\",\"sign\":\"2IVJ3ZAsk425NPlj5w1gmAO0\"})"
- */

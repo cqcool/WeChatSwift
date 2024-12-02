@@ -19,7 +19,10 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
     private var footerView: UIView!
     private var resp: FullRedPacketGetEntity?
     private var datas: [RedPacketRecordModel]? = nil
-    var redPacket: RedPacketGetEntity!
+    var redPacket: RedPacketGetEntity?
+    var redMsg: RedPacketMessage? = nil
+    var groupNo: String? = nil
+    var orderNumber: String? = nil
     
     override init() {
         super.init(node: ASDisplayNode())
@@ -70,7 +73,7 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
     }
     
     private func loadDetails() {
-        let request = RedPacketGetRequest(groupNo: redPacket.groupNo ?? "", isGet: "1", orderNumber: redPacket.orderNumber ?? "")
+        let request = RedPacketGetRequest(groupNo: redPacket?.groupNo ?? (groupNo ?? ""), isGet: "1", orderNumber: redPacket?.orderNumber ?? (orderNumber ?? ""))
         request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
             do {
                 let resp = try JSONDecoder().decode(FullRedPacketGetEntity.self, from: request.wxResponseData())

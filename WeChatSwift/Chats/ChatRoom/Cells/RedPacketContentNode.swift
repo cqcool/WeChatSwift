@@ -76,7 +76,12 @@ class RedPacketContentNode: MessageContentNode {
         topVerticalStack.style.spacingBefore = 8
         topVerticalStack.verticalAlignment = .center
         topVerticalStack.children?.append(titleNode)
-        if redPacket.status == 1 {
+        if redPacket.entity != nil {
+            if redPacket.entity?.isMyselfReceive == 1 {
+                statusNode.attributedText = "已领取".addAttributed(font: UIFont.systemFont(ofSize: 13), textColor: .white)
+            } else if redPacket.entity?.status == 2 {
+                statusNode.attributedText = "已被领完".addAttributed(font: UIFont.systemFont(ofSize: 13), textColor: .white)
+            }
             statusNode.style.spacingBefore = 4
             topVerticalStack.children?.append(statusNode)
         }

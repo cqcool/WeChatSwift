@@ -127,6 +127,14 @@ extension MakeRedEnvelopeEnterMoneyNode: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let futureString = NSMutableString(string: textField.text ?? "")
         futureString.insert(string, at: range.location)
+        // 避免输入多个0，eg：000
+        
+        if !futureString.isEqual(to: "") {
+            if futureString.hasPrefix("¥00") {
+                return false
+            }
+        }
+            
         var flag = 0;
         let limited = 2;//小数点后需要限制的个数
         if !futureString.isEqual(to: "") {
@@ -139,6 +147,27 @@ extension MakeRedEnvelopeEnterMoneyNode: UITextFieldDelegate {
                     break
                 }
                 flag += 1
+            }
+            
+            for i in stride(from: (futureString.length - 1), through: 0, by: -1) {
+                let char = Character(UnicodeScalar(futureString.character(at: i))!)
+                if char == "." {
+                    if flag > limited {
+                        return false
+                    }
+                    break
+                }
+                flag += 1
+            }
+        }
+        // 5、红包总金额输入，最多输入7位数加2位小数，红包金额与官方一致，按人头算，比如群里5个人，一个人头200，最多发1000
+        if !futureString.contains(".") && futureString.length > 8 {
+            return false
+        }
+        if futureString.contains(".") {
+            let components: [String] = futureString.components(separatedBy: ".")
+            if (components.first?.count ?? 0) > 8 || (components.last?.count ?? 0) > 2 {
+                return false
             }
         }
         return true
