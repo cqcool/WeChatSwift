@@ -58,7 +58,6 @@ class ChatDataManager {
             nextTime == nil {
             notify_willLoadAllChat()
             loadChatData(isLoop: true)
-            return
         }
         startTimer()
     }

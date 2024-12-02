@@ -9,6 +9,7 @@
 import Foundation
 import SocketIO
 import SwiftyJSON
+import MJExtension
 
 protocol SocketDelegate: NSObject {
     /// 发送消息，接收到ack回调，更新信息
@@ -131,10 +132,17 @@ class Socket: NSObject {
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted // 如果你希望输出的JSON字符串是格式化过的
             let jsonData = try encoder.encode(message)
+            
             if let jsonString = String(data: jsonData, encoding: .utf8) {
-                print(jsonString)
-                debugPrint("Send Message JSON: " + jsonString)
-                client?.emitWithAck("sendGroupMsg", with: [jsonString]).timingOut(after: 5, callback: { data in
+                var sendData: String = ""
+                if GlobalManager.manager.isEncry {
+                    sendData = RSAUtil.encryptString(jsonString, publicKey: WXApiUtils.encryptKey())
+                } else {
+                    sendData = jsonString
+                }
+                debugPrint("WX Socket Send Message JSON: " + jsonString)
+                
+                client?.emitWithAck("sendGroupMsg", with: [sendData]).timingOut(after: 5, callback: { data in
                     if let content = data.first as? String {
                         self.handleAckMessage(message: message, content: content)
                         debugPrint("WX Socket ack Data: \(content)")
@@ -167,10 +175,7 @@ class Socket: NSObject {
 }
 
 private extension Socket {
-    /*
-     {"code":200,"data":"{\"balance\":null,\"type\":2,\"userId\":517105663}","msg":"system.success.200","sign":"UUmz6gF9X9Ev6522OgKR8180"}
-     
-     */
+
     func handleInternalMsg(content: String) {
         guard let json =  try? JSON(data: content.data(using: .utf8)!) else {
             return
@@ -179,13 +184,13 @@ private extension Socket {
             return
         }
         guard let dataString = json["data"].string,
-              let data = try? JSON(data: dataString.data(using: .utf8)!) else {
+        let dataJSON = handleReceiveData(json: json) else {
             return
         }
         // type 1余额变动,2账号封号
-        let type = data["type"].int ?? 0
+        let type = dataJSON["type"].int ?? 0
         if type == 1 {
-            let balance = data["balance"].stringValue
+            let balance = dataJSON["balance"].stringValue
             let personModel = GlobalManager.manager.personModel
             personModel?.balance = balance
             GlobalManager.manager.updatePersonModel(model: personModel)
@@ -205,8 +210,7 @@ private extension Socket {
         if json["code"].intValue != 200 {
             return
         }
-        guard let dataString = json["data"].string,
-              let data = try? JSON(data: dataString.data(using: .utf8)!) else {
+        guard let data = handleReceiveData(json: json) else {
             return
         }
         // ack 响应的lastNo 和 本地的lastNo不一致时，则需要拉取最新数据，直至与本地的上一条no一样
@@ -216,5 +220,23 @@ private extension Socket {
         message.showTime = TimeInterval(data["showTime"].intValue)
         
         delegate?.updateLatestMessageEntity(entity: message, latestNo: lastNo, oldNo: oldLastNo, isReadMoreHisoty: lastNo == oldLastNo)
+    }
+    /*
+     {"code":200,"data":"{\"balance\":null,\"type\":2,\"userId\":517105663}","msg":"system.success.200","sign":"UUmz6gF9X9Ev6522OgKR8180"}
+     
+     {"code":200,"data":"QTiaog7\/OkrV1zIfz7qJ9NJhQfp9ghXezBMj938nLsvdjh8oJ\/LUzOH+yNpamcQS","sign":"qmUv51pUOjclwwAMH0HPHVsPAZq+HnZv43VzFx3WYXg=","msg":"成功"}
+     */
+    func handleReceiveData(json: JSON) -> JSON? {
+        if GlobalManager.manager.isEncry {
+            if let data = json.dictionaryObject {
+                return try? JSON(data: WXApiUtils.decryptResponseData(data))
+            }
+        } else {
+            guard let str = json["data"].string,
+                  let json = try? JSON(data: str.data(using: .utf8)!) else {
+                return json
+            }
+        }
+        return nil
     }
 }
