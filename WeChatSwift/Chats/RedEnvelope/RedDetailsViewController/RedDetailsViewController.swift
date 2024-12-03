@@ -57,19 +57,24 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
         
         let headerView = UIView()
         headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 337)
-        headerView.addSubnode(headerNode)
-        headerNode.frame = headerView.bounds
         tableNode.view.tableHeaderView = headerView
-         
+        
         footerView = UIView(frame: CGRect(x: 0, y: 0, width: Constants.screenWidth, height: 50))
         footerNode = WXCreate.label(text: "未领取的红包，将于24小时后发起退款", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
         footerNode.textAlignment = .center
         footerNode.frame = CGRect(x: 0, y: 30, width: Constants.screenWidth, height: 20)
         footerView.addSubview(footerNode)
         tableNode.view.tableFooterView = footerView
+        tableNode.view.tableFooterView?.isHidden = true
         updateFooterNode()
         
         loadDetails()
+        
+        headerNode.toTipsNode.isUserInteractionEnabled = true
+        headerNode.toTipsNode.addTarget(self, action: #selector(recoradAction), forControlEvents: .touchUpInside)
+    }
+    @objc func recoradAction() {
+        navigationController?.pushViewController(SmallChangeViewController(), animated: true)
     }
     
     private func loadDetails() {
@@ -78,6 +83,13 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
             do {
                 let resp = try JSONDecoder().decode(FullRedPacketGetEntity.self, from: request.wxResponseData())
                 self.resp = resp
+                let height = resp.isMyselfReceive == 1 ? 337.0 : 130.0
+                self.tableNode.view.tableHeaderView?.isHidden = false
+                let headerView = UIView()
+                headerView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: height)
+                headerView.addSubnode(self.headerNode)
+                self.headerNode.frame = headerView.bounds
+                self.tableNode.view.tableHeaderView = headerView
                 self.headerNode.updateContent(resp: resp)
                 self.datas = resp.detailList
                 self.tableNode.reloadData()
@@ -123,7 +135,7 @@ extension RedDetailsViewController: ASTableDelegate, ASTableDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionView = UIView(x: 0, y: 0, width: Constants.screenWidth, height: 48)
-        sectionView.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
+        sectionView.backgroundColor = .white
         let contentView = UIView(x: 0, y: 10, width: Constants.screenWidth, height: 38)
         contentView.backgroundColor = .white
         sectionView.addSubview(contentView)
@@ -131,14 +143,48 @@ extension RedDetailsViewController: ASTableDelegate, ASTableDataSource {
          "已领取1/5个，共2.26/10.00元"
          5个红包，50秒被抢光
          */
-        let label = WXCreate.label(text: "已领取\(resp?.receiveNum ?? 0)/\(resp?.num ?? 0)个，共\(resp?.receiveAmount ?? "0")/\(resp?.amount ?? "0")元", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
-        label.frame = CGRect(x: 16, y: 0, width: 300, height: 38)
-        contentView.addSubview(label)
+        if resp != nil {
+            var label: UILabel! = nil
+            if self.resp?.status == 1 {
+                sectionView.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
+                label = WXCreate.label(text: "已领取\(resp?.receiveNum ?? 0)/\(resp?.num ?? 0)个，共\(resp?.receiveAmount ?? "0")/\(resp?.amount ?? "0")元", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
+            } else {
+                sectionView.backgroundColor = .white
+                let seconds = (Int(resp?.completeTime ?? "0") ?? 0) / 1000
+                let time = formatTime(seconds1: seconds)
+                label = WXCreate.label(text: "\(resp?.num ?? 0)个红包共\(resp?.amount ?? "0")元，\(time)被抢光", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
+            }
+            label.frame = CGRect(x: 16, y: 0, width: 300, height: 38)
+            contentView.addSubview(label)
+            let lineView = UIView(x: 18, y: 37.5, width: Constants.screenWidth - 18, height: 0.5)
+            lineView.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
+            contentView.addSubview(lineView)
+        }
         
-        let lineView = UIView(x: 18, y: 37.5, width: Constants.screenWidth - 18, height: 0.5)
-        lineView.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
-        contentView.addSubview(lineView)
         return sectionView
+    }
+    private func formatTime(seconds1: Int) -> String {
+        if seconds1 < 60 {
+            return "\(seconds1)秒"
+        }
+        let (hours, minutes, seconds) = secondsToHoursMinutesSeconds(seconds1)
+        var str = ""
+        if hours > 0 {
+            str = str + "\(hours)小时"
+        }
+        if minutes > 0 {
+            str = str + "\(minutes)分钟"
+        }
+        if seconds > 0 {
+            str = str + "\(seconds)秒"
+        }
+        return str
+    }
+    func secondsToHoursMinutesSeconds(_ seconds: Int) -> (hours: Int, minutes: Int, seconds: Int) {
+        let hours = seconds / 3600
+        let minutes = (seconds % 3600) / 60
+        let seconds = (seconds % 3600) % 60
+        return (hours, minutes, seconds)
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 //        let sectionView = UIView(x: 0, y: 0, width: Constants.screenWidth, height: 48)

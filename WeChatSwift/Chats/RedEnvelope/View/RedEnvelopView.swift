@@ -18,7 +18,7 @@ class RedEnvelopView: UIViewController {
     var detailsClosure: ((_ entity: RedPacketGetEntity?) -> ())? = nil
     var updateDBClosure: ((_ isFlag: Bool) -> ())? = nil
     var openImageView = UIImageView()
-    var redMsg: RedPacketMessage! = nil
+    var redMsg: RedPacketMessage? = nil
     lazy var alertWindow: UIWindow = {
         let alertWindow = UIWindow.init(frame: UIScreen.main.bounds)
         alertWindow.windowLevel = UIWindow.Level.alert
@@ -169,7 +169,7 @@ class RedEnvelopView: UIViewController {
         detailBtn.setTitleColor(Colors.DEFAULT_RED_YELLOW_COLOR, for: .normal)
         detailBtn.image(UIImage.SVGImage(named: "icons_outlined_arrow", fillColor: Colors.DEFAULT_RED_YELLOW_COLOR), .normal)
         detailBtn.adjustContentSpace(2, imageInLeft: false)
-        detailBtn.isHidden = true
+//        detailBtn.isHidden = true
         backgroundBottom.addSubview(detailBtn)
         detailBtn.addTarget(self, action: #selector(detailsAction), for: .touchUpInside)
         detailBtn.snp.makeConstraints { make in
@@ -214,8 +214,8 @@ class RedEnvelopView: UIViewController {
                 self.openImageView.isHidden = true
                 return
             }
-            resp.groupNo = self.redMsg.groupNo!
-            resp.orderNumber = self.redMsg.orderNumber!
+            resp.groupNo = self.redMsg?.groupNo ?? ""
+            resp.orderNumber = self.redMsg?.orderNumber ?? ""
             resp.ownerId = GlobalManager.manager.personModel?.userId
             RedPacketGetEntity.insertOrReplace(list: [resp])
             self.updateDBClosure?(true)
@@ -257,7 +257,7 @@ class RedEnvelopView: UIViewController {
 //        }
     }
     func requestRedPacketGetRequest(isGet: String, completed: @escaping (RedPacketGetEntity?, Error?) -> Void) {
-        let request = RedPacketGetRequest(groupNo: redMsg.groupNo ?? "", isGet: isGet, orderNumber: redMsg.orderNumber ?? "")
+        let request = RedPacketGetRequest(groupNo: redMsg?.groupNo ?? "", isGet: isGet, orderNumber: redMsg?.orderNumber ?? "")
         request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
             do {
                 let resp = try JSONDecoder().decode(RedPacketGetEntity.self, from: request.wxResponseData())
@@ -342,7 +342,7 @@ extension RedEnvelopView {
         } else {
                 tipsLabel.isHidden = true
                 openButton.isHidden = false
-                openImageView.isHidden = false
+            openImageView.isHidden = true
                 detailBtn.isHidden = true
         }
     }

@@ -39,7 +39,7 @@ class WalletViewController: ASDKViewController<ASDisplayNode> {
         setupDataSource()
         let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
         let bottomSafeAreaHeight = window?.safeAreaInsets.bottom ?? 10
-        let remainingHeight = view.bounds.height - (wx_navigationBar.frame.height + 56*8 + 4*10 + bottomSafeAreaHeight)
+        let remainingHeight = WXDevice.screenHeight() - (wx_navigationBar.frame.height + 56*6 + 2*10 + bottomSafeAreaHeight)
         let footerView = UIView(frame: CGRectMake(0, 0, view.bounds.width, remainingHeight))
         footerView.backgroundColor = .clear
         let footerLabel = UILabel(frame: CGRect(x: 0, y: remainingHeight - 20, width: view.bounds.width, height: 20))
@@ -75,8 +75,8 @@ class WalletViewController: ASDKViewController<ASDisplayNode> {
         smallChange.value = "¥" + balance
         var  changePass = WalletModel(type: .changePass, title: "零钱通", icon: "icons_outlined_o")
 //        changePass.value = "¥0.00"
-        let changeRate = GlobalManager.manager.personModel?.changeRate ?? "0.00"
-        changePass.additionalContent = "收益率\(changeRate)%"
+        let changeRate = GlobalManager.manager.change_rate ?? (GlobalManager.manager.personModel?.changeRate ?? "0.00%")
+        changePass.additionalContent = "收益率\(changeRate)"
         let bankCard = WalletModel(type: .bankCard, title: "银行卡", icon: "icons_outlined_brank")
         let relativeCard = WalletModel(type: .relativeCard, title: "亲属卡", icon: "icons_outlined_relate")
         dataSource.append(WalletSection(items: [smallChange, changePass, bankCard, relativeCard]))

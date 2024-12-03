@@ -52,6 +52,7 @@ class GlobalManager: NSObject {
     private var headPrefix: String? = nil
     private var chatPrefix: String? = nil
     
+    var change_rate: String? = ""
     func updateRefreshToken(refreshToken: String?) {
         refreshTokenValue = refreshToken
         guard let refreshToken else {
@@ -200,13 +201,14 @@ extension GlobalManager {
                                 WXUserDefault.updateHeadPrefix(str: headPrefix)
                             }
                             
-                            let chatPrefix = valuesDic["chat"] as? String
-                            if self.chatPrefix != chatPrefix {
-                                self.chatPrefix = chatPrefix
-                                WXUserDefault.updateChatPrefix(str: chatPrefix)
-                            }
                         }
-                        
+                        continue
+                    }
+                    if let attribute = config["attribute"].string,
+                       attribute == "change_rate",
+                       let values = config["values"].string {
+                        self.change_rate = values
+                        continue
                     }
                 }
                 result?(nil)

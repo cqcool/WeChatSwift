@@ -19,6 +19,7 @@ enum RedPacketError: String {
 }
 
 enum RedAlertType: String {
+    case none = "1"
     case inspect = "为保障资金安全，本次交易需确认 为账户实名人本人操作。请点击“核验身份”以继续交易。"
     case violation = "当前交易涉嫌违规，暂无法完成支 付，请注意合法使用支付账户，否 则将升级限制措施。如有疑问，可点击“了解详情”查看说明。"
     case pswError = "支付密码错误，请重试"
@@ -656,7 +657,7 @@ extension MakeRedEnvelopeViewController {
         }
         moneyLabel?.attributedText = ("¥" + redPackeyMoney!).moneyUnitAttribute(textColor: .black, fontSize: 25)
         let request = RedPacketVerifyRequest(amount: redPackeyMoney!, groupNo: session.groupNo!, num: enterCountNode.count!, type: "1")
-        request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+        request.start(withNetworkingHUD: true, showFailureHUD: false) { request in
             self.keyboardType = 1
             self.codeUnit.textFiled.bindCustomKeyboard(delegate: self)
             self.codeUnit.textFiled.becomeFirstResponder()
@@ -667,7 +668,22 @@ extension MakeRedEnvelopeViewController {
                 self.payView?.frame = rect
             }
         } failure: { request in
-            
+            let code = request.apiCode()
+            var type: RedAlertType = .none
+            if code == -10 {
+                type = .pswError
+            } else if code == -12 {
+                type = .inspect
+            } else if code == -13 {
+               type = .violation
+           } else if code == -14 {
+               type = .confirmPhone
+           }
+            if type != .none {
+                self.alertType(type: type)
+                return
+            }
+            WXProgressHUD.brieflyProgressMsg(request.apiMessage())
         }
 
     }
@@ -759,7 +775,7 @@ extension MakeRedEnvelopeViewController: KeenCodeUnitDelegate {
     func codeUnit(_ codeUnit: KeenCodeUnit, codeText: String, complete: Bool) {
         if complete {
             let request = RedPacketPayRquest(amount: enterMoneyNode.money!, groupNo: session.groupNo!, num: enterCountNode.count!, payPassword: codeText.md5Encrpt().lowercased())
-            request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+            request.start(withNetworkingHUD: true, showFailureHUD: false) { request in
                 do {
                     let personModel = GlobalManager.manager.personModel
                     let resp = try JSONDecoder().decode(MessageEntity.self, from: request.wxResponseData())
@@ -771,7 +787,24 @@ extension MakeRedEnvelopeViewController: KeenCodeUnitDelegate {
                     print("Error decoding JSON: \(error)")
                 }
             } failure: { _ in
+                self.view.endEditing(true)
                 codeUnit.cleanContent()
+                let code = request.apiCode()
+                var type: RedAlertType = .none
+                if code == -10 {
+                    type = .pswError
+                } else if code == -12 {
+                    type = .inspect
+                } else if code == -13 {
+                   type = .violation
+               } else if code == -14 {
+                   type = .confirmPhone
+               }
+                if type != .none {
+                    self.alertType(type: type)
+                    return
+                }
+                WXProgressHUD.brieflyProgressMsg(request.apiMessage())
             }
         }
     }

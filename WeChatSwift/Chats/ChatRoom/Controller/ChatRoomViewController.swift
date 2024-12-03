@@ -55,6 +55,8 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     
     var updateGroupBlock:((_: GroupEntity) -> ())?
     
+    private var isRequestRed = false
+    
     init(session: GroupEntity) {
         self.session = session
         self.dataSource = ChatRoomDataSource(sessionID: session.groupNo!)
@@ -327,7 +329,7 @@ extension ChatRoomViewController {
         }
         self.dataSource.appendMsgList(mssageList, scrollToLastMessage: true, showMsgTime: true)
 //        if hasUnreadMsg {
-            loadRemoteMessage(msgNo: hasUnreadMsg ? mssageList.last?.no : nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
+            loadRemoteMessage(msgNo: mssageList.last?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
 //        }
     }
     /*
@@ -673,7 +675,12 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         handleRedPacket(indexPath: indexPath, model: entity, msg: nil)
     }
     func handleRedPacket(indexPath: IndexPath?, model: RedPacketGetEntity?, msg: RedPacketMessage?) {
+        if isRequestRed {
+            return
+        }
         let red = RedEnvelopView.init()
+        red.redMsg = msg
+
         red.callBackClosure = {
         }
         red.detailsClosure = { m in
@@ -697,7 +704,9 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
             return
         }
         // 检查是否被领取完
+        isRequestRed = true
         red.requestRedPacketGetRequest(isGet: "0") { resp, error in
+            self.isRequestRed = false
             guard let resp else {
                 return
             }
@@ -706,14 +715,14 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
             }
             // 状态(1进行中,2已完成,3已过期)
             if status == 2 || status == 3  {
-                resp.groupNo = red.redMsg.groupNo ?? ""
-                resp.orderNumber = red.redMsg.orderNumber ?? ""
+                resp.groupNo = red.redMsg?.groupNo ?? ""
+                resp.orderNumber = red.redMsg?.orderNumber ?? ""
                 resp.ownerId = GlobalManager.manager.personModel?.userId
                 RedPacketGetEntity.insertOrReplace(list: [resp])
+                red.updateDBClosure!(true)
             }
-            red.updateRedContent(model: model, msg: msg)
+            red.updateRedContent(model: resp, msg: msg)
             red.showView()
-//            red.showView()
         }
     }
 }

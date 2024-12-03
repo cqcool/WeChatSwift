@@ -94,7 +94,7 @@
     NSString *text = message ?: @"";
     self.hud = [MBProgressHUD showHUDAddedTo:maskView animated:YES];
     self.hud.label.text = text;
-    self.hud.label.numberOfLines = 2;
+    self.hud.label.numberOfLines = -1;
     self.hud.mode = MBProgressHUDModeText;
     // 黑色背景白字
     self.hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;

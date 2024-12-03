@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class RedDetailsHeaderNode: ASButtonNode {
+class RedDetailsHeaderNode: ASDisplayNode {
     
     let avavarNode = ASNetworkImageNode()
     let senderNameNode = ASTextNode()
@@ -22,6 +22,7 @@ class RedDetailsHeaderNode: ASButtonNode {
     
     let emojiNode = ASImageNode()
     let emojiTipsNode = ASTextNode()
+    var resp: FullRedPacketGetEntity? = nil
     
     
     override init() {
@@ -29,24 +30,30 @@ class RedDetailsHeaderNode: ASButtonNode {
         backgroundColor = .white
         
         avavarNode.defaultImage = UIImage(named: "login_defaultAvatar")
+        addSubnode(avavarNode)
         senderNameNode.attributedText = "\("xx")发出的红包".addAttributed(font: .systemFont(ofSize: 22, weight: .medium), textColor: .black)
+        addSubnode(senderNameNode)
         typeIconNode.image = UIImage(named: "Fighting_Icon")
-        
+        addSubnode(typeIconNode)
         blessingNode.attributedText = "恭喜发财，大吉大利".addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.3))
-        
+        addSubnode(blessingNode)
         moneyNode.attributedText = "0.00元".unitTextAttribute(textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR, fontSize: 40, unitSize: 16, unit: "元", baseline: 0)
-        
+        addSubnode(moneyNode)
         toTipsNode.attributedText = "已存入零钱，可用于发红包".addAttributed(font: .systemFont(ofSize: 18), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR)
+        addSubnode(toTipsNode)
         toIconNode.image = UIImage.SVGImage(named: "icons_outlined_arrow", fillColor: Colors.DEFAULT_TEXT_YELLOW_COLOR)
-        
+        addSubnode(toIconNode)
         emojiNode.image = UIImage.SVGImage(named: "icons_outlined_sticker", fillColor: Colors.DEFAULT_TEXT_YELLOW_COLOR)
+        addSubnode(emojiNode)
         emojiTipsNode.attributedText = "回复表情到聊天".addAttributed(font: .systemFont(ofSize: 15), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR)
+        addSubnode(emojiTipsNode)
     }
     override func didLoad() {
         super.didLoad()
     }
     
     func updateContent(resp: FullRedPacketGetEntity) {
+        self.resp = resp
         let headUrl = GlobalManager.headImageUrl(name: resp.senderUserHead ?? "")
         avavarNode.url = headUrl
         
@@ -67,7 +74,7 @@ class RedDetailsHeaderNode: ASButtonNode {
         horizontal1.verticalAlignment = .center
         horizontal1.children = [avavarNode, senderNameNode, typeIconNode]
         
-        blessingNode.style.spacingBefore = 20
+        blessingNode.style.spacingBefore = 12
         
         moneyNode.style.spacingBefore = 30
         
@@ -99,7 +106,11 @@ class RedDetailsHeaderNode: ASButtonNode {
         let layout = ASStackLayoutSpec.vertical()
         layout.horizontalAlignment = .middle
         layout.style.preferredSize = CGSize(width: Constants.screenWidth, height: constrainedSize.max.height)
-        layout.children = [horizontal1, blessingNode, moneyNode, horizontal3, bgLayout]
+        if self.resp?.isMyselfReceive == 1 {
+            layout.children = [horizontal1, blessingNode, moneyNode, horizontal3, bgLayout]
+        } else {
+            layout.children = [horizontal1, blessingNode]
+        }
         
         return layout
     }
