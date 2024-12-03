@@ -327,7 +327,7 @@ extension ChatRoomViewController {
         }
         self.dataSource.appendMsgList(mssageList, scrollToLastMessage: true, showMsgTime: true)
 //        if hasUnreadMsg {
-            loadRemoteMessage(msgNo: mssageList.last?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
+            loadRemoteMessage(msgNo: hasUnreadMsg ? mssageList.last?.no : nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
 //        }
     }
     /*
@@ -622,7 +622,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
             }
             return false
         }) {
-            let indexPath = IndexPath(row: row, section: 0) 
+            let indexPath = IndexPath(row: row, section: 0)
             messageCell(cellNode, indexPath: indexPath, didTapContent: message!.content)
         }
     }
@@ -674,14 +674,11 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
     }
     func handleRedPacket(indexPath: IndexPath?, model: RedPacketGetEntity?, msg: RedPacketMessage?) {
         let red = RedEnvelopView.init()
-        red.redMsg = msg
         red.callBackClosure = {
         }
         red.detailsClosure = { m in
             let vc = RedDetailsViewController()
             vc.redPacket = m ?? model
-            vc.groupNo = msg?.groupNo
-            vc.orderNumber = msg?.orderNumber
             self.navigationController?.pushViewController(vc, animated: false)
         }
         red.updateDBClosure = {flag in
@@ -693,8 +690,31 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
                 }
             }
         }
-        // 自己领取了
-        red.updateRedContent(model: model, msg: msg)
+        if (model != nil) {
+            // 自己领取了
+            red.updateRedContent(model: model, msg: msg)
+            red.showView()
+            return
+        }
+        // 检查是否被领取完
+        red.requestRedPacketGetRequest(isGet: "0") { resp, error in
+            guard let resp else {
+                return
+            }
+            guard let status = resp.status else {
+                return
+            }
+            // 状态(1进行中,2已完成,3已过期)
+            if status == 2 || status == 3  {
+                resp.groupNo = red.redMsg.groupNo ?? ""
+                resp.orderNumber = red.redMsg.orderNumber ?? ""
+                resp.ownerId = GlobalManager.manager.personModel?.userId
+                RedPacketGetEntity.insertOrReplace(list: [resp])
+            }
+            red.updateRedContent(model: model, msg: msg)
+            red.showView()
+//            red.showView()
+        }
     }
 }
 
@@ -788,7 +808,7 @@ extension ChatRoomViewController: SocketDelegate {
                 let personModel = GlobalManager.manager.personModel
                 entity.ownerId = personModel?.userId
                 MessageEntity.insertOrReplace(list: [entity])
-                dataSource.appendMsgList([entity], scrollToLastMessage: true, showMsgTime: false) 
+                dataSource.appendMsgList([entity], scrollToLastMessage: true, showMsgTime: false)
             }
             loadRemoteMessage(sort: "0", msgNo: lastNo, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
         } else {

@@ -31,7 +31,7 @@ class RedEnvelopView: UIViewController {
     lazy var backgroundTop: UIImageView = {
         let image = UIImage(named: "redenvelop_top")!
         let capInsets = UIEdgeInsets(top: 50, left: 50, bottom: 80, right: 50)//创建屏蔽区域，也就是上面下面10和左右20是不可拉伸的。
-        let resizableImage = image.resizableImage(withCapInsets: capInsets, resizingMode: .stretch) 
+        let resizableImage = image.resizableImage(withCapInsets: capInsets, resizingMode: .stretch)
         let height = redHeight / 4.0 * 3.0
         let iv = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: redWidth, height: height))
 //        iv.con
@@ -117,7 +117,14 @@ class RedEnvelopView: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
-        
+
+    }
+     
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func showView() {
         self.alertWindow.addSubview(self.view)
         self.alertWindow.addSubview(backgroundImageView)
         
@@ -180,15 +187,6 @@ class RedEnvelopView: UIViewController {
             make.top.equalTo(backgroundImageView.snp.bottom).offset(25)
         }
         
-//        let tapGes = UITapGestureRecognizer.init(target: self, action: #selector(closeViewAction))
-//        tapGes.delegate = self
-//        self.view.addGestureRecognizer(tapGes)
-
-    }
-     
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     @objc func detailsAction() {
         detailsClosure?(nil)
@@ -209,32 +207,67 @@ class RedEnvelopView: UIViewController {
     @objc func openRedPacketAction() {
         openButton.isHidden = true
         openImageView.isHidden = false
-//        openImageView.startAnimating()
-        let request = RedPacketGetRequest(groupNo: redMsg.groupNo ?? "", isGet: "1", orderNumber: redMsg.orderNumber ?? "")
+        requestRedPacketGetRequest(isGet: "1") {data, error in
+            guard let resp = data else {
+                self.openImageView.stopAnimating()
+                self.openButton.isHidden = false
+                self.openImageView.isHidden = true
+                return
+            }
+            resp.groupNo = self.redMsg.groupNo!
+            resp.orderNumber = self.redMsg.orderNumber!
+            resp.ownerId = GlobalManager.manager.personModel?.userId
+            RedPacketGetEntity.insertOrReplace(list: [resp])
+            self.updateDBClosure?(true)
+            self.openImageView.isHidden = true
+            if (resp.status == 3 ||
+                resp.status == 2) &&
+                (resp.isMyselfReceive ?? 0) == 0 {
+                self.updateRedContent(model: resp, msg: nil)
+                return
+            }
+            self.detailsClosure?(resp)
+            self.closeViewAction()
+        }
+//        let request = RedPacketGetRequest(groupNo: redMsg.groupNo ?? "", isGet: "1", orderNumber: redMsg.orderNumber ?? "")
+//        request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
+//            do {
+//                let resp = try JSONDecoder().decode(RedPacketGetEntity.self, from: request.wxResponseData())
+//                resp.groupNo = self.redMsg.groupNo!
+//                resp.orderNumber = self.redMsg.orderNumber!
+//                resp.ownerId = GlobalManager.manager.personModel?.userId
+//                RedPacketGetEntity.insertOrReplace(list: [resp])
+//                self.updateDBClosure?(true)
+//                self.openImageView.isHidden = true
+//                if (resp.status == 3 ||
+//                    resp.status == 2) &&
+//                    (resp.isMyselfReceive ?? 0) == 0 {
+//                    self.updateRedContent(model: resp, msg: nil)
+//                    return
+//                }
+//                self.detailsClosure?(resp)
+//                self.closeViewAction()
+//            }  catch {
+//                print("Error decoding JSON: \(error)")
+//            }
+//        } failure: { request in
+//            self.openImageView.stopAnimating()
+//            self.openButton.isHidden = false
+//            self.openImageView.isHidden = true
+//        }
+    }
+    func requestRedPacketGetRequest(isGet: String, completed: @escaping (RedPacketGetEntity?, Error?) -> Void) {
+        let request = RedPacketGetRequest(groupNo: redMsg.groupNo ?? "", isGet: isGet, orderNumber: redMsg.orderNumber ?? "")
         request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
             do {
                 let resp = try JSONDecoder().decode(RedPacketGetEntity.self, from: request.wxResponseData())
-                resp.groupNo = self.redMsg.groupNo!
-                resp.orderNumber = self.redMsg.orderNumber!
-                resp.ownerId = GlobalManager.manager.personModel?.userId
-                RedPacketGetEntity.insertOrReplace(list: [resp])
-                self.updateDBClosure?(true)
-                self.openImageView.isHidden = true
-                if (resp.status == 3 ||
-                    resp.status == 2) &&
-                    (resp.isMyselfReceive ?? 0) == 0 {
-                    self.updateRedContent(model: resp, msg: nil)
-                    return
-                }
-                self.detailsClosure?(resp)
-                self.closeViewAction()
+                completed(resp, nil)
             }  catch {
+                completed(nil, error)
                 print("Error decoding JSON: \(error)")
             }
         } failure: { request in
-            self.openImageView.stopAnimating()
-            self.openButton.isHidden = false
-            self.openImageView.isHidden = true
+            completed(nil, request.error)
         }
     }
     
@@ -280,7 +313,7 @@ extension RedEnvelopView {
             openButton.isHidden = false
             detailBtn.isHidden = true
             return
-        } 
+        }
 
         // 自己已经领取了
         if (model.isMyselfReceive ?? 0) == 1 {
