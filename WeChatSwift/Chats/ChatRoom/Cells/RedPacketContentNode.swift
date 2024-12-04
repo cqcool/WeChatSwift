@@ -34,7 +34,7 @@ class RedPacketContentNode: MessageContentNode {
         iconNode.style.preferredSize = CGSize(width: 40, height: 40)
         titleNode.attributedText = (redPacket.name ?? "恭喜发财，大吉大利").addAttributed(font: UIFont.boldSystemFont(ofSize: 18), textColor: .white)
         desNode.attributedText = "微信红包".addAttributed(font: UIFont.systemFont(ofSize: 13), textColor: .white)
-        lineNode.backgroundColor = .white
+        lineNode.backgroundColor = UIColor(white: 1, alpha: 0.5)
         statusNode.attributedText = "已领取".addAttributed(font: UIFont.systemFont(ofSize: 13), textColor: .white)
         
         addSubnode(iconNode)
@@ -91,13 +91,15 @@ class RedPacketContentNode: MessageContentNode {
         
         let insets: UIEdgeInsets
         if message.isOutgoing {
-            lineNode.style.preferredSize = CGSize(width:Constants.screenWidth - 104.0 - 12.0 - 15.0, height: 0.3)
-            insets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 15)
+            lineNode.style.preferredSize = CGSize(width:Constants.screenWidth - 104.0 - 12.0 - 15.0, height: 0.1)
+//            insets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 15)
+            insets = UIEdgeInsets(top: 12, left: 12, bottom: 6, right: 15)
         } else {
-            lineNode.style.preferredSize = CGSize(width:Constants.screenWidth - 104.0 - 17.0 - 12.0 - 10.0, height: 0.3)
-            insets = UIEdgeInsets(top: 10, left: 17, bottom: 6, right: 12)
+            lineNode.style.preferredSize = CGSize(width:Constants.screenWidth - 104.0 - 17.0 - 12.0 - 10.0, height: 0.1)
+//            insets = UIEdgeInsets(top: 10, left: 17, bottom: 6, right: 12)
+            insets = UIEdgeInsets(top: 12, left: 17, bottom: 4, right: 12)
         }
-        lineNode.style.spacingBefore = 12
+        lineNode.style.spacingBefore = 18
         desNode.style.spacingBefore = 6
         let verticalStack = ASStackLayoutSpec.vertical()
         verticalStack.children = [horizotalStack, lineNode, desNode]

@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 #import "WXRequest.h"
 #import "WeChatSwift-Swift.h"
+#import "WXNetworkConst.h"
 
 @interface DNKHudControlManager : NSObject<YTKRequestAccessory>
 @property (readonly, nonatomic, weak) YTKBaseRequest *baseRequest;
@@ -117,12 +118,12 @@
 ///  @param request The corresponding request.
 - (void)requestDidStop:(YTKBaseRequest *)request {
     //账号在其它地方登录
-    if ([request.responseObject isKindOfClass:[NSDictionary class]]) {
-//        NSString *errorCode = request.responseObject[@"errorCode"];
-//        if (errorCode.intValue == DNKRequestErrorCodeAlreadyLogged) {
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"successLoginOut" object:nil];
-//        }
-    }
+//    if ([request.responseObject isKindOfClass:[NSDictionary class]]) {
+////        NSString *errorCode = request.responseObject[@"errorCode"];
+////        if (errorCode.intValue == DNKRequestErrorCodeAlreadyLogged) {
+////            [[NSNotificationCenter defaultCenter] postNotificationName:@"successLoginOut" object:nil];
+////        }
+//    }
     if (self.showFailureHUD && request.responseObject == nil && request.error) {
 //        NSString *url = request.error.userInfo[NSURLErrorFailingURLStringErrorKey];
 //        NSString *description = request.error.localizedDescription;
@@ -130,6 +131,11 @@
         [WXProgressHUD brieflyProgressMsg:self.baseRequest.apiMessage];
     } else if (self.showFailureHUD && request.responseObject) {
         if (!request.apiSuccess) {
+            if (request.apiCode == REFRESH_TOKEN_TIMEOUT) {
+                
+                [WXProgressHUD hiddenProgressHUD];
+                return;
+            }
             [WXProgressHUD brieflyProgressMsg:request.apiMessage];
         }
     }

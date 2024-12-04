@@ -64,7 +64,7 @@ class RedPacketPayRquest: WXRequest {
 
     /// 类型(1拼手气红包)
     let type: String
-    init(amount: String, groupNo: String, name: String = "恭喜发财,大吉大利", num: String, payPassword: String, type: String = "1") {
+    init(amount: String, groupNo: String, name: String = "恭喜发财，大吉大利", num: String, payPassword: String, type: String = "1") {
         self.amount = amount
         self.groupNo = groupNo
         self.name = name

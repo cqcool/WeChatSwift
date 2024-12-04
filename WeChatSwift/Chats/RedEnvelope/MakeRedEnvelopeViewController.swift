@@ -670,13 +670,13 @@ extension MakeRedEnvelopeViewController {
         } failure: { request in
             let code = request.apiCode()
             var type: RedAlertType = .none
-            if code == -10 {
+            if code == NetworkCode.ERR_PAY_PASSWORD.rawValue {
                 type = .pswError
-            } else if code == -12 {
+            } else if code == NetworkCode.ERR_FUND_STATUS.rawValue {
                 type = .inspect
-            } else if code == -13 {
+            } else if code == NetworkCode.ERR_DEAL_STATUS.rawValue {
                type = .violation
-           } else if code == -14 {
+           } else if code == NetworkCode.ERR_SURE_TEL.rawValue {
                type = .confirmPhone
            }
             if type != .none {

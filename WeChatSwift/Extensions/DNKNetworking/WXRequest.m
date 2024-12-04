@@ -110,6 +110,7 @@
     }
     // 重新刷新token
     if (code == REFRESH_TOKEN_TIMEOUT) {
+        [[GlobalManager manager] immediateRefreshToken];
         [self start];
         return;
     }

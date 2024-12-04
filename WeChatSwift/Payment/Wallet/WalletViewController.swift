@@ -75,7 +75,7 @@ class WalletViewController: ASDKViewController<ASDisplayNode> {
         smallChange.value = "¥" + balance
         var  changePass = WalletModel(type: .changePass, title: "零钱通", icon: "icons_outlined_o")
 //        changePass.value = "¥0.00"
-        let changeRate = GlobalManager.manager.change_rate ?? (GlobalManager.manager.personModel?.changeRate ?? "0.00%")
+        let changeRate = GlobalManager.manager.personModel?.changeRate ?? (GlobalManager.manager.change_rate ?? "0.00%")
         changePass.additionalContent = "收益率\(changeRate)"
         let bankCard = WalletModel(type: .bankCard, title: "银行卡", icon: "icons_outlined_brank")
         let relativeCard = WalletModel(type: .relativeCard, title: "亲属卡", icon: "icons_outlined_relate")

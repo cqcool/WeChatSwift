@@ -16,6 +16,7 @@ class GlobalManager: NSObject {
     static let manager = GlobalManager()
     var appDelegate: AppDelegate!
     private var timingManagerPrivate = ChatDataManager()
+    
     var timingManager: ChatDataManager {
         get {
             timingManagerPrivate
@@ -107,8 +108,11 @@ class GlobalManager: NSObject {
     //        DBManager.share.deleteTabble(tableName: RedPacketGetEntity.tableName)
     //    }
     // 刷新token
+    func immediateRefreshToken() {
+        timingManager.updateTokenTimeout(timeout: 0)
+    }
     func isRefreshTokenNow() -> Bool {
-        return timingManager.isRefreshToken
+        return timingManager.isRefreshingToken
     }
     func appendWaitRequest(_ request: YTKBaseRequest) {
         timingManager

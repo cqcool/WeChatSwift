@@ -71,9 +71,7 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        if GlobalManager.manager.finishRefreshToken {
-//        }
+        super.viewWillAppear(animated) 
         requestUnreadMsg()
     }
     @objc func configUpdate() {

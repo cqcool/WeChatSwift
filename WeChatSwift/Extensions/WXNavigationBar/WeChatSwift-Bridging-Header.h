@@ -16,4 +16,5 @@
 #import "WXDevice.h"
 #import "BWLogExportManager.h"
 #import "RSAUtil.h"
+#import "WXNetworkConst.h"
 

@@ -26,6 +26,7 @@ class PersonModel: NSObject, Codable {
         case account
         case balance
         case nickname
+        case changeRate
         case userId
         case token
         case head

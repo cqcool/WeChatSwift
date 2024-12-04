@@ -8,7 +8,7 @@
 
 import Foundation
 import SwiftyJSON
-import MJExtension 
+import MJExtension
 
 protocol ChatDataDelegate {
     
@@ -18,6 +18,8 @@ protocol ChatDataDelegate {
     
     func updateGroupList(list: [GroupEntity])
 }
+
+@objcMembers
 class ChatDataManager {
     private var timer: DispatchSourceTimer?
     
@@ -31,16 +33,20 @@ class ChatDataManager {
     
     private var loadChatsTime = -1
     
-    private var tokenTimeout: Int = 10
+//    private var tokenTimeout: Int = 10
+    private var tokenTimeoutInteval: TimeInterval = 0
     
-    @objc var isRefreshToken: Bool = true
+    @objc var isRefreshingToken: Bool = false
     
     private let lock = NSLock()
+    var count = 0
     
     private var requestList: [YTKBaseRequest] = []
     private var onceUpdateUserInfo: Bool = false
     init() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
     }
     
     func loadLocalData() {
@@ -61,21 +67,11 @@ class ChatDataManager {
         }
         startTimer()
     }
-    func stopLoad() {
-        // 停止计时器
-        nextId = nil
-        nextTime = nil
-        timer?.cancel()
-        timer = nil
-        delegates = []
-        tokenTimeout = 10
-        requestList.removeAll()
-        isRefreshToken = false
-    }
+   
     
     @objc func refreshTokenEvent() {
         lock.lock()
-        isRefreshToken = false
+        isRefreshingToken = false
         lock.unlock()
         if requestList.count == 0 {
             return
@@ -83,7 +79,7 @@ class ChatDataManager {
         while (requestList.count > 0) {
             let request = requestList.first
             request?.start()
-            requestList.remove(at: 0) 
+            requestList.remove(at: 0)
         }
     }
     
@@ -94,35 +90,7 @@ class ChatDataManager {
         }
         requestList.append(request)
     }
-    private func startTimer() {
-        // 创建一个立即执行，每1秒重复的定时器
-        timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
-        timer?.setEventHandler {
-            self.timerAction()
-        }
-        // 设置定时器立即执行，并且在1秒后重复执行
-        timer?.schedule(deadline: .now(), repeating: .seconds(1))
-        // 启动定时器
-        timer?.activate()
-        
-    }
-    private func timerAction() {
-        
-        tokenTimeout -= 1
-        if tokenTimeout == 0 {
-            lock.lock()
-            isRefreshToken = true
-            lock.unlock()
-            requestRefreshToken()
-        }
-        
-        if !isLoading {
-            loadChatsTime += 1
-            if loadChatsTime % 3 == 0 {
-                loadChatData(isLoop: false)
-            }
-        }
-    }
+    
     
     func addDelegate(delegate: ChatDataDelegate) {
         delegates.append(delegate)
@@ -146,13 +114,18 @@ class ChatDataManager {
     
     func updateTokenTimeout(timeout: Int) {
         if timeout == -1 {
-            // 说明刷新token失败，10s后重刷
-            tokenTimeout = 10
+            // 说明刷新token失败，5s后重刷
+            setTokenTimeoutTime(time: 5)
+            return
+        }
+        // 立即刷新
+        if timeout == 0 {
+            setTokenTimeoutTime(time: 0)
             return
         }
         if timeout > 0 {
             // 提前30s刷新
-            tokenTimeout = timeout / 1000 - 30
+            setTokenTimeoutTime(time: TimeInterval((timeout / 1000 - 30)))
         }
     }
 }
@@ -183,7 +156,9 @@ extension ChatDataManager {
                       groupList.count > 0 else {
                     // 首次安装加载所有会话
                     if isLoop {
-                        self.notify_didLoadAllChat(error: nil)
+                        DispatchQueue.main.async {
+                            self.notify_didLoadAllChat(error: nil)
+                        }
                     }
                     return
                 }
@@ -206,7 +181,9 @@ extension ChatDataManager {
                             }
                             return group.groupType == 2 ? true : false
                         }
-                        self.notify_updateGroupList(list: list)
+                        DispatchQueue.main.async {
+                            self.notify_updateGroupList(list: list)
+                        }
                         if isLoop {
                             self.loadChatData(isLoop: true)
                         }
@@ -220,7 +197,7 @@ extension ChatDataManager {
             self.notify_didLoadAllChat(error: $0.dnkError() as NSError)
         }
     }
-    
+     
     private func requestRefreshToken() {
         let refreshRquest = RefreshTokenRequest()
         refreshRquest.startWithCompletionBlock { request in
@@ -241,8 +218,8 @@ extension ChatDataManager {
                         } else {
                             Socket.shared.updateSocketConfig()
                         }
-//                        self.finishRefreshToken = true
-//                        NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
+                        //                        self.finishRefreshToken = true
+                        //                        NotificationCenter.default.post(name: ConstantKey.NSNotificationRefreshToken, object: nil)
                         self.refreshTokenEvent()
                     }
                 } catch {
@@ -257,5 +234,73 @@ extension ChatDataManager {
             }
             self.updateTokenTimeout(timeout: -1)
         }
+    }
+}
+
+// Timer
+extension ChatDataManager {
+    
+    @objc func appMovedToBackground() {
+        // 应用进入后台时的处理
+        if timer != nil {
+            timer?.suspend()
+        }
+    }
+    
+    @objc func appMovedToForeground() {
+        // 应用进入前台时的处理
+        if GlobalManager.manager.isShowLogin == false {
+            if timer != nil {
+                timer?.resume()
+            } else {
+                startTimer()
+            }
+        }
+    }
+    
+    func stopLoad() {
+        // 停止计时器
+        nextId = nil
+        nextTime = nil
+        timer?.cancel()
+        timer = nil
+        delegates = []
+//        tokenTimeout = 10
+        requestList.removeAll()
+        isRefreshingToken = false
+    }
+    
+    private func startTimer() {
+        // 创建一个立即执行，每1秒重复的定时器
+        timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
+        timer?.setEventHandler {
+            self.count += 1
+            print("timer count: \(self.count)")
+            self.timerAction()
+        }
+        // 设置定时器立即执行，并且在1秒后重复执行
+        timer?.schedule(deadline: .now(), repeating: .seconds(1))
+        // 启动定时器
+        timer?.activate()
+    }
+    
+    private func timerAction() {
+//        tokenTimeout -= 1
+        if TimeInterval(NSString.currentSecondTimestamp()) > tokenTimeoutInteval && isRefreshingToken == false {
+            lock.lock()
+            isRefreshingToken = true
+            lock.unlock()
+            requestRefreshToken()
+        }
+        
+        if !isLoading {
+            loadChatsTime += 1
+            if loadChatsTime % 3 == 0 {
+                loadChatData(isLoop: false)
+            }
+        }
+    }
+    private func setTokenTimeoutTime(time: TimeInterval) {
+        tokenTimeoutInteval = Double(NSString.currentSecondTimestamp()) + time
     }
 }
