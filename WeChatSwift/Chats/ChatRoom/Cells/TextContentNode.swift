@@ -99,6 +99,6 @@ extension TextContentNode: ASTextNodeDelegate {
     }
 }
 
-protocol TextContentNodeDelegate: class {
+protocol TextContentNodeDelegate: AnyObject {
     func textContentNode(_ textNode: TextContentNode, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange)
 }

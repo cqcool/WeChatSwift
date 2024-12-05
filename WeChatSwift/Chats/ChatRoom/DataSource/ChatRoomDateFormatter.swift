@@ -36,6 +36,7 @@ class ChatRoomDateFormatter {
         let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday, .weekOfYear], from: date)
         let curYear = components.year
         let curDay = components.day
+        var previousTime = ""
         for message in messageList {
             let groupTimestamp = message.time
             if groupTimestamp == 0 {
@@ -53,7 +54,14 @@ class ChatRoomDateFormatter {
                 if curDay != (groupComponents.day ?? 0) {
                     time = "昨天 "
                 }
-                message._formattedTime = time + "\(String(format: "%02d", groupComponents.hour ?? 0)):\(String(format: "%02d", groupComponents.minute ?? 0))"
+                let timeStr = time + "\(String(format: "%02d", groupComponents.hour ?? 0)):\(String(format: "%02d", groupComponents.minute ?? 0))"
+                if timeStr != previousTime {
+                    message._formattedTime = timeStr
+                    previousTime = timeStr
+                } else {
+                    message._formattedTime = nil
+                }
+                
                 continue
             }
             
@@ -64,7 +72,13 @@ class ChatRoomDateFormatter {
                 if groupYear != year {
                     yearStr = "\(groupYear)年"
                 }
-                message._formattedTime = "\(yearStr)\(groupComponents.month ?? 1)月\(groupComponents.day ?? 1)日"
+                let timeStr = "\(yearStr)\(groupComponents.month ?? 1)月\(groupComponents.day ?? 1)日"
+                if timeStr != previousTime {
+                    message._formattedTime = timeStr
+                    previousTime = timeStr
+                } else {
+                    message._formattedTime = nil
+                }
                 continue
             }
         }

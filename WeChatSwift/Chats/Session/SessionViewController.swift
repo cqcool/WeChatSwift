@@ -33,6 +33,8 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     private let dateFormatter = ChatRoomDateFormatter()
      
     private var onceTime: Bool = false
+    private var currentGroupNo: String? = nil
+    private var currentIndexPath: IndexPath? = nil
     
     override init() {
         super.init(node: ASDisplayNode())
@@ -61,21 +63,32 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         
         setupSearchController()
 //        NotificationCenter.default.addObserver(self, selector: #selector(refreshTokenEvent), name: ConstantKey.NSNotificationRefreshToken, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(configUpdate), name: ConstantKey.NSNotificationConfigUpdate, object: nil)
         GlobalManager.manager.timingManager.addDelegate(delegate: self)
         GlobalManager.manager.timingManager.loadLocalData()
         tableNode.reloadData()
 //        if GlobalManager.manager.finishRefreshToken {
 //            refreshTokenEvent()
 //        }
+        NotificationCenter.default.addObserver(self, selector: #selector(configUpdate), name: ConstantKey.NSNotificationConfigUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateGroupEntity), name: ConstantKey.NSNotificationUpdateGroup, object: nil)
     }
-    
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) 
         requestUnreadMsg()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        currentGroupNo = nil
+        currentIndexPath = nil
+    }
     @objc func configUpdate() {
         tableNode.reloadData()
+    }
+    @objc func updateGroupEntity() {
+        if currentIndexPath != nil {
+            self.tableNode.reloadRows(at: [self.currentIndexPath!], with: .fade)
+        }
     }
     private func showMoreMenu() {
         if menuFloatView == nil {
@@ -200,27 +213,29 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
             let vc = NewsViewController()
             vc.session = session
             navigationController?.pushViewController(vc, animated: true)
-            vc.updateGroupBlock = { groupEntity in
-                self.tableNode.reloadRows(at: [indexPath], with: .fade)
+            vc.updateGroupBlock = { [weak self] groupEntity in
+                self?.tableNode.reloadRows(at: [indexPath], with: .fade)
             }
             return
         }
         if userMsgType == 1 {
             let chatVC = ChatRoomViewController(session: session)
+            currentGroupNo = session.groupNo
+            currentIndexPath = indexPath
             navigationController?.pushViewController(chatVC, animated: true)
-            chatVC.updateGroupBlock = { groupEntity in
-                self.tableNode.reloadRows(at: [indexPath], with: .fade)
+            chatVC.updateGroupBlock = { [weak self] groupEntity in
+                self?.tableNode.reloadRows(at: [indexPath], with: .fade)
             }
             return
         }
         if userMsgType == 2 {
             if let newAckMsgNo = session.newAckMsgNo {
                 let request = MsgReadRequest(no: newAckMsgNo)
-                request.startWithCompletionBlock { _ in
+                request.startWithCompletionBlock { [weak self] _ in
                     session.unReadNum = "0"
                     GroupEntity.updateUnreadNum(group: session)
-                    self.tableNode.reloadRows(at: [indexPath], with: .fade)
-                    self.requestUnreadMsg()
+                    self?.tableNode.reloadRows(at: [indexPath], with: .fade)
+                    self?.requestUnreadMsg()
                 }
             }
             return
@@ -312,8 +327,6 @@ extension SessionViewController: ChatDataDelegate {
         if list.count == 0 {
             return
         }
-        var row = 0
-//        var indexPaths: [IndexPath] = []
         for group in list.reversed() {
             if dataSource.contains(where: {$0.groupNo == group.groupNo}) {
                 dataSource.removeAll {$0.groupNo == group.groupNo}
@@ -326,21 +339,23 @@ extension SessionViewController: ChatDataDelegate {
         }
         dataSource = dataSource.sorted(by: { $0.newAckMsgDate ?? 0 > $1.newAckMsgDate ?? 0})
         ChatRoomDateFormatter.groupFormatTime(groupList: dataSource)
-//        tableNode.reloadRows(at: indexPaths, with: .none)
         tableNode.reloadData()
+        if list.contains(where: {$0.groupNo == currentGroupNo}) {
+            NotificationCenter.default.post(name: NSNotification.Name(currentGroupNo ?? ""), object: nil)
+        }
     }
 }
 
 private extension SessionViewController {
     private func requestUnreadMsg() {
         let request = UnreadMsgRequest()
-        request.startWithCompletionBlock { request in
+        request.startWithCompletionBlock { [weak self] request in
             if let json = try? JSON(data: request.wxResponseData()) {
                 if let unreadNum = json["unreadNum"].int {
                     if unreadNum > 0 {
-                        self.tabBarController?.tabBar.showBadgOn()
+                        self?.tabBarController?.tabBar.showBadgOn()
                     } else {
-                        self.tabBarController?.tabBar.hideBadg()
+                        self?.tabBarController?.tabBar.hideBadg()
                     }
                 }
             }

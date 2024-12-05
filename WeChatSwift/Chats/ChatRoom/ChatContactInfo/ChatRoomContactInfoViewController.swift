@@ -64,7 +64,7 @@ class ChatRoomContactInfoViewController: ASDKViewController<ASDisplayNode> {
                 ChatRoomContactInfoModel(type: .stickToTop),
                 ChatRoomContactInfoModel(type: .addressBook)]))
             dataSource.append(ChatRoomContactInfoSection(items: [
-                ChatRoomContactInfoModel(type: .inGroupName, value: contact.name),
+                ChatRoomContactInfoModel(type: .inGroupName, value: GlobalManager.manager.personModel?.nickname),
                 ChatRoomContactInfoModel(type: .showOtherName)]))
             dataSource.append(ChatRoomContactInfoSection(items: [
                 ChatRoomContactInfoModel(type: .chatBackground),
@@ -168,10 +168,10 @@ extension ChatRoomContactInfoViewController: ASTableDelegate, ASTableDataSource 
             let vc = ModifyRoomNameViewController()
             vc.group = contact
             navigationController?.pushViewController(vc, animated: true)
-            vc.confirmBlock = { text in
-                model.value = (text != nil && !text!.isEmpty) ? text:"未命名" 
-                self.dataSource[indexPath.section].items[indexPath.row] = model
-                self.tableNode.reloadRows(at: [indexPath], with: .fade)
+            vc.confirmBlock = { [weak self] text in
+                model.value = (text != nil && !text!.isEmpty) ? text:"未命名"
+                self?.dataSource[indexPath.section].items[indexPath.row] = model
+                self?.tableNode.reloadRows(at: [indexPath], with: .fade)
             }
         }
         return
@@ -276,6 +276,10 @@ struct ChatRoomContactInfoModel: WXTableCellModel {
     var wx_accessoryNode: ASDisplayNode? {
         if let value {
             let valueNode = ASTextNode()
+            valueNode.truncationMode = .byTruncatingMiddle
+//            valueNode.style.spacingBefore = 12
+//            valueNode.style.spacingAfter = 12
+//            valueNode.frame = CGRect(x: 0, y: 0, width: WXDevice.screenWidth() - 150, height: 55)
             valueNode.attributedText = value.addAttributed(font: .systemFont(ofSize: 17), textColor: UIColor(white: 0, alpha: 0.7), lineSpacing: 0, wordSpacing: 0)
             return valueNode
         }

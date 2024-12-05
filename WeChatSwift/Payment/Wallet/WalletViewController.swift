@@ -155,7 +155,7 @@ struct WalletModel {
     init(type: WalletType, title: String, icon: String, color: UIColor? = nil, additionalContent: String? = nil) {
         self.type = type
         self.title = title
-        self.image = UIImage.SVGImage(named: icon, fillColor: color)
+        self.image = UIImage(named: icon)
         self.additionalContent = additionalContent
 //        self.unread = false
 //        self.unreadCount = 0

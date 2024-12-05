@@ -151,8 +151,8 @@ extension ChatDataManager {
         let request = GroupListRequest()
         request.nextId = self.nextId
         request.nextTime = self.nextTime
-        request.startWithCompletionBlock { request in
-            self.isLoading = false
+        request.startWithCompletionBlock { [weak self] request in
+            self?.isLoading = false
             if let json = try? JSON(data: request.wxResponseData()){
                 let nextId = json["nextId"].string
                 let nextTime = json["nextTime"].string
@@ -161,44 +161,50 @@ extension ChatDataManager {
                     // 首次安装加载所有会话
                     if isLoop {
                         DispatchQueue.main.async {
-                            self.notify_didLoadAllChat(error: nil)
+                            self?.notify_didLoadAllChat(error: nil)
                         }
                     }
                     return
                 }
-                self.nextId = nextId
-                self.nextTime = nextTime
-                self.saveNext(id: self.nextId, time: self.nextTime)
+                self?.nextId = nextId
+                self?.nextTime = nextTime
+                self?.saveNext(id: self?.nextId, time: self?.nextTime)
                 
                 if let jsonData = (groupList as NSArray).mj_JSONData() {
                     do {
                         let resp = try JSONDecoder().decode([GroupEntity].self, from: jsonData)
                         let personModel = GlobalManager.manager.personModel
                         resp.forEach { $0.ownerId = personModel?.userId}
-                        GroupEntity.insertOrReplace(list: resp)
-                        let list = resp.filter { group in
+                        let list1 = resp.filter { group in
                             if group.newAckMsgNo == nil {
                                 return false
                             }
+                            return true
+                        }
+                        if list1.count == 0 {
+                            return
+                        }
+                        GroupEntity.insertOrReplace(list: list1)
+                        let list = list1.filter { group in
                             if group.userMsgType == 2 || group.userMsgType == 3  {
                                 return true
                             }
                             return group.groupType == 2 ? true : false
                         }
                         DispatchQueue.main.async {
-                            self.notify_updateGroupList(list: list)
+                            self?.notify_updateGroupList(list: list)
                         }
                         if isLoop {
-                            self.loadChatData(isLoop: true)
+                            self?.loadChatData(isLoop: true)
                         }
                     }  catch {
                         print("Error decoding JSON: \(error)")
                     }
                 }
             }
-        } failure: {
-            self.isLoading = false
-            self.notify_didLoadAllChat(error: $0.dnkError() as NSError)
+        } failure: { [weak self] in
+            self?.isLoading = false
+            self?.notify_didLoadAllChat(error: $0.dnkError() as NSError)
         }
     }
      

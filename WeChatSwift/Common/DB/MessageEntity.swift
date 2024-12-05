@@ -16,7 +16,7 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
     var content: String? = nil //string
     /// 类型(0文字,1图文,2视频,3超链接,4文件,5语音,6GIF,7红包,8新闻)
     var contentType: Int? = nil//0,
-    /// 发布时间
+    /// 发布时间(毫秒)
     var createTime: TimeInterval?
     var groupNo: String? = nil//0,
     /// 会话类别 1私聊 2群组
@@ -126,6 +126,7 @@ extension MessageEntity: SocketData {
         message.userId = personModel?.userId
         message.head = personModel?.head
         message.nickname = personModel?.nickname
+        message.createTime = TimeInterval(truncating: NSString.currentTimeStamp())
         return message
     }
     

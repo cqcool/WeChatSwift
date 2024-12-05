@@ -24,7 +24,7 @@ class Socket: NSObject {
     private var socketManager: SocketManager? = nil
     private var client: SocketIOClient? = nil
     private static let url = AppConfig.socketUrl()
-    var delegate: SocketDelegate? = nil
+    weak var delegate: SocketDelegate? = nil
     override init() {
         // https://gitcode.com/gh_mirrors/so/socket.io-client-swift/overview?utm_source=artical_gitcode&index=bottom&type=card&&isLogin=1
         
@@ -66,7 +66,7 @@ class Socket: NSObject {
             }
         }
         
-        client?.on("sendGroupMsg", callback: { data, ack in
+        client?.on("sendGroupMsg", callback: { [weak self] data, ack in
             debugPrint("WX Socket sendGroupMsg: \(String(describing: data.first))")
             if let content = data.first as? String {
                 guard let json =  try? JSON(data: content.data(using: .utf8)!) else {
@@ -76,14 +76,14 @@ class Socket: NSObject {
                 if json["code"].intValue != 200 {
                     return
                 }
-                guard let dataJSON = self.handleReceiveData(json: json),
+                guard let dataJSON = self?.handleReceiveData(json: json),
                       let dictionaryObject = dataJSON.dictionaryObject else {
                     return
                 }
                 let dic = (dictionaryObject as NSDictionary)
                 do {
                     let resp = try JSONDecoder().decode(MessageEntity.self, from: dic.mj_JSONData())
-                    self.delegate?.receiveLatestMessageEntity(groupNo: resp.groupNo!, entity: resp)
+                    self?.delegate?.receiveLatestMessageEntity(groupNo: resp.groupNo!, entity: resp)
                 } catch {
                     debugPrint("WX Socket sendGroupMsg Error: \(String(describing: error.localizedDescription))")
                 }

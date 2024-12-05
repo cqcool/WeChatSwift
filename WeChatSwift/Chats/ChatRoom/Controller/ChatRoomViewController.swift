@@ -56,6 +56,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     var updateGroupBlock:((_: GroupEntity) -> ())?
     
     private var isRequestRed = false
+    private var previousSendTime: TimeInterval = 0
     
     init(session: GroupEntity) {
         self.session = session
@@ -91,6 +92,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         print("chatRoom deinit")
     }
     
@@ -118,6 +120,10 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
                 // 监听屏幕熄灭
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterScreenOff), name: UIApplication.willResignActiveNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveLatestMessage), name: NSNotification.Name(self.session.groupNo ?? ""), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateGroupEntity), name: ConstantKey.NSNotificationUpdateGroup, object: nil)
     }
     
     @objc func appDidEnterBackground() {
@@ -126,7 +132,22 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     @objc func appDidEnterScreenOff() {
         inputNode.dismissKeyboard()
     }
-    
+    @objc func receiveLatestMessage() {
+        loadRemoteMessage(msgNo: dataSource.messages.last?.entity?.no, hasUnreadMsg: true, lookUpHistory: false)
+    }
+    @objc func updateGroupEntity() {
+        setNavigationTitle()
+    }
+    private func setNavigationTitle() {
+        let title = "\(session.name ?? "群聊")(\(String(describing: session.userNum ?? 0 )))"
+        let titleLabel = UILabel()
+                titleLabel.text = title
+                titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+                titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byTruncatingMiddle // 设置截断模式
+                 
+                self.navigationItem.titleView = titleLabel
+    }
     private func updateChatRoomView(status: ChatRoomStatus) {
         switch status {
         case .ban:
@@ -317,7 +338,6 @@ extension ChatRoomViewController {
     private func loadGroupMessage() {
         // 先加载本地数据
         loadLocalData()
-        
     }
     private func loadLocalData() {
         // 有未读消息，就从服务端请求，否则加载本地数据即可
@@ -328,9 +348,7 @@ extension ChatRoomViewController {
             return
         }
         self.dataSource.appendMsgList(mssageList, scrollToLastMessage: true, showMsgTime: true)
-//        if hasUnreadMsg {
-            loadRemoteMessage(msgNo: mssageList.last?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
-//        }
+        loadRemoteMessage(msgNo: mssageList.last?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
     }
     /*
      sort=1, 获取新数据，sort=0，获取历史数据，
@@ -358,8 +376,8 @@ extension ChatRoomViewController {
             request.no = msgNo
         }
         
-        request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
-            self.tableNode.view.mj_header?.endRefreshing()
+        request.start(withNetworkingHUD: false, showFailureHUD: true) { [weak self] request in
+            self?.tableNode.view.mj_header?.endRefreshing()
             do {
                 
                 let resp = try JSONDecoder().decode([MessageEntity].self, from: request.wxResponseData())
@@ -368,38 +386,39 @@ extension ChatRoomViewController {
                     resp.forEach { $0.ownerId = personModel?.userId }
                     MessageEntity.insertOrReplace(list: resp)
                     // 本地没有最新获取的消息，仍需要进一步获取消息
-                    if self.dataSource.messages.first(where: { $0.entity?.no == resp.first?.no }) == nil {
-                        self.loadRemoteMessage(sort: "0", msgNo: resp.first?.no, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
+                    if self?.dataSource.messages.first(where: { $0.entity?.no == resp.first?.no }) == nil {
+                        self?.loadRemoteMessage(sort: "0", msgNo: resp.first?.no, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
                     }
+                    let flag = self?.isShowTime(time: resp.last?.createTime ?? 0) ?? false
                     if oldNo != nil {
-                        self.dataSource.appendMsgList(resp, scrollToLastMessage:true, lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
+                        self?.dataSource.appendMsgList(resp, scrollToLastMessage:true, lookUpHistory:lookUpHistory, showMsgTime: flag)
                     } else {
-                        self.dataSource.appendMsgList(resp, scrollToLastMessage:sort == "1", lookUpHistory:lookUpHistory, showMsgTime: showMsgTime)
+                        self?.dataSource.appendMsgList(resp, scrollToLastMessage:sort == "1", lookUpHistory:lookUpHistory, showMsgTime: flag)
                     }
                     if hasUnreadMsg {
-                        self.readMessage(no: resp.last?.no ?? "")
+                        self?.readMessage(no: resp.last?.no ?? "")
                     }
                 } else {
                     if sort == "0" {
-                        self.hasHistory = false
+                        self?.hasHistory = false
                     }
                     if hasUnreadMsg {
-                        self.readMessage(no: self.dataSource.messages.last?.entity?.no ?? "")
+                        self?.readMessage(no: self?.dataSource.messages.last?.entity?.no ?? "")
                     }
                 }
             }  catch {
                 print("Error decoding JSON: \(error)")
             }
-        } failure: { _ in
-            self.tableNode.view.mj_header?.endRefreshing()
+        } failure: { [weak self] _ in
+            self?.tableNode.view.mj_header?.endRefreshing()
         }
     }
     
     private func readMessage(no: String, entity: MessageEntity? = nil) {
         let request = MsgReadRequest(no: no)
-        request.startWithCompletionBlock { _ in
+        request.startWithCompletionBlock { [weak self] _ in
             // entity不为nil，更新会话最新消息
-            self.updateNewAckMessage(entity: entity)
+            self?.updateNewAckMessage(entity: entity)
         }
     }
     
@@ -417,22 +436,21 @@ extension ChatRoomViewController {
         }
         self.session.unReadNum = "0"
         self.updateGroupBlock?(self.session)
-        GroupEntity.updateUnreadNum(group: self.session)
+        GroupEntity.updateGroup(group: self.session)
     }
     
     private func requestMembers(showHUD: Bool) {
         let request = GroupMembersRequest(groupNo: session.groupNo)
-        request.start(withNetworkingHUD: showHUD, showFailureHUD: showHUD) { request in
+        request.start(withNetworkingHUD: showHUD, showFailureHUD: showHUD) { [weak self] request in
             if let json = try? JSON(data: request.wxResponseData()) {
                 if let groupList = json["friendList"].arrayObject,
                    let jsonData = (groupList as NSArray).mj_JSONData() {
                     
                     do {
                         let resp = try JSONDecoder().decode([MemberModel].self, from: jsonData)
-                        self.members = resp
-//                        self.navigationItem.title = self.session.name ?? "群聊\(String(describing: self.members?.count))"
+                        self?.members = resp
                         if showHUD {
-                            self.moreButtonClicked()
+                            self?.moreButtonClicked()
                         }
                         print(resp)
                     }  catch {
@@ -447,8 +465,8 @@ extension ChatRoomViewController {
     private func getGroupInfo() {
         let request = GroupInfoRequest(groupNo: session.groupNo)
         request.start(withNetworkingHUD: false, showFailureHUD: false) { request in
-        } failure: { request in
-            self.handleGroupError(request: request)
+        } failure: { [weak self] request in
+            self?.handleGroupError(request: request)
         }
     }
     private func handleGroupError(request: YTKBaseRequest) {
@@ -507,7 +525,8 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
         let msg = dataSource.messages.last
         let messagaEntity = MessageEntity.buildMessage(content: text, groupNo: session.groupNo!, groupType: session.groupType!, lastNo: msg?.entity?.no)
         Socket.shared.sendData(message: messagaEntity)
-        dataSource.appendMsgList([messagaEntity], scrollToLastMessage: true, showMsgTime: false)
+        let flag = self.isShowTime(time: messagaEntity.createTime ?? 0)
+        dataSource.appendMsgList([messagaEntity], scrollToLastMessage: true, showMsgTime: flag)
         
         //        let message = Message()
         //        message.chatID = session.groupNo!
@@ -547,8 +566,9 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
         case .redPacket:
             let makeRedEnvelopeVC = MakeRedEnvelopeViewController()
             makeRedEnvelopeVC.session = session
-            makeRedEnvelopeVC.sendRedPacketBlock = { msg in
-                self.dataSource.appendMsgList([msg], scrollToLastMessage: true, showMsgTime: false)
+            makeRedEnvelopeVC.sendRedPacketBlock = { [weak self] msg in
+                let flag = self?.isShowTime(time: msg.createTime ?? 0) ?? false
+                self?.dataSource.appendMsgList([msg], scrollToLastMessage: true, showMsgTime: flag)
             }
             let nav = UINavigationController(rootViewController: makeRedEnvelopeVC)
             nav.modalPresentationStyle = .fullScreen
@@ -683,10 +703,10 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
 
         red.callBackClosure = {
         }
-        red.detailsClosure = { m in
+        red.detailsClosure = { [weak self] m in
             let vc = RedDetailsViewController()
             vc.redPacket = m ?? model
-            self.navigationController?.pushViewController(vc, animated: false)
+            self?.navigationController?.pushViewController(vc, animated: false)
         }
         red.updateDBClosure = {flag in
             if flag {
@@ -705,8 +725,8 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         }
         // 检查是否被领取完
         isRequestRed = true
-        red.requestRedPacketGetRequest(isGet: "0") { resp, error in
-            self.isRequestRed = false
+        red.requestRedPacketGetRequest(isGet: "0") { [weak self] resp, error in
+            self?.isRequestRed = false
             guard let resp else {
                 return
             }
@@ -729,7 +749,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
 
 extension ChatRoomViewController {
     private func layoutUI() {
-        navigationItem.title = "\(session.name ?? "群聊")(\(String(describing: session.userNum ?? 0 )))"
+        setNavigationTitle()
         let moreButtonItem = UIBarButtonItem(image: Constants.moreImage, style: .done, target: self, action: #selector(moreButtonClicked))
         navigationItem.rightBarButtonItem = moreButtonItem
         
@@ -768,12 +788,12 @@ extension ChatRoomViewController {
         
         updateChatRoomView(status: ChatRoomStatus(rawValue: session.status) ?? .byRemove)
         
-        let mjHeader = MJRefreshNormalHeader(refreshingBlock: {
-            if self.hasHistory {
-                self.loadRemoteMessage(sort: "0", msgNo: self.dataSource.messages.last?.entity?.no, lookUpHistory: true)
+        let mjHeader = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            if self?.hasHistory != nil {
+                self?.loadRemoteMessage(sort: "0", msgNo: self?.dataSource.messages.last?.entity?.no, lookUpHistory: true)
                 return
             }
-            self.tableNode.view.mj_header?.endRefreshing()
+            self?.tableNode.view.mj_header?.endRefreshing()
         })
         mjHeader.lastUpdatedTimeLabel?.isHidden = true
         mjHeader.stateLabel?.isHidden = true
@@ -781,6 +801,14 @@ extension ChatRoomViewController {
         tableNode.view.mj_header = mjHeader
     }
     
+    private func isShowTime(time: TimeInterval) -> Bool {
+        if previousSendTime == 0 {
+            previousSendTime = self.dataSource.messages.last?.time ?? 0
+        }
+        let flag = (time - previousSendTime) > TimeInterval(60 * 1000)
+        previousSendTime = time
+        return flag
+    }
     
 }
 

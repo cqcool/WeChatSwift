@@ -68,7 +68,7 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
         tableNode.view.tableFooterView?.isHidden = true
         updateFooterNode()
         
-        loadDetails()
+//        loadDetails()
         
         headerNode.toTipsNode.isUserInteractionEnabled = true
         headerNode.toTipsNode.addTarget(self, action: #selector(recoradAction), forControlEvents: .touchUpInside)
@@ -79,20 +79,23 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
     
     private func loadDetails() {
         let request = RedPacketGetRequest(groupNo: redPacket?.groupNo ?? (groupNo ?? ""), isGet: "1", orderNumber: redPacket?.orderNumber ?? (orderNumber ?? ""))
-        request.start(withNetworkingHUD: true, showFailureHUD: true) { request in
+        request.start(withNetworkingHUD: true, showFailureHUD: true) { [weak self] request in
             do {
                 let resp = try JSONDecoder().decode(FullRedPacketGetEntity.self, from: request.wxResponseData())
-                self.resp = resp
+                self?.resp = resp
                 let height = resp.isMyselfReceive == 1 ? 337.0 : 130.0
-                self.tableNode.view.tableHeaderView?.isHidden = false
+                self?.tableNode.view.tableHeaderView?.isHidden = false
                 let headerView = UIView()
-                headerView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: height)
-                headerView.addSubnode(self.headerNode)
-                self.headerNode.frame = headerView.bounds
-                self.tableNode.view.tableHeaderView = headerView
-                self.headerNode.updateContent(resp: resp)
-                self.datas = resp.detailList
-                self.tableNode.reloadData()
+                headerView.frame = CGRect(x: 0, y: 0, width: self?.view.bounds.width ?? 0, height: height)
+                if self != nil {
+                    
+                    headerView.addSubnode(self!.headerNode)
+                }
+                self?.headerNode.frame = headerView.bounds
+                self?.tableNode.view.tableHeaderView = headerView
+                self?.headerNode.updateContent(resp: resp)
+                self?.datas = resp.detailList
+                self?.tableNode.reloadData()
             }  catch {
                 print("Error decoding JSON: \(error)")
             }

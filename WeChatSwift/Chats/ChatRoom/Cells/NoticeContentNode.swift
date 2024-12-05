@@ -68,6 +68,6 @@ extension NoticeContentNode: ASTextNodeDelegate {
     }
 }
 
-protocol NoticeContentNodeDelegate: class {
+protocol NoticeContentNodeDelegate: AnyObject {
     func textContentNode(_ textNode: NoticeContentNode, tappedLinkAttribute attribute: String!, value: String!, at point: CGPoint, textRange: NSRange)
 }

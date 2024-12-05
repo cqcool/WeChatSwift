@@ -82,4 +82,6 @@ class ConstantKey: NSObject {
     static let NSNotificationPersonToken = NSNotification.Name(rawValue: "refresh_person")
     
     static let NSNotificationConfigUpdate = NSNotification.Name(rawValue: "config_update")
+    static let NSNotificationUpdateGroup = NSNotification.Name(rawValue: "update_group_entity")
+    
 }

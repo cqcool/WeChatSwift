@@ -57,14 +57,18 @@ final class ChatRoomDataSource {
     func appendMsgList(_ msgList: [MessageEntity], scrollToLastMessage: Bool = true, lookUpHistory: Bool = false, showMsgTime: Bool) {
         let _ = lock.wait(timeout: .distantFuture)
         formatTime()
+        var messageList: [Message] = []
         for messageEntity in msgList {
             if messageEntity.type == 6 {
                 continue
             }
             let message = messageEntity.toMessage()
-            if showMsgTime  {
-                dateFormatter.chatSingleFormatTime(message: message)
-            }
+            messageList.append(message)
+        }
+        if showMsgTime  {
+            dateFormatter.chatFormatTime(messageList: messageList)
+        }
+        for message in messageList {
             if lookUpHistory {
                 messages.insert(message, at: 0)
                 tableNode?.insertRows(at: [IndexPath(row: 0, section: 0)], with: .none)

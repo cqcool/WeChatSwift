@@ -38,7 +38,7 @@ struct DiscoverModel {
     init(type: DiscoverType, title: String, icon: String, color: UIColor? = nil) {
         self.type = type
         self.title = title
-        self.image = UIImage.SVGImage(named: icon, fillColor: color)
+        self.image = UIImage(named: icon)
         self.unread = false
         self.unreadCount = 0
     }

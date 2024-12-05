@@ -128,6 +128,7 @@ public class MessageCellNode: ASCellNode {
         if let contentTopTextNode = contentTopTextNode {
             contentVerticalStack.children = [contentTopTextNode, contentNode]
         } else {
+            contentNode.style.spacingBefore = 6
             contentVerticalStack.children = [contentNode]
         }
 //        if message.entity?.type == 0 {
@@ -163,8 +164,10 @@ public class MessageCellNode: ASCellNode {
             fakeAvatarNode.style.preferredSize = CGSize(width: 30, height: 40)
             if isOutgoing {
                 contentHorizontalStack.children = [fakeAvatarNode, contentVerticalStack, avatarNode]
+                contentVerticalStack.style.spacingBefore = 12
             } else {
                 contentHorizontalStack.children = [avatarNode, contentVerticalStack, fakeAvatarNode]
+                contentVerticalStack.style.spacingAfter = 12
             }
             let contentHorizontalSpec = ASInsetLayoutSpec(insets: .zero, child: contentHorizontalStack)
             layoutElements.append(contentHorizontalSpec)

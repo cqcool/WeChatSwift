@@ -31,10 +31,10 @@ class RedPacketContentNode: MessageContentNode {
         
         let isOpen = redPacket.entity == nil
         iconNode.image = UIImage(named: isOpen ? "ChatRoom_close" : "ChatRoom_open")
-        iconNode.style.preferredSize = CGSize(width: 40, height: 40)
+        iconNode.style.preferredSize = CGSize(width: 40, height: 44)
         titleNode.attributedText = (redPacket.name ?? "恭喜发财，大吉大利").addAttributed(font: UIFont.boldSystemFont(ofSize: 18), textColor: .white)
         desNode.attributedText = "微信红包".addAttributed(font: UIFont.systemFont(ofSize: 13), textColor: .white)
-        lineNode.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        lineNode.backgroundColor = UIColor(white: 1, alpha: 0.3)
         statusNode.attributedText = "已领取".addAttributed(font: UIFont.systemFont(ofSize: 13), textColor: .white)
         
         addSubnode(iconNode)
@@ -58,9 +58,7 @@ class RedPacketContentNode: MessageContentNode {
     override func layout() {
         super.layout()
         // 假设你已经有了一个UIImage对象
-        let image = UIImage(named: bubbleIcon())
-        let height = (image?.size.height)!
-        let width = (image?.size.width)!
+        let image = UIImage(named: bubbleIcon()) 
         // 设置图片的四个角不进行拉伸，四个角的宽度和高度
         let capInsets = UIEdgeInsets(top: 30, left: 30, bottom:10, right: 30)
         // 设置拉伸模式，这里使用.stretched
@@ -73,7 +71,7 @@ class RedPacketContentNode: MessageContentNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let topVerticalStack = ASStackLayoutSpec.vertical()
-        topVerticalStack.style.spacingBefore = 8
+        topVerticalStack.style.spacingBefore = 10
         topVerticalStack.verticalAlignment = .center
         topVerticalStack.children?.append(titleNode)
         if redPacket.entity != nil {
@@ -90,17 +88,19 @@ class RedPacketContentNode: MessageContentNode {
         horizotalStack.children = [iconNode, topVerticalStack]
         
         let insets: UIEdgeInsets
+        // contentVerticalStack.style.spacingBefore = 12
+        let fixSpace = 104.0 + 12.0
         if message.isOutgoing {
-            lineNode.style.preferredSize = CGSize(width:Constants.screenWidth - 104.0 - 12.0 - 15.0, height: 0.1)
+            lineNode.style.preferredSize = CGSize(width:Constants.screenWidth - fixSpace - 12.0 - 15.0, height: 0.1)
 //            insets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 15)
-            insets = UIEdgeInsets(top: 12, left: 12, bottom: 6, right: 15)
+            insets = UIEdgeInsets(top: 12, left: 12, bottom: 4, right: 15)
         } else {
-            lineNode.style.preferredSize = CGSize(width:Constants.screenWidth - 104.0 - 17.0 - 12.0 - 10.0, height: 0.1)
+            lineNode.style.preferredSize = CGSize(width:Constants.screenWidth - fixSpace - 17.0 - 12.0 - 10.0, height: 0.1)
 //            insets = UIEdgeInsets(top: 10, left: 17, bottom: 6, right: 12)
             insets = UIEdgeInsets(top: 12, left: 17, bottom: 4, right: 12)
         }
-        lineNode.style.spacingBefore = 18
-        desNode.style.spacingBefore = 6
+        lineNode.style.spacingBefore = 14
+        desNode.style.spacingBefore = 4
         let verticalStack = ASStackLayoutSpec.vertical()
         verticalStack.children = [horizotalStack, lineNode, desNode]
         
@@ -108,7 +108,6 @@ class RedPacketContentNode: MessageContentNode {
         
         let spec = ASBackgroundLayoutSpec()
             spec.background = bubbleNode
-        
         spec.child = insetsLayout
         return spec
     }

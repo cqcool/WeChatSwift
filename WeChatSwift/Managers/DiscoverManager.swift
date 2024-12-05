@@ -23,13 +23,13 @@ class DiscoverManager {
         sections.append(DiscoverSection(models: [moment]))
         
         sections.append(DiscoverSection(models: [
-            DiscoverModel(type: .video, title: "视频号", icon: "icons_outlined_scan", color: Colors.Indigo),
-            DiscoverModel(type: .liveProadcast, title: "直播", icon: "icons_outlined_shake", color: Colors.Indigo)]
+            DiscoverModel(type: .video, title: "视频号", icon: "icons_outlined_video", color: Colors.Indigo),
+            DiscoverModel(type: .liveProadcast, title: "直播", icon: "icons_outlined_zb", color: Colors.Indigo)]
         ))
         
         sections.append(DiscoverSection(models: [
             DiscoverModel(type: .scan, title: LocalizedString("FF_Entry_Scan"), icon: "icons_outlined_scan", color: Colors.Indigo),
-            DiscoverModel(type: .shake, title: LocalizedString("FF_Entry_Shake"), icon: "icons_outlined_shake", color: Colors.Indigo)]
+            DiscoverModel(type: .shake, title: LocalizedString("FF_Entry_Shake"), icon: "icons_outlined_listen", color: Colors.Indigo)]
         ))
         
         sections.append(DiscoverSection(models: [

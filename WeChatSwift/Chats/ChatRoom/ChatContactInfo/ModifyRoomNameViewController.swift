@@ -91,11 +91,14 @@ class ModifyRoomNameViewController: UIViewController {
         let request = UpdateGroupRequest(groupNo: group.groupNo)
         let text = textField.text
         request.name = text ?? ""
-        request.start(withNetworkingHUD: true, showFailureHUD: true) { _ in
-            self.group.name = text
-            GroupEntity.updateName(group: self.group)
-            self.confirmBlock?(text)
-            self.navigationController?.popViewController(animated: true)
+        request.start(withNetworkingHUD: true, showFailureHUD: true) { [weak self] _ in
+            self?.group.name = text
+            if (self != nil) {
+                GroupEntity.updateName(group: self!.group)
+            }
+            self?.confirmBlock?(text)
+            NotificationCenter.default.post(name: ConstantKey.NSNotificationUpdateGroup, object: nil)
+            self?.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -155,6 +158,7 @@ class ModifyRoomNameViewController: UIViewController {
         textField = UITextField()
         contentView.addSubview(textField)
         textField.clearButtonMode = .whileEditing
+        textField.textLength = 16
         textField.snp.makeConstraints { make in
             make.top.equalTo(line1.snp.bottom)
             make.bottom.equalTo(line2.snp.top)
