@@ -80,7 +80,7 @@ final class GroupEntity: NSObject, Codable, TableCodable, Named {
         case userId
         case userMsgType
         case userNum
-//        case ownerId
+        case ownerId
     }
 }
 
@@ -189,7 +189,7 @@ extension GroupEntity {
     /// 查找群聊
     static func queryGroupChats()-> [GroupEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
-                                   where: (/*GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&*/
+                                   where: (GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&
                                    ((GroupEntity.Properties.userMsgType == 2 || GroupEntity.Properties.userMsgType == 3) ||
                                     GroupEntity.Properties.groupType == 2)))
     }
@@ -197,7 +197,7 @@ extension GroupEntity {
     /// 查找群聊
     static func queryFriends()-> [GroupEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
-                                   where: (/*GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&*/
+                                   where: (GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&
                                            (GroupEntity.Properties.userMsgType == 2  ||
                                            GroupEntity.Properties.groupType == 1)))
     }

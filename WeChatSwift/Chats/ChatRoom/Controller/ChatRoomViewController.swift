@@ -430,7 +430,7 @@ extension ChatRoomViewController {
                     do {
                         let resp = try JSONDecoder().decode([MemberModel].self, from: jsonData)
                         self.members = resp
-                        self.navigationItem.title = self.session.name ?? "群聊\(String(describing: self.members?.count))"
+//                        self.navigationItem.title = self.session.name ?? "群聊\(String(describing: self.members?.count))"
                         if showHUD {
                             self.moreButtonClicked()
                         }
@@ -729,7 +729,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
 
 extension ChatRoomViewController {
     private func layoutUI() {
-        navigationItem.title = session.name ?? "群聊\(String(describing: session.userNum))"
+        navigationItem.title = "\(session.name ?? "群聊")(\(String(describing: session.userNum ?? 0 )))"
         let moreButtonItem = UIBarButtonItem(image: Constants.moreImage, style: .done, target: self, action: #selector(moreButtonClicked))
         navigationItem.rightBarButtonItem = moreButtonItem
         

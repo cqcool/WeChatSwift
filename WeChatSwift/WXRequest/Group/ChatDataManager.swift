@@ -51,6 +51,10 @@ class ChatDataManager {
     
     func loadLocalData() {
         if let list = GroupEntity.queryGroupChats() {
+            for group in list {
+                print("group owner: " + (group.ownerId ?? ""))
+                print("group owner userId: " + (GlobalManager.manager.personModel?.userId ?? ""))
+            }
             notify_updateGroupList(list: list)
         }
     }

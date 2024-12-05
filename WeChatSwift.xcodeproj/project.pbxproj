@@ -3464,7 +3464,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DevProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DistributeProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;

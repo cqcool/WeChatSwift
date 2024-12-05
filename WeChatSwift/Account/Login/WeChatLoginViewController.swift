@@ -88,6 +88,7 @@ class WeChatLoginViewController: UIViewController {
         let psw = pswText.md5Encrpt().lowercased()
         let loginRequest = LoginRequest(account: phone, password: psw)
         let chainRequest = YTKChainRequest()
+        chainRequest.delegate = self
         chainRequest.add(loginRequest) { _, request in
             if request.apiSuccess() {
                 if let json = try? JSON(data: request.wxResponseData()) {
@@ -100,10 +101,7 @@ class WeChatLoginViewController: UIViewController {
                         GlobalManager.manager.timingManager.updateTokenTimeout(timeout: timeout)
                     }
                 }
-                return
             }
-            WXProgressHUD.hiddenProgressHUD()
-            self.showPopupAlert(msg: request.apiMessage())
         }
         
         let infoRequest = UserInfoRequest()
@@ -120,11 +118,6 @@ class WeChatLoginViewController: UIViewController {
                         debugPrint(error)
                     } 
                 }
-            } else {
-                WXProgressHUD.hiddenProgressHUD()
-                GlobalManager.manager.updateRefreshToken(refreshToken: nil)
-                GlobalManager.manager.updateToken(token: nil)
-                self.showPopupAlert(msg: request.apiMessage())
             }
         }
         
@@ -445,6 +438,22 @@ class WeChatLoginViewController: UIViewController {
     }
 }
 
+extension WeChatLoginViewController: YTKChainRequestDelegate {
+    func chainRequestFailed(_ chainRequest: YTKChainRequest, failedBaseRequest request: YTKBaseRequest) {
+        if request is LoginRequest {
+            WXProgressHUD.hiddenProgressHUD()
+            self.showPopupAlert(msg: request.apiMessage())
+            return
+        }
+        
+        if request is UserInfoRequest {
+            WXProgressHUD.hiddenProgressHUD()
+            GlobalManager.manager.updateRefreshToken(refreshToken: nil)
+            GlobalManager.manager.updateToken(token: nil)
+            self.showPopupAlert(msg: request.apiMessage())
+        }
+    }
+}
 extension WeChatLoginViewController: WeChatCustomNavigationHeaderDelegate {
     func leftBarClick() {
         view.endEditing(true)

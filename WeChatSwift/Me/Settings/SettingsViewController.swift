@@ -48,9 +48,9 @@ class SettingsViewController: ASDKViewController<ASDisplayNode> {
 
         
         let messageModel = SettingsTableModel(type: .newMessageNotification, title: LocalizedString("Setting_NotificationSectionTitle"))
-//        let chatModel = SettingsTableModel(type: .chat, title: "聊天")
+        let devicesModel = SettingsTableModel(type: .devices, title: "设备")
         let generalModel = SettingsTableModel(type: .general, title: LocalizedString("Setting_GeneralTitle"))
-        dataSource.append(SettingsTableGroupModel(models: [messageModel, /*chatModel,*/ generalModel]))
+        dataSource.append(SettingsTableGroupModel(models: [messageModel, devicesModel, generalModel]))
         
         let friendModel = SettingsTableModel(type: .friend, title: "朋友权限")
         let personalModel = SettingsTableModel(type: .personal, title: "个人信息与权限")

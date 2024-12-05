@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Network
 
 //第一次打开显示登陆或注册按钮
 class WeChatLoginOrRegisterViewController: UIViewController {
@@ -15,7 +16,7 @@ class WeChatLoginOrRegisterViewController: UIViewController {
     var buttonWidth:CGFloat = 0
     let buttonHeight:CGFloat = 48
     var buttonBeginY:CGFloat = 0
-    
+    let monitor = NWPathMonitor()
     var loginViewController:WeChatLoginViewController?
     var registerViewController:WeChatRegisterViewController?
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -24,8 +25,15 @@ class WeChatLoginOrRegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 监听网络状态变化
         
+        // 设置监听器监听特定接口上的网络路径状态
+        monitor.start(queue: DispatchQueue.global(qos: .background))
+         
         intFrame()
+    }
+    deinit {
+        monitor.cancel()
     }
     func intFrame(){
         let view = UIView(frame:self.view.frame)

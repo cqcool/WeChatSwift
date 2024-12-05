@@ -88,6 +88,8 @@ class ContactsViewController: ASDKViewController<ASDisplayNode> {
     }
     
     private func setupDataSource() {
+        dataSource = []
+        lettersArray = []
         let searchSection = ContactSection(title: "", models: [.newFriends, .groupChats, .tags, .officialAccounts])
         dataSource.append(searchSection)
         

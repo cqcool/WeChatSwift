@@ -80,6 +80,7 @@ enum SettingsType {
     case newMessageNotification
     case chat
     case privacy
+    case devices
     case general
     case helpAndFeedback
     case about

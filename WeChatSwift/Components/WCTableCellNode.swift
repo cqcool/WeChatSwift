@@ -38,6 +38,7 @@ class WCTableCellNode: ASCellNode {
         super.init()
         automaticallyManagesSubnodes = true
         if model.wx_imageURL != nil {
+            iconNode.defaultImage = UIImage(named: "login_defaultAvatar")
             iconNode.url = model.wx_imageURL
         } else {
             iconNode.image = model.wx_image

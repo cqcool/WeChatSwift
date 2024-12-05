@@ -24,7 +24,7 @@ enum RedAlertType: String {
     case violation = "当前交易涉嫌违规，暂无法完成支 付，请注意合法使用支付账户，否 则将升级限制措施。如有疑问，可点击“了解详情”查看说明。"
     case pswError = "支付密码错误，请重试"
     case confirmPhone = ""
-    
+    case insufficientBalance
 }
 
 class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
@@ -66,7 +66,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     private var payViewHeight: CGFloat = 360
     
     var sendRedPacketBlock: ((_ messageEntnity: MessageEntity) ->())?
-    
+    var isRedPacketVerifyRequest = false
     override init() {
         
         errorNode = ASDisplayNode()
@@ -338,13 +338,16 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             alert(type: type, cancel: "忘记密码", confirm: "重试")
             return
         }
+        if type == .insufficientBalance {
+            alert(type: type, cancel: "", confirm: "重试")
+        }
     }
     
     private func alert(type: RedAlertType, cancel: String, confirm: String) {
         let popupView = JFPopupView.popup.alert {[
             .subTitle(type.rawValue),
             .subTitleColor(.black),
-            .showCancel(true),
+            .showCancel(cancel.count > 0 ? true : false),
             .withoutAnimation(true),
             .cancelAction([
                 .text(cancel),
@@ -353,10 +356,13 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
                 })
             ]),
             .confirmAction([
-                .enable(false),
+                .enable(type == .pswError ? true : false),
                 .text(confirm),
                 .textColor(UIColor(hexString: "576B95")),
                 .tapActionCallback({
+                    if type == .pswError {
+                        self.codeUnit.textFiled.becomeFirstResponder()
+                    }
                 })
             ]),
         ]}
@@ -678,6 +684,8 @@ extension MakeRedEnvelopeViewController {
                type = .violation
            } else if code == NetworkCode.ERR_SURE_TEL.rawValue {
                type = .confirmPhone
+           } else if code == NetworkCode.ERR_BALANCE_NOT_ENOUGH.rawValue {
+               type = .insufficientBalance
            }
             if type != .none {
                 self.alertType(type: type)
@@ -774,8 +782,13 @@ extension MakeRedEnvelopeViewController: KeenCodeUnitDelegate {
     
     func codeUnit(_ codeUnit: KeenCodeUnit, codeText: String, complete: Bool) {
         if complete {
+            if isRedPacketVerifyRequest {
+                return
+            }
+            isRedPacketVerifyRequest = true
             let request = RedPacketPayRquest(amount: enterMoneyNode.money!, groupNo: session.groupNo!, num: enterCountNode.count!, payPassword: codeText.md5Encrpt().lowercased())
             request.start(withNetworkingHUD: true, showFailureHUD: false) { request in
+                self.isRedPacketVerifyRequest = false
                 do {
                     let personModel = GlobalManager.manager.personModel
                     let resp = try JSONDecoder().decode(MessageEntity.self, from: request.wxResponseData())
@@ -787,6 +800,7 @@ extension MakeRedEnvelopeViewController: KeenCodeUnitDelegate {
                     print("Error decoding JSON: \(error)")
                 }
             } failure: { _ in
+                self.isRedPacketVerifyRequest = false
                 self.view.endEditing(true)
                 codeUnit.cleanContent()
                 let code = request.apiCode()
