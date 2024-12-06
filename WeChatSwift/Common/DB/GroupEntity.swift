@@ -196,6 +196,12 @@ extension GroupEntity {
                                    ((GroupEntity.Properties.userMsgType == 2 || GroupEntity.Properties.userMsgType == 3) ||
                                     GroupEntity.Properties.groupType == 2)))
     }
+    /// 查找群聊
+    static func queryGroup(groupNo: String)-> GroupEntity? {
+        DBManager.share.getObjects(tableName: self.tableName,
+                                   where: (GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&
+                                           (GroupEntity.Properties.groupNo == groupNo)))?.first
+    }
     
     /// 查找群聊
     static func queryFriends()-> [GroupEntity]? {

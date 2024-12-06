@@ -42,7 +42,7 @@ public extension String {
         let paragraphStyle1 = NSMutableParagraphStyle()
         paragraphStyle1.alignment = .center
         let mutableAttribtue = NSMutableAttributedString(string: self, attributes: [
-            .font: Fonts.font(.superScriptMedium, fontSize: fontSize)!,
+            .font: Fonts.font(.superScriptRegular, fontSize: fontSize)!,
             .foregroundColor: textColor,
             .paragraphStyle: paragraphStyle1
         ])
@@ -57,19 +57,27 @@ public extension String {
         return mutableAttribtue
     }
     func unitTextAttribute(textColor: UIColor = .black, fontSize: CGFloat, unitSize: CGFloat, unit: String, baseline: CGFloat = 0) -> NSAttributedString {
+        let font = Fonts.font(.superScriptMedium, fontSize: fontSize)!
+        let unitFont = UIFont.systemFont(ofSize: unitSize, weight: .medium)
+        return unitTextAttribute(textColor: textColor, font: font, unitFont: unitFont, unit: unit, baseline: baseline)
+    }
+    func unitTextAttribute(textColor: UIColor = .black, font: UIFont, unitFont: UIFont, unit: String, baseline: CGFloat = 0, kern: Float = 0) -> NSAttributedString {
+        
+        // 应用到UILabel或者其他支持NSAttributedString的UI元素
         let paragraphStyle1 = NSMutableParagraphStyle()
         paragraphStyle1.alignment = .center
         let mutableAttribtue = NSMutableAttributedString(string: self, attributes: [
-            .font: Fonts.font(.superScriptMedium, fontSize: fontSize)!,
+            .font: font,
             .foregroundColor: textColor,
-            .paragraphStyle: paragraphStyle1
+            .paragraphStyle: paragraphStyle1,
         ])
         if self.contains(unit) {
             if let range = self.range(of: unit) {
                 let nsRange = NSRange(range, in: self)
-                let size = unitSize ?? fontSize
-                mutableAttribtue.addAttribute(.font, value: UIFont.systemFont(ofSize: size, weight: .medium), range: nsRange)
+                mutableAttribtue.addAttribute(.font, value: unitFont, range: nsRange)
                 mutableAttribtue.addAttribute(.baselineOffset, value: baseline, range: nsRange)
+                mutableAttribtue.addAttribute(.kern, value: kern, range: nsRange)
+                
             }
         }
         return mutableAttribtue

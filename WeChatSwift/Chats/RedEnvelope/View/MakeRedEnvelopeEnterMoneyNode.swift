@@ -32,7 +32,7 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
         pinImageNode.style.preferredSize = CGSize(width: 30, height: 27)
         pinImageNode.cornerRadius = 2
         leadingTextNode.attributedText = NSAttributedString(string: "总金额", attributes: [
-            .font: UIFont.systemFont(ofSize: 17),
+            .font: UIFont.systemFont(ofSize: 19),
             .foregroundColor: Colors.black
         ])
         
@@ -41,15 +41,15 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
 //            .foregroundColor: Colors.black
 //        ])
          
-        let attributes = [
-            NSAttributedString.Key.font: Fonts.font(.superScriptMedium, fontSize: 17)!,
-            NSAttributedString.Key.foregroundColor: UIColor(hexString: "C5C5C7"),
-        ]
-        moneyField.attributedPlaceholder = NSAttributedString(string: "¥0.00", attributes: attributes)
+//        let attributes = [
+////            NSAttributedString.Key.font: Fonts.font(.superScriptMedium, fontSize: 17)!,
+//            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25, weight: .medium),
+//            NSAttributedString.Key.foregroundColor: ,
+//        ]
+//        moneyField.attributedPlaceholder = NSAttributedString(string: , attributes: attributes)
+        moneyField.attributedPlaceholder = "¥0.00".unitTextAttribute(textColor:  UIColor(hexString: "C5C5C7"), font: Fonts.font(.superScriptRegular, fontSize: 18)!, unitFont: Fonts.font(.superScriptRegular, fontSize: 23)!, unit: "¥", baseline: -4, kern: -3)
         moneyField.dnkDelegate = self
         moneyField.textAlignment = .right
-        moneyField.textColor = Colors.black
-        moneyField.font = UIFont.systemFont(ofSize: 17)
         moneyField.shouldBeginEditingBlock = {
             self.countKeyboardBlock?()
             return true
@@ -85,8 +85,8 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        pinImageNode.style.spacingBefore = 8
-        leadingTextNode.style.spacingBefore = 10
+        pinImageNode.style.spacingBefore = 5
+        leadingTextNode.style.spacingBefore = 8
         spacer.style.flexGrow = 1.0
         spacer.style.flexShrink = 1.0
         
@@ -108,7 +108,7 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
     func updateContent(type: RedPacketError) {
         let color: UIColor = type == .normal ? .black : UIColor(hexString: "E84800")
         leadingTextNode.attributedText = NSAttributedString(string: "总金额", attributes: [
-            .font: UIFont.systemFont(ofSize: 17),
+            .font: UIFont.systemFont(ofSize: 19),
             .foregroundColor: color
         ])
         moneyField.textColor = color
@@ -129,6 +129,11 @@ extension MakeRedEnvelopeEnterMoneyNode: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let futureString = NSMutableString(string: textField.text ?? "")
+        if !futureString.isEqual(to: "") {
+            if futureString.contains(".") && string == "." {
+                return false
+            }
+        }
         futureString.insert(string, at: range.location)
         // 避免输入多个0，eg：000
         
@@ -139,19 +144,8 @@ extension MakeRedEnvelopeEnterMoneyNode: UITextFieldDelegate {
         }
             
         var flag = 0;
-        let limited = 2;//小数点后需要限制的个数
+        let limited = 3;//小数点后需要限制的个数
         if !futureString.isEqual(to: "") {
-            for i in stride(from: (futureString.length - 1), through: 0, by: -1) {
-                let char = Character(UnicodeScalar(futureString.character(at: i))!)
-                if char == "." {
-                    if flag > limited {
-                        return false
-                    }
-                    break
-                }
-                flag += 1
-            }
-            
             for i in stride(from: (futureString.length - 1), through: 0, by: -1) {
                 let char = Character(UnicodeScalar(futureString.character(at: i))!)
                 if char == "." {

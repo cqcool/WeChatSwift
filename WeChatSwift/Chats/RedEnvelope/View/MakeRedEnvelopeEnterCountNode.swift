@@ -44,7 +44,8 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
         randomArrowNode.forcedSize = CGSize(width: 10, height: 4)
         randomArrowNode.contentMode = .scaleAspectFit
         redPacketNode.image = UIImage(named: "live_red_packet_icon")
-        redPacketNode.style.preferredSize = CGSize(width: 20, height: 24)
+        redPacketNode.contentMode = .center
+        redPacketNode.forcedSize =  CGSize(width: 18, height: 22)
         leadingTextNode.attributedText = NSAttributedString(string: "红包个数", attributes: [
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: Colors.black

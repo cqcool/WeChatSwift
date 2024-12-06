@@ -176,7 +176,7 @@ extension ChatDataManager {
                         let personModel = GlobalManager.manager.personModel
                         resp.forEach { $0.ownerId = personModel?.userId}
                         let list1 = resp.filter { group in
-                            if group.newAckMsgNo == nil {
+                            if GroupEntity.queryGroup(groupNo: group.groupNo ?? "") != nil && group.newAckMsgNo == nil {
                                 return false
                             }
                             return true

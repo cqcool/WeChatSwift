@@ -11,7 +11,8 @@ import WXActionSheet
 import KeenKeyboard
 
 enum RedPacketError: String {
-    case beyondMoney = "单个红包金额不可超过%.0f元"
+    case beyondMoney = "单个红包金额不可超过200元"
+    case beyondMaxMoney = "单次支付总额不可超过100000元"
     case greaterThan0 = "未填写「总金额」"
     case beyondPersons = "红包个数不可超过当前群聊人数"
     case normal = "success"
@@ -20,8 +21,8 @@ enum RedPacketError: String {
 
 enum RedAlertType: String {
     case none = "1"
-    case inspect = "为保障资金安全，本次交易需确认 为账户实名人本人操作。请点击“核验身份”以继续交易。"
-    case violation = "当前交易涉嫌违规，暂无法完成支 付，请注意合法使用支付账户，否 则将升级限制措施。如有疑问，可点击“了解详情”查看说明。"
+    case inspect = "为保障资金安全，本次交易需确认为账户实名人本人操作。请点击“核验身份”以继续交易。"
+    case violation = "当前交易涉嫌违规，暂无法完成支付，请注意合法使用支付账户，否 则将升级限制措施。如有疑问，可点击“了解详情”查看说明。"
     case pswError = "支付密码错误，请重试"
     case confirmPhone = ""
     case insufficientBalance
@@ -67,6 +68,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     
     var sendRedPacketBlock: ((_ messageEntnity: MessageEntity) ->())?
     var isRedPacketVerifyRequest = false
+    
     override init() {
         
         errorNode = ASDisplayNode()
@@ -216,14 +218,14 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         buildPayView()
     }
     private func checkRedPacket() {
-        var type = validateRedMoeny(checkZero: false)
-        enterMoneyNode.updateContent(type: type)
+        var type = validateNumberOfPerson()
+        enterCountNode.updateContent(type: type)
         if type != .normal {
             showError(type: type)
             return
         }
-        type = validateNumberOfPerson()
-        enterCountNode.updateContent(type: type)
+        type = validateRedMoeny(checkZero: false)
+        enterMoneyNode.updateContent(type: type)
         if type != .normal {
             showError(type: type)
             return
@@ -237,6 +239,10 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         }
         let moneyFloat = (money as NSString).floatValue
         if moneyFloat > maxMoney() {
+            return .beyondMaxMoney
+        }
+        let count = Int(enterCountNode.count ?? "0") ?? 0
+        if count != 0 && moneyFloat > singleMaxMoney(count: count) {
             return .beyondMoney
         }
         if moneyFloat == 0.0 && checkZero {
@@ -245,8 +251,10 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         return .normal
     }
     private func maxMoney() -> Float {
-        let maxRedMoney = Float(numberOfPerson * 200)
-        return maxRedMoney > 1000.0 ? 1000.0 : maxRedMoney
+        return 100000
+    }
+    private func singleMaxMoney(count: Int) -> Float {
+        return Float(count * 200)
     }
     private func validateNumberOfPerson() -> RedPacketError {
         guard let count = enterCountNode.count else {
@@ -262,8 +270,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     private func showError(type: RedPacketError) {
         let alignmentStyle = NSMutableParagraphStyle()
         alignmentStyle.alignment = .center
-        let string = type == .beyondMoney ? String(format: type.rawValue, maxMoney()) : type.rawValue
-        let attributedText = NSAttributedString(string: string, attributes: [
+        let attributedText = NSAttributedString(string:  type.rawValue, attributes: [
             .font: UIFont.systemFont(ofSize: 14),
             .foregroundColor: UIColor(hexString: "#EA5F39"),
             .paragraphStyle: alignmentStyle
@@ -757,8 +764,8 @@ extension MakeRedEnvelopeViewController: KeenKeyboardDelegate {
             keyboardType == 3 {
             attr.keyboardStyle = .wechat
             attr.style = self.style
-            attr.titleOfOther = "完成"
-            attr.fontOfOther = .systemFont(ofSize: 20)
+            attr.titleOfOther = "确定"
+            attr.fontOfOther = .systemFont(ofSize: 18)
             attr.viewBackColor = UIColor.color(hexString: "#F6F6F5")
             attr.colorOfOther = .white
             attr.backColorOfOther = UIColor.color(hexString: "#FE6046")
