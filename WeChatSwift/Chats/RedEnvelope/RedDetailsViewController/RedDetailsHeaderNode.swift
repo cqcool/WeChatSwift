@@ -38,7 +38,7 @@ class RedDetailsHeaderNode: ASDisplayNode {
         addSubnode(typeIconNode)
         blessingNode.attributedText = "恭喜发财，大吉大利".addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.3))
         addSubnode(blessingNode)
-        setMoneyContent(str: "0.00 元")
+        setMoneyContent(str: "0.00元")
         addSubnode(moneyNode)
         toTipsNode.attributedText = "已存入零钱，可用于发红包".addAttributed(font: .systemFont(ofSize: 14), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR)
         addSubnode(toTipsNode)
@@ -64,11 +64,11 @@ class RedDetailsHeaderNode: ASDisplayNode {
         self.resp = resp
         let headUrl = GlobalManager.headImageUrl(name: resp.senderUserHead ?? "")
         avavarNode.url = headUrl
-        setMoneyContent(str: (resp.myselfReceiveAmount ?? "0.00") + " 元")
+        setMoneyContent(str: (resp.myselfReceiveAmount ?? "0.00") + "元")
         senderNameNode.attributedText = "\(resp.senderUserNickname ?? "")发出的红包".addAttributed(font: .systemFont(ofSize: 22, weight: .medium), textColor: .black)
     }
     private func setMoneyContent(str: String) {
-        moneyNode.attributedText = (str).unitTextAttribute(textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR, fontSize: 48, unitSize: 16, unit: "元", baseline: 0)
+        moneyNode.attributedText = (str).unitTextAttribute(textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR, font: Fonts.font(.superScriptRegular, fontSize: 50)!, unitFont: Fonts.font(.superScriptRegular, fontSize: 16)!, unit: "元", baseline: 0, kern: 6)
     }
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
