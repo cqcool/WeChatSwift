@@ -469,15 +469,15 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             make.edges.equalTo(closeImgView).offset(8)
         }
         
-        let payTitleLabel = WXCreate.label(text: "微信红包", textColor: .black, fontSize: 20)
+        let payTitleLabel = WXCreate.label(text: "微信红包", textColor: .black, fontSize: 18)
         payView?.addSubview(payTitleLabel)
         payTitleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(65)
+            make.top.equalToSuperview().offset(70)
             make.centerX.equalToSuperview()
         }
         moneyLabel = UILabel()
         payView?.addSubview(moneyLabel)
-        moneyLabel.attributedText = ("¥" + (redPackeyMoney ?? "0.00")).moneyUnitAttribute(textColor: .black, fontSize: 32, unitSize: 25)
+        moneyLabel.attributedText = ("¥" + (redPackeyMoney ?? "0.00")).moneyUnitAttribute(textColor: .black, fontSize: 26, unitSize: 14)
         moneyLabel.snp.makeConstraints { make in
             make.top.equalTo(payTitleLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
@@ -499,7 +499,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         let offsetX = 25.0
         let lineView = UIView()
         btmContentView.addSubview(lineView)
-        lineView.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
+        lineView.backgroundColor = UIColor(white: 0.5, alpha: 0.1)
         lineView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(offsetX)
             make.right.equalToSuperview().offset(-offsetX)
@@ -510,15 +510,15 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         let payWayLabel = WXCreate.label(text: "付款方式", textColor: UIColor(white: 0, alpha: 0.6), fontSize: 15)
         btmContentView.addSubview(payWayLabel)
         payWayLabel.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(25)
+            make.top.equalTo(lineView.snp.bottom).offset(15)
             make.left.equalTo(lineView.snp.left)
         }
         let arrowView = UIImageView()
         btmContentView.addSubview(arrowView)
-        arrowView.image = UIImage(named: "AlbumPackDown_30x7_")
+        arrowView.image = UIImage(named: "icon_down_arrow")
         arrowView.snp.makeConstraints { make in
             make.right.equalTo(lineView.snp.right)
-            make.size.equalTo(CGSize(width: 18, height: 9))
+            make.size.equalTo(CGSize(width: 8, height: 5))
             make.centerY.equalTo(payWayLabel.snp.centerY)
         }
         let changeLabel = WXCreate.label(text: "更改", textColor: UIColor(white: 0, alpha: 0.6), fontSize: 15)
@@ -544,6 +544,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         balanceView.snp.makeConstraints { make in
             make.left.equalTo(20)
             make.centerY.equalToSuperview()
+            make.size.equalTo(CGSizeMake(20, 20))
         }
         let balanceLabel = WXCreate.label(text: "零钱", textColor: UIColor(white: 0, alpha: 0.8), fontSize: 17)
         wayView.addSubview(balanceLabel)
@@ -556,6 +557,7 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         selectView.image = UIImage(named: "icon_selected")
         selectView.snp.makeConstraints { make in
             make.right.equalTo(-18)
+            make.size.equalTo(CGSize(width: 20, height: 14))
             make.centerY.equalToSuperview()
         }
         let rect = CGRect(x: 0, y: payViewHeight-23-44, width: CGFloat.screenWidth, height: 44)
@@ -661,7 +663,12 @@ extension MakeRedEnvelopeViewController {
             showError(type: type)
             return
         }
-        moneyLabel?.attributedText = ("¥" + redPackeyMoney!).moneyUnitAttribute(textColor: .black, fontSize: 25)
+//        moneyLabel.attributedText = ("¥ " + (redPackeyMoney ?? "0.00")).unitTextAttribute(textColor: .black, fontSize: 36, unitSize: 30, unit: "¥ ", baseline: 6)
+        moneyLabel.attributedText = NSAttributedString(string: ("¥" + (redPackeyMoney ?? "0.00")), attributes: [
+            .font: Fonts.font(.superScriptMedium, fontSize: 40)!,
+            .foregroundColor: UIColor(hexString: "#303030"),
+//            .paragraphStyle: paragraphStyle
+        ])
         let request = RedPacketVerifyRequest(amount: redPackeyMoney!, groupNo: session.groupNo!, num: enterCountNode.count!, type: "1")
         request.start(withNetworkingHUD: true, showFailureHUD: false) { request in
             self.keyboardType = 1

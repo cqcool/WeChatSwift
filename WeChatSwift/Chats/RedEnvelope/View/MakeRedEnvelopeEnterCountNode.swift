@@ -41,7 +41,8 @@ class MakeRedEnvelopeEnterCountNode: ASDisplayNode {
         ])
         randomTextNode.addTarget(self, action: #selector(changeRandomAction), forControlEvents: .touchUpInside)
         randomArrowNode.image = UIImage(named: "LuckyMoney_ChangeArrow")
-        
+        randomArrowNode.forcedSize = CGSize(width: 10, height: 4)
+        randomArrowNode.contentMode = .scaleAspectFit
         redPacketNode.image = UIImage(named: "live_red_packet_icon")
         redPacketNode.style.preferredSize = CGSize(width: 20, height: 24)
         leadingTextNode.attributedText = NSAttributedString(string: "红包个数", attributes: [

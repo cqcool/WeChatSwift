@@ -1,16 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "WeChatOutAccountIcon~iphone.png",
+      "filename" : "编组 11.png",
       "idiom" : "iphone",
       "scale" : "1x"
     },
     {
-      "filename" : "WeChatOutAccountIcon~iphone@2x.png",
+      "filename" : "编组 11@2x.png",
       "idiom" : "iphone",
       "scale" : "2x"
     },
     {
+      "filename" : "编组 11@3x.png",
       "idiom" : "iphone",
       "scale" : "3x"
     }

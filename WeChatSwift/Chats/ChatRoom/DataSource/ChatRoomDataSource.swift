@@ -58,7 +58,7 @@ final class ChatRoomDataSource {
         let _ = lock.wait(timeout: .distantFuture)
         formatTime()
         var messageList: [Message] = []
-        for messageEntity in msgList {
+        for messageEntity in msgList.reversed() {
             if messageEntity.type == 6 {
                 continue
             }

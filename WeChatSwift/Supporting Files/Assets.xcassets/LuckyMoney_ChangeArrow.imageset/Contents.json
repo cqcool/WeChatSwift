@@ -1,16 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "LuckyMoney_ChangeArrow~iphone.png",
+      "filename" : "路径 46.png",
       "idiom" : "iphone",
       "scale" : "1x"
     },
     {
-      "filename" : "LuckyMoney_ChangeArrow~iphone@2x.png",
+      "filename" : "路径 46@2x.png",
       "idiom" : "iphone",
       "scale" : "2x"
     },
     {
+      "filename" : "路径 46@3x.png",
       "idiom" : "iphone",
       "scale" : "3x"
     }

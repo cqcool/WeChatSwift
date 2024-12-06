@@ -27,7 +27,10 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
         automaticallyManagesSubnodes = true
         
         pinImageNode.image = UIImage(named: "pin")
-        
+        pinImageNode.contentMode = .scaleAspectFit
+        pinImageNode.forcedSize = CGSize(width: 30, height: 27)
+        pinImageNode.style.preferredSize = CGSize(width: 30, height: 27)
+        pinImageNode.cornerRadius = 2
         leadingTextNode.attributedText = NSAttributedString(string: "总金额", attributes: [
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: Colors.black

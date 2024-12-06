@@ -86,7 +86,7 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
         case toUserId
         case type
         case userId
-//        case ownerId
+        case ownerId
     }
 }
 
@@ -100,8 +100,8 @@ extension MessageEntity {
     
     static func queryMessag(groupNo: String) -> [MessageEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
-                                   where: (MessageEntity.Properties.groupNo == groupNo /*&&
-                                                                                        MessageEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)!*/))
+                                   where: (MessageEntity.Properties.groupNo == groupNo &&
+                                                                                        MessageEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)!))
     }
 }
 
