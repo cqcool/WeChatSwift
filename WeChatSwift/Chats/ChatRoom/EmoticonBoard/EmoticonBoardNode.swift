@@ -136,7 +136,7 @@ extension EmoticonBoardNode: UIScrollViewDelegate {
 extension EmoticonBoardNode: EmoticonBoardTabBarNodeDelegate {
     
     func emoticonBoardTabBarPressedAddButton() {
-        delegate?.emoticonBoardPressedAddButton()
+//        delegate?.emoticonBoardPressedAddButton()
     }
     
     func emoticonBoardTabBarPressedSendButton() {
@@ -144,14 +144,14 @@ extension EmoticonBoardNode: EmoticonBoardTabBarNodeDelegate {
     }
     
     func emoticonBoardTabBarPressedSettingButton() {
-        delegate?.emoticonBoardPressedSettingButton()
+//        delegate?.emoticonBoardPressedSettingButton()
     }
     
     func emoticonBoardTabBarDidSelected(at indexPath: IndexPath) {
-        let destIndex = IndexPath(row: 0, section: indexPath.row)
-        collectionNode.scrollToItem(at: destIndex, at: .left, animated: false)
-        let numberOfPages = dataSource[destIndex.section].numberOfPages()
-        pageControl.numberOfPages = numberOfPages
-        pageControl.currentPage = 0
+//        let destIndex = IndexPath(row: 0, section: indexPath.row)
+//        collectionNode.scrollToItem(at: destIndex, at: .left, animated: false)
+//        let numberOfPages = dataSource[destIndex.section].numberOfPages()
+//        pageControl.numberOfPages = numberOfPages
+//        pageControl.currentPage = 0
     }
 }

@@ -347,6 +347,8 @@ extension ChatRoomViewController {
             loadRemoteMessage(msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
             return
         }
+        print("groupNo1\(mssageList.first?.no)")
+        print("groupNo2\(mssageList.last?.no)")
         self.dataSource.appendMsgList(mssageList, scrollToLastMessage: true)
         loadRemoteMessage(msgNo: mssageList.last?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
     }
@@ -366,11 +368,9 @@ extension ChatRoomViewController {
          sort=0，获取历史数据，
          no = 最早的历史数据no
          */
-        if hasUnreadMsg {
+        if hasUnreadMsg || sort == "1" {
             // 有本地数据
-            if msgNo != nil {
-                request.lastAckMsgNo = msgNo
-            }
+            request.lastAckMsgNo = msgNo
         } else {
             request.no = msgNo
         }
@@ -386,7 +386,9 @@ extension ChatRoomViewController {
                     resp.reversed().forEach { msg in
                         msg.ownerId = userId
                         list.append(msg)
+                        print("groupNo\(msg.no)")
                     }
+                    print("lastext groupNo\(msgNo)")
                     MessageEntity.insertOrReplace(list: list)
                     // 本地没有最新获取的消息，仍需要进一步获取消息
                     if self?.dataSource.messages.first(where: { $0.entity?.no == list.last?.no }) == nil {
@@ -466,7 +468,20 @@ extension ChatRoomViewController {
     }
     private func getGroupInfo() {
         let request = GroupInfoRequest(groupNo: session.groupNo)
-        request.start(withNetworkingHUD: false, showFailureHUD: false) { request in
+        request.start(withNetworkingHUD: false, showFailureHUD: false) { [weak self] request in
+            do {
+                let resp = try JSONDecoder().decode(GroupEntity.self, from: request.wxResponseData())
+                if resp.status != self?.session.status {
+                    self?.session.status = resp.status
+                    self?.updateChatRoomView(status: ChatRoomStatus(rawValue: self?.session.status ?? 0) ?? .normal)
+                    if let tempGroup = self?.session {
+                        GroupEntity.insertOrReplace(list: [tempGroup])
+                    }
+                }
+            }  catch {
+                print("Error decoding JSON: \(error)")
+            }
+            
         } failure: { [weak self] request in
             self?.handleGroupError(request: request)
         }
@@ -791,7 +806,7 @@ extension ChatRoomViewController {
         
         let mjHeader = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
             if self?.hasHistory != nil {
-                self?.loadRemoteMessage(sort: "0", msgNo: self?.dataSource.messages.last?.entity?.no, lookUpHistory: true)
+                self?.loadRemoteMessage(sort: "0", msgNo: self?.dataSource.messages.first?.entity?.no, lookUpHistory: true)
                 return
             }
             self?.tableNode.view.mj_header?.endRefreshing()

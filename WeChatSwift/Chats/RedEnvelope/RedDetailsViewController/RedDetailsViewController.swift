@@ -56,9 +56,10 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
         topIconView.frame = CGRectMake(0, 0, Constants.screenWidth, 105 * WXDevice.heightScale())
         
         let headerView = UIView()
-        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 337)
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180)
         tableNode.view.tableHeaderView = headerView
         
+//        footerView = UIView(frame: CGRect(x: 0, y: 0, width: Constants.screenWidth, height: 50))
         footerView = UIView(frame: CGRect(x: 0, y: 0, width: Constants.screenWidth, height: 50))
         footerNode = WXCreate.label(text: "未领取的红包，将于24小时后发起退款", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
         footerNode.textAlignment = .center
@@ -83,7 +84,7 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
             do {
                 let resp = try JSONDecoder().decode(FullRedPacketGetEntity.self, from: request.wxResponseData())
                 self?.resp = resp
-                let height = resp.isMyselfReceive == 1 ? 337.0 : 130.0
+                let height = self?.headerViewHeight() ?? 0
                 self?.tableNode.view.tableHeaderView?.isHidden = false
                 let headerView = UIView()
                 headerView.frame = CGRect(x: 0, y: 0, width: self?.view.bounds.width ?? 0, height: height)
@@ -93,7 +94,19 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
                 }
                 self?.headerNode.frame = headerView.bounds
                 self?.tableNode.view.tableHeaderView = headerView
+                if let status = resp.status {
+                    if status == 1 {
+                        self?.footerNode.text = "未领取的红包，将于24小时后发起退款"
+                        self?.footerView.isHidden = false
+                    } else if status == 3 {
+                        self?.footerNode.text = "未领取的红包过期后会发起退款"
+                        self?.footerView.isHidden = false
+                    } else {
+                        self?.footerView.isHidden = true
+                    }
+                }
                 self?.headerNode.updateContent(resp: resp)
+                self?.updateFooterNode()
                 self?.datas = resp.detailList
                 self?.tableNode.reloadData()
             }  catch {
@@ -106,13 +119,16 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
     
     private func updateFooterNode() {
         let sectionHeight = 48.0
-        let headerHeight = 337.0
+        let headerHeight = headerViewHeight()
         
-        let offsetY = Constants.screenHeight - headerHeight - Constants.navigationHeight - 2*Constants.bottomInset - (1.0 * 72.0) - sectionHeight
+        let offsetY = Constants.screenHeight - headerHeight - Constants.navigationHeight - 2 * Constants.bottomInset - (1.0 * 72.0) - sectionHeight
         let y = offsetY-20 > 20  ? offsetY : 40
         
         footerView.frame = CGRect(x: 0, y: 0, width: Constants.screenWidth, height: y)
         footerNode?.frame = CGRect(x: 0, y: y-20, width: Constants.screenWidth, height: 20)
+    }
+    private func headerViewHeight() -> CGFloat {
+        self.resp?.isMyselfReceive == 1 ? 312.0 : 130.0
     }
 }
 
@@ -152,15 +168,16 @@ extension RedDetailsViewController: ASTableDelegate, ASTableDataSource {
                 sectionView.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
                 label = WXCreate.label(text: "已领取\(resp?.receiveNum ?? 0)/\(resp?.num ?? 0)个，共\(resp?.receiveAmount ?? "0")/\(resp?.amount ?? "0")元", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
             } else {
+                let prefixStr = (resp?.status == 3) ? "该红包已过期。" : ""
                 sectionView.backgroundColor = (resp?.isMyselfReceive == 1) ? Colors.DEFAULT_BACKGROUND_COLOR : .white
                 let seconds = (Int(resp?.completeTime ?? "0") ?? 0) / 1000
                 let time = formatTime(seconds1: seconds)
-                label = WXCreate.label(text: "\(resp?.num ?? 0)个红包共\(resp?.amount ?? "0")元，\(time)被抢光", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
+                label = WXCreate.label(text: "\(prefixStr)\(resp?.num ?? 0)个红包共\(resp?.amount ?? "0")元，\(time)被抢光", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
             }
             label.frame = CGRect(x: 16, y: 0, width: 300, height: 38)
             contentView.addSubview(label)
             let lineView = UIView(x: 18, y: 37.5, width: Constants.screenWidth - 18, height: 0.5)
-            lineView.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
+            lineView.backgroundColor = UIColor(white: 0.8, alpha: 0.4)
             contentView.addSubview(lineView)
         }
         
@@ -217,6 +234,11 @@ extension RedDetailsViewController {
         actionSheet.add(WXActionSheetItem(title: "红包记录", handler: { _ in
             self.navigationController?.pushViewController(ReceiveRedViewContrroler(), animated: true)
         }))
+        if resp?.senderUserId == GlobalManager.manager.personModel?.userId {
+            actionSheet.add(WXActionSheetItem(title: "帮助与反馈", handler: { _ in
+                self.navigationController?.pushViewController(ReceiveRedViewContrroler(), animated: true)
+            }))
+        }
         actionSheet.show()
     }
 }

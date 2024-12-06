@@ -91,9 +91,10 @@ class RedDetailsCellNode: ASCellNode {
         horizontal.children = [iconNode, vertical]
         horizontal.verticalAlignment = .center
         
-        lineNode.isHidden = isLastCell
-        lineNode.style.preferredSize = CGSize(width: Constants.screenWidth - 15, height: Constants.lineHeight)
-        lineNode.style.layoutPosition = CGPoint(x: 15, y: 72 - Constants.lineHeight)
+//        lineNode.isHidden = isLastCell
+        let offsetX: CGFloat = 18.0 + 44.0
+        lineNode.style.preferredSize = CGSize(width: Constants.screenWidth - offsetX, height: Constants.lineHeight)
+        lineNode.style.layoutPosition = CGPoint(x: offsetX, y: 72 - Constants.lineHeight)
         
         return ASAbsoluteLayoutSpec(children: [horizontal, lineNode])
     }

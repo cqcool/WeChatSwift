@@ -24,7 +24,7 @@ class EmoticonManager {
     func setup() {
         let expressionTabImage = UIImage.SVGImage(named: "icons_outlined_sticker")
         emoticons.append(EmoticonViewModel(type: .expression, tabImage: expressionTabImage, emoticons: Expression.all))
-        
+        return
         let favImage = UIImage.SVGImage(named: "icons_outlined_like")
         
         var favorites: [FavoriteEmoticon] = []

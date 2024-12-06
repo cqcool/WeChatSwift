@@ -26,6 +26,7 @@ class SmallChangeCellNode: ASCellNode {
 //            iconNode.url = model.wx_imageURL
 //        } else {
         iconNode.image = UIImage(named: "kinda_balance_entry_logo")
+
 //        }
         myChangeNode.attributedText = NSAttributedString(string: "我的零钱", attributes: [
             .font: UIFont.systemFont(ofSize: 17),
@@ -71,12 +72,15 @@ class SmallChangeCellNode: ASCellNode {
         verticalStack.verticalAlignment = .top
         verticalStack.horizontalAlignment = .middle
         verticalStack.style.preferredSize = CGSize(width: Constants.screenWidth, height: Constants.screenHeight - Constants.statusBarHeight-44 - Constants.bottomInset - 10)
-        iconNode.style.spacingBefore = 60
-        iconNode.style.preferredSize = CGSize(width: 82, height: 82)
+        iconNode.style.spacingBefore = 54
+        iconNode.forcedSize = CGSize(width: 64, height: 64)
+        iconNode.style.preferredSize = CGSize(width: 64, height: 64)
+        iconNode.contentMode = .center
+        iconNode.clipsToBounds = true
         verticalStack.children?.append(iconNode)
-        myChangeNode.style.spacingBefore = 40
+        myChangeNode.style.spacingBefore = 30
         verticalStack.children?.append(myChangeNode)
-        smallChangeNode.style.spacingBefore = 12
+        smallChangeNode.style.spacingBefore = -4
         
         
         verticalStack.children?.append(smallChangeNode)

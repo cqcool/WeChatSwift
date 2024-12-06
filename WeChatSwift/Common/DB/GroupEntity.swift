@@ -135,7 +135,7 @@ extension GroupEntity {
             .font: UIFont.systemFont(ofSize: 14),
             .foregroundColor: Colors.Red
         ]
-        let msg = (newAckMsgInfo ?? "").isEmpty ? "通知消息" : newAckMsgInfo!
+        let msg = (newAckMsgInfo ?? "").isEmpty ? "" : newAckMsgInfo!
         return NSAttributedString(string: "[\(msg)]", attributes: attributes)
     }
     

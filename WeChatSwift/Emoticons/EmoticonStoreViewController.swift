@@ -64,17 +64,17 @@ class EmoticonStoreViewController: ASDKViewController<ASDisplayNode> {
     
     private func updateSegmentSelected(_ newIndex: Int) {
         
-        if newIndex == selectedIndex { return }
-        selectedIndex = newIndex
-        
-        if selectedIndex == 0 {
-            removeController(moreEmoticonsVC)
-            addController(wechatEmoticonsVC)
-        } else {
-            removeController(wechatEmoticonsVC)
-            addController(moreEmoticonsVC)
-        }
-        view.bringSubviewToFront(wx_navigationBar)
+//        if newIndex == selectedIndex { return }
+//        selectedIndex = newIndex
+//        
+//        if selectedIndex == 0 {
+//            removeController(moreEmoticonsVC)
+//            addController(wechatEmoticonsVC)
+//        } else {
+//            removeController(wechatEmoticonsVC)
+//            addController(moreEmoticonsVC)
+//        }
+//        view.bringSubviewToFront(wx_navigationBar)
     }
     
     private func addController(_ controller: UIViewController) {

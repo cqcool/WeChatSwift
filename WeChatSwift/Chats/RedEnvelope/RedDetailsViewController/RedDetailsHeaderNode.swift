@@ -36,7 +36,7 @@ class RedDetailsHeaderNode: ASDisplayNode {
         addSubnode(senderNameNode)
         typeIconNode.image = UIImage(named: "Fighting_Icon")
         addSubnode(typeIconNode)
-        blessingNode.attributedText = "恭喜发财，大吉大利".addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.3))
+        blessingNode.attributedText = "恭喜发财，大吉大利".addAttributed(font: .systemFont(ofSize: 14), textColor: UIColor(white: 0, alpha: 0.3))
         addSubnode(blessingNode)
         setMoneyContent(str: "0.00元")
         addSubnode(moneyNode)
@@ -48,7 +48,7 @@ class RedDetailsHeaderNode: ASDisplayNode {
         emojiNode.forcedSize = CGSize(width: 18, height: 18)
         emojiNode.contentMode = .scaleAspectFit
         addSubnode(emojiNode)
-        emojiTipsNode.attributedText = "回复表情到聊天".addAttributed(font: .systemFont(ofSize: 15), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR)
+        emojiTipsNode.attributedText = "回复表情到聊天".addAttributed(font: .systemFont(ofSize: 14), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR)
         addSubnode(emojiTipsNode)
         
         backgroundNode.cornerRadius = 4
@@ -68,7 +68,7 @@ class RedDetailsHeaderNode: ASDisplayNode {
         senderNameNode.attributedText = "\(resp.senderUserNickname ?? "")发出的红包".addAttributed(font: .systemFont(ofSize: 22, weight: .medium), textColor: .black)
     }
     private func setMoneyContent(str: String) {
-        moneyNode.attributedText = (str).unitTextAttribute(textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR, font: Fonts.font(.superScriptRegular, fontSize: 50)!, unitFont: Fonts.font(.superScriptRegular, fontSize: 16)!, unit: "元", baseline: 0, kern: 6)
+        moneyNode.attributedText = (str).unitTextAttribute(textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR, font: Fonts.font(.superScriptBold, fontSize: 52)!, unitFont: Fonts.font(.superScriptRegular, fontSize: 16)!, unit: "元", baseline: 0, kern: 6)
     }
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
@@ -85,10 +85,10 @@ class RedDetailsHeaderNode: ASDisplayNode {
         
         blessingNode.style.spacingBefore = 12
         
-        moneyNode.style.spacingBefore = 20
+        moneyNode.style.spacingBefore = 18
         
         let horizontal3 = ASStackLayoutSpec.horizontal()
-        horizontal3.style.spacingBefore = 13
+        horizontal3.style.spacingBefore = 10
         horizontal3.style.preferredSize = CGSize(width: constrainedSize.max.width, height: 20)
         horizontal3.horizontalAlignment = .middle
         horizontal3.verticalAlignment = .center
@@ -96,13 +96,13 @@ class RedDetailsHeaderNode: ASDisplayNode {
         horizontal3.children = [toTipsNode, toIconNode]
         
         let horizontal2 = ASStackLayoutSpec.horizontal()
-        horizontal2.style.preferredSize = CGSize(width: 170, height: 49)
+        horizontal2.style.preferredSize = CGSize(width: 150, height: 44)
         horizontal2.horizontalAlignment = .middle
         horizontal2.verticalAlignment = .center
         horizontal2.spacing = 6
         horizontal2.children = [emojiNode, emojiTipsNode]
         let overlay = ASBackgroundLayoutSpec(child: horizontal2, background: backgroundNode)
-        overlay.style.spacingBefore = 35
+        overlay.style.spacingBefore = 30
         
         let layout = ASStackLayoutSpec.vertical()
         layout.horizontalAlignment = .middle
