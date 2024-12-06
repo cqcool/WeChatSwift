@@ -17,8 +17,8 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
     private let headerNode = RedDetailsHeaderNode()
     private var footerNode: UILabel!
     private var footerView: UIView!
-    private var resp: FullRedPacketGetEntity?
     private var datas: [RedPacketRecordModel]? = nil
+    private var resp: FullRedPacketGetEntity?
     var redPacket: RedPacketGetEntity?
     var redMsg: RedPacketMessage? = nil
     var groupNo: String? = nil
@@ -53,7 +53,7 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
         
         wx_navigationBar.backgroundColor = .clear
         topIconView.image = UIImage(named: "RedEnvelope_Bg_Hair")
-        topIconView.frame = CGRectMake(0, 0, Constants.screenWidth, 128)
+        topIconView.frame = CGRectMake(0, 0, Constants.screenWidth, 105 * WXDevice.heightScale())
         
         let headerView = UIView()
         headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 337)
@@ -68,7 +68,7 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
         tableNode.view.tableFooterView?.isHidden = true
         updateFooterNode()
         
-//        loadDetails()
+        loadDetails()
         
         headerNode.toTipsNode.isUserInteractionEnabled = true
         headerNode.toTipsNode.addTarget(self, action: #selector(recoradAction), forControlEvents: .touchUpInside)
@@ -152,7 +152,7 @@ extension RedDetailsViewController: ASTableDelegate, ASTableDataSource {
                 sectionView.backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
                 label = WXCreate.label(text: "已领取\(resp?.receiveNum ?? 0)/\(resp?.num ?? 0)个，共\(resp?.receiveAmount ?? "0")/\(resp?.amount ?? "0")元", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)
             } else {
-                sectionView.backgroundColor = .white
+                sectionView.backgroundColor = (resp?.isMyselfReceive == 1) ? Colors.DEFAULT_BACKGROUND_COLOR : .white
                 let seconds = (Int(resp?.completeTime ?? "0") ?? 0) / 1000
                 let time = formatTime(seconds1: seconds)
                 label = WXCreate.label(text: "\(resp?.num ?? 0)个红包共\(resp?.amount ?? "0")元，\(time)被抢光", textColor: Colors.DEFAULT_TEXT_GRAY_COLOR, fontSize: 14)

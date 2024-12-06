@@ -16,6 +16,12 @@
 + (CGFloat)screenWidth {
     return CGRectGetWidth(WXDevice.bounds);
 }
++ (CGFloat)widthScale {
+    return [UIScreen mainScreen].bounds.size.width/375.0;
+}
++ (CGFloat)heightScale {
+    return [UIScreen mainScreen].bounds.size.height/667.0;
+}
 + (CGFloat)screenHeight {
     return CGRectGetHeight(WXDevice.bounds);
 }

@@ -36,8 +36,8 @@ class RedDetailsCellNode: ASCellNode {
         let time = NSString.timeText(withTimestamp: model.receiveTime ?? 0, formatter: "HH:mm")
         timeNode.attributedText = time.addAttributed(font: .systemFont(ofSize: 15), textColor: Colors.DEFAULT_TEXT_GRAY_COLOR)
         
-        moneyNode.attributedText = "\(model.amount ?? "0.00")元".unitTextAttribute(fontSize: 17, unitSize: 17, unit: "元")
-        bestLabelNode.attributedText = "手气最佳".addAttributed(font: .systemFont(ofSize: 15), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR)
+        moneyNode.attributedText = "\(model.amount ?? "0.00")元".unitTextAttribute(textColor: .black, font:  Fonts.font(.superScriptRegular, fontSize: 17)!, unitFont: Fonts.font(.superScriptRegular, fontSize: 17)!, unit: "元", baseline: 0, kern: 0)
+        bestLabelNode.attributedText = "手气最佳".addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(hexString: "#EDA529"))
         besticonNode.image = UIImage(named: "LuckyMoney_WinnerIcon")
         besticonNode.style.preferredSize = CGSize(width: 16, height: 16)
         let isBest = (model.isBest ?? 0) == 0 ? true : false

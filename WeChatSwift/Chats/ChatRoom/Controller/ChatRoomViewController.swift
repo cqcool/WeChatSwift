@@ -569,7 +569,6 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
             let makeRedEnvelopeVC = MakeRedEnvelopeViewController()
             makeRedEnvelopeVC.session = session
             makeRedEnvelopeVC.sendRedPacketBlock = { [weak self] msg in
-                let flag = self?.isShowTime(time: msg.showTime ?? 0) ?? false
                 self?.dataSource.appendMsgList([msg], scrollToLastMessage: true)
             }
             let nav = UINavigationController(rootViewController: makeRedEnvelopeVC)

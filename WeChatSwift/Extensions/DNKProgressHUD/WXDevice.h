@@ -19,6 +19,10 @@ static inline CGFloat hScale(void) {
     return [UIScreen mainScreen].bounds.size.height/667.0;
 }
 @interface WXDevice : NSObject
+
++ (CGFloat)widthScale;
++ (CGFloat)heightScale;
+
 + (CGRect)bounds;
 /// 屏幕宽度
 + (CGFloat)screenWidth;

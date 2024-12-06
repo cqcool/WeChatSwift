@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E1E96642D030398008A9493 /* icons_outlined_arrow1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1E1E96632D030397008A9493 /* icons_outlined_arrow1.svg */; };
 		1E33691E2CCB2A4F005AF4A4 /* ChatDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33691D2CCB2A4F005AF4A4 /* ChatDataManager.swift */; };
 		1E3369202CCB2BB5005AF4A4 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33691F2CCB2BB5005AF4A4 /* DBManager.swift */; };
 		1E3369252CCB4735005AF4A4 /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3369242CCB4735005AF4A4 /* Convenience.swift */; };
@@ -531,6 +532,7 @@
 
 /* Begin PBXFileReference section */
 		04841C8B18BE984EE8C1B6BB /* Pods-WeChatSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChatSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeChatSwift/Pods-WeChatSwift.release.xcconfig"; sourceTree = "<group>"; };
+		1E1E96632D030397008A9493 /* icons_outlined_arrow1.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = icons_outlined_arrow1.svg; sourceTree = "<group>"; };
 		1E33691D2CCB2A4F005AF4A4 /* ChatDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDataManager.swift; sourceTree = "<group>"; };
 		1E33691F2CCB2BB5005AF4A4 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		1E3369242CCB4735005AF4A4 /* Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
@@ -2350,6 +2352,7 @@
 			isa = PBXGroup;
 			children = (
 				1E3369342CD06D98005AF4A4 /* ChatRoom_Bubble_Text_Receiver_White_57x40__3x.svg */,
+				1E1E96632D030397008A9493 /* icons_outlined_arrow1.svg */,
 				A37343E823129CC10064E510 /* ui-resources_checkbox_selected.svg */,
 				A37343E723129CC10064E510 /* ui-resources_checkbox_unselected.svg */,
 				A3542F50230D7E6B0034ED82 /* icons_outlined_share.svg */,
@@ -2755,6 +2758,7 @@
 				A3CA51E122CD9FC200C67D92 /* icons_outlined_shop.svg in Resources */,
 				A34B7D452327774F006BA84E /* Localizable.strings in Resources */,
 				A31057E222E8532E00856D71 /* dice_2.pic in Resources */,
+				1E1E96642D030398008A9493 /* icons_outlined_arrow1.svg in Resources */,
 				A31057E422E8532E00856D71 /* dice.pic in Resources */,
 				A3CA520222CDAFD100C67D92 /* icon_filled_timelineophl.svg in Resources */,
 				A3FB0AAE22F40A1B00116329 /* icons_outlined_wallet.svg in Resources */,
