@@ -70,7 +70,7 @@ extension MessageEntity {
         msg.entity = self
         msg.senderID = userId ?? ""
         msg.content = messageContent()
-        msg.time = createTime ?? 0
+        msg.time = showTime ?? (createTime ?? 0)
         return msg
     }
     private func messageContent() -> MessageContent {

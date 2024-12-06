@@ -347,7 +347,7 @@ extension ChatRoomViewController {
             loadRemoteMessage(msgNo: nil, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
             return
         }
-        self.dataSource.appendMsgList(mssageList, scrollToLastMessage: true, showMsgTime: true)
+        self.dataSource.appendMsgList(mssageList, scrollToLastMessage: true)
         loadRemoteMessage(msgNo: mssageList.last?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
     }
     /*
@@ -355,8 +355,7 @@ extension ChatRoomViewController {
      hasUnreadMsg: 有未读消息，需要通知服务器更新消息状态
      oldNo：本地最新消息no，socket收到消息是，latestNo与本地最新消息no对比，不一致时，表示遗漏了数据
      */
-    private func loadRemoteMessage(sort: String = "1", msgNo: String?, hasUnreadMsg: Bool = false, lookUpHistory: Bool, showMsgTime: Bool = true, untilOldNo oldNo: String? = nil) {
-        //        let isLoadLatest = sort == "1" ? true : false
+    private func loadRemoteMessage(sort: String = "1", msgNo: String?, hasUnreadMsg: Bool = false, lookUpHistory: Bool, untilOldNo oldNo: String? = nil) {
         let request = MessageRequest(groupNo: session.groupNo!)
         request.sort = sort
         /*
@@ -382,21 +381,24 @@ extension ChatRoomViewController {
                 
                 let resp = try JSONDecoder().decode([MessageEntity].self, from: request.wxResponseData())
                 if resp.count > 0 {
-                    let personModel = GlobalManager.manager.personModel
-                    resp.forEach { $0.ownerId = personModel?.userId }
-                    MessageEntity.insertOrReplace(list: resp)
-                    // 本地没有最新获取的消息，仍需要进一步获取消息
-                    if self?.dataSource.messages.first(where: { $0.entity?.no == resp.first?.no }) == nil {
-                        self?.loadRemoteMessage(sort: "0", msgNo: resp.first?.no, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
+                    var list: [MessageEntity] = []
+                    let userId = GlobalManager.manager.personModel?.userId ?? ""
+                    resp.reversed().forEach { msg in
+                        msg.ownerId = userId
+                        list.append(msg)
                     }
-                    let flag = self?.isShowTime(time: resp.last?.createTime ?? 0) ?? false
+                    MessageEntity.insertOrReplace(list: list)
+                    // 本地没有最新获取的消息，仍需要进一步获取消息
+                    if self?.dataSource.messages.first(where: { $0.entity?.no == list.last?.no }) == nil {
+                        self?.loadRemoteMessage(sort: "0", msgNo: list.last?.no, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
+                    }
                     if oldNo != nil {
-                        self?.dataSource.appendMsgList(resp, scrollToLastMessage:true, lookUpHistory:lookUpHistory, showMsgTime: flag)
+                        self?.dataSource.appendMsgList(list, scrollToLastMessage:true, lookUpHistory:lookUpHistory)
                     } else {
-                        self?.dataSource.appendMsgList(resp, scrollToLastMessage:sort == "1", lookUpHistory:lookUpHistory, showMsgTime: flag)
+                        self?.dataSource.appendMsgList(list, scrollToLastMessage:sort == "1", lookUpHistory:lookUpHistory)
                     }
                     if hasUnreadMsg {
-                        self?.readMessage(no: resp.last?.no ?? "")
+                        self?.readMessage(no: list.last?.no ?? "")
                     }
                 } else {
                     if sort == "0" {
@@ -424,9 +426,9 @@ extension ChatRoomViewController {
     
     private func updateNewAckMessage(entity: MessageEntity? = nil) {
         if let msgEntity = entity {
-            if (self.session.newAckMsgDate ?? 0) < (msgEntity.createTime ?? 0) {
+            if (self.session.newAckMsgDate ?? 0) < (msgEntity.showTime ?? 0) {
                 self.session.userMsgType = 1
-                self.session.newAckMsgDate = msgEntity.createTime
+                self.session.newAckMsgDate = msgEntity.showTime
                 self.session.newAckMsgInfo = msgEntity.content
                 self.session.newAckMsgNo = msgEntity.no
                 self.session.newAckMsgType = msgEntity.type
@@ -525,8 +527,8 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
         let msg = dataSource.messages.last
         let messagaEntity = MessageEntity.buildMessage(content: text, groupNo: session.groupNo!, groupType: session.groupType!, lastNo: msg?.entity?.no)
         Socket.shared.sendData(message: messagaEntity)
-        let flag = self.isShowTime(time: messagaEntity.createTime ?? 0)
-        dataSource.appendMsgList([messagaEntity], scrollToLastMessage: true, showMsgTime: flag)
+        let flag = self.isShowTime(time: messagaEntity.showTime ?? 0)
+        dataSource.appendMsgList([messagaEntity], scrollToLastMessage: true)
         
         //        let message = Message()
         //        message.chatID = session.groupNo!
@@ -567,8 +569,8 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
             let makeRedEnvelopeVC = MakeRedEnvelopeViewController()
             makeRedEnvelopeVC.session = session
             makeRedEnvelopeVC.sendRedPacketBlock = { [weak self] msg in
-                let flag = self?.isShowTime(time: msg.createTime ?? 0) ?? false
-                self?.dataSource.appendMsgList([msg], scrollToLastMessage: true, showMsgTime: flag)
+                let flag = self?.isShowTime(time: msg.showTime ?? 0) ?? false
+                self?.dataSource.appendMsgList([msg], scrollToLastMessage: true)
             }
             let nav = UINavigationController(rootViewController: makeRedEnvelopeVC)
             nav.modalPresentationStyle = .fullScreen
@@ -845,14 +847,14 @@ extension ChatRoomViewController: SocketDelegate {
                 let personModel = GlobalManager.manager.personModel
                 entity.ownerId = personModel?.userId
                 MessageEntity.insertOrReplace(list: [entity])
-                dataSource.appendMsgList([entity], scrollToLastMessage: true, showMsgTime: false)
+                dataSource.appendMsgList([entity], scrollToLastMessage: true)
             }
             loadRemoteMessage(sort: "0", msgNo: lastNo, hasUnreadMsg: false, lookUpHistory: true, untilOldNo:oldNo)
         } else {
             let personModel = GlobalManager.manager.personModel
             entity.ownerId = personModel?.userId
             MessageEntity.insertOrReplace(list: [entity])
-            dataSource.appendMsgList([entity], scrollToLastMessage: true, showMsgTime: false)
+            dataSource.appendMsgList([entity], scrollToLastMessage: true)
         }
     }
     

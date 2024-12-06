@@ -71,7 +71,7 @@ class NewsViewController: UIViewController {
     /*
      hasUnreadMsg: 有未读消息，需要通知服务器更新消息状态
      */
-    private func loadRemoteMessage(sort: String = "1", msgNo: String?, hasUnreadMsg: Bool = false, lookUpHistory: Bool, showMsgTime: Bool = true) {
+    private func loadRemoteMessage(sort: String = "1", msgNo: String?, hasUnreadMsg: Bool = false, lookUpHistory: Bool) {
         //        let isLoadLatest = sort == "1" ? true : false
         let request = MessageRequest(groupNo: session.groupNo!)
         request.groupNo = session.groupNo!

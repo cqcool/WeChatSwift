@@ -59,7 +59,7 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
         
         nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
             BindColumnConstraint(no, isPrimary: true, isNotNull: false)
-            BindColumnConstraint(createTime, isPrimary: false, orderBy: .ascending)
+            BindColumnConstraint(createTime, isPrimary: false, orderBy: .descending)
         }
         
         typealias Root = MessageEntity
@@ -126,7 +126,8 @@ extension MessageEntity: SocketData {
         message.userId = personModel?.userId
         message.head = personModel?.head
         message.nickname = personModel?.nickname
-        message.createTime = TimeInterval(truncating: NSString.currentTimeStamp())
+        message.createTime = TimeInterval(NSString.currentTimeStamp().doubleValue)
+        message.showTime = message.createTime
         return message
     }
     

@@ -89,7 +89,7 @@ class NewsCellNode: UICollectionViewCell {
     }
     func cellForModel(model: MessageEntity) {
         links = []
-        timeNode.text = NSString.timeText(withTimestamp: Int(model.createTime ?? 0), formatter: "HH:mm")
+        timeNode.text = NSString.timeText(withTimestamp: Int(model.showTime ?? 0), formatter: "HH:mm")
         if let list = try? JSON(data: (model.linkContent! as NSString).mj_JSONData()).arrayValue {
             if let news = list.first {
                 links.append(news["link"].stringValue)
