@@ -293,7 +293,8 @@ extension ChatRoomKeyboardNode: EmoticonBoardNodeDelegate {
         switch viewModel.type {
         case .expression:
             if let expression = emoticon as? Expression {
-                toolBar.appendText(expression.text)
+//                toolBar.appendText(expression.text)
+                toolBar.appendText(expression.code)
                 emoticonBoardNode.inputBarTextDidUpdated(text: toolBar.text)
             }
         case .sticker:

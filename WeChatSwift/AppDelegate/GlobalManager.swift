@@ -180,6 +180,10 @@ extension GlobalManager {
         return URL(string: headPrefix + fileName)
     }
     static func chatImageUrl(name: String?) -> URL? {
+//        if name?.hasPrefix("http://") ?? false ||
+//            name?.hasPrefix("https://") ?? false {
+//            return URL(string: name!)
+//        }
         guard let chatPrefix = self.manager.chatPrefix else {
             return nil
         }
@@ -203,11 +207,19 @@ extension GlobalManager {
                                 NotificationCenter.default.post(name: ConstantKey.NSNotificationConfigUpdate, object: nil)
                                 self.headPrefix = headPrefix
                                 WXUserDefault.updateHeadPrefix(str: headPrefix)
+                                continue
                             }
-                            
+                            let chatPrefix = valuesDic["chat"] as? String
+                            if self.chatPrefix != chatPrefix {
+                                NotificationCenter.default.post(name: ConstantKey.NSNotificationConfigUpdate, object: nil)
+                                self.chatPrefix = chatPrefix
+                                WXUserDefault.updateChatPrefix(str: chatPrefix)
+                                continue
+                            }
                         }
                         continue
                     }
+                    
                     if let attribute = config["attribute"].string,
                        attribute == "change_rate",
                        let values = config["values"].string {

@@ -20,6 +20,11 @@ class MeHeaderNode: ASButtonNode {
     
     private let arrowNode = ASImageNode()
     
+    private let statusBgNode = ASDisplayNode()
+    private let statusIconNode = ASImageNode()
+    private let statusTextNode = ASTextNode()
+    private let statusRefreshNode = ASImageNode()
+    
     override init() {
         super.init()
         
@@ -30,6 +35,11 @@ class MeHeaderNode: ASButtonNode {
         qrCodeNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(Colors.DEFAULT_TEXT_GRAY_COLOR)
         arrowNode.image = UIImage.SVGImage(named: "icons_outlined_arrow")
         
+        statusIconNode.image = UIImage(named: "icon_me_status_add")
+
+        
+        statusTextNode.attributedText = "状态".addAttributed(font: UIFont.systemFont(ofSize: 13), textColor: UIColor(white: 0, alpha: 0.5))
+        statusRefreshNode.image = UIImage(named: "icon_me_status_refresh")
     }
     func reloadContent() {
         if let person = GlobalManager.manager.personModel {
@@ -60,6 +70,34 @@ class MeHeaderNode: ASButtonNode {
         arrowNode.style.preferredSize = CGSize(width: 12, height: 24)
         arrowNode.style.spacingAfter = 16
         
+        statusBgNode.cornerRadius = 12
+        statusBgNode.borderColor = UIColor(white: 0.7, alpha: 1).cgColor
+        statusBgNode.borderWidth = 0.5
+        
+        statusIconNode.forcedSize = CGSize(width: 11, height: 11)
+        statusIconNode.contentMode = . center
+        statusIconNode.style.spacingBefore = 6.0
+        statusTextNode.style.spacingBefore = 2.0
+        let statusHorizatal = ASStackLayoutSpec.horizontal()
+        statusHorizatal.style.preferredSize = CGSize(width: 63, height: 24)
+        statusHorizatal.verticalAlignment = .center
+        statusHorizatal.children = [statusIconNode, statusTextNode]
+        
+        let statusBgSpce = ASBackgroundLayoutSpec(child: statusHorizatal, background: statusBgNode)
+        statusBgSpce.style.spacingBefore = 64.0 + 16.0 + 20.0
+        
+        statusRefreshNode.forcedSize = CGSize(width: 24, height: 24)
+        statusRefreshNode.contentMode = . center
+        let refreshHorizatal = ASStackLayoutSpec.horizontal()
+//        refreshHorizatal.style.spacingBefore = 4
+        refreshHorizatal.style.preferredSize = CGSize(width: 24, height: 24)
+        refreshHorizatal.verticalAlignment = .center
+        refreshHorizatal.children = [statusRefreshNode]
+        
+        let statusTotalHorizal = ASStackLayoutSpec.horizontal()
+        statusTotalHorizal.children = [statusBgSpce, refreshHorizatal]
+         
+        
         let descStack = ASStackLayoutSpec.horizontal()
         descStack.alignItems = .center
         descStack.style.flexGrow = 1.0
@@ -74,11 +112,15 @@ class MeHeaderNode: ASButtonNode {
         horizontalStack.spacing = 20
         horizontalStack.children = [avatarNode, infoStack]
         
+        let totalVStack = ASStackLayoutSpec.vertical()
+//        totalVStack.style.flexGrow = 1.0
+        totalVStack.children = [horizontalStack, statusTotalHorizal]
+        
         let spacer = ASLayoutSpec()
         spacer.style.flexGrow = 1.0
         
         let layout = ASStackLayoutSpec.vertical()
-        layout.children = [horizontalStack, spacer]
+        layout.children = [totalVStack, spacer ]
         
         return layout
     }

@@ -82,6 +82,7 @@ class NewDetailsViewController: UIViewController {
             self.webView.load(request)
         }
     }
+ 
     @objc func cancelAction() {
         popupView?.dismissPopupView(completion: { _ in
             
@@ -93,7 +94,7 @@ class NewDetailsViewController: UIViewController {
 //        }
         popupView = JFPopupView.popup.custom(with: JFPopupConfig.bottomSheet) { [self] mainContainer in
             let card = UIView()
-            card.backgroundColor =  UIColor(hexString: "F6F6F6")
+            card.backgroundColor =  UIColor(hexString: "E6E6E6")
             card.frame = CGRectMake(0, 0, Constants.screenWidth, Constants.bottomInset + 320)
             self.roundCorners(card: card, corners: [.topLeft, .topRight], radius: 12)
             
@@ -103,19 +104,20 @@ class NewDetailsViewController: UIViewController {
                 make.top.equalToSuperview().offset(20)
                 make.centerX.equalToSuperview()
             }
-            let title1 = ["转发给朋友", "分享到朋友\n圈", "收藏", "在浏览器打\n开"]
+            let title1 = ["转发给朋友", "分享到朋友圈", "收藏", "在默认浏览器\n中打开"]
             let icon1 = ["zhuan_fa", "friends_circle", "favorite", "safari"]
             var i = 0
             var tempView: UIView? = nil
+            let leftOffset = 12
             while i < title1.count {
                 let btn = self.makeNewsButton(icon: icon1[i], title: title1[i])
                 card.addSubview(btn)
                 btn.snp.makeConstraints { make in
                     make.top.equalTo(titleLabele.snp.bottom).offset(30)
                     if tempView == nil {
-                        make.left.equalToSuperview().offset(15)
+                        make.left.equalToSuperview().offset(leftOffset)
                     } else {
-                        make.left.equalTo(tempView!.snp.right).offset(15)
+                        make.left.equalTo(tempView!.snp.right).offset(leftOffset)
                     }
 //                    make.height.equalTo(102.0+8+16)
                 }
@@ -127,7 +129,7 @@ class NewDetailsViewController: UIViewController {
             let scrollView = UIScrollView()
             card.addSubview(scrollView)
             scrollView.snp.makeConstraints { make in
-                make.top.equalTo(tempView!.snp.bottom).offset(25)
+                make.top.equalTo(tempView!.snp.bottom).offset(15)
                 make.left.right.equalToSuperview()
             }
             let contentView = UIView()
@@ -137,8 +139,8 @@ class NewDetailsViewController: UIViewController {
                 make.edges.equalToSuperview()
                 make.height.equalToSuperview()
             }
-            let title2 = ["保存为图片", "投诉", "复制链接", "刷新", "全文翻译", "查找页面内容", "调整字体"]
-            let icon2 = ["icon_download", "icon_warm", "icon_link", "icon_refresh", "icon_fanyi", "icon_lookup", "icon_font"]
+            let title2 = ["浮窗", "保存为图片", "投诉", "复制链接", "刷新", "全文翻译", "查找页面内容", "调整字体"]
+            let icon2 = ["icon_download", "icon_download", "icon_warm", "icon_link", "icon_refresh", "icon_fanyi", "icon_lookup", "icon_font"]
             i = 0
             tempView = nil
             while i < title2.count {
@@ -147,12 +149,12 @@ class NewDetailsViewController: UIViewController {
                 btn.snp.makeConstraints { make in
                     make.top.bottom.equalToSuperview()
                     if tempView == nil {
-                        make.left.equalToSuperview().offset(15)
+                        make.left.equalToSuperview().offset(leftOffset)
                     } else {
-                        make.left.equalTo(tempView!.snp.right).offset(15)
+                        make.left.equalTo(tempView!.snp.right).offset(leftOffset)
                     }
                     if i == title2.count - 1 {
-                        make.right.equalToSuperview().offset(-15)
+                        make.right.equalToSuperview().offset(-leftOffset)
                     }
                 }
                 tempView = btn
@@ -161,14 +163,15 @@ class NewDetailsViewController: UIViewController {
             
             let lineView = UIView()
             card.addSubview(lineView)
-            lineView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+            lineView.backgroundColor = UIColor(white: 0, alpha: 0.1)
             lineView.snp.makeConstraints { make in
                 make.top.equalTo(scrollView.snp.bottom).offset(15)
                 make.left.right.equalToSuperview()
                 make.height.equalTo(0.3)
             }
-            let cancelBtn = WXCreate.button(normalTitle: "取消", normalColor: Colors.Blue_TEXT, fontSize: 16)
+            let cancelBtn = WXCreate.button(normalTitle: "取消", normalColor: Colors.Blue_TEXT, fontSize: 15)
             card.addSubview(cancelBtn)
+            cancelBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
             cancelBtn.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
             cancelBtn.snp.makeConstraints { make in
                 make.top.equalTo(lineView.snp.bottom)
@@ -189,17 +192,21 @@ class NewDetailsViewController: UIViewController {
         let itemView = UIView()
         let imageView = WXCreate.imageView(normalName: icon)
         itemView.addSubview(imageView)
+        imageView.layer.cornerRadius = 8
+        imageView.layer.masksToBounds = true
         imageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.size.equalTo(CGSizeMake(60, 60))
-            make.left.greaterThanOrEqualTo(1)
-            make.right.greaterThanOrEqualTo(-1)
+            make.size.equalTo(CGSizeMake(56, 56))
+            make.left.equalTo(3)
+            make.right.equalTo(-3)
+//            make.left.greaterThanOrEqualTo(1)
+//            make.right.greaterThanOrEqualTo(-1)
 //            make.left.right.greaterThanOrEqualTo(0)
         }
-        let titleLabel = WXCreate.label(text: title, textColor: UIColor(white: 0, alpha: 0.4), fontSize: 10)
+        let titleLabel = WXCreate.label(text: title, textColor: UIColor(white: 0, alpha: 0.5), fontSize: 10)
         itemView.addSubview(titleLabel)
-        titleLabel.numberOfLines = 1
+        titleLabel.numberOfLines = 2
         titleLabel.textAlignment = .center
         titleLabel.snp.makeConstraints { make in
             make.left.bottom.right.equalToSuperview()

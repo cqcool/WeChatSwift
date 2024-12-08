@@ -151,10 +151,15 @@ final class ChatRoomToolBarNode: ASDisplayNode {
     
     func appendText(_ text: String) {
         let attributedText = NSMutableAttributedString(attributedString: textNode.attributedText ?? NSAttributedString())
-        attributedText.append(NSAttributedString(string: text, attributes: [
+        let newMessage = NSAttributedString(string: text, attributes: [
             .font: UIFont.systemFont(ofSize: 15),
             .foregroundColor: Colors.DEFAULT_TEXT_COLOR
-        ]))
+        ])
+        if let inputMessage = ExpressionParser.shared?.attributedText(with: newMessage) {
+            attributedText.append(inputMessage)
+        }
+        
+//        attributedText.append(inputMessage)
         textNode.attributedText = attributedText
     }
     

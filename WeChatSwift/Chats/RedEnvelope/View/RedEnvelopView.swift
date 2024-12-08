@@ -15,7 +15,7 @@ class RedEnvelopView: UIViewController {
     lazy var redWidth = UIScreen.main.bounds.width - 32*2
     
     var callBackClosure: (() -> ())? = nil
-    var detailsClosure: ((_ entity: RedPacketGetEntity?) -> ())? = nil
+    var detailsClosure: ((_ entity: FullRedPacketGetEntity?) -> ())? = nil
     var updateDBClosure: ((_ isFlag: Bool) -> ())? = nil
     var openImageView = UIImageView()
     var redMsg: RedPacketMessage? = nil
@@ -208,7 +208,7 @@ class RedEnvelopView: UIViewController {
         openButton.isHidden = true
         openImageView.isHidden = false
         requestRedPacketGetRequest(isGet: "1") {data, error in
-            guard let resp = data else {
+            guard let (resp, fullResp) = data else {
                 self.openImageView.stopAnimating()
                 self.openButton.isHidden = false
                 self.openImageView.isHidden = true
@@ -226,7 +226,7 @@ class RedEnvelopView: UIViewController {
                 self.updateRedContent(model: resp, msg: nil)
                 return
             }
-            self.detailsClosure?(resp)
+            self.detailsClosure?(fullResp)
             self.closeViewAction()
         }
 //        let request = RedPacketGetRequest(groupNo: redMsg.groupNo ?? "", isGet: "1", orderNumber: redMsg.orderNumber ?? "")
@@ -256,12 +256,14 @@ class RedEnvelopView: UIViewController {
 //            self.openImageView.isHidden = true
 //        }
     }
-    func requestRedPacketGetRequest(isGet: String, completed: @escaping (RedPacketGetEntity?, Error?) -> Void) {
+    func requestRedPacketGetRequest(isGet: String, completed: @escaping ((RedPacketGetEntity, FullRedPacketGetEntity)?, Error?) -> Void) {
         let request = RedPacketGetRequest(groupNo: redMsg?.groupNo ?? "", isGet: isGet, orderNumber: redMsg?.orderNumber ?? "")
         request.start(withNetworkingHUD: false, showFailureHUD: true) { request in
             do {
                 let resp = try JSONDecoder().decode(RedPacketGetEntity.self, from: request.wxResponseData())
-                completed(resp, nil)
+                let fullResp = try JSONDecoder().decode(FullRedPacketGetEntity.self, from: request.wxResponseData())
+                
+                completed((resp, fullResp), nil)
             }  catch {
                 completed(nil, error)
                 print("Error decoding JSON: \(error)")

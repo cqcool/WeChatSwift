@@ -18,7 +18,7 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
     private var footerNode: UILabel!
     private var footerView: UIView!
     private var datas: [RedPacketRecordModel]? = nil
-    private var resp: FullRedPacketGetEntity?
+    var resp: FullRedPacketGetEntity?
     var redPacket: RedPacketGetEntity?
     var redMsg: RedPacketMessage? = nil
     var groupNo: String? = nil
@@ -79,43 +79,43 @@ class RedDetailsViewController: ASDKViewController<ASDisplayNode>  {
     }
     
     private func loadDetails() {
-        let request = RedPacketGetRequest(groupNo: redPacket?.groupNo ?? (groupNo ?? ""), isGet: "1", orderNumber: redPacket?.orderNumber ?? (orderNumber ?? ""))
-        request.start(withNetworkingHUD: true, showFailureHUD: true) { [weak self] request in
-            do {
-                let resp = try JSONDecoder().decode(FullRedPacketGetEntity.self, from: request.wxResponseData())
-                self?.resp = resp
-                let height = self?.headerViewHeight() ?? 0
-                self?.tableNode.view.tableHeaderView?.isHidden = false
+//        let request = RedPacketGetRequest(groupNo: redPacket?.groupNo ?? (groupNo ?? ""), isGet: "1", orderNumber: redPacket?.orderNumber ?? (orderNumber ?? ""))
+//        request.start(withNetworkingHUD: true, showFailureHUD: true) { [weak self] request in
+//            do {
+//                let resp = try JSONDecoder().decode(FullRedPacketGetEntity.self, from: request.wxResponseData())
+//                self?.resp = resp
+                let height = self.headerViewHeight()
+                self.tableNode.view.tableHeaderView?.isHidden = false
                 let headerView = UIView()
-                headerView.frame = CGRect(x: 0, y: 0, width: self?.view.bounds.width ?? 0, height: height)
-                if self != nil {
-                    
-                    headerView.addSubnode(self!.headerNode)
-                }
-                self?.headerNode.frame = headerView.bounds
-                self?.tableNode.view.tableHeaderView = headerView
-                if let status = resp.status {
+                headerView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: height)
+//                if self != nil {
+//                    
+                    headerView.addSubnode(self.headerNode)
+//                }
+                self.headerNode.frame = headerView.bounds
+                self.tableNode.view.tableHeaderView = headerView
+        if let status = self.resp?.status {
                     if status == 1 {
-                        self?.footerNode.text = "未领取的红包，将于24小时后发起退款"
-                        self?.footerView.isHidden = false
+                        self.footerNode.text = "未领取的红包，将于24小时后发起退款"
+                        self.footerView.isHidden = false
                     } else if status == 3 {
-                        self?.footerNode.text = "未领取的红包过期后会发起退款"
-                        self?.footerView.isHidden = false
+                        self.footerNode.text = "未领取的红包过期后会发起退款"
+                        self.footerView.isHidden = false
                     } else {
-                        self?.footerView.isHidden = true
+                        self.footerView.isHidden = true
                     }
                 }
-                self?.headerNode.updateContent(resp: resp)
-                self?.updateFooterNode()
-                self?.datas = resp.detailList
-                self?.tableNode.reloadData()
-            }  catch {
-                print("Error decoding JSON: \(error)")
-            }
-        } failure: { request in
-            
-        }
-    }
+        self.headerNode.updateContent(resp: self.resp!)
+                self.updateFooterNode()
+        self.datas = self.resp!.detailList
+                self.tableNode.reloadData()
+//            }  catch {
+//                print("Error decoding JSON: \(error)")
+//            }
+//        } failure: { request in
+//            
+//        }
+    } 
     
     private func updateFooterNode() {
         let sectionHeight = 48.0

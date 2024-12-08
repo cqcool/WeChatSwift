@@ -19,7 +19,9 @@ class AboutFooterNode: ASDisplayNode {
     
     private let customerNode = ASTextNode()
     private let ipcNode = ASTextNode()
+    private let ipcImageNode = ASImageNode()
     private let algorithmNode = ASTextNode()
+    private let algorithmImageNode = ASImageNode()
     private let copyRightNode = ASTextNode()
     
     override init() {
@@ -37,9 +39,9 @@ class AboutFooterNode: ASDisplayNode {
         ])
         agreementButton.setAttributedTitle(agreementText, for: .normal)
         
-        andTextNode.attributedText = NSAttributedString(string: " ｜ ", attributes: [
+        andTextNode.attributedText = NSAttributedString(string: "  ｜  ", attributes: [
             .font: UIFont.systemFont(ofSize: 12),
-            .foregroundColor: Colors.DEFAULT_TEXT_GRAY_COLOR
+            .foregroundColor: UIColor(white: 0, alpha: 0.1)
         ])
         
         let privacyText = NSAttributedString(string: "《隐私保护指引》", attributes: [
@@ -57,13 +59,15 @@ class AboutFooterNode: ASDisplayNode {
             .paragraphStyle: paragraphStyle
         ])
         
-        ipcNode.attributedText = NSAttributedString(string: "ICP备案号：粤 B2-20090059-1621A 〉", attributes: [
+        ipcImageNode.image = UIImage(named: "icon_right_arrow")
+        ipcNode.attributedText = NSAttributedString(string: "ICP备案信息：粤 B2-20090059-1621A", attributes: [
             .font: UIFont.systemFont(ofSize: 12),
             .foregroundColor: UIColor(white: 0, alpha: 0.3),
             .paragraphStyle: paragraphStyle
         ])
+        algorithmImageNode.image = UIImage(named: "icon_right_arrow")
         
-        algorithmNode.attributedText = NSAttributedString(string: "算法备案信息 〉", attributes: [
+        algorithmNode.attributedText = NSAttributedString(string: "算法备案信息", attributes: [
             .font: UIFont.systemFont(ofSize: 12),
             .foregroundColor: UIColor(white: 0, alpha: 0.3),
             .paragraphStyle: paragraphStyle
@@ -112,11 +116,26 @@ class AboutFooterNode: ASDisplayNode {
         serviseButton.style.spacingAfter = 10
         stack.style.spacingAfter = 10
         customerNode.style.spacingAfter = 10
-        ipcNode.style.spacingAfter = 10
-        algorithmNode.style.spacingAfter = 10
+        
+        ipcImageNode.style.spacingBefore = 5
+        ipcImageNode.forcedSize = CGSize(width: 6, height: 10)
+        ipcImageNode.contentMode = .center
+        let ipcH = ASStackLayoutSpec.horizontal()
+        ipcH.horizontalAlignment = .middle
+        ipcH.children = [ipcNode, ipcImageNode]
+        ipcH.style.spacingAfter = 10
+         
+        algorithmImageNode.style.spacingBefore = 5
+        algorithmImageNode.forcedSize = CGSize(width: 6, height: 10)
+        algorithmImageNode.contentMode = .center
+        let algorithmH = ASStackLayoutSpec.horizontal()
+        algorithmH.horizontalAlignment = .middle
+        algorithmH.children = [algorithmNode, algorithmImageNode]
+        algorithmH.style.spacingAfter = 10
+        
         copyRightNode.style.spacingAfter = 20
         let layout = ASStackLayoutSpec.vertical()
-        layout.children = [topSpacer, serviseButton, stack, customerNode, ipcNode, algorithmNode, copyRightNode, bottomSpacer]
+        layout.children = [topSpacer, serviseButton, stack, customerNode, ipcH, algorithmH, copyRightNode, bottomSpacer]
         return layout
     }
 }

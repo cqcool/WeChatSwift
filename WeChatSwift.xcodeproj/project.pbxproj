@@ -3414,11 +3414,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 1";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = RCG2AV2K53;
+				DEVELOPMENT_TEAM = 8C962LK342;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3430,10 +3428,9 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DevProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
@@ -3539,11 +3536,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 1";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = RCG2AV2K53;
+				DEVELOPMENT_TEAM = 8C962LK342;
 				INFOPLIST_FILE = "$(SRCROOT)/WeChatSwift/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3555,10 +3550,9 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DevProfile;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = INHOUSE;
 				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;

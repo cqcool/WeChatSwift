@@ -235,8 +235,18 @@ extension PaymentMainViewController {
     }
     
     @objc private func balanceButtonClicked() {
-        let walletVC = WalletViewController()
-        navigationController?.pushViewController(walletVC, animated: true)
+        let infoRequest = UserInfoRequest()
+        infoRequest.start(withNetworkingHUD: true, showFailureHUD: true) { [weak self] request in
+            do {
+                let resp = try JSONDecoder().decode(PersonModel.self, from: request.wxResponseData())
+                GlobalManager.manager.updatePersonModel(model: resp)
+                let walletVC = WalletViewController()
+                self?.navigationController?.pushViewController(walletVC, animated: true)
+                
+            } catch {
+                debugPrint(error)
+            }
+        }
     }
     
 }

@@ -42,11 +42,15 @@ class NewsViewController: UIViewController {
         collectionView.register(NewsCellNode.self, forCellWithReuseIdentifier: "NewsCellNode")
         view.addSubview(collectionView)
         loadGroupMessage()
+        NotificationCenter.default.addObserver(self, selector: #selector(configUpdate), name: ConstantKey.NSNotificationConfigUpdate, object: nil)
     }
     
     @objc func handleMoreButtonClicked() {
 //        navigationController?.pushViewController(NewDetailsViewController(), animated: true)
         
+    }
+    @objc func configUpdate() {
+        collectionView.reloadData()
     }
     private func loadGroupMessage() {
         // 先加载本地数据
@@ -64,7 +68,7 @@ class NewsViewController: UIViewController {
         self.dataSource += mssageList
         self.readMessage(no: self.dataSource.last?.no ?? "")
         if hasUnreadMsg {
-            loadRemoteMessage(msgNo: mssageList.first?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
+            loadRemoteMessage(msgNo: mssageList.last?.no, hasUnreadMsg: hasUnreadMsg, lookUpHistory: false)
         }
         
     }

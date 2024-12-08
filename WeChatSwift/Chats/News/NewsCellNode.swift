@@ -125,8 +125,8 @@ class NewsCellNode: UICollectionViewCell {
             moreNewsContentView.addSubview(newView)
             newView.snp.makeConstraints { make in
                 make.height.equalTo(74)
-                make.left.equalTo(20)
-                make.right.equalTo(-20)
+                make.left.equalTo(0)
+                make.right.equalTo(0)
                 if tempView == nil {
                     make.top.equalToSuperview()
                 } else {
@@ -143,10 +143,11 @@ class NewsCellNode: UICollectionViewCell {
                 make.right.equalToSuperview()
             }
             let text = news["title"].stringValue
-            let newLabel = WXCreate.label(text: text, textColor: .black, fontSize: 17)
+            let newLabel = WXCreate.label(text: text, textColor: .black, fontSize: 15)
             newView.addSubview(newLabel)
             newLabel.numberOfLines = 2
             newLabel.textAlignment = .left
+            newLabel.attributedText = text.addAttributed(font: UIFont.systemFont(ofSize: 15), textColor: .black, lineSpacing: 4)
             newLabel.snp.makeConstraints { make in
                 make.left.equalToSuperview()
                 make.bottom.equalToSuperview().offset(-20)

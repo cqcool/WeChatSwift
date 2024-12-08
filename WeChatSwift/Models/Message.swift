@@ -31,6 +31,7 @@ public class Message {
     
     var _formattedTime: String?
     var entity: MessageEntity?
+    var no: String?
     
 }
 
@@ -71,6 +72,7 @@ extension MessageEntity {
         msg.senderID = userId ?? ""
         msg.content = messageContent()
         msg.time = showTime ?? (createTime ?? 0)
+        msg.no = no
         return msg
     }
     private func messageContent() -> MessageContent {

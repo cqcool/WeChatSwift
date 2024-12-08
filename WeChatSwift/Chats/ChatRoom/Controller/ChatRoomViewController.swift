@@ -428,9 +428,10 @@ extension ChatRoomViewController {
     
     private func updateNewAckMessage(entity: MessageEntity? = nil) {
         if let msgEntity = entity {
-            if (self.session.newAckMsgDate ?? 0) < (msgEntity.showTime ?? 0) {
+            if (self.session.newAckMsgDate ?? 0) < (msgEntity.showTime ?? 0) ||
+                (self.session.newAckMsgDate ?? 0) < (msgEntity.createTime ?? 0) {
                 self.session.userMsgType = 1
-                self.session.newAckMsgDate = msgEntity.showTime
+                self.session.newAckMsgDate = (msgEntity.showTime ?? msgEntity.createTime)
                 self.session.newAckMsgInfo = msgEntity.content
                 self.session.newAckMsgNo = msgEntity.no
                 self.session.newAckMsgType = msgEntity.type
@@ -711,6 +712,7 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         handleRedPacket(indexPath: indexPath, model: entity, msg: nil)
     }
     func handleRedPacket(indexPath: IndexPath?, model: RedPacketGetEntity?, msg: RedPacketMessage?) {
+        view.endEditing(true)
         if isRequestRed {
             return
         }
@@ -720,9 +722,28 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         red.callBackClosure = {
         }
         red.detailsClosure = { [weak self] m in
-            let vc = RedDetailsViewController()
-            vc.redPacket = m ?? model
-            self?.navigationController?.pushViewController(vc, animated: false)
+            if let fullResp = m {
+                let vc = RedDetailsViewController()
+                vc.resp = fullResp
+                self?.navigationController?.pushViewController(vc, animated: false)
+                return
+            }
+            guard let redPacket = model else {
+                return
+            }
+            let request = RedPacketGetRequest(groupNo: (self?.session.groupNo)!, isGet: "1", orderNumber: redPacket.orderNumber ?? "")
+            request.start(withNetworkingHUD: true, showFailureHUD: true) { [weak self] request in
+                do {
+                    let resp = try JSONDecoder().decode(FullRedPacketGetEntity.self, from: request.wxResponseData())
+                    let vc = RedDetailsViewController()
+                    vc.resp = resp
+                    self?.navigationController?.pushViewController(vc, animated: false)
+                }  catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            } failure: { request in
+                
+            }
         }
         red.updateDBClosure = {flag in
             if flag {
@@ -741,9 +762,11 @@ extension ChatRoomViewController: MessageCellNodeDelegate {
         }
         // 检查是否被领取完
         isRequestRed = true
-        red.requestRedPacketGetRequest(isGet: "0") { [weak self] resp, error in
+        WXProgressHUD.showProgress()
+        red.requestRedPacketGetRequest(isGet: "0") { [weak self] tuple, error in
+            WXProgressHUD.hiddenProgressHUD()
             self?.isRequestRed = false
-            guard let resp else {
+            guard let (resp, fullResp) = tuple else {
                 return
             }
             guard let status = resp.status else {

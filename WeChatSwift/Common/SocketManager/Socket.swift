@@ -184,8 +184,7 @@ private extension Socket {
         if json["code"].intValue != 200 {
             return
         }
-        guard let dataString = json["data"].string,
-        let dataJSON = handleReceiveData(json: json) else {
+        guard let dataJSON = handleReceiveData(json: json) else {
             return
         }
         // type 1余额变动,2账号封号

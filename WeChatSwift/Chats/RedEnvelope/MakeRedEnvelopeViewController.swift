@@ -445,7 +445,9 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
+        if self.backView?.isHidden == true {
+            view.endEditing(true)
+        }
     }
     
     private func buildPayView() {

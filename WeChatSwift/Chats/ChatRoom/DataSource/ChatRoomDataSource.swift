@@ -56,16 +56,39 @@ final class ChatRoomDataSource {
     }
     func appendMsgList(_ msgList: [MessageEntity], scrollToLastMessage: Bool = true, lookUpHistory: Bool = false) {
         let _ = lock.wait(timeout: .distantFuture)
-        formatTime()
+//        formatTime()
         var messageList: [Message] = []
         for messageEntity in msgList {
             if messageEntity.type == 6 {
                 continue
             }
-            let message = messageEntity.toMessage()
-            messageList.append(message)
+            var isFilter = false
+            for message in messages.reversed() {
+                if let messageEntityNo = messageEntity.no,
+                let messageNo = message.no {
+                    if messageEntityNo == messageNo {
+                        isFilter = true
+                        break
+                    }
+                    if messageEntityNo > messageNo {
+                        isFilter = false
+                        break
+                    }
+                }
+            }
+            if isFilter == false {
+                let message = messageEntity.toMessage()
+                messageList.append(message)
+            }
         }
         dateFormatter.chatFormatTime(messageList: messageList)
+        if messageList.count == 1 {
+            if lookUpHistory == false {
+                if messageList.first?._formattedTime == latestFormateTime() {
+                    messageList.first?._formattedTime = nil
+                }
+            }
+        }
         for message in messageList {
             if lookUpHistory {
                 messages.insert(message, at: 0)
@@ -84,6 +107,16 @@ final class ChatRoomDataSource {
         }
         lock.signal()
         
+    }
+    private func latestFormateTime() -> String? {
+        var index = messages.count - 1
+        while (index >= 0) {
+            if let time = messages[index]._formattedTime {
+                return time
+            }
+            index -= 1
+        }
+        return nil
     }
     
     func appendOmissionMsgList(_ msgList: [MessageEntity], latestNo: String, oldNo: String) {
