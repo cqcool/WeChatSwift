@@ -56,7 +56,8 @@ final class GroupEntity: NSObject, Codable, TableCodable, Named {
         typealias Root = GroupEntity
         
         nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
-            BindColumnConstraint(groupNo, isPrimary: true)
+            BindColumnConstraint(groupNo, isUnique: true)
+            BindColumnConstraint(ownerId, isUnique: true)
             BindColumnConstraint(newAckMsgDate, isPrimary: false, orderBy: .descending)
         }
         case contentType
