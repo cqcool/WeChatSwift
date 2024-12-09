@@ -67,7 +67,7 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        var url = GlobalManager.headImageUrl(name: GlobalManager.manager.personModel?.head)
+        let url = GlobalManager.headImageUrl(name: GlobalManager.manager.personModel?.head)
         headerNode.avatarNode.url = url
     }
     deinit {
@@ -86,7 +86,7 @@ class MeViewController: ASDKViewController<ASDisplayNode> {
         dataSource.append(MeTableSection(items: [pay]))
         
         let fav = MeTableModel(type: .favorites, title: "收藏", icon: "icons_outlined_colorful_favorites")
-        let posts = MeTableModel(type: .posts, title: LocalizedString("Setting_MyAlbum"), icon: "icons_outlined_album", color: Colors.Indigo)
+        let posts = MeTableModel(type: .posts, title: "朋友圈", icon: "icons_outlined_album", color: Colors.Indigo)
         let sticker = MeTableModel(type: .sticker, title: "表情", icon: "icons_outlined_sticker", color: Colors.Orange)
         dataSource.append(MeTableSection(items: [fav, posts, sticker]))
         

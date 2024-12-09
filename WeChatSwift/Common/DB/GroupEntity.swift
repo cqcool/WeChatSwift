@@ -136,6 +136,9 @@ extension GroupEntity {
             .foregroundColor: Colors.Red
         ]
         let msg = (newAckMsgInfo ?? "").isEmpty ? "" : newAckMsgInfo!
+        if msg.isEmpty {
+            return NSAttributedString(string: "", attributes: attributes)
+        }
         return NSAttributedString(string: "[\(msg)]", attributes: attributes)
     }
     
@@ -207,7 +210,7 @@ extension GroupEntity {
     static func queryFriends()-> [GroupEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
                                    where: (GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&
-                                           (GroupEntity.Properties.userMsgType == 2  ||
+                                           (GroupEntity.Properties.userMsgType != 3  &&
                                            GroupEntity.Properties.groupType == 1)))
     }
     

@@ -52,7 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
                 showFailureHUD:(BOOL)showFailureHUD
                        success:(nullable YTKRequestCompletionBlock)success
                        failure:(nullable YTKRequestCompletionBlock)failure;
-
+/// true：同一处理
+- (BOOL)isFenceFailuredRequest;
 @end
 
 NS_ASSUME_NONNULL_END

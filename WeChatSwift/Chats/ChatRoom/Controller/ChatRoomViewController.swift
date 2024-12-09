@@ -139,14 +139,19 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
         setNavigationTitle()
     }
     private func setNavigationTitle() {
-        let title = "\(session.name ?? "群聊")(\(String(describing: session.userNum ?? 0 )))"
+        let title = getTitle()
         let titleLabel = UILabel()
                 titleLabel.text = title
                 titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
                 titleLabel.textAlignment = .center
         titleLabel.lineBreakMode = .byTruncatingMiddle // 设置截断模式
-                 
-                self.navigationItem.titleView = titleLabel
+        self.navigationItem.titleView = titleLabel
+    }
+    private func getTitle() -> String {
+        if session.groupType == 2 {
+            return "\(session.name ?? "群聊")(\(String(describing: session.userNum ?? 0 )))"
+        }
+        return session.name ?? "未命名"
     }
     private func updateChatRoomView(status: ChatRoomStatus) {
         switch status {
@@ -870,14 +875,13 @@ extension ChatRoomViewController: SocketDelegate {
         if entity.userId != nil &&
             entity.userId == GlobalManager.manager.personModel?.userId {
             self.updateNewAckMessage(entity: entity)
-            return
         }
+        self.readMessage(no: entity.no!, entity: entity)
         if entity.groupIsChange == 1 ||
             entity.type == 6 {
             getGroupInfo()
             return
         }
-        self.readMessage(no: entity.no!, entity: entity)
         if let lastNo = entity.lastNo {
             let oldNo = dataSource.messages.last?.entity?.no
             if oldNo == lastNo {

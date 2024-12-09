@@ -14,7 +14,7 @@
 #import <MJExtension.h>
 
 @implementation YTKBaseRequest (DNKApi)
- 
+
 - (BOOL)apiSuccess {
     return [self statusCodeValidator];
 }
@@ -41,18 +41,18 @@
     if (self.responseObject && self.responseObject[@"msg"]) {
         return self.responseObject[@"msg"];
     }
-//    if(self.apiCode == DNKCodeFamilyHasEngineering) {
-//        return Localized(@"已授权给工程师，无法解绑网关。请确保工程师已完成操作后，\n从“家庭管理-家庭成员”里删除工程师后再解绑”。");
-//    }
-//    if(self.apiCode == DNKCodeIrMacNotFound) {
-//        return Localized(@"请先将数据同步至服务端后再使用！");
-//    }
+    //    if(self.apiCode == DNKCodeFamilyHasEngineering) {
+    //        return Localized(@"已授权给工程师，无法解绑网关。请确保工程师已完成操作后，\n从“家庭管理-家庭成员”里删除工程师后再解绑”。");
+    //    }
+    //    if(self.apiCode == DNKCodeIrMacNotFound) {
+    //        return Localized(@"请先将数据同步至服务端后再使用！");
+    //    }
     if (self.error) {
         NSInteger code = self.error.code;
-//        NSString *msg = [ModuleUtil errorMessageWithCode:(int)code];
-//        if (msg.isNonEmpty) {
-//            return msg;
-//        }
+        //        NSString *msg = [ModuleUtil errorMessageWithCode:(int)code];
+        //        if (msg.isNonEmpty) {
+        //            return msg;
+        //        }
         return [NSString stringWithFormat:@"%@(%zd)", @"请检查网络并重试", code];
     }
     return @"请检查网络并重试";
@@ -62,7 +62,7 @@
         return [self.responseObject[@"code"] intValue];
     }
     return self.error.code;
-} 
+}
 - (NSError *)dnkError {
     
     NSError *error = [NSError errorWithDomain:@"DNKRquestDomain" code:self.apiCode userInfo:@{NSLocalizedDescriptionKey:self.apiMessage}];
@@ -72,7 +72,7 @@
     return self.dnk_keyValue;
 }
 
- 
+
 - (NSDictionary<NSString *, NSString *> *)dnk_requestHeader {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     // 0120 0 101 0001
@@ -98,7 +98,7 @@
     [self setShowFailureHUD:showFailureHUD];
     [self startWithCompletionBlockWithSuccess:success failure:failure];
 }
-  
+
 
 - (NSString *)convertDataToHexStr:(NSData *)data {
     return  [YTKBaseRequest convertDataToHexStr:data];
@@ -162,5 +162,14 @@
         c = class_getSuperclass(c);
         if ([MJFoundation isClassFromFoundation:c]) break;
     }
+}
+/// true：同一处理
+- (BOOL)isFenceFailuredRequest {
+    NSInteger code = self.apiCode;
+    if (code == TOKEN_ERROR ||
+        code == ERROR_USER_STATUS) {
+        return true;
+    }
+    return false;
 }
 @end

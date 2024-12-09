@@ -438,8 +438,13 @@ class WeChatLoginViewController: UIViewController {
     }
 }
 
+
 extension WeChatLoginViewController: YTKChainRequestDelegate {
     func chainRequestFailed(_ chainRequest: YTKChainRequest, failedBaseRequest request: YTKBaseRequest) {
+        if request.isFenceFailuredRequest() {
+            return
+        }
+        
         if request is LoginRequest {
             WXProgressHUD.hiddenProgressHUD()
             self.showPopupAlert(msg: request.apiMessage())
