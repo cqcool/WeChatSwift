@@ -3428,7 +3428,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.global.chatt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeChatSwift/Extensions/WXNavigationBar/WeChatSwift-Bridging-Header.h";
@@ -3550,7 +3550,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.global.chat1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.global.chatt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = INHOUSE;

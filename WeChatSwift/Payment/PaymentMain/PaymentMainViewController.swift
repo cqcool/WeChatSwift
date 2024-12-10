@@ -175,7 +175,7 @@ class PaymentMainViewController: ASDKViewController<ASDisplayNode> {
         
         let rows = (activities.count % 4) == 0 ? activities.count / 4: activities.count / 4 + 1
         let offsetY = officialMallNode.view.frame.maxY + 10
-        lifeMallNode = MallFunctionActivityContainerNode(title: "金融理财", activities: activities)
+        lifeMallNode = MallFunctionActivityContainerNode(title: "生活服务", activities: activities)
         lifeMallNode.frame = CGRect(x: 8, y: offsetY, width: view.bounds.width - 16, height: MallFunctionActivityContainerNode.itemOffsetY + CGFloat(rows) * MallFunctionActivityContainerNode.nodeItemHeight + 17)
         scrollNode.addSubnode(lifeMallNode)
     }

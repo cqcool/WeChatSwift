@@ -56,8 +56,7 @@ final class GroupEntity: NSObject, Codable, TableCodable, Named {
         typealias Root = GroupEntity
         
         nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
-            BindColumnConstraint(groupNo, isUnique: true)
-            BindColumnConstraint(ownerId, isUnique: true)
+            BindMultiUnique(groupNo, ownerId)
             BindColumnConstraint(newAckMsgDate, isPrimary: false, orderBy: .descending)
         }
         case contentType
@@ -102,13 +101,13 @@ extension GroupEntity {
         if msgType == 0 ||
             msgType == 1 ||
             msgType == 2 {
-//            let attributes: [NSAttributedString.Key: Any] = [
-//                .font: UIFont.systemFont(ofSize: 14),
-//                .foregroundColor: UIColor(hexString: "9B9B9B")
-//            ]
+            //            let attributes: [NSAttributedString.Key: Any] = [
+            //                .font: UIFont.systemFont(ofSize: 14),
+            //                .foregroundColor: UIColor(hexString: "9B9B9B")
+            //            ]
             var content: String = ""
             if msgType != 0,
-                let unRead = Int(unReadNum ?? "0"), unRead > 1 {
+               let unRead = Int(unReadNum ?? "0"), unRead > 1 {
                 content = "[\(String(describing: unRead))条]"
             }
             if userMsgType == 1 &&
@@ -122,7 +121,7 @@ extension GroupEntity {
             let attributedText = NSMutableAttributedString(string: content, attributes: [
                 .font: font,
                 .foregroundColor: textColor
-                ])
+            ])
             var attributeStr = ExpressionParser.shared!.attributedTagText(with: attributedText)
             attributeStr = ExpressionParser.shared!.attributedCancelTagText(with: attributeStr)
             let (attributed, _) = ExpressionParser.shared!.attributedRedPacketText(with: attributeStr)
@@ -197,8 +196,8 @@ extension GroupEntity {
     static func queryGroupChats()-> [GroupEntity]? {
         DBManager.share.getObjects(tableName: self.tableName,
                                    where: (GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&
-                                   ((GroupEntity.Properties.userMsgType == 2 || GroupEntity.Properties.userMsgType == 3) ||
-                                    GroupEntity.Properties.groupType == 2)))
+                                           ((GroupEntity.Properties.userMsgType == 2 || GroupEntity.Properties.userMsgType == 3) ||
+                                            GroupEntity.Properties.groupType == 2)))
     }
     /// 查找群聊
     static func queryGroup(groupNo: String)-> GroupEntity? {
@@ -212,7 +211,7 @@ extension GroupEntity {
         DBManager.share.getObjects(tableName: self.tableName,
                                    where: (GroupEntity.Properties.ownerId == (GlobalManager.manager.personModel?.userId)! &&
                                            (GroupEntity.Properties.userMsgType != 3  &&
-                                           GroupEntity.Properties.groupType == 1)))
+                                            GroupEntity.Properties.groupType == 1)))
     }
     
 }

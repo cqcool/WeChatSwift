@@ -14,7 +14,9 @@ enum RedPacketError: String {
     case beyondMoney = "单个红包金额不可超过200元"
     case beyondMaxMoney = "单次支付总额不可超过100000元"
     case greaterThan0 = "未填写「总金额」"
+    case greaterThanCount0 = "未填写「红包个数」"
     case beyondPersons = "红包个数不可超过当前群聊人数"
+    case countZero = "请选择红包个数"
     case normal = "success"
     
 }
@@ -233,11 +235,14 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         hideError()
     }
     private func validateRedMoeny(checkZero: Bool) -> RedPacketError {
-        guard let money = enterMoneyNode.money,
-              !money.isEmpty else {
+        if checkZero == false && enterMoneyNode.money == nil {
             return .normal
         }
-        let moneyFloat = (money as NSString).floatValue
+//        guard let money = enterMoneyNode.money,
+//              !money.isEmpty else {
+//            return .normal
+//        }
+        let moneyFloat = (money ?? "0.0" as NSString).floatValue
         if moneyFloat > maxMoney() {
             return .beyondMaxMoney
         }
@@ -261,6 +266,9 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
             return .normal
         }
         let countFloat = (count as NSString).intValue
+        if countFloat == 0 {
+            return .countZero
+        }
         if countFloat > numberOfPerson {
             return .beyondPersons
         }
@@ -667,6 +675,10 @@ extension MakeRedEnvelopeViewController {
     @objc func sendRedPacket() {
         self.keyboard = nil
         dismissKeyboard()
+        if enterCountNode.count == nil {
+            showError(type: .greaterThanCount0)
+            return
+        }
         let type = validateRedMoeny(checkZero: true)
         if type != .normal {
             showError(type: type)
