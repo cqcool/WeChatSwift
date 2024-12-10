@@ -238,11 +238,8 @@ class MakeRedEnvelopeViewController: ASDKViewController<ASDisplayNode> {
         if checkZero == false && enterMoneyNode.money == nil {
             return .normal
         }
-//        guard let money = enterMoneyNode.money,
-//              !money.isEmpty else {
-//            return .normal
-//        }
-        let moneyFloat = (money ?? "0.0" as NSString).floatValue
+        let money = enterMoneyNode.money ?? "0"
+        let moneyFloat = (money as NSString).floatValue
         if moneyFloat > maxMoney() {
             return .beyondMaxMoney
         }
@@ -676,12 +673,14 @@ extension MakeRedEnvelopeViewController {
         self.keyboard = nil
         dismissKeyboard()
         if enterCountNode.count == nil {
+            enterCountNode.updateContent(type: .greaterThanCount0)
             showError(type: .greaterThanCount0)
             return
         }
         let type = validateRedMoeny(checkZero: true)
         if type != .normal {
             showError(type: type)
+            enterMoneyNode.updateContent(type: type)
             return
         }
 //        moneyLabel.attributedText = ("¥ " + (redPackeyMoney ?? "0.00")).unitTextAttribute(textColor: .black, fontSize: 36, unitSize: 30, unit: "¥ ", baseline: 6)

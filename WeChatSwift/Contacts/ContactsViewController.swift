@@ -189,11 +189,14 @@ extension ContactsViewController: ASTableDelegate, ASTableDataSource {
             let contactTagListVC = ContactTagListViewController()
             //            navigationController?.pushViewController(contactTagListVC, animated: true)
         case .contact(let contact):
+            
             if (contact.group?.userMsgType == 2) {
                 return
             }
             let chatVC = ChatRoomViewController(session: contact.group!)
-                navigationController?.pushViewController(chatVC, animated: true)
+//                navigationController?.pushViewController(chatVC, animated: true)
+            
+            
 //            let contactInfoVC = ContactInfoViewController(contact: contact)
             //            navigationController?.pushViewController(contactInfoVC, animated: true)
         }

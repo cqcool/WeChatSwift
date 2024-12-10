@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)showProgress;
 + (void)showProgressMsg:(nullable NSString *)message;
 + (void)showProgressMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView;
++ (void)showCircleProgressMsg:(nullable NSString *)message;
 /// 更改HUD显示的消息，已经显示load HUD才能正常执行
 + (void)setProgressMessage:(NSString *)message;
 + (void)hiddenProgressHUD;
@@ -29,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - loading progress
 + (void)loadingViewMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView;
 + (void)setProgress:(CGFloat)progress;
+
++ (void)loadingCircleViewMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView ;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -92,6 +92,7 @@ PODS:
   - WXGrowingTextView (0.0.6)
   - YTKNetwork (3.0.6):
     - AFNetworking/NSURLSession (~> 4.0)
+  - ZKProgressHUD (5.1.2)
   - ZLPhotoBrowser (4.5.5):
     - ZLPhotoBrowser/Core (= 4.5.5)
   - ZLPhotoBrowser/Core (4.5.5)
@@ -119,6 +120,7 @@ DEPENDENCIES:
   - WXActionSheet
   - WXGrowingTextView
   - YTKNetwork
+  - ZKProgressHUD (from `DevelopmentPods/ZKProgressHUD`)
   - ZLPhotoBrowser
 
 SPEC REPOS:
@@ -163,6 +165,8 @@ EXTERNAL SOURCES:
     :path: DevelopmentPods/SFVideoPlayer
   SVGKit:
     :path: DevelopmentPods/SVGKit
+  ZKProgressHUD:
+    :path: DevelopmentPods/ZKProgressHUD
 
 CHECKOUT OPTIONS:
   KeenKeyboard:
@@ -188,7 +192,7 @@ SPEC CHECKSUMS:
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
   SDWebImage: 8a6b7b160b4d710e2a22b6900e25301075c34cb3
   SDWebImageWebPCoder: e38c0a70396191361d60c092933e22c20d5b1380
-  SFVideoPlayer: 1711cf67ba0c21aa3ba4e05828b5f1cc56882898
+  SFVideoPlayer: 7bfdcbb338a3cebb1ee30ee143728aefe16a641d
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Socket.IO-Client-Swift: 3614bea82ba005df1c2ff01154f4004993e05ad7
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
@@ -201,8 +205,9 @@ SPEC CHECKSUMS:
   WXActionSheet: 961d3c9e677cde473464242b1a99c6bc79bbb014
   WXGrowingTextView: 483849294508784a755212c925b70811f257f2db
   YTKNetwork: c16be90b06be003de9e9cd0d3b187cc8eaf35c04
+  ZKProgressHUD: 4498df1478aa2abfd720ace5dabce0556f646151
   ZLPhotoBrowser: 6fb0eff03c8269001e29ef233e7bdab0691e05fe
 
-PODFILE CHECKSUM: bb5eae9bd4436453a058d87eee76fa5e89f5d8c7
+PODFILE CHECKSUM: 243d3f481c951452fc6dca33e9e072f0d6b92bda
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

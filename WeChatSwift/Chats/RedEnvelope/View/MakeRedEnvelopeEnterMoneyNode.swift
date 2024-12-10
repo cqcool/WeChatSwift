@@ -20,7 +20,6 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
     let moneyField = UITextField()
     private let trailingTextNode = ASTextNode()
     
-    
     override init() {
         super.init()
         
@@ -31,10 +30,7 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
         pinImageNode.forcedSize = CGSize(width: 30, height: 27)
         pinImageNode.style.preferredSize = CGSize(width: 30, height: 27)
         pinImageNode.cornerRadius = 2
-        leadingTextNode.attributedText = NSAttributedString(string: "总金额", attributes: [
-            .font: UIFont.systemFont(ofSize: 19),
-            .foregroundColor: Colors.black
-        ])
+        setTotalLabel(color: Colors.black)
         
 //        trailingTextNode.attributedText = NSAttributedString(string: "元", attributes: [
 //            .font: UIFont.systemFont(ofSize: 17),
@@ -104,13 +100,15 @@ class MakeRedEnvelopeEnterMoneyNode: ASDisplayNode {
     override func resignFirstResponder() -> Bool {
         return moneyField.resignFirstResponder()
     }
-    
+    private func setTotalLabel(color: UIColor) {
+        leadingTextNode.attributedText = NSAttributedString(string: "总金额", attributes: [
+            .font: UIFont.systemFont(ofSize: 17),
+            .foregroundColor:color
+        ])
+    }
     func updateContent(type: RedPacketError) {
         let color: UIColor = type == .normal ? .black : UIColor(hexString: "E84800")
-        leadingTextNode.attributedText = NSAttributedString(string: "总金额", attributes: [
-            .font: UIFont.systemFont(ofSize: 19),
-            .foregroundColor: color
-        ])
+        setTotalLabel(color: color) 
         moneyField.textColor = color
         
 //        let paragraphStyle = NSMutableParagraphStyle()

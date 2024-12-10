@@ -98,7 +98,8 @@
 ///  @param request The corresponding request.
 - (void)requestWillStart:(id)request {
     if (self.networkingHUDFlag) {
-        [WXProgressHUD showProgress];
+//        [WXProgressHUD showProgress];
+        [WXProgressHUD loadingCircleViewMsg:@"正在加载" maskView:nil]; 
     }
 }
 

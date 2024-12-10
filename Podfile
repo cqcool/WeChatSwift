@@ -20,6 +20,7 @@ target 'WeChatSwift' do
   pod 'FLEX', :configurations => ['Debug']
     
   pod 'SVGKit', :path => 'DevelopmentPods/SVGKit'
+  pod 'ZKProgressHUD', :path => 'DevelopmentPods/ZKProgressHUD'
   pod 'SFVideoPlayer', :path => 'DevelopmentPods/SFVideoPlayer'
   pod 'SnapKit', '~> 5.6.0'
   pod 'ZLPhotoBrowser'

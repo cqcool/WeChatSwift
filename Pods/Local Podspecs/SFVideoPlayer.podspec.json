@@ -21,8 +21,6 @@
   },
   "source_files": "**/*",
   "dependencies": {
-    "Alamofire": [
-
-    ]
+    "Alamofire": []
   }
 }

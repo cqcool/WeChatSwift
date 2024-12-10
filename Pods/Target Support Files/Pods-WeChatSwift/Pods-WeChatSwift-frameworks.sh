@@ -205,6 +205,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/WXActionSheet/WXActionSheet.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WXGrowingTextView/WXGrowingTextView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YTKNetwork/YTKNetwork.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZKProgressHUD/ZKProgressHUD.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework"
 fi
@@ -237,6 +238,7 @@ if [[ "$CONFIGURATION" == "InHouse" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/WXActionSheet/WXActionSheet.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WXGrowingTextView/WXGrowingTextView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YTKNetwork/YTKNetwork.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZKProgressHUD/ZKProgressHUD.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework"
 fi
@@ -269,6 +271,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/WXActionSheet/WXActionSheet.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WXGrowingTextView/WXGrowingTextView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YTKNetwork/YTKNetwork.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZKProgressHUD/ZKProgressHUD.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework"
 fi

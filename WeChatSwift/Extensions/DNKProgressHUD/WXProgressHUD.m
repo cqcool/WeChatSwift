@@ -9,11 +9,14 @@
 #import <MBProgressHUD.h>
 #import "UICreate.h"
 #import "DNKCircleProgress.h"
+#import "WeChatSwift-Swift.h"
+#import "UIColor+Ext.h"
 #import <Masonry.h>
 @interface WXProgressHUD ()
 
 @property(strong, nonatomic) MBProgressHUD *hud;
 @property (weak, nonatomic) DNKCircleProgress *circleProgress;
+@property (weak, nonatomic) LoadingCircle *circleView;
 
 @end
 
@@ -35,19 +38,22 @@
 }
 + (void)showProgressMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView {
     [self hiddenProgressHUD];
-    maskView = [self maskViewWithMaskView:maskView];
-    //bugly 上报 有的时候keywindow 为nil 导致崩溃
-    if (maskView == nil) {
-        return ;
-    }
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:maskView animated:YES];
-    [WXProgressHUD sharedInstance].hud = hud;
-    hud.label.text = message;
-    hud.label.numberOfLines = 2;
-    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    hud.bezelView.backgroundColor=[UIColor colorWithRed:1/255.0 green:1/255.0 blue:1/255.0 alpha:0.8];
-    hud.contentColor=[UIColor whiteColor];//字的颜色
-    [hud showAnimated:YES];
+    
+    [self loadingCircleViewMsg:message maskView:maskView];
+    
+//    maskView = [self maskViewWithMaskView:maskView];
+//    //bugly 上报 有的时候keywindow 为nil 导致崩溃
+//    if (maskView == nil) {
+//        return ;
+//    }
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:maskView animated:YES];
+//    [WXProgressHUD sharedInstance].hud = hud;
+//    hud.label.text = message;
+//    hud.label.numberOfLines = 2;
+//    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+//    hud.bezelView.backgroundColor=[UIColor colorWithRed:1/255.0 green:1/255.0 blue:1/255.0 alpha:0.8];
+//    hud.contentColor=[UIColor whiteColor];//字的颜色
+//    [hud showAnimated:YES];
 //    [hud addBounceAnimationWithInitialScale:0 peakScale:0.5];
 }
 + (void)setProgressMessage:(NSString *)message {
@@ -61,6 +67,9 @@
     if (delay) {
         [sharedHUD.hud hideAnimated:YES afterDelay:delay];
         return;
+    }
+    if ([WXProgressHUD sharedInstance].circleView) {
+        [[WXProgressHUD sharedInstance].circleView stop];
     }
     [sharedHUD.hud hideAnimated:YES];
 }
@@ -172,4 +181,50 @@
     return maskView ?: [UIApplication sharedApplication].keyWindow;
 }
 
++ (void)loadingCircleViewMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView {
+    [self hiddenProgressHUD];
+    maskView = [self maskViewWithMaskView:maskView];
+    //bugly 上报 有的时候keywindow 为nil 导致崩溃
+     if (maskView == nil) {
+        return;
+    }
+    [[WXProgressHUD sharedInstance] loadingCircleViewMsg:message maskView:maskView];
+    return;
+}
+- (void)loadingCircleViewMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView  {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:maskView animated:YES];
+    self.hud = hud;
+    hud.minSize = CGSizeMake(132, 132);
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.customView = [self buildLoadingCircleViewWithMsg:message];
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.bezelView.color = [UIColor colorWithHexString: @"#4E4C4F"];
+}
+- (UIView *)buildLoadingCircleViewWithMsg:(NSString *)msg {
+    UIView *customView = UIView.new;
+    LoadingCircle *circleView = [[LoadingCircle alloc] initWithCircleWidth:5 circleColor:UIColor.whiteColor];
+    self.circleView = circleView;
+    [circleView start];
+    [customView addSubview:circleView];
+    circleView.backgroundColor = UIColor.clearColor;
+    [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(40, 40));
+        make.top.offset(8);
+        make.centerX.equalTo(customView);
+    }];
+    UIFont *font = [UIFont systemFontOfSize:14 weight:UIFontWeightBold];
+    CGFloat msgWidth = [msg sizeWithAttributes:@{NSFontAttributeName:font}].width + 1;
+    CGFloat customWidth = msgWidth > 74 ? msgWidth : 74;
+    UILabel *tipsLbl = [UICreate labelWithText:msg font:font textColor:UIColor.whiteColor];
+    [customView addSubview:tipsLbl];
+    tipsLbl.numberOfLines = 0;
+    tipsLbl.textAlignment = NSTextAlignmentCenter;
+    [tipsLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(circleView.mas_bottom).offset(15);
+        make.left.right.offset(0);
+        make.bottom.offset(-8);
+        make.width.offset(customWidth);
+    }];
+    return customView;
+}
 @end

@@ -20,7 +20,7 @@ class MakeRedEnvelopeEnterDescNode: ASDisplayNode {
         
         textNode.attributedText = NSAttributedString(string: "恭喜发财，大吉大利", attributes: [
             .font: UIFont.systemFont(ofSize: 17),
-            .foregroundColor: UIColor(white: 0, alpha: 0.5)
+            .foregroundColor: UIColor(white: 0, alpha: 0.3)
         ])
         
         addEmoticonButton.setImage(UIImage(named: "AddExpression_Icon_29x29_"), for: .normal)
