@@ -294,8 +294,8 @@ extension ChatRoomKeyboardNode: EmoticonBoardNodeDelegate {
         case .expression:
             if let expression = emoticon as? Expression {
 //                toolBar.appendText(expression.text)
-                toolBar.appendText(expression.code)
-                emoticonBoardNode.inputBarTextDidUpdated(text: toolBar.text)
+//                toolBar.appendText(expression.code)
+//                emoticonBoardNode.inputBarTextDidUpdated(text: toolBar.text)
             }
         case .sticker:
             if let sticker = emoticon as? WCEmotion {

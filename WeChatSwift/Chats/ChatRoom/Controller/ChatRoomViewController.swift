@@ -57,6 +57,7 @@ class ChatRoomViewController: ASDKViewController<ASDisplayNode> {
     
     private var isRequestRed = false
     private var previousSendTime: TimeInterval = 0
+    private var sendMsgNoList: [String] =  []
     
     init(session: GroupEntity) {
         self.session = session
@@ -548,7 +549,8 @@ extension ChatRoomViewController: ChatRoomKeyboardNodeDelegate {
         let msg = dataSource.messages.last
         let messagaEntity = MessageEntity.buildMessage(content: text, groupNo: session.groupNo!, groupType: session.groupType!, lastNo: msg?.entity?.no)
         Socket.shared.sendData(message: messagaEntity)
-        let flag = self.isShowTime(time: messagaEntity.showTime ?? 0)
+       
+//        let flag = self.isShowTime(time: messagaEntity.showTime ?? 0)
         dataSource.appendMsgList([messagaEntity], scrollToLastMessage: true)
         
         //        let message = Message()
@@ -862,6 +864,11 @@ extension ChatRoomViewController: SocketDelegate {
         let personModel = GlobalManager.manager.personModel
         entity.ownerId = personModel?.userId
         MessageEntity.insertOrReplace(list: [entity])
+        appendSendNo(no: entity.no ?? "")
+        if entity.userId != nil &&
+            entity.userId == GlobalManager.manager.personModel?.userId {
+            self.updateNewAckMessage(entity: entity)
+        }
         if !isReadMoreHisoty {
             return
         }
@@ -870,6 +877,9 @@ extension ChatRoomViewController: SocketDelegate {
     /// 收到最新消息
     func receiveLatestMessageEntity(groupNo: String, entity: MessageEntity) {
         if groupNo != session.groupNo {
+            return
+        }
+        if hasSendNo(no: entity.no ?? "") {
             return
         }
         if entity.userId != nil &&
@@ -897,6 +907,19 @@ extension ChatRoomViewController: SocketDelegate {
             MessageEntity.insertOrReplace(list: [entity])
             dataSource.appendMsgList([entity], scrollToLastMessage: true)
         }
+    }
+    
+    private func hasSendNo(no: String) -> Bool {
+        return sendMsgNoList.contains(no)
+    }
+    private func appendSendNo(no: String) {
+        if no.isEmpty {
+            return
+        }
+        if sendMsgNoList.count > 20 {
+            sendMsgNoList.remove(at: 0)
+        }
+        sendMsgNoList.append(no)
     }
     
 }

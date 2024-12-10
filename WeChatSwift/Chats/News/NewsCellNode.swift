@@ -35,7 +35,7 @@ class NewsCellNode: UICollectionViewCell {
         super.init(frame: frame)
         timeNode = WXCreate.label(textColor: Colors.DEFAULT_TEXT_DARK_COLOR, fontSize: 15)
         
-        topTipsNode = WXCreate.label(textColor: .white, fontSize: 19, weight: .bold)
+        topTipsNode = WXCreate.label(textColor: .white, fontSize: 18, weight: .bold)
         topTipsNode.numberOfLines = 2
         //        news1Node = DNKCreate.label(textColor: .black, fontSize: 17)
         //        news1Node.numberOfLines = 2
@@ -45,7 +45,7 @@ class NewsCellNode: UICollectionViewCell {
         //        news3Node.numberOfLines = 2
         //        line1Node.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
         //        line2Node.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
-        
+        clipsToBounds = true
         contentView.backgroundColor = .clear
         backgroundColor = .clear
         contentView.addSubview(timeNode)
@@ -91,9 +91,11 @@ class NewsCellNode: UICollectionViewCell {
         links = []
         timeNode.text = NSString.timeText(withTimestamp: Int(model.showTime ?? 0), formatter: "HH:mm")
         if let list = try? JSON(data: (model.linkContent! as NSString).mj_JSONData()).arrayValue {
+            print("cell list count: \(list.count)")
             if let news = list.first {
                 links.append(news["link"].stringValue)
-                topTipsNode.text = news["title"].stringValue
+                let text = news["title"].stringValue
+                topTipsNode.attributedText = text.addAttributed(font: UIFont.systemFont(ofSize: 18, weight: .bold), textColor: .white, lineSpacing: 4)
                 topIconNode.pin_setImage(from: GlobalManager.chatImageUrl(name: news["image"].stringValue))
                 timeNode.textAlignment = .center
                 contentView.addSubview(moreNewsContentView)
@@ -115,7 +117,9 @@ class NewsCellNode: UICollectionViewCell {
     }
     
     func makeNewsContentView(list: [JSON]) {
-        
+        for view in moreNewsContentView.subviews {
+            view.removeFromSuperview()
+        }
         var tempView: UIView?
         var i = 1
         while i < list.count {
@@ -147,7 +151,7 @@ class NewsCellNode: UICollectionViewCell {
             newView.addSubview(newLabel)
             newLabel.numberOfLines = 2
             newLabel.textAlignment = .left
-            newLabel.attributedText = text.addAttributed(font: UIFont.systemFont(ofSize: 15), textColor: .black, lineSpacing: 4)
+            newLabel.attributedText = text.addAttributed(font: UIFont.systemFont(ofSize: 16), textColor: .black, lineSpacing: 4)
             newLabel.snp.makeConstraints { make in
                 make.left.equalToSuperview()
                 make.bottom.equalToSuperview().offset(-20)

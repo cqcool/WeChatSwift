@@ -55,10 +55,17 @@ final class MessageEntity: NSObject, Codable, TableCodable, Named {
     var lastNo: String? = nil//0
     /// integer groupIsChange;//群状态是否改变(1是,0否) -> 收到消息查询group/info接口
     var groupIsChange: Int? = 0//0
+    /// 默认0发送成功， -1发送失败，1发送中
+//    var messageStatus = 0
     enum CodingKeys: String, CodingTableKey {
         
         nonisolated(unsafe) static let objectRelationalMapping = TableBinding(CodingKeys.self) {
-            BindColumnConstraint(no, isPrimary: true, isNotNull: false)
+//            BindColumnConstraint(no, isPrimary: true, isNotNull: false)
+            
+            //联合主键约束
+          //            BindMultiPrimary(multiUniquePart1,multiUniquePart2.asIndex(orderBy: .descending))
+                      //联合唯一约束
+                      BindMultiUnique(no, ownerId)
             BindColumnConstraint(createTime, isPrimary: false, orderBy: .descending)
         }
         
@@ -119,6 +126,7 @@ extension MessageEntity: SocketData {
         message.type = 1
         message.contentType = 0
         message.content = content
+        /// 消息的唯一标识
         message.appId = "\(NSString.currentSecondTimestamp())"
         message.lastNo = lastNo
         let personModel = GlobalManager.manager.personModel

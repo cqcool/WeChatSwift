@@ -143,9 +143,9 @@ class Socket: NSObject {
                 }
                 debugPrint("WX Socket Send Message JSON: " + jsonString)
                 
-                client?.emitWithAck("sendGroupMsg", with: [sendData]).timingOut(after: 5, callback: { data in
+                client?.emitWithAck("sendGroupMsg", with: [sendData]).timingOut(after: 5, callback: { [weak self] data in
                     if let content = data.first as? String {
-                        self.handleAckMessage(message: message, content: content)
+                        self?.handleAckMessage(message: message, content: content)
                         debugPrint("WX Socket ack Data: \(content)")
                         
                     }
@@ -219,7 +219,7 @@ private extension Socket {
         message.no = String(data["no"].intValue)
         message.showTime = TimeInterval(data["showTime"].intValue)
         
-        delegate?.updateLatestMessageEntity(entity: message, latestNo: lastNo, oldNo: oldLastNo, isReadMoreHisoty: lastNo == oldLastNo)
+        delegate?.updateLatestMessageEntity(entity: message, latestNo: lastNo, oldNo: oldLastNo, isReadMoreHisoty: false/*lastNo != oldLastNo*/)
     }
     /*
      {"code":200,"data":"{\"balance\":null,\"type\":2,\"userId\":517105663}","msg":"system.success.200","sign":"UUmz6gF9X9Ev6522OgKR8180"}
