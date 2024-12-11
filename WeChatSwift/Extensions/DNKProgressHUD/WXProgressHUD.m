@@ -41,20 +41,20 @@
     
     [self loadingCircleViewMsg:message maskView:maskView];
     
-//    maskView = [self maskViewWithMaskView:maskView];
-//    //bugly 上报 有的时候keywindow 为nil 导致崩溃
-//    if (maskView == nil) {
-//        return ;
-//    }
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:maskView animated:YES];
-//    [WXProgressHUD sharedInstance].hud = hud;
-//    hud.label.text = message;
-//    hud.label.numberOfLines = 2;
-//    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-//    hud.bezelView.backgroundColor=[UIColor colorWithRed:1/255.0 green:1/255.0 blue:1/255.0 alpha:0.8];
-//    hud.contentColor=[UIColor whiteColor];//字的颜色
-//    [hud showAnimated:YES];
-//    [hud addBounceAnimationWithInitialScale:0 peakScale:0.5];
+    //    maskView = [self maskViewWithMaskView:maskView];
+    //    //bugly 上报 有的时候keywindow 为nil 导致崩溃
+    //    if (maskView == nil) {
+    //        return ;
+    //    }
+    //    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:maskView animated:YES];
+    //    [WXProgressHUD sharedInstance].hud = hud;
+    //    hud.label.text = message;
+    //    hud.label.numberOfLines = 2;
+    //    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    //    hud.bezelView.backgroundColor=[UIColor colorWithRed:1/255.0 green:1/255.0 blue:1/255.0 alpha:0.8];
+    //    hud.contentColor=[UIColor whiteColor];//字的颜色
+    //    [hud showAnimated:YES];
+    //    [hud addBounceAnimationWithInitialScale:0 peakScale:0.5];
 }
 + (void)setProgressMessage:(NSString *)message {
     [WXProgressHUD sharedInstance].hud.label.text = message;
@@ -112,16 +112,16 @@
     self.hud.contentColor = [UIColor whiteColor];
     self.hud.userInteractionEnabled = NO;
     [self.hud hideAnimated:YES afterDelay:duration];
-//    [self.hud addBounceAnimationWithInitialScale:0 peakScale:0.5];
+    //    [self.hud addBounceAnimationWithInitialScale:0 peakScale:0.5];
 }
 
- 
+
 #pragma mark - loading progress
 + (void)loadingViewMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView {
     [self hiddenProgressHUD];
     maskView = [self maskViewWithMaskView:maskView];
     //bugly 上报 有的时候keywindow 为nil 导致崩溃
-     if (maskView == nil) {
+    if (maskView == nil) {
         return;
     }
     [[WXProgressHUD sharedInstance] loadingViewMsg:message maskView:maskView];
@@ -185,7 +185,7 @@
     [self hiddenProgressHUD];
     maskView = [self maskViewWithMaskView:maskView];
     //bugly 上报 有的时候keywindow 为nil 导致崩溃
-     if (maskView == nil) {
+    if (maskView == nil) {
         return;
     }
     [[WXProgressHUD sharedInstance] loadingCircleViewMsg:message maskView:maskView];
@@ -227,4 +227,61 @@
     }];
     return customView;
 }
+
++ (void)wxPayProgress {
+    [self hiddenProgressHUD];
+    UIView *maskView = [self maskViewWithMaskView:maskView];
+    //bugly 上报 有的时候keywindow 为nil 导致崩溃
+    if (maskView == nil) {
+        return;
+    }
+    [[WXProgressHUD sharedInstance] loadingWXPayView:maskView];
+}
+- (void)loadingWXPayView:(nullable UIView *)maskView  {
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:maskView animated:YES];
+    self.hud = hud;
+    hud.minSize = CGSizeMake(132, 132);
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.customView = [self buildLoadingCircleViewWithSuperView:hud];
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.bezelView.color = [UIColor colorWithHexString: @"#4E4C4F"];
+}
+- (UIView *)buildLoadingCircleViewWithSuperView:(MBProgressHUD *)hud {
+    UIView *viewToAnimate = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 12, 12)];
+    viewToAnimate.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+//    TypingLoaderView *animation = TypingLoaderView.new;
+//    UIView *animationDots = [animation startDotsAnimationWithSuperView:viewToAnimate dotsColor:UIColor.whiteColor];
+//    [viewToAnimate addSubview:animationDots];
+//    [customView layoutIfNeeded];
+//    [view showAnimatingDots];
+    return viewToAnimate;
+    
+//    UIView *customView = UIView.new;
+//    LoadingCircle *circleView = [[LoadingCircle alloc] initWithCircleWidth:5 circleColor:UIColor.whiteColor];
+//    self.circleView = circleView;
+//    [circleView start];
+//    [customView addSubview:circleView];
+//    circleView.backgroundColor = UIColor.clearColor;
+//    [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.mas_equalTo(CGSizeMake(40, 40));
+//        make.top.offset(8);
+//        make.centerX.equalTo(customView);
+//    }];
+//    UIFont *font = [UIFont systemFontOfSize:14 weight:UIFontWeightBold];
+//    CGFloat msgWidth = [msg sizeWithAttributes:@{NSFontAttributeName:font}].width + 1;
+//    CGFloat customWidth = msgWidth > 74 ? msgWidth : 74;
+//    UILabel *tipsLbl = [UICreate labelWithText:msg font:font textColor:UIColor.whiteColor];
+//    [customView addSubview:tipsLbl];
+//    tipsLbl.numberOfLines = 0;
+//    tipsLbl.textAlignment = NSTextAlignmentCenter;
+//    [tipsLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(circleView.mas_bottom).offset(15);
+//        make.left.right.offset(0);
+//        make.bottom.offset(-8);
+//        make.width.offset(customWidth);
+//    }];
+//    return customView;
+}
+
 @end

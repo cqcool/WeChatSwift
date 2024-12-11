@@ -54,6 +54,7 @@
 		1E6C17AE2CD0F6AD00000785 /* RedPacketRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C17AD2CD0F6AD00000785 /* RedPacketRecordModel.swift */; };
 		1E6C17B12CD22EC100000785 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C17B02CD22EC100000785 /* Socket.swift */; };
 		1E6C17B32CD35BD400000785 /* YTKBaseRequest+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C17B22CD35BD400000785 /* YTKBaseRequest+JSON.swift */; };
+		1E705F4C2D0944B2005B77E0 /* TypingLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E705F4B2D0944B2005B77E0 /* TypingLoaderView.swift */; };
 		1EC758132CBE326E0051E916 /* ZLCustomAlertAction+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */; };
 		1EC758142CBE326E0051E916 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */; };
 		1EC758152CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */; };
@@ -600,6 +601,7 @@
 		1E6C17AD2CD0F6AD00000785 /* RedPacketRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketRecordModel.swift; sourceTree = "<group>"; };
 		1E6C17B02CD22EC100000785 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		1E6C17B22CD35BD400000785 /* YTKBaseRequest+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YTKBaseRequest+JSON.swift"; sourceTree = "<group>"; };
+		1E705F4B2D0944B2005B77E0 /* TypingLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingLoaderView.swift; sourceTree = "<group>"; };
 		1EC7580F2CBE326E0051E916 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		1EC758102CBE326E0051E916 /* ZLCustomAlertAction+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZLCustomAlertAction+Color.swift"; sourceTree = "<group>"; };
 		1EC758112CBE326E0051E916 /* CustomAlertControllerTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertControllerTransitionAnimation.swift; sourceTree = "<group>"; };
@@ -1228,6 +1230,7 @@
 				1E5E377A2CC502E9007F8944 /* DNKAnimation.swift */,
 				1E5E37722CC4FCBB007F8944 /* WXProgressHUD.h */,
 				1E5E37732CC4FCBB007F8944 /* WXProgressHUD.m */,
+				1E705F4B2D0944B2005B77E0 /* TypingLoaderView.swift */,
 			);
 			path = DNKProgressHUD;
 			sourceTree = "<group>";
@@ -2978,6 +2981,7 @@
 				A3DE7CCF2301396B00E73944 /* SettingMyAccountInfoViewController.swift in Sources */,
 				1EF4E6C22CBCF984000F39E9 /* MyProfileSection.swift in Sources */,
 				A3CAA70D23162370004384EB /* SettingMyProfileViewController.swift in Sources */,
+				1E705F4C2D0944B2005B77E0 /* TypingLoaderView.swift in Sources */,
 				1E6C17B32CD35BD400000785 /* YTKBaseRequest+JSON.swift in Sources */,
 				A32333C022DF1CB000B79555 /* EmoticonBoardTabBarNode.swift in Sources */,
 				A36CB5352308378200F993B6 /* PhotoBrowserPHAssetDataSource.swift in Sources */,

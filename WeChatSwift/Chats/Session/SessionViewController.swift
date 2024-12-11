@@ -202,6 +202,11 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        let animation = TypingLoaderView(color: .white, superView: self.view)
+        animation.frame = CGRectMake(150, 150, 80, 80)
+        
+        
+        return
                 tableNode.deselectRow(at: indexPath, animated: false)
         let session = indexPath.section == 0 ? topSessions[indexPath.row] : dataSource[indexPath.row]
 //        if session.sessionID == Constants.BrandSessionName {
