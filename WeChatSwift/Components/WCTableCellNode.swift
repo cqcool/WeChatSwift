@@ -36,6 +36,7 @@ class WCTableCellNode: ASCellNode {
         self.model = model
         self.isLastCell = isLastCell
         super.init()
+        selectionStyle = .none
         automaticallyManagesSubnodes = true
         if model.wx_imageURL != nil {
             iconNode.defaultImage = UIImage(named: "login_defaultAvatar")

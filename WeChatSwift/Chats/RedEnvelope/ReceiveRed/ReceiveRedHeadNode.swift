@@ -24,17 +24,17 @@ class ReceiveRedHeadNode: ASDisplayNode {
         let currentYear = calendar.component(.year, from: Date())
         print(currentYear)
 
-        
-        timeNode.attributedText = "\(currentYear)".addAttributed(font: .systemFont(ofSize: 14), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR, lineSpacing: 0, wordSpacing: 0)
+        setCount(count: "0")
+        timeNode.attributedText = "\(currentYear)年".addAttributed(font: .systemFont(ofSize: 16), textColor: Colors.DEFAULT_TEXT_YELLOW_COLOR, lineSpacing: 0, wordSpacing: 0)
         arrowNode.image = UIImage(named: "LuckyMoney_ChangeArrow")
-    
-        nameNode.attributedText = "\("x x x")共收到".addAttributed(font: .systemFont(ofSize: 15, weight: .medium), textColor: .black, lineSpacing: 0, wordSpacing: 0)
-        totalMoneyNode.attributedText = "\(0.00)元".unitTextAttribute(fontSize: 32, unitSize: 16, unit: "元", baseline: 0)
+        arrowNode.style.preferredSize = CGSizeMake(12, 6)
+        setName(name: "")
+        setTotalMoney(countReceiveAmount: "0.00")
         countNode.attributedText = "收到红包".addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
-        countLabelNode.attributedText = "\(0)".addAttributed(font: .systemFont(ofSize: 30, weight: .medium), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
+        
         
         bestNode.attributedText = "手气最佳".addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
-        bestLabelNode.attributedText = "\(4)".addAttributed(font: .systemFont(ofSize: 30, weight: .medium), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
+        setBestCount(count: "0")
         
     }
     
@@ -44,25 +44,36 @@ class ReceiveRedHeadNode: ASDisplayNode {
         backgroundColor = Colors.DEFAULT_BACKGROUND_COLOR
         
     }
-    
+    private func setBestCount(count: String) {
+        bestLabelNode.attributedText = "\(count)".addAttributed(font: .systemFont(ofSize: 30, weight: .regular), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
+    }
+    private func setCount(count: String) {
+        countLabelNode.attributedText = "\(count)".addAttributed(font: .systemFont(ofSize: 30, weight: .regular), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
+    }
+    private func setName(name: String) {
+        nameNode.attributedText = "\(name)共收到".addAttributed(font: .systemFont(ofSize: 17, weight: .regular), textColor: .black, lineSpacing: 0, wordSpacing: 0)
+    }
+    private func setTotalMoney(countReceiveAmount: String) {
+        totalMoneyNode.attributedText = "\(countReceiveAmount)元".unitTextAttribute(fontSize: 41, unitSize: 16, unit: "元", baseline: 0)
+    }
     func updateContent(json: JSON) {
         guard let personModel = GlobalManager.manager.personModel else {
             return
         }
         avatarNode.url = GlobalManager.headImageUrl(name: personModel.head)
         avatarNode.defaultImage =  UIImage(named: "login_defaultAvatar")
-        nameNode.attributedText = "\(personModel.nickname ?? "")共收到".addAttributed(font: .systemFont(ofSize: 15, weight: .medium), textColor: .black, lineSpacing: 0, wordSpacing: 0)
+        setName(name: personModel.nickname ?? "")
         var countReceiveAmount = json["countReceiveAmount"].stringValue
         countReceiveAmount = countReceiveAmount.isEmpty ? "0.00" : countReceiveAmount
-        totalMoneyNode.attributedText = "\(countReceiveAmount)元".unitTextAttribute(fontSize: 32, unitSize: 16, unit: "元", baseline: 0)
+        setTotalMoney(countReceiveAmount: countReceiveAmount)
         
         var countReceiveNum = json["countReceiveNum"].stringValue
         countReceiveNum = countReceiveNum.isEmpty ? "0" : countReceiveNum
-        countLabelNode.attributedText = countReceiveNum.addAttributed(font: .systemFont(ofSize: 30, weight: .medium), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
+        setCount(count: countReceiveNum)
         
         var countBestNum = json["countBestNum"].stringValue
         countBestNum = countBestNum.isEmpty ? "0" : countBestNum
-        bestLabelNode.attributedText = countBestNum.addAttributed(font: .systemFont(ofSize: 30, weight: .medium), textColor: UIColor(white: 0, alpha: 0.6), lineSpacing: 0, wordSpacing: 0)
+        setBestCount(count: countBestNum)
         
     }
     
@@ -93,7 +104,7 @@ class ReceiveRedHeadNode: ASDisplayNode {
         bestVertical.style.spacingAfter = 35
         
         let twoHorizontal = ASStackLayoutSpec.horizontal()
-        twoHorizontal.style.spacingBefore = 35
+        twoHorizontal.style.spacingBefore = 15
         twoHorizontal.children = [countVertical, bestVertical]
         twoHorizontal.justifyContent = .spaceBetween
         twoHorizontal.style.preferredSize = CGSizeMake(constrainedSize.max.width, 100)
@@ -105,6 +116,8 @@ class ReceiveRedHeadNode: ASDisplayNode {
 //        vertical.justifyContent = .center
         vertical.horizontalAlignment = .middle
         vertical.spacing = 15
+//        nameNode.style.spacingBefore = 5
+        totalMoneyNode.style.spacingBefore = 17
         vertical.children = [oneHorizontal, avatarNode, nameNode, totalMoneyNode, twoHorizontal]
         return ASInsetLayoutSpec(insets: .zero, child: vertical)
     }

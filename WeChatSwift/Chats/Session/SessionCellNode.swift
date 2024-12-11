@@ -33,7 +33,12 @@ class SessionCellNode: ASCellNode {
         super.init()
         
         automaticallyManagesSubnodes = true
-        
+        if session._networkError {
+            backgroundColor = .red
+            return
+        } else {
+            backgroundColor = UIColor(hexString: "#FEFFFF")
+        }
         avatarNode.cornerRadius = 4.0
         avatarNode.cornerRoundingType = .precomposited
         avatarNode.defaultImage = UIImage.as_imageNamed("DefaultHead_48x48_")
@@ -66,11 +71,16 @@ class SessionCellNode: ASCellNode {
     override func didLoad() {
         super.didLoad()
         
-        backgroundColor = false/*session.stickTop*/ ? UIColor(hexString: "#F2F2F2") : UIColor(hexString: "#FEFFFF")
+//        backgroundColor = false/*session.stickTop*/ ? UIColor(hexString: "#F2F2F2") : UIColor(hexString: "#FEFFFF")
         badgeNode.update(count: Int(session.unReadNum ?? "0")!, showDot: false/*session.showUnreadAsRedDot*/)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        if (session._networkError) {
+            let topStack = ASStackLayoutSpec.horizontal()
+            topStack.style.preferredSize = CGSize(width: WXDevice.screenWidth(), height: 50)
+            return topStack
+        }
         let unReadNum = (session.unReadNum ?? "0").isEmpty ? 0 : Int(session.unReadNum!)!
         var badgeSize = CGSizeZero
         if unReadNum < 99 {

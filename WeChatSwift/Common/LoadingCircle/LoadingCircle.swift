@@ -17,7 +17,7 @@ class LoadingCircle: UIView {
         shapeLayer.fillColor = UIColor.clear.cgColor;
         shapeLayer.strokeColor = circleColor.cgColor;
         shapeLayer.strokeStart = 0
-        shapeLayer.lineJoin = .bevel
+        shapeLayer.lineJoin = .round
         shapeLayer.strokeEnd = 1
         shapeLayer.lineCap = .round
         shapeLayer.lineDashPhase = 0.8
@@ -104,6 +104,8 @@ class LoadingCircle: UIView {
             return
         }
         bezierPath.addArc(withCenter: CGPoint(x: width/2, y: width/2), radius: (width-circleWidth)/2, startAngle: 0, endAngle: Double.pi*2, clockwise: true)
+        bezierPath.lineCapStyle = .round
+        bezierPath.lineJoinStyle = .round
         shapeLayer.lineWidth = circleWidth
         shapeLayer.path = bezierPath.cgPath
         maskLayer.frame = bounds

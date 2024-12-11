@@ -140,7 +140,7 @@ class NewDetailsViewController: UIViewController {
                 make.height.equalToSuperview()
             }
             let title2 = ["浮窗", "保存为图片", "投诉", "复制链接", "刷新", "全文翻译", "查找页面内容", "调整字体"]
-            let icon2 = ["icon_download", "icon_download", "icon_warm", "icon_link", "icon_refresh", "icon_fanyi", "icon_lookup", "icon_font"]
+            let icon2 = ["Action_Curtain_60x60_", "icon_download", "icon_warm", "icon_link", "icon_refresh", "icon_fanyi", "icon_lookup", "icon_font"]
             i = 0
             tempView = nil
             while i < title2.count {

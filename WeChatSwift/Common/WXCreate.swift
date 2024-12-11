@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+@objcMembers
 class WXCreate: NSObject {
     public static func label(text: String? = nil, textColor: UIColor, fontSize: CGFloat, weight: UIFont.Weight = .regular) -> UILabel {
         let label = UILabel()

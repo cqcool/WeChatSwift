@@ -120,9 +120,9 @@ class ChatRoomToolCellNode: ASCellNode {
     init(tool: ChatRoomTool) {
         buttonNode = ASButtonNode()
         buttonNode.isUserInteractionEnabled = true
-        buttonNode.setBackgroundImage(UIImage.as_imageNamed("ChatRomm_ToolPanel_Icon_Buttons_64x64_"), for: .normal)
-        buttonNode.setBackgroundImage(UIImage.as_imageNamed("ChatRomm_ToolPanel_Icon_Buttons_HL_64x64_"), for: .highlighted)
-        buttonNode.setImage(UIImage.as_imageNamed(tool.imageName), for: .normal)
+        buttonNode.setBackgroundImage(UIImage(named: "ChatRomm_ToolPanel_Icon_Buttons_64x64_"), for: .normal)
+        buttonNode.setBackgroundImage(UIImage(named: "ChatRomm_ToolPanel_Icon_Buttons_HL_64x64_"), for: .highlighted)
+        buttonNode.setImage(UIImage(named: tool.imageName), for: .normal)
         buttonNode.style.preferredSize = CGSize(width: 64, height: 64)
         buttonNode.imageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(UIColor(white: 75.0/255, alpha: 1.0))
         

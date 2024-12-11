@@ -47,6 +47,7 @@ final class GroupEntity: NSObject, Codable, TableCodable, Named {
     var ownerId: String?
     
     var _formattedTime: String?
+    var _networkError: Bool = false
     
     /*
      对于变量名与表的字段名不一样的情况，可以使用别名进行映射，如 case identifier = "id"

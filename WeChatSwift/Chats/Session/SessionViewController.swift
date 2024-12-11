@@ -24,6 +24,11 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     private var loadingView = LoadingCircle(circleWidth: 2, circleColor: .black)
     
     private var loadingContentView = UIView()
+    private var netErrorNode:ASDisplayNode = ASDisplayNode()
+    private var netErrorImgNode: ASImageNode = ASImageNode()
+    private var netErrorTipsNode = ASTextNode()
+    private var netErrorArrowNode = ASImageNode()
+    private var _netError = false
     
     private lazy var mainSearchViewController: MainSearchViewController = {
         return MainSearchViewController()
@@ -39,6 +44,7 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
     override init() {
         super.init(node: ASDisplayNode())
         node.addSubnode(tableNode)
+        node.addSubnode(netErrorNode)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,6 +62,8 @@ class SessionViewController: ASDKViewController<ASDisplayNode> {
         tableNode.dataSource = self
         tableNode.delegate = self
          
+        
+        
         
         let rightButtonItem = UIBarButtonItem(image: UIImage.SVGImage(named: "icons_outlined_addoutline"), style: .done, target: self, action: #selector(handleRightBarButtonTapped(_:)))
         navigationItem.rightBarButtonItem = rightButtonItem
@@ -202,25 +210,38 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        let contentView = UIView()
-        self.view.addSubview(contentView)
-        contentView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.size.equalTo(CGSize(width: 70, height: 70))
+        if !_netError {
+            _netError = true
+            showNetError()
+        } else {
+            _netError = false
+            hiddenNetError()
         }
-//        contentView.backgroundColor = .red
-//        let animation = TypingLoaderView(color: .white, superView: contentView)
-        
-//        view.addSubview(contentView)
-        
-        let dotsContainerView: UIView = UIView(frame: CGRect(x: 0, y:0, width: 70, height: 20)) // modify x and y according to super view
-        dotsContainerView.backgroundColor = .red
-        contentView.addSubview(dotsContainerView)
-        let dotsView = TypingLoaderView(color: .white, superView: dotsContainerView) // assuming dotsView is a property of ViewController
-//        self.view.addSubview(dotsContainerView) // self.v
-        
-        
         return
+//        WXProgressHUD.wxPayProgress()
+        
+        
+//        return
+//        let contentView = UIView()
+//        contentView.backgroundColor = .green
+//        self.view.addSubview(contentView)
+//        contentView.snp.makeConstraints { make in
+//            make.center.equalToSuperview()
+//            make.size.equalTo(CGSize(width: 70, height: 70))
+//        }
+////        contentView.backgroundColor = .red
+////        let animation = TypingLoaderView(color: .white, superView: contentView)
+//        
+////        view.addSubview(contentView)
+//        
+//        let dotsContainerView: UIView = UIView(frame: CGRect(x: 0, y:0, width: 70, height: 20)) // modify x and y according to super view
+//        dotsContainerView.backgroundColor = .red
+//        contentView.addSubview(dotsContainerView)
+//        let dotsView = TypingLoaderView(color: .white, superView: dotsContainerView) // assuming dotsView is a property of ViewController
+////        self.view.addSubview(dotsContainerView) // self.v
+//        
+//        
+//        return
                 tableNode.deselectRow(at: indexPath, animated: false)
         let session = indexPath.section == 0 ? topSessions[indexPath.row] : dataSource[indexPath.row]
 //        if session.sessionID == Constants.BrandSessionName {
@@ -379,5 +400,16 @@ private extension SessionViewController {
                 }
             }
         }
+    }
+    
+    func showNetError() {
+        let errorGroup = GroupEntity()
+        errorGroup._networkError = true
+        self.topSessions.append(errorGroup)
+        self.tableNode.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+    }
+    func hiddenNetError() {
+        self.topSessions.removeAll()
+        self.tableNode.deleteSections(IndexSet(integer: 0), with: .top)
     }
 }

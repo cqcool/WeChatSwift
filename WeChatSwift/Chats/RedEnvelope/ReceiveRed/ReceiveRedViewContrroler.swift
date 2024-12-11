@@ -29,7 +29,9 @@ class ReceiveRedViewContrroler: ASDKViewController<ASDisplayNode> {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    override var wx_titleTextAttributes: [NSAttributedString.Key : Any]? {
+        return [NSAttributedString.Key.foregroundColor: UIColor(hex: 0xFAE3B7)]
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

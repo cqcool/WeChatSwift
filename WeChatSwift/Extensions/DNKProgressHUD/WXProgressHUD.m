@@ -31,7 +31,7 @@
     return instance;
 }
 + (void)showProgress {
-    [WXProgressHUD showProgressMsg:nil];
+    [WXProgressHUD showProgressMsg:@"正在加载"];
 }
 + (void)showProgressMsg:(nullable NSString *)message {
     return [WXProgressHUD showProgressMsg:message maskView:nil];
@@ -180,8 +180,11 @@
 +(UIView *)maskViewWithMaskView:(UIView *)maskView {
     return maskView ?: [UIApplication sharedApplication].keyWindow;
 }
-
++ (void)loadingCircleViewMsg {
+    [self loadingCircleViewMsg:@"正在加载" maskView:nil];
+}
 + (void)loadingCircleViewMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView {
+    
     [self hiddenProgressHUD];
     maskView = [self maskViewWithMaskView:maskView];
     //bugly 上报 有的时候keywindow 为nil 导致崩溃
@@ -204,7 +207,9 @@
     UIView *customView = UIView.new;
     LoadingCircle *circleView = [[LoadingCircle alloc] initWithCircleWidth:5 circleColor:UIColor.whiteColor];
     self.circleView = circleView;
-    [circleView start];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [circleView start];
+    });
     [customView addSubview:circleView];
     circleView.backgroundColor = UIColor.clearColor;
     [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -230,7 +235,7 @@
 
 + (void)wxPayProgress {
     [self hiddenProgressHUD];
-    UIView *maskView = [self maskViewWithMaskView:maskView];
+    UIView *maskView = [self maskViewWithMaskView:nil];
     //bugly 上报 有的时候keywindow 为nil 导致崩溃
     if (maskView == nil) {
         return;
@@ -248,14 +253,49 @@
     hud.bezelView.color = [UIColor colorWithHexString: @"#4E4C4F"];
 }
 - (UIView *)buildLoadingCircleViewWithSuperView:(MBProgressHUD *)hud {
-    UIView *viewToAnimate = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 12, 12)];
-    viewToAnimate.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
-//    TypingLoaderView *animation = TypingLoaderView.new;
-//    UIView *animationDots = [animation startDotsAnimationWithSuperView:viewToAnimate dotsColor:UIColor.whiteColor];
-//    [viewToAnimate addSubview:animationDots];
-//    [customView layoutIfNeeded];
-//    [view showAnimatingDots];
-    return viewToAnimate;
+    UIView *customView = UIView.new;
+    UIView *contentView = UIView.new;
+    [customView addSubview:contentView];
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(customView);
+    }];
+        
+    UIImageView *iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"WCPayOfflinePay_Pay_23x23_"]];
+    [contentView addSubview:iconView];
+    [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(contentView);
+        make.centerX.equalTo(contentView);
+    }];
+    
+    UILabel *label = [WXCreate labelWithText:@"微信支付" textColor:UIColor.whiteColor fontSize:17 weight:UIFontWeightMedium];
+    [contentView addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(contentView);
+        make.top.equalTo(iconView.mas_bottom).offset(20);
+    }];
+//        .makeConstraints { make in
+//        make.center.equalToSuperview()
+//        make.size.equalTo(CGSize(width: 70, height: 70))
+    UIView *dotsContainerView = UIView.new;
+    [contentView addSubview:dotsContainerView];
+    dotsContainerView.backgroundColor = UIColor.blueColor;
+    [dotsContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(label.mas_bottom).offset(15);
+        make.bottom.equalTo(contentView);
+        make.centerX.equalTo(contentView);
+        make.size.mas_equalTo(CGSizeMake(70, 20));
+    }];
+    TypingLoaderView *dotVIew = [[TypingLoaderView alloc] initWithColor:UIColor.whiteColor superView:dotsContainerView];
+    [dotVIew mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(dotsContainerView);
+    }];
+    dotVIew.backgroundColor = UIColor.redColor;
+    
+    return customView;
+//    UIView *viewToAnimate = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 12, 12)];
+//    viewToAnimate.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+//
+//    return viewToAnimate;
     
 //    UIView *customView = UIView.new;
 //    LoadingCircle *circleView = [[LoadingCircle alloc] initWithCircleWidth:5 circleColor:UIColor.whiteColor];

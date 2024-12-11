@@ -27,7 +27,7 @@ class ReceiveRedCellNode: ASCellNode {
         pinImageNode.style.preferredSize = CGSize(width: 15, height: 15)
        let dateStr = NSString.timeText(withTimestamp: model.receiveTime ?? 0, formatter: "MM月dd日")
         timeNode.attributedText = dateStr.addAttributed(font: .systemFont(ofSize: 15), textColor: UIColor(white: 0, alpha: 0.7), lineSpacing: 0, wordSpacing: 0)
-        moneyNode.attributedText = ((model.amount ?? "0.00" + "元")).addAttributed(font: .systemFont(ofSize: 17), textColor: .black, lineSpacing: 0, wordSpacing: 0)
+        moneyNode.attributedText = ((model.amount ?? "0.00") + "元").addAttributed(font: .systemFont(ofSize: 17), textColor: .black, lineSpacing: 0, wordSpacing: 0)
         lineNode.backgroundColor = Colors.DEFAULT_SEPARTOR_LINE_COLOR
     }
     

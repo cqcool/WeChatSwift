@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setProgress:(CGFloat)progress;
 
 + (void)loadingCircleViewMsg:(nullable NSString *)message maskView:(nullable UIView *)maskView ;
++ (void)loadingCircleViewMsg;
 
 + (void)wxPayProgress;
 
