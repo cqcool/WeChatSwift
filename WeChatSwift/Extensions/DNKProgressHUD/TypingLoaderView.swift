@@ -27,7 +27,7 @@ final class TypingLoaderView: UIView{
         let dot = CALayer()
         dot.frame = CGRect(x: 1, y: 1, width: dotsWidth, height: dotsWidth)
         dot.cornerRadius = dot.frame.width / 2
-        dot.backgroundColor = UIColor.black.cgColor //dotsBackgroundColor.cgColor
+        dot.backgroundColor = dotsBackgroundColor.cgColor
         return dot
     }
     func addReplicatorFor(shape: CALayer, noOfInstances: Int, instanceDelay: CFTimeInterval, superView: UIView){
@@ -50,14 +50,23 @@ final class TypingLoaderView: UIView{
         let dot = createDot()
         //step2: add animations for dot- Opacity, y position and transform
         dot.addAnimationToLayer(withKeyPath: .opacity, from: CGFloat(1.0), to: CGFloat(0.2), duration: 1, repeatCount: .infinity)
-        dot.addAnimationToLayer(withKeyPath: .yPosition, from: dot.position.y, to: dot.position.y + 3, duration: 1.2, repeatCount: Float.infinity)
+//        dot.addAnimationToLayer(withKeyPath: .yPosition, from: dot.position.y, to: dot.position.y + 3, duration: 1.2, repeatCount: Float.infinity)
         let transformDuration:CFTimeInterval = 0.6
-        dot.addAnimationToLayer(withKeyPath: .transform, from: fromScale, to: toScale, duration: transformDuration, repeatCount: Float.infinity)
+//        dot.addAnimationToLayer(withKeyPath: .transform, from: fromScale, to: toScale, duration: transformDuration, repeatCount: Float.infinity)
         dot.transform = toScale
         animationDelay = transformDuration / Double(noOfInstances)
         //step3: replicate dots to 3
         addReplicatorFor(shape: dot, noOfInstances: noOfInstances, instanceDelay: animationDelay, superView: dotsSuperView)
         dotsSuperView.addSubview(self)
+    }
+//    func createTypingLoader(withColor color: UIColor = .white, xMargin: CGFloat = 0){
+//        let dotsContainerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 70, height: 20)) // modify x and y according to super view
+//        let dotsView = TypingLoaderView(color: color, superView: dotsContainerView) // assuming dotsView is a property of ViewController
+//        self.view.addSubview(dotsContainerView) // self.view is assuming viewController for this demo
+//    }
+    func removeLoader(){
+        self.layer.removeAllAnimations()
+        self.removeFromSuperview()
     }
 }
 extension CALayer {

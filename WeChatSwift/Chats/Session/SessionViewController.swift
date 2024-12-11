@@ -202,8 +202,22 @@ extension SessionViewController: ASTableDelegate, ASTableDataSource {
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        let animation = TypingLoaderView(color: .white, superView: self.view)
-        animation.frame = CGRectMake(150, 150, 80, 80)
+        let contentView = UIView()
+        self.view.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(CGSize(width: 70, height: 70))
+        }
+//        contentView.backgroundColor = .red
+//        let animation = TypingLoaderView(color: .white, superView: contentView)
+        
+//        view.addSubview(contentView)
+        
+        let dotsContainerView: UIView = UIView(frame: CGRect(x: 0, y:0, width: 70, height: 20)) // modify x and y according to super view
+        dotsContainerView.backgroundColor = .red
+        contentView.addSubview(dotsContainerView)
+        let dotsView = TypingLoaderView(color: .white, superView: dotsContainerView) // assuming dotsView is a property of ViewController
+//        self.view.addSubview(dotsContainerView) // self.v
         
         
         return
