@@ -35,10 +35,15 @@ class SessionCellNode: ASCellNode {
         automaticallyManagesSubnodes = true
         if session._networkError {
             backgroundColor = .red
+            avatarNode.style.preferredSize = CGSizeMake(24, 24)
+            avatarNode.image = UIImage(named: "bluetooth_warnicon")
+            titleNode.attributedText = LocalizedString("EmoticonStoreLoadFail").addAttributed(font: UIFont.systemFont(ofSize: 13), textColor: UIColor(white: 0, alpha: 0.7))
+            muteNode.image = UIImage.as_imageNamed("arrow_ico")
+            muteNode.style.spacingAfter = 16
+//            muteNode.style.preferredSize = CGSize(width: 15, height: 15)
             return
-        } else {
-            backgroundColor = UIColor(hexString: "#FEFFFF")
         }
+        backgroundColor = UIColor(hexString: "#FEFFFF")
         avatarNode.cornerRadius = 4.0
         avatarNode.cornerRoundingType = .precomposited
         avatarNode.defaultImage = UIImage.as_imageNamed("DefaultHead_48x48_")
@@ -77,6 +82,7 @@ class SessionCellNode: ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         if (session._networkError) {
+        
             let topStack = ASStackLayoutSpec.horizontal()
             topStack.style.preferredSize = CGSize(width: WXDevice.screenWidth(), height: 50)
             return topStack

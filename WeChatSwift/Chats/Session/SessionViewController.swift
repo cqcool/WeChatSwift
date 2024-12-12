@@ -410,6 +410,6 @@ private extension SessionViewController {
     }
     func hiddenNetError() {
         self.topSessions.removeAll()
-        self.tableNode.deleteSections(IndexSet(integer: 0), with: .top)
+        self.tableNode.deleteRows(at: [IndexPath(row: 0, section: 0)], with: .top)
     }
 }
